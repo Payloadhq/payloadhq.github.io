@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Products — Payload</title>
+<meta name="description" content="All 8 Payload products: developer tools for API monetization, MCP servers, AI search readiness, CRM cleanup, and n8n reliability. One-time purchases, honest technical descriptions.">
+<link rel="canonical" href="https://payloadhq.github.io/products.html">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"x402 Paid API Starter Kit","applicationCategory":"DeveloperApplication","operatingSystem":"Node.js 18+","url":"https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit","offers":{"@type":"Offer","price":"79","priceCurrency":"USD"},"description":"Express middleware that charges AI agents per API call in USDC via x402: HTTP 402 challenges, payment verification, append-only usage ledger. Non-custodial."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MCP Monetization Kit","applicationCategory":"DeveloperApplication","operatingSystem":"Node.js 18+","softwareVersion":"1.0.1","url":"https://payloadtools.gumroad.com/l/mcp-monetization-kit","offers":{"@type":"Offer","price":"69","priceCurrency":"USD"},"description":"Per-tool-call payments for MCP servers: paid tool registry, free quotas, machine-readable payment requirements, usage ledger, official MCP SDK adapter."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"StableLedger","applicationCategory":"DeveloperApplication","operatingSystem":"Python 3","softwareVersion":"1.0.0","url":"https://payloadtools.gumroad.com/l/stableledger-tax-csv","offers":{"@type":"Offer","price":"49","priceCurrency":"USD"},"description":"Offline, zero-dependency Python CLI that organizes stablecoin transaction CSV exports into clean realized P/L records. Data-organization software; not tax advice."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"x402 + MCP Bundle","applicationCategory":"DeveloperApplication","operatingSystem":"Node.js 18+","url":"https://payloadtools.gumroad.com/l/x402-mcp-bundle","offers":{"@type":"Offer","price":"119","priceCurrency":"USD"},"description":"The x402 Paid API Starter Kit and the MCP Monetization Kit together at a bundle price."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"AI Search Readiness Audit","applicationCategory":"DeveloperApplication","operatingSystem":"Chrome","softwareVersion":"1.0.0","url":"https://payloadtools.gumroad.com/l/ai-search-readiness-audit","offers":{"@type":"Offer","price":"59","priceCurrency":"USD"},"description":"Chrome extension (MV3) that audits any page for AI-search readiness: raw-HTML coverage, AI Overviews eligibility, AI-crawler robots.txt matrix, dead schema detection. 100% client-side."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"CRM Dedup & Migration Cleanup Kit","applicationCategory":"BusinessApplication","operatingSystem":"Linux","softwareVersion":"1.0.0","url":"https://payloadtools.gumroad.com/l/crm-dedup-migration-kit","offers":{"@type":"Offer","price":"149","priceCurrency":"USD"},"description":"Offline deduplication and normalization for CRM exports: fuzzy matching, union-find clustering, dry-run merge plans, import-ready CSV export, machine-readable change logs."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"n8n Production AI Agent Reliability Kit","applicationCategory":"DeveloperApplication","operatingSystem":"Node.js 18+","softwareVersion":"1.0.1","url":"https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit","offers":{"@type":"Offer","price":"99","priceCurrency":"USD"},"description":"Production-readiness system for n8n AI agents: 10 importable workflow templates, failure-simulation eval harness, readiness scoring, 37-page playbook."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"MCP Launch Readiness Audit","applicationCategory":"DeveloperApplication","operatingSystem":"Python 3","softwareVersion":"1.0.1","url":"https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit","offers":{"@type":"Offer","price":"79","priceCurrency":"USD"},"description":"48-rule security scanner for MCP servers with a concrete fix for every finding, hardened templates, stress-test harness, CI workflow, branded audit report. An audit, not a certification."}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html" aria-current="page">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>Products</h1>
+    <p class="lede">Eight tools. One-time purchases, single-seat perpetual license, 14-day refund if a product is not as documented. Every description below states what the software technically does.</p>
+
+    <div class="card" id="x402">
+      <h3>x402 Paid API Starter Kit — <span class="price">$79</span></h3>
+      <p>Express middleware that charges AI agents per API call in USDC using the x402 payment flow.</p>
+      <ul>
+        <li>Issues HTTP 402 challenges with base64-encoded, machine-readable payment requirements.</li>
+        <li>HMAC development verifier plus a facilitator verifier that POSTs to a customer-supplied x402 facilitator.</li>
+        <li>Append-only JSONL payment ledger and a <code>/.well-known/x402</code> manifest endpoint.</li>
+        <li>9/9 end-to-end tests pass (402 → payment → 200; tampered payments rejected).</li>
+      </ul>
+      <p class="meta">Non-custodial: the kit verifies payment; it never holds keys or funds and never executes trades.</p>
+      <p><a class="btn" href="https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit">Buy on Gumroad — $79</a></p>
+    </div>
+
+    <div class="card" id="mcp-monetization">
+      <h3>MCP Monetization Kit v1.0.1 — <span class="price">$69</span></h3>
+      <p>Per-tool-call payments for MCP servers.</p>
+      <ul>
+        <li><code>createPaidToolRegistry()</code>: registerTool / callTool / listTools with per-call payment enforcement and free quotas.</li>
+        <li>Paid tools return machine-readable payment requirements until the caller pays; free tools stay free.</li>
+        <li>JSONL usage ledger; adapter for the official <code>@modelcontextprotocol/sdk</code> Server, integration-tested over stdio with a real SDK client.</li>
+        <li>Working paid-server and paying-client examples included.</li>
+      </ul>
+      <p><a class="btn" href="https://payloadtools.gumroad.com/l/mcp-monetization-kit">Buy on Gumroad — $69</a></p>
+    </div>
+
+    <div class="card" id="stableledger">
+      <h3>StableLedger — <span class="price">$49</span></h3>
+      <p>Offline, zero-dependency Python CLI that organizes stablecoin transaction CSV exports into clean records.</p>
+      <ul>
+        <li>Parses exchange CSV exports (tested against Kraken-format files), strips X/Z asset prefixes.</li>
+        <li>Computes realized profit/loss with simplified average-cost and records fees.</li>
+        <li>Fully offline: Python 3 only, no network, no accounts.</li>
+      </ul>
+      <p class="meta">Data-organization software. It does not calculate taxes, does not give tax advice, and is not a financial product.</p>
+      <p><a class="btn" href="https://payloadtools.gumroad.com/l/stableledger-tax-csv">Buy on Gumroad — $49</a></p>
+    </div>
+
+    <div class="card" id="bundle">
+      <h3>x402 + MCP Bundle — <span class="price">$119</span></h3>
+      <p>The x402 Paid API Starter Kit (v1.0.0) and the MCP Monetization Kit (v1.0.1) together — charge per API call and per MCP tool call from one purchase.</p>
+      <p><a class="btn" href="https://payloadtools.gumroad.com/l/x402-mcp-bundle">Buy on Gumroad — $119</a></p>
+    </div>
+
+    <div class="card" id="ai-search">
+      <h3>AI Search Readiness Audit — <span class="price">$59</span></h3>
+      <p>Chrome extension (Manifest V3) that audits the page you are viewing for AI-search readiness.</p>
+      <ul>
+        <li><strong>Raw-HTML coverage:</strong> measures how much visible content exists in the raw HTML (AI crawlers fetch without running JavaScript).</li>
+        <li><strong>AI Overviews eligibility:</strong> checks meta robots, X-Robots-Tag, and data-nosnippet against Google's documented directives.</li>
+        <li><strong>AI-crawler robots.txt matrix:</strong> parses the site's live robots.txt against known AI crawlers.</li>
+        <li><strong>Dead schema detector:</strong> flags retired JSON-LD types such as HowTo and FAQ rich results.</li>
+        <li>Export findings to CSV or a print-ready report. 18/18 unit tests pass.</li>
+      </ul>
+      <p class="meta">100% client-side. No account, no server, no analytics, no tracking. It reports what your page declares — measurements, not predictions; not SEO advice.</p>
+      <p><a class="btn" href="https://payloadtools.gumroad.com/l/ai-search-readiness-audit">Buy on Gumroad — $59</a></p>
+    </div>
+
+    <div class="card" id="crm">
+      <h3>CRM Dedup &amp; Migration Cleanup Kit — <span class="price">$149</span></h3>
+      <p>Fully offline deduplication and normalization for CRM data before migration.</p>
+      <ul>
+        <li>Normalization: emails, E.164 phones, domains, company suffixes, nickname canonicalization.</li>
+        <li>Fuzzy matching with confidence tiers, union-find clustering, dry-run merge plans you review before anything changes.</li>
+        <li>Import-ready CSV export plus machine-readable change logs (JSON + CSV) with before/after values.</li>
+        <li>Ships as a single-file Linux binary, a local web UI, and a CLI. 54/54 tests pass.</li>
+      </ul>
+      <p><a class="btn" href="https://payloadtools.gumroad.com/l/crm-dedup-migration-kit">Buy on Gumroad — $149</a></p>
+    </div>
+
+    <div class="card" id="n8n">
+      <h3>n8n Production AI Agent Reliability Kit v1.0.1 — <span class="price">$99</span></h3>
+      <p>A production-readiness system for n8n AI agents.</p>
+      <ul>
+        <li>10 importable n8n workflow templates covering documented agent failure classes (timeouts, empty results, malformed output, rate limits, runaway loops).</li>
+        <li>Node.js eval harness: injects 6 fault classes into your agent model, validates schemas, tests declared fallbacks, scores readiness, and renders JSON/Markdown/HTML reports.</li>
+        <li>37-page production playbook with remediation guidance.</li>
+      </ul>
+      <p class="meta">The harness evaluates a JavaScript model of your agent that you write from the documented shape; it does not connect to a live n8n instance. Token-cost figures are simulated estimates, not measured spend.</p>
+      <p><a class="btn" href="https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit">Buy on Gumroad — $99</a></p>
+    </div>
+
+    <div class="card" id="mcp-audit">
+      <h3>MCP Launch Readiness Audit v1.0.1 — <span class="price">$79</span></h3>
+      <p>A launch-readiness audit system for MCP servers: scanner, fixes, hardened templates, stress tests, CI wiring, report.</p>
+      <ul>
+        <li>Zero-dependency CLI scanner with 48 detection rules across tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, and missing auth/hardening.</li>
+        <li>Every finding ships with a concrete remediation (code snippet or config change), not just a hint.</li>
+        <li>Hardened server templates, a reliability harness that stress-tests under hostile traffic, a deployment readiness verifier, and a branded audit report.</li>
+      </ul>
+      <p class="meta">This is an audit, not a certification: it reduces risk but cannot prove the absence of vulnerabilities. Not penetration testing.</p>
+      <p><a class="btn" href="https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit">Buy on Gumroad — $79</a></p>
+    </div>
+
+    <h2>Buying notes</h2>
+    <ul>
+      <li>Checkout is handled by Gumroad (international VAT/GST handling, currency conversion).</li>
+      <li>Single-seat perpetual license; 14-day refund if a product is not as documented.</li>
+      <li>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a>.</li>
+    </ul>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload — small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
