@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why your n8n AI agent's HTTP calls time out (and how to fix them) — Payload</title>
+<meta name="description" content="Fix n8n HTTP Request timeouts in AI agent workflows: set timeouts, add retries and error handling, and lint exported workflow JSON for missing timeouts.">
+<link rel="canonical" href="https://payloadhq.github.io/guides/n8n-agent-timeout.html">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the default timeout on n8n's HTTP Request node?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10,000 milliseconds (10 seconds), set under the node's Options tab. Any call slower than that fails unless you raise it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I add retries to an n8n HTTP Request node?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Open the node, go to the Settings tab, enable Retry On Fail, and set Max Tries and Wait Between Tries. Only retry idempotent requests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does onError do in n8n?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It controls what happens when a node fails. The default stopWorkflow halts the run; continueErrorOutput routes the failure to the node's error output so downstream nodes can handle it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I find HTTP nodes without timeouts in an exported workflow?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Download the workflow JSON and run the jq one-liner on this page, or run the free n8n-workflow-linter, which flags missing timeouts and missing error handling automatically."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="index.html" aria-current="page">Guides</a>
+      <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <p class="meta"><a href="index.html">&larr; All guides</a></p>
+    
+<h1>Why your n8n AI agent's HTTP calls time out (and how to fix them)</h1>
+<p class="lede">AI agent workflows make far more HTTP calls than classic automations: model APIs, tool endpoints, webhooks, vector stores. When those calls are slow, n8n's defaults turn intermittent slowness into failed executions.</p>
+
+<h2>What the default behavior is</h2>
+<p>Every <strong>HTTP Request</strong> node in n8n has an <strong>Options &rarr; Timeout</strong> setting, in milliseconds. If you never set it, the node uses its built-in default of <strong>10,000 ms (10 seconds)</strong>. A model API that takes 12 seconds to stream a response will fail the node with an <code>ETIMEDOUT</code>-style error &mdash; even though the API was working fine.</p>
+<p>There is also a <strong>workflow-level execution timeout</strong> (workflow Settings &rarr; Timeout Workflow). A node timeout that is too generous can push the whole run into the workflow timeout instead. Set both deliberately.</p>
+
+<h2>Fix 1: set an explicit timeout per node</h2>
+<p>Open the HTTP Request node &rarr; <strong>Options</strong> &rarr; add <strong>Timeout</strong>. Use 10,000 ms for fast health checks, 30,000&ndash;60,000 ms for slow model or embedding APIs. In exported workflow JSON this appears as:</p>
+<pre><code>{
+  "name": "Call LLM API",
+  "type": "n8n-nodes-base.httpRequest",
+  "parameters": {
+    "method": "POST",
+    "url": "https://api.example.com/v1/chat",
+    "options": { "timeout": 60000 }
+  },
+  "onError": "continueErrorOutput"
+}</code></pre>
+
+<h2>Fix 2: add retries &mdash; but only for idempotent calls</h2>
+<p>Select the node &rarr; <strong>Settings</strong> tab &rarr; enable <strong>Retry On Fail</strong>, then set <strong>Max Tries</strong> and <strong>Wait Between Tries</strong>. In JSON:</p>
+<pre><code>"retryOnFail": true,
+"maxTries": 3,
+"waitBetweenTries": 2000</code></pre>
+<p>Only retry requests that are safe to repeat (GETs, idempotent POSTs). Retrying a payment or record-creation call can double-apply the side effect.</p>
+
+<h2>Fix 3: decide what a failure means</h2>
+<p>Every node has an <code>onError</code> behavior. The default, <code>stopWorkflow</code>, halts the entire execution on the first failed call. For agent workflows, <code>continueErrorOutput</code> routes the failure to the node's error output so a downstream node can fall back, log, or escalate &mdash; the agent keeps working instead of dying.</p>
+
+<h2>Diagnose it in the exported JSON</h2>
+<p>Export the workflow (&#8942; menu &rarr; Download) and run this <code>jq</code> one-liner to find every HTTP node missing a timeout, error handling, or retry:</p>
+<pre><code>jq -r '.nodes[]
+  | select(.type == "n8n-nodes-base.httpRequest")
+  | "\(.name): timeout=\(.parameters.options.timeout // "NOT SET")
+      onError=\(.onError // "stopWorkflow (default)")
+      retryOnFail=\(.retryOnFail // false)"' workflow.json</code></pre>
+<p>Expected output for a healthy workflow:</p>
+<pre><code>Call LLM API: timeout=60000 onError=continueErrorOutput retryOnFail=true
+Fetch embeddings: timeout=30000 onError=continueErrorOutput retryOnFail=true</code></pre>
+<p>Any line showing <code>NOT SET</code> or <code>stopWorkflow (default)</code> is a node that will fail loudly the first time an API is slow.</p>
+
+<h2>Common failures</h2>
+<ul>
+  <li><strong>No timeout set on slow LLM calls.</strong> The 10-second default kills calls that just needed 15 seconds.</li>
+  <li><strong>No <code>onError</code> handling.</strong> One flaky webhook stops a 40-node agent run.</li>
+  <li><strong>Retry storms.</strong> Retrying a non-idempotent POST, or retrying aggressively against a rate-limited API, turns one failure into many &mdash; and can get the API key throttled.</li>
+  <li><strong>Timeout set too high.</strong> A 5-minute node timeout on every node means the workflow-level execution timeout fires first, and the error message points at the wrong place.</li>
+</ul>
+
+<h2>Go further</h2>
+<p>The free <a href="https://github.com/Payloadhq/n8n-workflow-linter">n8n-workflow-linter</a> checks exported workflow JSON for exactly these smells &mdash; missing timeouts, missing error handling, and more. For the full treatment (10 importable reliability workflows, a failure-simulation eval harness, readiness scoring, and a 37-page production playbook), see the <a href="https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit">n8n Production AI Agent Reliability Kit</a> ($99, one-time).</p>
+
+    <div class="card">
+      <h3>Built by Payload</h3>
+      <p>Payload builds practical software that makes AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload &mdash; small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
