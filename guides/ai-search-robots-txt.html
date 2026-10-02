@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Are AI crawlers blocked by your robots.txt? — Payload</title>
+<meta name="description" content="Which AI crawlers matter, how User-agent groups and the most-specific-match rule work, a worked robots.txt example with the resulting allow/block matrix.">
+<link rel="canonical" href="https://payloadhq.github.io/guides/ai-search-robots-txt.html">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which AI crawlers should I check in robots.txt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The main ones are GPTBot (OpenAI), PerplexityBot, ClaudeBot (Anthropic), Bytespider (ByteDance), Applebot-Extended, Meta-ExternalAgent, and Google-Extended."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If my * group allows everything, can a crawler still be blocked?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A crawler uses the group with the most specific User-agent match. A group naming that crawler with Disallow: / overrides a permissive * group."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do Allow and Disallow conflicts resolve within one group?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The longest matching path wins. On a tie, Allow beats Disallow per Google's documented convention, which most AI crawlers follow."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a free tool to check my robots.txt against AI crawlers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 Payload's free robots.txt checker runs entirely in your browser and reports allowed, blocked, or unmentioned for each AI crawler, quoting the deciding rule."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="index.html" aria-current="page">Guides</a>
+      <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <p class="meta"><a href="index.html">&larr; All guides</a></p>
+    
+<h1>Are AI crawlers blocked by your robots.txt?</h1>
+<p class="lede">AI search engines and assistants can only cite pages their crawlers are allowed to fetch. One wrong <code>Disallow</code> line can make your whole site invisible to them.</p>
+
+<h2>Which crawlers matter</h2>
+<table class="matrix">
+  <tr><th>User-agent token</th><th>Operator</th></tr>
+  <tr><td><code>GPTBot</code></td><td>OpenAI</td></tr>
+  <tr><td><code>PerplexityBot</code></td><td>Perplexity</td></tr>
+  <tr><td><code>ClaudeBot</code></td><td>Anthropic</td></tr>
+  <tr><td><code>Bytespider</code></td><td>ByteDance</td></tr>
+  <tr><td><code>Applebot-Extended</code></td><td>Apple</td></tr>
+  <tr><td><code>Meta-ExternalAgent</code></td><td>Meta</td></tr>
+  <tr><td><code>Google-Extended</code></td><td>Google</td></tr>
+</table>
+
+<h2>How to read User-agent groups</h2>
+<p>A robots.txt is a sequence of <strong>groups</strong>. Each group starts with one or more <code>User-agent</code> lines, followed by the rules (<code>Allow</code> / <code>Disallow</code>) that apply to those agents &mdash; until the next <code>User-agent</code> line starts a new group.</p>
+<p><strong>The most-specific-match rule:</strong> a crawler uses the single group whose <code>User-agent</code> token is the longest match for its own user-agent string. A group for <code>GPTBot</code> beats the <code>*</code> group for GPTBot &mdash; even if the <code>*</code> group appears later in the file. Within a group, the <strong>longest matching path</strong> wins; on a tie, <code>Allow</code> beats <code>Disallow</code> per Google's documented convention, which most AI crawlers follow.</p>
+
+<h2>Worked example</h2>
+<pre><code>User-agent: *
+Disallow: /admin/
+Disallow: /drafts/
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: PerplexityBot
+Allow: /</code></pre>
+<p>Resulting matrix for <code>https://example.com/blog/post</code>:</p>
+<table class="matrix">
+  <tr><th>Crawler</th><th>Status</th><th>Why</th></tr>
+  <tr><td>GPTBot</td><td><span class="pill blocked">Blocked</span></td><td class="rule-quote">Its own group says "Disallow: /" &mdash; the specific group beats *.</td></tr>
+  <tr><td>PerplexityBot</td><td><span class="pill allowed">Allowed</span></td><td class="rule-quote">Its own group says "Allow: /".</td></tr>
+  <tr><td>ClaudeBot</td><td><span class="pill allowed">Allowed</span></td><td class="rule-quote">No ClaudeBot group, so the * group applies: only /admin/ and /drafts/ are disallowed.</td></tr>
+  <tr><td>Bytespider</td><td><span class="pill allowed">Allowed</span></td><td class="rule-quote">Same as ClaudeBot: falls through to the * group.</td></tr>
+</table>
+<p>The trap in this example: the site owner blocked GPTBot everywhere &mdash; perhaps copied from a template &mdash; while intending to be AI-friendly. The <code>*</code> group does <em>not</em> override it.</p>
+
+<h2>Check your own file</h2>
+<p>Paste your robots.txt into the free <a href="../utilities/robots-txt-checker.html">robots.txt checker for AI crawlers</a> &mdash; it runs entirely in your browser and shows exactly which AI crawlers are allowed, blocked, or unmentioned, quoting the rule that decided each one.</p>
+
+<h2>Common failures</h2>
+<ul>
+  <li><strong>Blocking a crawler in its own group while the <code>*</code> group looks permissive.</strong> The specific group always wins.</li>
+  <li><strong>Case sensitivity.</strong> <code>User-agent: gptbot</code> does not match <code>GPTBot</code> &mdash; matching is case-sensitive.</li>
+  <li><strong>Assuming one file covers subdomains.</strong> <code>robots.txt</code> applies per host; <code>blog.example.com</code> needs its own.</li>
+  <li><strong>Confusing AI training crawlers with AI search crawlers.</strong> Blocking training (e.g. <code>CCBot</code>) is a different decision from blocking answer engines that cite you.</li>
+</ul>
+
+<h2>Go further</h2>
+<p>robots.txt is one of four gates. The <a href="https://payloadtools.gumroad.com/l/ai-search-readiness-audit">AI Search Readiness Audit</a> ($59, one-time, Chrome extension, 100% client-side) also checks raw-HTML coverage, AI Overviews eligibility, and dead schema &mdash; the full technical picture of whether AI engines can see, read, and cite your pages.</p>
+
+    <div class="card">
+      <h3>Built by Payload</h3>
+      <p>Payload builds practical software that makes AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload &mdash; small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
