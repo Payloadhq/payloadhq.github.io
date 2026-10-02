@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How x402 / HTTP 402 payments work for APIs and agents — Payload</title>
+<meta name="description" content="The 402 Payment Required flow for APIs and AI agents: machine-readable payment requirements, free-quota-then-pay, and non-custodial on-chain verification — with a real JSON example.">
+<link rel="canonical" href="https://payloadhq.github.io/guides/x402-402-payments.html">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is HTTP 402?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "402 Payment Required is a long-reserved HTTP status code. The x402 pattern uses it for machine-to-machine payments: the server refuses with a machine-readable payment requirement instead of an HTML error."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the x402 payment flow work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The client calls normally, gets a 402 with a machine-readable payment requirement, pays on-chain, retries with payment proof, and the server verifies the payment on-chain before returning the result."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does non-custodial verification mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The server checks the blockchain to confirm payment rather than holding the client's keys or funds \u2014 there is nothing to custody and nothing to leak."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Payload's sample MCP server collect real payments?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It demonstrates the quota mechanic and returns the machine-readable PAYMENT_REQUIRED response, but collects no real payment."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="index.html" aria-current="page">Guides</a>
+      <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <p class="meta"><a href="index.html">&larr; All guides</a></p>
+    
+<h1>How x402 / HTTP 402 payments work for APIs and agents</h1>
+<p class="lede">HTTP 402 <em>Payment Required</em> sat reserved and unused for decades. The x402 pattern finally puts it to work: APIs and agents that charge per call, with the payment handshake inside HTTP itself.</p>
+
+<h2>The 402 flow</h2>
+<ol>
+  <li>The client calls the API or tool normally.</li>
+  <li>The server answers <strong>402 Payment Required</strong> &mdash; not with an HTML error page, but with a <strong>machine-readable payment requirement</strong>: what to pay, in which asset, on which network, to which address, and how to prove it.</li>
+  <li>The client pays on-chain and retries the request with payment proof attached.</li>
+  <li>The server <strong>verifies the payment on-chain</strong> and returns the result.</li>
+</ol>
+<p>The key property is <strong>non-custodial verification</strong>: the server checks the blockchain to confirm payment instead of holding the client's keys or funds. Nothing to custody, nothing to leak.</p>
+
+<h2>What a machine-readable payment requirement looks like</h2>
+<p>Below is the actual response shape from Payload's free <a href="https://github.com/Payloadhq/payload-sample-mcp-server">sample MCP server</a> (an MCP server that charges per tool call). After the free quota is exhausted, premium tools return this instead of a result:</p>
+<pre><code>{
+  "status": "PAYMENT_REQUIRED",
+  "tool": "summarize",
+  "free_quota": 5,
+  "premium_calls_used": 5,
+  "upgrade_url": "https://payloadtools.gumroad.com/l/mcp-monetization-kit",
+  "message": "Free quota exhausted (5/5 premium calls used). Attach payment
+    to continue, or get the full MCP Monetization Kit to collect real
+    per-call USDC payments with the x402 flow: ..."
+}</code></pre>
+<p>An agent can parse this without any human in the loop: it knows <em>why</em> it was refused (<code>status</code>), <em>which</em> tool (<code>tool</code>), and <em>where</em> to go next (<code>upgrade_url</code>). A production x402 requirement adds the payment details &mdash; amount, asset, network, destination address, and the proof format the server accepts.</p>
+<p><strong>Plainly stated:</strong> the sample server is a demo. It returns this JSON and collects no real payment.</p>
+
+<h2>The free-quota-then-pay pattern</h2>
+<p>The most useful shape for developer tools:</p>
+<ul>
+  <li>A small number of calls are free (<code>free_quota</code>, e.g. 5) so anyone can evaluate the tool.</li>
+  <li>Call <code>free_quota + 1</code> returns the machine-readable 402 instead of a result.</li>
+  <li>Paying callers attach payment proof and get results; free tools stay free.</li>
+  <li>Usage is metered per caller so quotas can't be reset by reconnecting.</li>
+</ul>
+
+<h2>Common failures</h2>
+<ul>
+  <li><strong>Human-readable 402 pages.</strong> If the 402 body is HTML prose, agents can't act on it. Machine-readable JSON is the whole point.</li>
+  <li><strong>No free quota.</strong> Developers won't integrate a paid API they can't try; a small free quota is the evaluation path.</li>
+  <li><strong>Accepting payment without verifying on-chain.</strong> Trusting a client-claimed transaction ID without checking the chain is how you give the product away.</li>
+  <li><strong>Custodying funds to &ldquo;simplify&rdquo; verification.</strong> Holding keys or balances recreates the security problem non-custodial verification avoids.</li>
+</ul>
+
+<h2>Go further</h2>
+<p>Run the pattern yourself: <a href="https://github.com/Payloadhq/payload-sample-mcp-server">payload-sample-mcp-server</a> is a free, MIT-licensed MCP server with the quota mechanic built in. For the production version &mdash; real per-call USDC collection over x402, persistent usage ledger, official SDK adapter &mdash; see the <a href="https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit">x402 Paid API Starter Kit</a> ($79, one-time). Non-custodial: never holds keys or funds, only verifies payment.</p>
+
+    <div class="card">
+      <h3>Built by Payload</h3>
+      <p>Payload builds practical software that makes AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload &mdash; small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
