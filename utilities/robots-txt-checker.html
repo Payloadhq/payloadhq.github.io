@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check my robots.txt for AI crawlers — Payload free utility</title>
+<meta name="description" content="Free client-side tool: check which AI crawlers (GPTBot, ClaudeBot, PerplexityBot, and more) your robots.txt allows, blocks, or leaves unmentioned. Nothing is uploaded.">
+<link rel="canonical" href="https://payloadhq.github.io/utilities/robots-txt-checker.html">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does blocking GPTBot in robots.txt stop my content from appearing in ChatGPT?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Not necessarily. GPTBot trains models; ChatGPT-User fetches pages for live user queries, and Perplexity or other crawlers may still index the page. Blocking training crawlers and blocking answer-time crawlers are different decisions with different user-agent tokens."}
+    },
+    {
+      "@type": "Question",
+      "name": "What does 'unmentioned' mean in the results?",
+      "acceptedAnswer": {"@type": "Answer", "text": "The robots.txt file has no group naming that crawler, and no wildcard rule decides for it. Crawlers default to allowed when nothing blocks them, so unmentioned effectively means allowed — but you have not made an explicit choice about that crawler."}
+    },
+    {
+      "@type": "Question",
+      "name": "Why can't the checker fetch my robots.txt directly?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Browsers block cross-origin fetches unless the site sends CORS headers, and almost no site sends CORS headers on /robots.txt. The checker tries a direct fetch first and falls back to a paste box. Everything runs locally in your browser; nothing is uploaded anywhere."}
+    },
+    {
+      "@type": "Question",
+      "name": "Is robots.txt enough to control AI crawler access?",
+      "acceptedAnswer": {"@type": "Answer", "text": "It is a voluntary signal that reputable crawlers honor, not enforcement. For the full picture — raw-HTML coverage, AI Overviews eligibility directives, and dead schema — the AI Search Readiness Audit checks the page itself, not just robots.txt."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="robots-txt-checker.html" aria-current="page">Free utilities</a>
+      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>Check my robots.txt for AI crawlers</h1>
+    <p class="lede">See exactly which AI crawlers your robots.txt allows, blocks, or leaves unmentioned — with the matching rule quoted. Runs entirely in your browser. Nothing is uploaded anywhere.</p>
+
+    <h2>1. Get your robots.txt</h2>
+    <label for="url">Site URL (we'll try to fetch <code>/robots.txt</code> directly)</label>
+    <input type="url" id="url" placeholder="https://example.com" inputmode="url" autocomplete="off">
+    <button class="btn" id="fetchBtn" type="button">Fetch robots.txt</button>
+    <p class="meta" id="fetchNote">Direct fetch usually fails: browsers block cross-origin requests unless the site sends CORS headers, and almost no site does for /robots.txt. If it fails, paste the file below.</p>
+
+    <h2>2. Or paste it</h2>
+    <label for="paste">robots.txt contents</label>
+    <textarea id="paste" spellcheck="false" placeholder="User-agent: *&#10;Disallow:"></textarea>
+    <button class="btn" id="checkBtn" type="button">Check crawlers</button>
+    <button class="btn secondary" id="sampleBtn" type="button">Load an example</button>
+
+    <div id="results" aria-live="polite"></div>
+
+    <h2>What the states mean</h2>
+    <ul>
+      <li><span class="pill allowed">allowed</span> — a rule explicitly permits this crawler (or nothing in the file blocks it).</li>
+      <li><span class="pill blocked">blocked</span> — a rule disallows it. The exact matching line is quoted.</li>
+      <li><span class="pill unmentioned">unmentioned</span> — the file never names this crawler. Crawlers default to allowed when unblocked, so this effectively means allowed — but you haven't made an explicit choice.</li>
+    </ul>
+    <p class="meta">Matching is simplified RFC 9309: most-specific user-agent group wins, <code>*</code> is the fallback, most-specific rule wins, <code>Allow</code> beats <code>Disallow</code> on ties. Evaluated for the site root (<code>/</code>).</p>
+
+    <h2>Going deeper</h2>
+    <p>robots.txt is one of four checks that decide whether AI engines can use your pages. The <a href="https://payloadtools.gumroad.com/l/ai-search-readiness-audit">AI Search Readiness Audit</a> ($59) also checks raw-HTML coverage, AI Overviews eligibility directives, and dead schema — in one click, 100% client-side.</p>
+
+    <h2>FAQ</h2>
+    <details>
+      <summary>Does blocking GPTBot stop my content from appearing in ChatGPT?</summary>
+      <p>Not necessarily. GPTBot trains models; <code>ChatGPT-User</code> fetches pages for live user queries, and other crawlers may still index the page. Blocking training crawlers and blocking answer-time crawlers are different decisions with different tokens.</p>
+    </details>
+    <details>
+      <summary>What does "unmentioned" mean?</summary>
+      <p>The file has no group naming that crawler. Crawlers default to allowed when nothing blocks them, so unmentioned effectively means allowed — but you haven't made an explicit choice about that crawler.</p>
+    </details>
+    <details>
+      <summary>Why can't the checker fetch my robots.txt directly?</summary>
+      <p>Browsers block cross-origin fetches unless the site sends CORS headers, and almost no site does for <code>/robots.txt</code>. Paste the file instead — it never leaves your browser.</p>
+    </details>
+    <details>
+      <summary>Is robots.txt enough to control AI crawler access?</summary>
+      <p>It's a voluntary signal that reputable crawlers honor, not enforcement. And it's only one gate: raw-HTML coverage, robots directives, and schema all matter too.</p>
+    </details>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload — small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+<script src="robots.js"></script>
+<script>
+(function () {
+  "use strict";
+  var urlInput = document.getElementById("url");
+  var paste = document.getElementById("paste");
+  var results = document.getElementById("results");
+  var fetchNote = document.getElementById("fetchNote");
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function render(text) {
+    var rows = checkCrawlers(text);
+    var html = "<h2>Results</h2><table class=\"matrix\"><thead><tr>" +
+      "<th>Crawler</th><th>Owner</th><th>Status</th><th>Matching rule</th></tr></thead><tbody>";
+    rows.forEach(function (r) {
+      var pill = r.status === "blocked" ? "blocked" : r.status === "allowed" ? "allowed" : "unmentioned";
+      html += "<tr><td><code>" + esc(r.token) + "</code><br><span class=\"meta\">" + esc(r.note) + "</span></td>" +
+        "<td>" + esc(r.owner) + "</td>" +
+        "<td><span class=\"pill " + pill + "\">" + r.status + "</span></td>" +
+        "<td class=\"rule-quote\">" + (r.rule ? esc(r.rule) : "—") + "</td></tr>";
+    });
+    html += "</tbody></table>";
+    results.innerHTML = html;
+    results.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  document.getElementById("checkBtn").addEventListener("click", function () {
+    var text = paste.value.trim();
+    if (!text) { results.innerHTML = "<p class=\"notice\">Paste a robots.txt first.</p>"; return; }
+    render(text);
+  });
+
+  document.getElementById("sampleBtn").addEventListener("click", function () {
+    paste.value = "User-agent: GPTBot\nDisallow: /\n\nUser-agent: CCBot\nDisallow: /\n\nUser-agent: *\nDisallow:\n";
+    render(paste.value);
+  });
+
+  document.getElementById("fetchBtn").addEventListener("click", function () {
+    var raw = urlInput.value.trim();
+    if (!raw) { fetchNote.textContent = "Enter a site URL first."; return; }
+    var origin;
+    try {
+      var u = new URL(raw.match(/^https?:\/\//) ? raw : "https://" + raw);
+      origin = u.origin;
+    } catch (e) { fetchNote.textContent = "That URL did not parse. Try https://example.com."; return; }
+    fetchNote.textContent = "Fetching " + origin + "/robots.txt …";
+    fetch(origin + "/robots.txt", { mode: "cors" }).then(function (resp) {
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      return resp.text();
+    }).then(function (text) {
+      paste.value = text;
+      fetchNote.textContent = "Fetched. Review the contents below, then run the check.";
+      render(text);
+    }).catch(function () {
+      fetchNote.textContent = "Direct fetch blocked (expected — the site does not send CORS headers for /robots.txt). Open " + origin + "/robots.txt in a new tab, copy it, and paste it below.";
+    });
+  });
+})();
+</script>
+</body>
+</html>
