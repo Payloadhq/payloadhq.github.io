@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical guides — Payload</title>
+<meta name="description" content="Free problem-based technical guides: n8n timeouts, MCP prompt-injection testing, robots.txt for AI crawlers, HubSpot dedup, x402 payments, publishing server.json.">
+<link rel="canonical" href="https://payloadhq.github.io/guides/index.html">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are Payload's technical guides?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Problem-based guides for developers: n8n timeouts, MCP prompt-injection testing, robots.txt for AI crawlers, HubSpot dedup, x402 payments, and publishing server.json. Each has working examples and diagnostics."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are the guides free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every guide is free to read, and each links the free Payload utility or open-source repo behind it alongside the paid product for the deeper job."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do the code examples actually run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Where shown, yes \u2014 the jq, Python, and JSON snippets are short, self-contained, and tested. Anything we couldn't verify was cut rather than published."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do the guides relate to Payload's paid products?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each guide solves the immediate problem for free, then names the paid Payload kit that handles the deeper workflow \u2014 the same pattern as Payload's free GitHub repos."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="index.html" aria-current="page">Guides</a>
+      <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <p class="meta"><a href="index.html">&larr; All guides</a></p>
+    
+<h1>Technical guides</h1>
+<p class="lede">Problem-based guides for developers. Each one explains a real failure mode, shows how to diagnose it, and gives you working code &mdash; no fluff.</p>
+<div class="card">
+  <h3><a href="n8n-agent-timeout.html">Why your n8n AI agent's HTTP calls time out (and how to fix them)</a></h3>
+  <p>Set timeouts, retries, and error handling on HTTP Request nodes &mdash; and lint exported workflow JSON for the nodes you missed.</p>
+</div>
+<div class="card">
+  <h3><a href="mcp-prompt-injection-test.html">How to test your MCP server for prompt injection</a></h3>
+  <p>A safe, local methodology: scan tool descriptions, send adversarial arguments to your own server, and know what good vs bad looks like.</p>
+</div>
+<div class="card">
+  <h3><a href="ai-search-robots-txt.html">Are AI crawlers blocked by your robots.txt?</a></h3>
+  <p>Which AI crawlers matter, how User-agent groups resolve, and a worked example with the resulting allow/block matrix.</p>
+</div>
+<div class="card">
+  <h3><a href="crm-hubspot-duplicate-cleanup.html">Cleaning up HubSpot duplicates before a migration</a></h3>
+  <p>The dedup workflow &mdash; export, normalize, match, review, merge &mdash; with runnable Python normalization examples.</p>
+</div>
+<div class="card">
+  <h3><a href="x402-402-payments.html">How x402 / HTTP 402 payments work for APIs and agents</a></h3>
+  <p>The 402 flow, machine-readable payment requirements with a real JSON example, and non-custodial verification.</p>
+</div>
+<div class="card">
+  <h3><a href="mcp-server-json-publish.html">Publishing your MCP server.json without getting rejected</a></h3>
+  <p>Required fields, the 5 most common rejection reasons with broken vs fixed snippets, and a local validator.</p>
+</div>
+
+    <div class="card">
+      <h3>Built by Payload</h3>
+      <p>Payload builds practical software that makes AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload &mdash; small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
