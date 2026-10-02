@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publishing your MCP server.json without getting rejected — Payload</title>
+<meta name="description" content="The server.json fields registries check, the 5 most common rejection reasons with broken vs fixed snippets, and a runnable local validator.">
+<link rel="canonical" href="https://payloadhq.github.io/guides/mcp-server-json-publish.html">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What fields does an MCP registry check in server.json?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The name (namespaced like io.github.owner/repo), a semver version, the repository URL and source, at least one packages entry with a real published identifier, and a transport that matches how the server runs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why was my server.json rejected for the name?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Registry names must be namespaced to the publisher, e.g. io.github.payloadhq/payload-sample-mcp-server. A bare name like my-server is rejected."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the package need to be published before registering?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Registries verify the identifier actually exists in npm or PyPI under the exact name you claim, so publish the package first and register second."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I validate server.json locally?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Run the Python snippet on this page \u2014 it checks the name format, semver, repository consistency, package entries, and transport with no network access \u2014 or use the free mcp-manifest-validator."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="index.html" aria-current="page">Guides</a>
+      <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <p class="meta"><a href="index.html">&larr; All guides</a></p>
+    
+<h1>Publishing your MCP server.json without getting rejected</h1>
+<p class="lede">Registries validate <code>server.json</code> mechanically. Most rejections aren't judgment calls &mdash; they're schema violations you can catch on your own machine in seconds.</p>
+
+<h2>The fields registries actually check</h2>
+<ul>
+  <li><strong><code>name</code></strong> &mdash; namespaced, e.g. <code>io.github.payloadhq/payload-sample-mcp-server</code>. The namespace must match the publisher's GitHub owner.</li>
+  <li><strong><code>version</code></strong> &mdash; strict semantic versioning, e.g. <code>1.0.0</code>. No <code>v</code> prefix, no bare <code>1</code>.</li>
+  <li><strong><code>repository</code></strong> &mdash; <code>{ "url": "...", "source": "github" }</code>; the source must match the URL's host.</li>
+  <li><strong><code>packages</code></strong> &mdash; at least one entry with <code>registryType</code> (<code>npm</code> or <code>pypi</code>), <code>identifier</code>, and <code>version</code>. The identifier must be a real, published package under that exact name.</li>
+  <li><strong><code>transport</code></strong> &mdash; e.g. <code>{ "type": "stdio" }</code>; it must agree with how the package actually runs.</li>
+</ul>
+
+<h2>The 5 most common rejections</h2>
+
+<h3>1. Name isn't namespaced</h3>
+<pre><code>// BROKEN
+{ "name": "payload-sample-mcp-server", "version": "1.0.0" }
+
+// FIXED
+{ "name": "io.github.payloadhq/payload-sample-mcp-server", "version": "1.0.0" }</code></pre>
+
+<h3>2. Version isn't semver</h3>
+<pre><code>// BROKEN
+{ "version": "v1" }
+
+// FIXED
+{ "version": "1.0.0" }</code></pre>
+
+<h3>3. Repository source doesn't match the URL</h3>
+<pre><code>// BROKEN
+{ "repository": { "url": "https://github.com/payloadhq/payload-sample-mcp-server",
+                  "source": "gitlab" } }
+
+// FIXED
+{ "repository": { "url": "https://github.com/payloadhq/payload-sample-mcp-server",
+                  "source": "github" } }</code></pre>
+
+<h3>4. Package identifier doesn't exist in the registry</h3>
+<pre><code>// BROKEN — typo'd identifier; nothing published under this name
+{ "packages": [{ "registryType": "pypi", "identifier": "payload-sample-mcp-sever",
+                 "version": "1.0.0" }] }
+
+// FIXED
+{ "packages": [{ "registryType": "pypi", "identifier": "payload-sample-mcp-server",
+                 "version": "1.0.0" }] }</code></pre>
+<p>Registries check that the package is actually published under the identifier you claim. Publish first, register second.</p>
+
+<h3>5. Transport disagrees with reality</h3>
+<pre><code>// BROKEN — claims stdio, but the package is an HTTP server
+{ "packages": [{ "transport": { "type": "stdio" } }] }
+
+// FIXED — match what the entrypoint actually does
+{ "packages": [{ "transport": { "type": "stdio" } }] }  // only if it speaks MCP over stdio</code></pre>
+
+<h2>Validate locally before you publish</h2>
+<p>This runnable Python script catches all five problems without any network access:</p>
+<pre><code>import json, re, sys
+
+m = json.load(open("server.json"))
+errors = []
+
+if not re.fullmatch(r"io\.github\.[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", m.get("name", "")):
+    errors.append("name must look like io.github.owner/repo")
+if not re.fullmatch(r"\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?", m.get("version", "")):
+    errors.append("version must be semver (e.g. 1.0.0)")
+repo = m.get("repository", {})
+if not (repo.get("url", "").startswith("https://github.com/") and repo.get("source") == "github"):
+    errors.append("repository.url/source must agree (github)")
+pkgs = m.get("packages") or []
+if not pkgs:
+    errors.append("packages must list at least one published package")
+for p in pkgs:
+    if p.get("registryType") not in ("npm", "pypi"):
+        errors.append(f"bad registryType: {p.get('registryType')}")
+    if not p.get("identifier"):
+        errors.append("package identifier is empty")
+    t = (p.get("transport") or {}).get("type")
+    if t not in ("stdio",):
+        errors.append(f"unexpected transport type: {t}")
+
+print("OK - server.json looks publishable" if not errors else "PROBLEMS:")
+for e in errors:
+    print(" -", e)
+sys.exit(1 if errors else 0)</code></pre>
+<p>Expected output on a good manifest:</p>
+<pre><code>OK - server.json looks publishable</code></pre>
+
+<h2>Go further</h2>
+<p>The free <a href="https://github.com/Payloadhq/mcp-manifest-validator">mcp-manifest-validator</a> checks required fields, name format, semver, repository consistency, and package entries before you publish. For the deeper pass &mdash; the 48-rule security scan, hardened templates, and CI workflow &mdash; see the <a href="https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit">MCP Launch Readiness Audit</a> ($79, one-time).</p>
+
+    <div class="card">
+      <h3>Built by Payload</h3>
+      <p>Payload builds practical software that makes AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload &mdash; small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
