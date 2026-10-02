@@ -1,0 +1,39 @@
+# Payload
+
+Practical tools that make AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Small software that earns its keep.
+
+- Home: https://payloadhq.github.io/
+- Products: https://payloadhq.github.io/products.html
+- Free utilities: https://payloadhq.github.io/utilities/robots-txt-checker.html
+- Docs & GitHub: https://payloadhq.github.io/docs.html
+- Changelog: https://payloadhq.github.io/changelog.html
+- Support: kylers.partners@gmail.com
+
+## Products (one-time purchase, single-seat perpetual license)
+
+- x402 Paid API Starter Kit ($79): Express middleware charging AI agents per API call in USDC via x402. HTTP 402 challenges, payment verification, usage ledger. Non-custodial; never holds keys or funds. https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit
+- MCP Monetization Kit ($69, v1.0.1): per-tool-call payments for MCP servers. Paid tool registry, free quotas, machine-readable payment requirements, usage ledger, official MCP SDK adapter. https://payloadtools.gumroad.com/l/mcp-monetization-kit
+- StableLedger ($49): offline, zero-dependency Python CLI organizing stablecoin transaction CSV exports into clean realized P/L records. Data-organization software; not tax advice, does not calculate taxes. https://payloadtools.gumroad.com/l/stableledger-tax-csv
+- x402 + MCP Bundle ($119): both kits above together. https://payloadtools.gumroad.com/l/x402-mcp-bundle
+- AI Search Readiness Audit ($59): Chrome extension (MV3) auditing any page for AI-search readiness: raw-HTML coverage, AI Overviews eligibility, AI-crawler robots.txt matrix, dead schema detection. 100% client-side; no account, no server, no tracking. https://payloadtools.gumroad.com/l/ai-search-readiness-audit
+- CRM Dedup & Migration Cleanup Kit ($149): offline deduplication and normalization for CRM exports. Fuzzy matching, merge review, import-ready CSVs, machine-readable change logs. https://payloadtools.gumroad.com/l/crm-dedup-migration-kit
+- n8n Production AI Agent Reliability Kit ($99, v1.0.1): 10 importable n8n workflow templates, failure-simulation eval harness, readiness scoring, 37-page playbook. Evaluates a JS model of your agent, not a live n8n instance. https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit
+- MCP Launch Readiness Audit ($79, v1.0.1): 48-rule security scanner for MCP servers with a fix for every finding, hardened templates, stress-test harness, CI workflow, audit report. An audit, not a certification. https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit
+
+## Free utilities
+
+- Check my robots.txt for AI crawlers: paste a robots.txt (or enter a site URL) to see which AI crawlers (GPTBot, ClaudeBot, PerplexityBot, and 15 more) are allowed, blocked, or unmentioned. Client-side only; nothing uploaded. https://payloadhq.github.io/utilities/robots-txt-checker.html
+
+## GitHub (Payloadhq org)
+
+- https://github.com/Payloadhq/payload-sample-mcp-server — free sample MCP server (MIT)
+- https://github.com/Payloadhq/mcp-monetization-demo — free metering demo (MIT)
+- https://github.com/Payloadhq/n8n-reliability-free-samples — two free n8n workflows (MIT)
+- https://github.com/Payloadhq/privacy — public privacy policies
+- https://github.com/Payloadhq/x402-paid-api-starter-kit — product docs
+- https://github.com/Payloadhq/mcp-monetization-kit — product docs
+- https://github.com/Payloadhq/stableledger — product docs
+
+## What Payload is not
+
+No investment advice, trading tools, or financial services. Crypto-adjacent products are developer software only. StableLedger is data organization, not tax advice. The MCP Launch Readiness Audit is a scanner, not a certification or penetration test.
