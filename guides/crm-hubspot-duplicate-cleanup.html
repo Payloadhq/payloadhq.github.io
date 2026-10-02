@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cleaning up HubSpot duplicates before a migration — Payload</title>
+<meta name="description" content="Why HubSpot duplicates happen and the dedup workflow that fixes them: export, normalize, match, review, merge, import-ready CSV — with runnable Python normalization examples.">
+<link rel="canonical" href="https://payloadhq.github.io/guides/crm-hubspot-duplicate-cleanup.html">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why do HubSpot duplicates happen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mostly CSV imports without dedup checks, integrations (forms, chat, events) creating contacts independently, manual entry with typos, and sync conflicts with other systems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the right dedup workflow before a migration?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Export with record IDs, normalize values, match (exact then fuzzy), human-review every candidate, merge in HubSpot, then export the clean set as your import-ready CSV."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What normalization matters most for matching?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lowercasing and trimming emails, digit-stripping phone numbers, and removing company suffixes like Inc/LLC \u2014 equivalent values must become identical before comparison."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does HubSpot have a built-in duplicate tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes: Contacts \u2192 Actions \u2192 Manage duplicates. Use it for the merge step after you have reviewed candidate pairs; keep the record with the most engagement as the survivor."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../products.html">Products</a>
+      <a href="index.html" aria-current="page">Guides</a>
+      <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <p class="meta"><a href="index.html">&larr; All guides</a></p>
+    
+<h1>Cleaning up HubSpot duplicates before a migration</h1>
+<p class="lede">Migrating a CRM full of duplicates bakes the mess into the new system &mdash; and most migration tools match on exact email only, so near-duplicates sail through. Clean first, migrate second.</p>
+
+<h2>Why duplicates happen</h2>
+<ul>
+  <li><strong>CSV imports</strong> without dedup checks &mdash; the same list imported twice, or overlapping lists from different owners.</li>
+  <li><strong>Integrations</strong> creating contacts independently: web forms, chat, event tools, and ad platforms each mint their own record.</li>
+  <li><strong>Manual entry</strong> with typos, nicknames, or personal vs work emails for the same person.</li>
+  <li><strong>Sync conflicts</strong> between HubSpot and a second system that disagree on the canonical record.</li>
+</ul>
+
+<h2>The dedup workflow</h2>
+<ol>
+  <li><strong>Export.</strong> In HubSpot: CRM &rarr; Contacts &rarr; select the view &rarr; Export (or Settings &rarr; Import &amp; Export). Keep the HubSpot record ID column &mdash; you need it to merge later.</li>
+  <li><strong>Normalize.</strong> Make equivalent values identical before comparing (see below).</li>
+  <li><strong>Match.</strong> First pass: exact matches on normalized email. Second pass: fuzzy matches on name + company + phone for records without a shared email.</li>
+  <li><strong>Review.</strong> Never auto-merge on fuzzy matches. A human confirms each candidate pair &mdash; especially for common names.</li>
+  <li><strong>Merge.</strong> In HubSpot: Contacts &rarr; Actions &rarr; <strong>Manage duplicates</strong>, or merge manually, keeping the record with the most engagement history as the survivor.</li>
+  <li><strong>Export the clean set</strong> as your import-ready CSV for the migration target.</li>
+</ol>
+
+<h2>Normalization examples</h2>
+<p>Run this over the export before matching. It uses only the Python standard library:</p>
+<pre><code>import csv, re
+
+def norm_email(v):
+    return (v or "").strip().lower()
+
+def norm_phone(v):
+    digits = re.sub(r"\D", "", v or "")
+    return digits[-10:] if len(digits) >= 10 else digits  # compare local part
+
+SUFFIXES = {"inc", "llc", "ltd", "co", "corp", "corporation", "gmbh"}
+def norm_company(v):
+    words = re.sub(r"[^a-z0-9 ]", "", (v or "").lower()).split()
+    return " ".join(w for w in words if w not in SUFFIXES)
+
+with open("contacts.csv", newline="", encoding="utf-8-sig") as fh:
+    for row in csv.DictReader(fh):
+        row["email_key"] = norm_email(row.get("Email"))
+        row["phone_key"] = norm_phone(row.get("Phone"))
+        row["company_key"] = norm_company(row.get("Company"))
+        # rows sharing (email_key) are exact dupes; sharing
+        # (phone_key, company_key) are review candidates
+        print(row["email_key"], row["phone_key"], row["company_key"])</code></pre>
+<p>Expected output (one line per contact, keys aligned for comparison):</p>
+<pre><code>j.smith@acme.com 5551234567 acme
+j.smith@acme.com 5551234567 acme        &larr; exact dupe, same email_key
+jsmith@acme.com 5551234567 acme         &larr; review candidate: same phone+company, different email</code></pre>
+
+<h2>What a merge plan looks like</h2>
+<ul>
+  <li><strong>Survivor rule:</strong> keep the record with the most recent engagement; copy missing fields from the loser.</li>
+  <li><strong>Field-level source of truth:</strong> decide per field (e.g. email from the most recently updated record, phone from the manually verified one).</li>
+  <li><strong>Merge log:</strong> record every merged pair as <code>loser_id &rarr; survivor_id</code> so the migration can remap associations (deals, tickets, notes).</li>
+</ul>
+
+<h2>Common failures</h2>
+<ul>
+  <li><strong>Matching on raw values.</strong> <code>J.Smith@Acme.com</code> and <code>j.smith@acme.com</code> are the same person; without normalization they never match.</li>
+  <li><strong>Auto-merging fuzzy matches.</strong> Two different &ldquo;John Smith&rdquo;s at two different companies become one contact.</li>
+  <li><strong>Dropping the record ID.</strong> Without IDs you can't merge in HubSpot or remap associations afterward.</li>
+  <li><strong>Migrating first, cleaning later.</strong> The new system's dedup is usually worse than the old one's.</li>
+</ul>
+
+<h2>Go further</h2>
+<p>The free <a href="https://github.com/Payloadhq/csv-duplicate-inspector">csv-duplicate-inspector</a> scans any CSV for exact-duplicate rows, key-column dupes, and near-duplicates before you touch the CRM. For the full job &mdash; fuzzy matching, merge review, import-ready CSVs, and machine-readable change logs &mdash; see the <a href="https://payloadtools.gumroad.com/l/crm-dedup-migration-kit">CRM Dedup &amp; Migration Cleanup Kit</a> ($149, one-time, offline desktop app).</p>
+
+    <div class="card">
+      <h3>Built by Payload</h3>
+      <p>Payload builds practical software that makes AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload &mdash; small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
