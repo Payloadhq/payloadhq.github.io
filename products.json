@@ -1,0 +1,132 @@
+{
+  "brand": "Payload",
+  "license_note": "One purchase covers one user. 14-day refund if a product is not as documented.",
+  "license_type": "one-time purchase, single-seat perpetual",
+  "products": [
+    {
+      "category": "API monetization",
+      "checkout_url": "https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit",
+      "documentation_url": "https://payloadhq.github.io/docs.html",
+      "inputs": "HTTP API routes in an Express application",
+      "name": "x402 Paid API Starter Kit",
+      "platforms": [
+        "Node.js 18+"
+      ],
+      "price_usd": 79,
+      "purpose": "Express middleware that charges AI agents per API call in USDC using the x402 payment flow: HTTP 402 challenges, payment verification, and an append-only usage ledger. Non-custodial.",
+      "url": "https://payloadhq.github.io/products.html#x402",
+      "version": "1.0.0",
+      "license_type": "one-time purchase, single-seat perpetual"
+    },
+    {
+      "category": "MCP monetization",
+      "checkout_url": "https://payloadtools.gumroad.com/l/mcp-monetization-kit",
+      "documentation_url": "https://payloadhq.github.io/docs.html",
+      "inputs": "MCP tool calls via the official @modelcontextprotocol/sdk Server",
+      "name": "MCP Monetization Kit",
+      "platforms": [
+        "Node.js 18+"
+      ],
+      "price_usd": 69,
+      "purpose": "Per-tool-call payments for MCP servers: paid tool registry, free quotas, machine-readable payment requirements, usage ledger, and an adapter for the official MCP SDK.",
+      "url": "https://payloadhq.github.io/products.html#mcp-monetization",
+      "version": "1.0.1",
+      "license_type": "one-time purchase, single-seat perpetual"
+    },
+    {
+      "category": "Recordkeeping",
+      "checkout_url": "https://payloadtools.gumroad.com/l/stableledger-tax-csv",
+      "documentation_url": "https://payloadhq.github.io/docs.html",
+      "inputs": "Exchange CSV exports (tested against Kraken-format files)",
+      "name": "StableLedger",
+      "platforms": [
+        "Python 3"
+      ],
+      "price_usd": 49,
+      "purpose": "Offline, zero-dependency Python CLI that organizes stablecoin transaction CSV exports into clean realized profit/loss records with fees. Data-organization software; not tax advice.",
+      "url": "https://payloadhq.github.io/products.html#stableledger",
+      "version": "1.0.0",
+      "license_type": "one-time purchase, single-seat perpetual"
+    },
+    {
+      "category": "API monetization",
+      "checkout_url": "https://payloadtools.gumroad.com/l/x402-mcp-bundle",
+      "documentation_url": "https://payloadhq.github.io/docs.html",
+      "inputs": "HTTP API routes (Express) and MCP tool calls (official MCP SDK)",
+      "name": "x402 + MCP Bundle",
+      "platforms": [
+        "Node.js 18+"
+      ],
+      "price_usd": 119,
+      "purpose": "The x402 Paid API Starter Kit and the MCP Monetization Kit together at a bundle price: charge per API call and per MCP tool call from one purchase.",
+      "url": "https://payloadhq.github.io/products.html#bundle",
+      "version": "1.0.0",
+      "license_type": "one-time purchase, single-seat perpetual"
+    },
+    {
+      "category": "AI search readiness",
+      "checkout_url": "https://payloadtools.gumroad.com/l/ai-search-readiness-audit",
+      "documentation_url": "https://payloadhq.github.io/docs.html",
+      "inputs": "Any web page viewed in Chrome",
+      "name": "AI Search Readiness Audit",
+      "platforms": [
+        "Chrome (Manifest V3)"
+      ],
+      "price_usd": 59,
+      "purpose": "Chrome extension (Manifest V3) that audits the page you are viewing for AI-search readiness: raw-HTML coverage, AI Overviews eligibility, AI-crawler robots.txt matrix, and dead schema detection. 100% client-side.",
+      "url": "https://payloadhq.github.io/products.html#ai-search",
+      "version": "1.0.1",
+      "license_type": "one-time purchase, single-seat perpetual"
+    },
+    {
+      "category": "Data cleanup",
+      "checkout_url": "https://payloadtools.gumroad.com/l/crm-dedup-migration-kit",
+      "documentation_url": "https://payloadhq.github.io/docs.html",
+      "inputs": "CRM CSV exports",
+      "name": "CRM Dedup & Migration Cleanup Kit",
+      "platforms": [
+        "Linux (single-file binary)",
+        "local web UI",
+        "CLI"
+      ],
+      "price_usd": 149,
+      "purpose": "Fully offline deduplication and normalization for CRM exports before migration: fuzzy matching with confidence tiers, union-find clustering, dry-run merge plans, import-ready CSV export, and machine-readable change logs.",
+      "url": "https://payloadhq.github.io/products.html#crm",
+      "version": "1.0.1",
+      "license_type": "one-time purchase, single-seat perpetual"
+    },
+    {
+      "category": "AI agent reliability",
+      "checkout_url": "https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit",
+      "documentation_url": "https://payloadhq.github.io/docs.html",
+      "inputs": "n8n workflows; the eval harness tests a JavaScript model of your agent written from the documented shape",
+      "name": "n8n Production AI Agent Reliability Kit",
+      "platforms": [
+        "n8n",
+        "Node.js 18+ (eval harness)"
+      ],
+      "price_usd": 99,
+      "purpose": "Production-readiness system for n8n AI agents: 10 importable workflow templates covering documented agent failure classes, a Node.js failure-simulation eval harness with readiness scoring, and a 37-page production playbook.",
+      "url": "https://payloadhq.github.io/products.html#n8n",
+      "version": "1.0.1",
+      "license_type": "one-time purchase, single-seat perpetual"
+    },
+    {
+      "category": "MCP security",
+      "checkout_url": "https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit",
+      "documentation_url": "https://payloadhq.github.io/docs.html",
+      "inputs": "MCP server source code and configuration",
+      "name": "MCP Launch Readiness Audit",
+      "platforms": [
+        "Python 3"
+      ],
+      "price_usd": 79,
+      "purpose": "Launch-readiness audit system for MCP servers: a zero-dependency CLI scanner with 48 detection rules (tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, missing auth/hardening), a concrete remediation for every finding, hardened templates, a stress-test harness, a CI workflow, and a branded audit report. An audit, not a certification.",
+      "url": "https://payloadhq.github.io/products.html#mcp-audit",
+      "version": "1.0.2",
+      "license_type": "one-time purchase, single-seat perpetual"
+    }
+  ],
+  "site": "https://payloadhq.github.io/",
+  "updated": "2026-10-03"
+}
