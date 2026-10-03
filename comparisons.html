@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Factual comparisons — Payload</title>
+<meta name="description" content="Factual, attribute-level comparisons: CRM Dedup Kit vs manual spreadsheet cleanup, one-time-license utilities vs recurring SaaS, and the MCP Launch Readiness Audit vs basic open-source scanners. No invented weaknesses, no endorsements.">
+<link rel="canonical" href="https://payloadhq.github.io/comparisons.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Factual comparisons — Payload">
+<meta property="og:description" content="Attribute-level comparisons of Payload products against manual and recurring-SaaS alternatives. Facts only, no invented weaknesses.">
+<meta property="og:url" content="https://payloadhq.github.io/comparisons.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://payloadhq.github.io/"},
+    {"@type": "ListItem", "position": 2, "name": "Comparisons", "item": "https://payloadhq.github.io/comparisons.html"}
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="questions.html">Questions</a>
+      <a href="guides/index.html">Guides</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>Factual comparisons</h1>
+    <p class="lede">These tables compare documented product attributes only. They are not endorsements, not reviews, and not rankings. Attributes we cannot state factually are marked "varies".</p>
+
+    <h2 id="crm-vs-manual">CRM Dedup Kit vs manual spreadsheet cleanup</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Attribute</th><th><a href="products.html#crm">CRM Dedup &amp; Migration Cleanup Kit</a></th><th>Manual spreadsheet cleanup</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Normalization</th><td>Built in: emails, E.164 phones, domains, company suffixes, nickname canonicalization</td><td>Manual formulas; varies by author</td></tr>
+          <tr><th>Duplicate detection</th><td>Fuzzy matching with confidence tiers + union-find clustering</td><td>Eyeballing + exact-match functions; varies</td></tr>
+          <tr><th>Merge safety</th><td>Dry-run merge plans reviewed before anything changes; 54/54 tests pass</td><td>Undo history only; no dry-run model</td></tr>
+          <tr><th>Change audit trail</th><td>Machine-readable change logs (JSON + CSV) with before/after values</td><td>Varies; usually none</td></tr>
+          <tr><th>Export</th><td>Import-ready CSV export</td><td>Manual CSV export; varies</td></tr>
+          <tr><th>Time model</th><td>One-time setup, then automated runs</td><td>Hours scale roughly linearly with row count; varies</td></tr>
+          <tr><th>Error risk</th><td>Low-confidence matches flagged for human review</td><td>Human error; varies</td></tr>
+          <tr><th>Privacy / offline</th><td>Fully offline; data never leaves your machine</td><td>Local spreadsheet: also offline; cloud spreadsheet: varies</td></tr>
+          <tr><th>Pricing structure</th><td>$149 one-time, single-seat perpetual</td><td>Your labor cost; varies</td></tr>
+        </tbody>
+      </table>
+      <p class="meta">Limitation: the kit works on CSV exports, not live CRM APIs.</p>
+    </div>
+
+    <h2 id="one-time-vs-saas">One-time-license utility vs recurring SaaS</h2>
+    <p>This compares the <em>model</em>, not any specific SaaS product.</p>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Attribute</th><th>Payload one-time utilities ($49–$149)</th><th>Recurring SaaS alternative</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Pricing structure</th><td>Single payment; single-seat perpetual license; 14-day refund if not as documented</td><td>Recurring (monthly/annual); varies</td></tr>
+          <tr><th>Ongoing cost</th><td>$0 after purchase</td><td>Varies with tier and seat count</td></tr>
+          <tr><th>Data locality</th><td>Local: tools run on your machine or browser; no accounts</td><td>Typically cloud-hosted; varies</td></tr>
+          <tr><th>Offline capability</th><td>Yes: StableLedger, CRM kit, and the scanners run fully offline; the Chrome extension is 100% client-side</td><td>Usually requires a connection; varies</td></tr>
+          <tr><th>Updates</th><td>Current shipped version; no ongoing delivery obligation</td><td>Continuous; varies</td></tr>
+          <tr><th>Managed hosting</th><td>Not included — these are local utilities, not managed services</td><td>Usually included; varies</td></tr>
+        </tbody>
+      </table>
+      <p class="meta">Choose the one-time utility when the job is bounded and local. Choose SaaS when you need managed hosting, collaboration, or ongoing delivery — things these utilities do not provide.</p>
+    </div>
+
+    <h2 id="mcp-audit-vs-scanner">MCP Launch Readiness Audit vs a basic open-source scanner</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr><th>Attribute</th><th><a href="products.html#mcp-audit">MCP Launch Readiness Audit</a></th><th>Basic open-source scanner</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Checks covered</th><td>48 documented rules: tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, missing auth/hardening</td><td>Varies by project</td></tr>
+          <tr><th>Fix guidance</th><td>Every finding ships with a concrete remediation (code snippet or config change)</td><td>Varies; often detection-only</td></tr>
+          <tr><th>Report output</th><td>Branded audit report; findings logged with outcomes</td><td>Varies</td></tr>
+          <tr><th>Hardened templates</th><td>Included</td><td>Varies</td></tr>
+          <tr><th>Stress-test harness</th><td>Included: reliability harness under hostile traffic</td><td>Varies</td></tr>
+          <tr><th>CI wiring</th><td>CI workflow included</td><td>Varies</td></tr>
+          <tr><th>Pricing structure</th><td>$79 one-time, single-seat perpetual</td><td>Varies (often free)</td></tr>
+          <tr><th>What it is not</th><td>An audit, not a certification; not penetration testing</td><td>Varies</td></tr>
+        </tbody>
+      </table>
+      <p class="meta">We cannot state what any specific open-source scanner does or does not cover — evaluate each project on its own documentation.</p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload — small software that earns its keep.</span>
+    <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="products.json">Machine-readable catalog (JSON)</a></span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
