@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When Payload is (and isn't) the right fit — Payload</title>
+<meta name="description" content="Honest qualification for all 8 Payload products: who each tool is for, and explicit limitations — local utilities not managed SaaS, no investment or tax advice, CSV exports not live APIs.">
+<link rel="canonical" href="https://payloadhq.github.io/fit.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="When Payload is (and isn't) the right fit — Payload">
+<meta property="og:description" content="Honest qualification: who each Payload tool is for, and the explicit limitations that disqualify it.">
+<meta property="og:url" content="https://payloadhq.github.io/fit.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://payloadhq.github.io/"},
+    {"@type": "ListItem", "position": 2, "name": "When Payload fits", "item": "https://payloadhq.github.io/fit.html"}
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="questions.html">Questions</a>
+      <a href="guides/index.html">Guides</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>When Payload is (and isn't) the right fit</h1>
+    <p class="lede">Every tool below is a local utility with a one-time purchase and a single-seat perpetual license. These pages exist so you can disqualify us quickly — a tool that is wrong for your job is wrong even if it is ours.</p>
+
+    <h2>Appropriate for</h2>
+
+    <div class="card" id="fit-x402">
+      <h3><a href="products.html#x402">x402 Paid API Starter Kit</a> — $79</h3>
+      <ul>
+        <li>You run an Express/Node.js API and want AI agents to pay per call in USDC via the x402 flow.</li>
+        <li>You want a verifiable starting point: 402 challenges, facilitator verification, JSONL ledger, manifest endpoint, 9/9 passing end-to-end tests.</li>
+        <li>You are comfortable supplying your own x402 facilitator and recipient wallet address.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="fit-mcp-monetization">
+      <h3><a href="products.html#mcp-monetization">MCP Monetization Kit</a> — $69</h3>
+      <ul>
+        <li>You operate an MCP server on the official MCP SDK and want per-tool-call payments with free quotas for some tools.</li>
+        <li>You want the metering mechanic demonstrated over stdio with a real SDK client, then wired into your own server.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="fit-stableledger">
+      <h3><a href="products.html#stableledger">StableLedger</a> — $49</h3>
+      <ul>
+        <li>You have stablecoin transaction CSV exports (tested against Kraken-format files) and want them organized into clean realized P/L records with fees.</li>
+        <li>You want fully offline, zero-dependency recordkeeping in Python 3.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="fit-ai-search">
+      <h3><a href="products.html#ai-search">AI Search Readiness Audit</a> — $59</h3>
+      <ul>
+        <li>You want a one-click technical audit of the page you are viewing: raw-HTML coverage, AI Overviews eligibility, AI-crawler robots.txt matrix, dead schema detection.</li>
+        <li>You want the measurement to run 100% client-side with no account, no server, and no tracking.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="fit-crm">
+      <h3><a href="products.html#crm">CRM Dedup &amp; Migration Cleanup Kit</a> — $149</h3>
+      <ul>
+        <li>You are migrating a CRM and need to deduplicate a CSV export offline before import.</li>
+        <li>You want normalization, fuzzy matching with confidence tiers, dry-run merge plans, and machine-readable change logs (JSON + CSV).</li>
+        <li>You can review low-confidence matches yourself rather than auto-merging everything.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="fit-n8n">
+      <h3><a href="products.html#n8n">n8n Production AI Agent Reliability Kit</a> — $99</h3>
+      <ul>
+        <li>You run AI agents in n8n and want to test the documented failure classes (timeouts, empty results, malformed output, rate limits, runaway loops) before production.</li>
+        <li>You can write a JavaScript model of your agent from the documented shape for the eval harness to test.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="fit-mcp-audit">
+      <h3><a href="products.html#mcp-audit">MCP Launch Readiness Audit</a> — $79</h3>
+      <ul>
+        <li>You are about to launch an MCP server and want a 48-rule audit (tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, missing auth/hardening) with a concrete remediation for every finding.</li>
+        <li>You want hardened templates, a stress-test harness, and a CI workflow alongside the scanner.</li>
+      </ul>
+    </div>
+
+    <div class="card" id="fit-bundle">
+      <h3><a href="products.html#bundle">x402 + MCP Bundle</a> — $119</h3>
+      <ul>
+        <li>You need both kits above — per-API-call payments and per-MCP-tool-call payments — and want them at one bundle price.</li>
+      </ul>
+    </div>
+
+    <h2>Not appropriate for</h2>
+    <div class="card">
+      <ul>
+        <li><strong>Managed services.</strong> These are local utilities, not SaaS. There is no hosted dashboard, no managed API, no uptime SLA, no multi-user collaboration.</li>
+        <li><strong>Investment, trading, or tax advice.</strong> StableLedger organizes transaction records; it does not calculate taxes, does not give tax advice, and is not a financial product. The x402 kit verifies payments; it never holds keys or funds and never executes trades.</li>
+        <li><strong>Live CRM APIs.</strong> The CRM kit works on CSV exports, not live connections to HubSpot, Salesforce, or other CRMs.</li>
+        <li><strong>Live n8n instances.</strong> The n8n eval harness tests a JavaScript model of your agent that you write; it does not connect to a live n8n instance. Token-cost figures are simulated estimates.</li>
+        <li><strong>Certifications or penetration tests.</strong> The MCP Launch Readiness Audit is an audit, not a certification, and cannot prove the absence of vulnerabilities. It is not penetration testing.</li>
+        <li><strong>Guaranteed AI citations.</strong> The AI Search Readiness Audit reports what your page declares — measurements, not predictions. It cannot make an AI system cite your content.</li>
+        <li><strong>Non-Express stacks for x402.</strong> The x402 kit is Express/Node-focused; it is not a generic payment gateway for other frameworks.</li>
+        <li><strong>Subscription buyers.</strong> Every product is a one-time purchase with a single-seat perpetual license. If you need recurring delivery or managed hosting, these tools are the wrong choice.</li>
+      </ul>
+      <p>If none of the above applies to your situation, the honest move is to not buy. The free utilities and open-source projects stay free regardless.</p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload — small software that earns its keep.</span>
+    <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="products.json">Machine-readable catalog (JSON)</a></span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
