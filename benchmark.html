@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>x402 Failure-Mode Benchmark — Payload</title>
+<meta name="description" content="Reproducible black-box benchmark: the Payload x402 kit, x402-hono, and the official @x402/express SDK tested against 7 production x402 failure modes. Every number measured.">
+<link rel="canonical" href="https://payloadhq.github.io/benchmark.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="x402 Failure-Mode Benchmark — Payload">
+<meta property="og:description" content="Three real x402 implementations tested against 7 production failure modes: replay, 402 completeness, manifest parity, facilitator failure, dev-verifier guards, mismatch diagnostics, payment ledger.">
+<meta property="og:url" content="https://payloadhq.github.io/benchmark.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "x402 Failure-Mode Benchmark",
+  "description": "Reproducible black-box benchmark of three x402 server implementations against seven production failure modes.",
+  "author": { "@type": "Organization", "name": "Payload", "url": "https://payloadhq.github.io/" },
+  "datePublished": "2026-10-03"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://payloadhq.github.io/"},
+    {"@type": "ListItem", "position": 2, "name": "x402 Failure-Mode Benchmark", "item": "https://payloadhq.github.io/benchmark.html"}
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="questions.html">Questions</a>
+      <a href="benchmark.html" aria-current="page">Benchmark</a>
+      <a href="guides/index.html">Guides</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>x402 Failure-Mode Benchmark</h1>
+    <p class="lede">Three real x402 server implementations, tested black-box against the seven failure modes from <a href="https://dev.to/payload-tools/x402-in-production-the-failure-modes-nobody-warns-you-about-366o">x402 in production: the failure modes nobody warns you about</a>. Every number below was measured on 2026-10-03. Cells that would require spending real money on-chain or contacting a live facilitator are labeled <em>code inspection</em> and cite the exact source. Nothing is estimated.</p>
+
+    <table>
+      <thead>
+        <tr><th>#</th><th>Failure mode</th><th>Payload x402 kit 1.0.0</th><th>x402-hono 1.2.0</th><th>@x402/express 2.28.0 (official)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Replay: is a reused payment rejected?</td><td><strong>No</strong> (live). Same dev-verifier payment accepted twice across different nonces; expired requirements also accepted. Replay protection is delegated to the facilitator/chain in production.</td><td>n/a in middleware (code inspection). v1 exact scheme relies on on-chain EIP-3009 nonce + validity window.</td><td>n/a in middleware (code inspection). Same EIP-3009 mechanism.</td></tr>
+        <tr><td>2</td><td>402 completeness</td><td><strong>Complete</strong> (live). 402 + <code>payment-required</code> header + JSON body; amount, asset, network, payTo, expiresAt, nonce all present.</td><td><strong>Complete, body-only</strong> (live). <code>accepts[]</code> has scheme, network, maxAmountRequired, asset, payTo, maxTimeoutSeconds. No nonce field (v1 protocol).</td><td>Shape <code>{x402Version, error, resource, accepts[]}</code> (code inspection). No live test — needs a facilitator.</td></tr>
+        <tr><td>3</td><td>Manifest parity</td><td><strong>2/2 match</strong> (live). <code>/.well-known/x402</code> prices equal enforced prices.</td><td><strong>Absent</strong> (live). <code>/.well-known/x402</code> → 404.</td><td><strong>Absent</strong> (code inspection). Discovery via opt-in bazaar extension.</td></tr>
+        <tr><td>4</td><td>Facilitator down: fail open or closed?</td><td><strong>Fail closed</strong> (live). 402 on refused connection (40&nbsp;ms) and on hang (timeout honored, ~3000&nbsp;ms as configured).</td><td>Fail closed on error (code inspection), but the verify fetch has <strong>no client-side timeout</strong>.</td><td><strong>Fail closed</strong> (code inspection).</td></tr>
+        <tr><td>5</td><td>Dev-verifier boot guard</td><td><strong>None</strong> (code inspection). The example boots with the dev verifier unconditionally; "never ship it" is documentation, not enforcement.</td><td>n/a — no dev verifier exists.</td><td>n/a — no dev verifier exists.</td></tr>
+        <tr><td>6</td><td>Mismatch diagnostics</td><td><strong>Reason strings</strong> (live). <code>amount mismatch</code>, <code>wrong asset or network</code>, <code>wrong recipient</code> in the 402 body; no structured expected/actual fields.</td><td>Malformed → 402 with decoder error (live). Amount matching happens in the facilitator, not the middleware (code inspection).</td><td>Not tested (needs facilitator).</td></tr>
+        <tr><td>7</td><td>Payment ledger</td><td><strong>Yes</strong> (live). Append-only JSONL; <code>/api/ledger</code> endpoint; +2 paid calls → +2 entries.</td><td><strong>No</strong> (code inspection).</td><td><strong>No</strong> (code inspection).</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What this means</h2>
+    <p>The differences mostly reflect protocol generation (v1 vs v2) and scope (focused middleware vs full SDK), not a ranking. The Payload kit is the only implementation of the three with a manifest endpoint and a payment ledger; the official SDKs delegate replay protection and amount validation to the facilitator and the chain, which is the correct design for production but means those paths can't be verified without spending real money.</p>
+    <p>One honest correction: the companion dev.to article claims "the verifier rejects expired or already-seen nonces" — that does not hold for the kit's dev verifier in v1.0.0, as measured above. The dev verifier is a test double; production replay protection comes from the facilitator.</p>
+
+    <h2>Reproduce it</h2>
+    <p>All probe scripts and machine-readable results: <a href="https://github.com/Payloadhq/x402-failure-mode-benchmark">github.com/Payloadhq/x402-failure-mode-benchmark</a> — <code>/probes</code> (runnable) and <code>/results/results.json</code>. MIT licensed.</p>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload — small software that earns its keep.</span>
+    <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="benchmark.html">Benchmark</a> · <a href="benchmark.html">Benchmark</a> · <a href="products.json">Machine-readable catalog (JSON)</a></span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
