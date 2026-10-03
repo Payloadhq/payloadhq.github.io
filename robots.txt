@@ -1,0 +1,65 @@
+# Payload robots.txt — https://payloadhq.github.io/
+# Search-discovery crawlers (these power answers in ChatGPT, Claude, Perplexity, etc.): explicitly allowed.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+# Training crawlers: allowed by default. To opt OUT of AI training while keeping
+# search/answer discovery, uncomment the Disallow lines below.
+# (Blocking these would contradict the AI Search Readiness Audit's own "0 blocked" sample report.)
+User-agent: GPTBot
+Allow: /
+# Disallow: /
+
+User-agent: CCBot
+Allow: /
+# Disallow: /
+
+User-agent: anthropic-ai
+Allow: /
+# Disallow: /
+
+User-agent: ClaudeBot
+Allow: /
+# Disallow: /
+
+User-agent: Google-Extended
+Allow: /
+# Disallow: /
+
+User-agent: Applebot-Extended
+Allow: /
+# Disallow: /
+
+User-agent: Bytespider
+Allow: /
+# Disallow: /
+
+# Everyone else
+User-agent: *
+Allow: /
+
+Sitemap: https://payloadhq.github.io/sitemap.xml
