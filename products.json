@@ -15,7 +15,7 @@
       "price_usd": 79,
       "purpose": "Express middleware that charges AI agents per API call in USDC using the x402 payment flow: HTTP 402 challenges, payment verification, and an append-only usage ledger. Non-custodial.",
       "url": "https://payloadhq.github.io/products.html#x402",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "license_type": "one-time purchase, single-seat perpetual"
     },
     {
