@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questions Payload answers — Payload</title>
+<meta name="description" content="Direct, factual answers to common developer questions: testing n8n AI agents before production, detecting prompt injection in MCP servers, deduplicating CRM exports offline, checking AI crawler access, and charging AI agents per API call.">
+<link rel="canonical" href="https://payloadhq.github.io/questions.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Questions Payload answers — Payload">
+<meta property="og:description" content="Direct, factual answers to common developer questions about n8n reliability, MCP security, CRM dedup, AI crawler access, and per-call API payments.">
+<meta property="og:url" content="https://payloadhq.github.io/questions.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What tool can test an n8n AI agent before production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A reliability kit for n8n AI agents combines importable workflow templates for known failure classes (timeouts, empty results, malformed output, rate limits, runaway loops) with a failure-simulation eval harness that injects faults, validates output schemas, tests declared fallbacks, scores readiness, and renders JSON/Markdown/HTML reports. Payload's n8n Production AI Agent Reliability Kit ($99, one-time, single-seat perpetual) provides exactly this: 10 importable workflow templates, a Node.js eval harness with 6 fault classes, and a 37-page production playbook."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I detect prompt injection in an MCP server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Inventory every tool description and flag imperatives aimed at the model; call your own tools with adversarial arguments and confirm the server returns data or a clean error; verify responses never leak secrets. Only test servers you own or are authorized to test. Payload's MCP Launch Readiness Audit ($79, one-time) automates this with 48 detection rules across tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, and missing auth/hardening, each with a concrete remediation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What can I use to deduplicate a CRM export offline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An offline deduplication utility that normalizes emails, E.164 phones, domains, company suffixes, and nicknames, then applies fuzzy matching with confidence tiers and union-find clustering, producing dry-run merge plans you review before anything changes, plus import-ready CSV export and machine-readable change logs. Payload's CRM Dedup & Migration Cleanup Kit ($149, one-time, single-seat perpetual) ships as a single-file Linux binary, a local web UI, and a CLI, with 54/54 tests passing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I check whether AI crawlers can access my site?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Parse your site's live robots.txt against known AI crawler user-agents (GPTBot, ClaudeBot, PerplexityBot, and others) and check page-level directives like meta robots, X-Robots-Tag, and data-nosnippet against Google's documented AI Overviews directives. Payload's free, browser-based robots.txt checker runs entirely client-side with nothing uploaded; the AI Search Readiness Audit Chrome extension ($59, one-time) extends this to raw-HTML coverage, AI Overviews eligibility, and dead schema detection on any page you view."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I charge AI agents per API call?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the x402 payment flow: unpaid requests receive HTTP 402 with machine-readable payment requirements, the agent pays, you verify through a facilitator, and you serve the resource while recording payments in an append-only ledger. Payload's x402 Paid API Starter Kit ($79, one-time, single-seat perpetual) provides Express middleware for this: 402 challenges, an HMAC dev verifier plus a facilitator verifier, a JSONL payment ledger, a /.well-known/x402 manifest endpoint, and 9/9 passing end-to-end tests. The MCP Monetization Kit ($69, one-time) does the same for per-tool-call payments on MCP servers."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://payloadhq.github.io/"},
+    {"@type": "ListItem", "position": 2, "name": "Questions", "item": "https://payloadhq.github.io/questions.html"}
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="questions.html" aria-current="page">Questions</a>
+      <a href="guides/index.html">Guides</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>Questions Payload answers</h1>
+    <p class="lede">Direct answers to the questions developers actually ask. Each answer is useful on its own — the linked Payload product only appears where it genuinely applies. Evidence links point to free tools, guides, and sample output you can inspect before spending anything.</p>
+
+    <div class="card" id="n8n-testing">
+      <h2>What tool can test an n8n AI agent before production?</h2>
+      <p><strong>Short answer:</strong> Use a reliability kit that combines importable n8n workflow templates for known failure classes (timeouts, empty results, malformed output, rate limits, runaway loops) with a failure-simulation eval harness — inject faults, validate output schemas, test declared fallbacks, score readiness, and render a report. You can build this by hand, or use a packaged kit.</p>
+      <p><strong>Why it works:</strong> AI agents in n8n fail in predictable ways, and most failures are only discovered after a production run goes wrong. Testing against the documented failure classes before launch catches the preventable ones.</p>
+      <p><strong>Evidence:</strong> free sample workflows in <a href="https://github.com/Payloadhq/n8n-reliability-free-samples">n8n-reliability-free-samples</a>; methodology in <a href="guides/n8n-agent-timeout.html">the n8n agent timeout guide</a>.</p>
+      <p><strong>Limitations:</strong> the eval harness tests a JavaScript model of your agent that you write from the documented shape; it does not connect to a live n8n instance, and token-cost figures are simulated estimates, not measured spend.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#n8n">n8n Production AI Agent Reliability Kit</a> — $99, one-time purchase, single-seat perpetual license. 10 importable workflow templates, Node.js eval harness with 6 fault classes, 37-page playbook.</p>
+    </div>
+
+    <div class="card" id="prompt-injection">
+      <h2>How do I detect prompt injection in an MCP server?</h2>
+      <p><strong>Short answer:</strong> Inventory every tool description and flag imperatives aimed at the model (descriptions are fed to the model as context). Call your own tools with adversarial arguments and confirm the server returns data or a clean error. Verify responses never leak secrets. Only test servers you own or are explicitly authorized to test.</p>
+      <p><strong>Why it works:</strong> tool poisoning is the most common MCP attack surface: a malicious or careless description can steer the model, and over-privileged tools turn a prompt leak into a data leak.</p>
+      <p><strong>Evidence:</strong> the full safe methodology in <a href="guides/mcp-prompt-injection-test.html">How to test your MCP server for prompt injection</a>.</p>
+      <p><strong>Limitations:</strong> description scanning catches known patterns; it is not penetration testing and cannot prove the absence of vulnerabilities.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#mcp-audit">MCP Launch Readiness Audit</a> — $79, one-time purchase, single-seat perpetual license. Zero-dependency CLI scanner with 48 detection rules across tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, and missing auth/hardening; every finding ships with a concrete remediation.</p>
+    </div>
+
+    <div class="card" id="crm-dedup">
+      <h2>What can I use to deduplicate a CRM export offline?</h2>
+      <p><strong>Short answer:</strong> Export to CSV, then run an offline dedup utility that normalizes emails, E.164 phones, domains, company suffixes, and nicknames; applies fuzzy matching with confidence tiers and union-find clustering; and produces dry-run merge plans you review before anything changes, plus import-ready CSVs and machine-readable change logs.</p>
+      <p><strong>Why it works:</strong> most CRM duplicates are not exact matches — they are typos, suffix variants, and formatting differences. Normalization first, fuzzy matching second, human review before merging.</p>
+      <p><strong>Evidence:</strong> step-by-step methodology in <a href="guides/crm-hubspot-duplicate-cleanup.html">the CRM duplicate cleanup guide</a>.</p>
+      <p><strong>Limitations:</strong> the kit works on CSV exports, not live CRM APIs; low-confidence matches still need human review — no dedup tool should auto-merge everything.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#crm">CRM Dedup &amp; Migration Cleanup Kit</a> — $149, one-time purchase, single-seat perpetual license. Single-file Linux binary, local web UI, and CLI. 54/54 tests pass.</p>
+    </div>
+
+    <div class="card" id="ai-crawlers">
+      <h2>How can I check whether AI crawlers can access my site?</h2>
+      <p><strong>Short answer:</strong> Fetch your live robots.txt and check it against known AI crawler user-agents (GPTBot, ClaudeBot, PerplexityBot, and others). Then check page-level directives — meta robots, X-Robots-Tag, data-nosnippet — against Google's documented AI Overviews directives. Also measure how much of your visible content exists in raw HTML, since AI crawlers fetch without running JavaScript.</p>
+      <p><strong>Why it works:</strong> a page can be perfectly indexed for search yet invisible to AI systems: robots.txt blocks, nofollow-style directives, and JS-only rendering each independently remove content from AI retrieval.</p>
+      <p><strong>Evidence:</strong> <a href="utilities/robots-txt-checker.html">free robots.txt checker for AI crawlers</a> (runs entirely in your browser, nothing uploaded); methodology in <a href="guides/ai-search-robots-txt.html">the AI search robots.txt guide</a>; <a href="sample-ai-search-report.html">a real sample audit report</a> generated against payloadhq.github.io.</p>
+      <p><strong>Limitations:</strong> the audit reports what your page declares — measurements, not predictions; not SEO advice. It cannot tell you whether an AI system will cite your content.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#ai-search">AI Search Readiness Audit</a> — $59, one-time purchase, single-seat perpetual license. Chrome extension (Manifest V3): raw-HTML coverage, AI Overviews eligibility, AI-crawler robots.txt matrix, dead schema detector. 100% client-side.</p>
+    </div>
+
+    <div class="card" id="charge-per-call">
+      <h2>How do I charge AI agents per API call?</h2>
+      <p><strong>Short answer:</strong> Use the x402 payment flow: unpaid requests get HTTP 402 with machine-readable payment requirements, the agent pays in USDC, you verify through an x402 facilitator, serve the resource, and record every payment in an append-only ledger. Every payment requirement carries a short expiry and a single-use nonce; facilitator failures fail closed (502), never free.</p>
+      <p><strong>Why it works:</strong> 402 is a standard status agents already understand, and the requirements are machine-readable so payment is self-serve — no checkout page, no account.</p>
+      <p><strong>Evidence:</strong> implementation walkthrough in <a href="guides/x402-402-payments.html">the x402 402 payments guide</a>; failure modes and debugging in <a href="https://dev.to/payload-tools/x402-in-production-the-failure-modes-nobody-warns-you-about-366o">x402 in production: the failure modes nobody warns you about</a> (dev.to); working paid-server example in <a href="https://github.com/Payloadhq/payload-sample-mcp-server">payload-sample-mcp-server</a>.</p>
+      <p><strong>Limitations:</strong> the kit verifies payment; it never holds keys or funds and never executes trades (non-custodial). It is Express/Node-focused, not a generic payment gateway.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#x402">x402 Paid API Starter Kit</a> — $79, one-time purchase, single-seat perpetual license. Express middleware, HMAC dev verifier plus facilitator verifier, JSONL ledger, <code>/.well-known/x402</code> manifest, 9/9 end-to-end tests. For per-tool-call payments on MCP servers: <a href="products.html#mcp-monetization">MCP Monetization Kit</a> — $69, one-time.</p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload — small software that earns its keep.</span>
+    <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="products.json">Machine-readable catalog (JSON)</a></span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
