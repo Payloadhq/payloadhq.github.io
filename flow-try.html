@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try Payload Flow live — one click | Payload</title>
+<meta name="description" content="One click: get a real API key, load a revenue graph, run an event, see the entitlements. Against the live Payload Flow API.">
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; max-width: 640px; margin: 0 auto; padding: 24px 16px; color: #1a1a1a; }
+  h1 { font-size: 1.5em; }
+  button { background: #0052ff; color: white; border: none; border-radius: 10px; padding: 16px 24px; font-size: 1.05em; width: 100%; cursor: pointer; }
+  button:disabled { background: #999; }
+  .step { border-left: 3px solid #0052ff; padding: 8px 0 8px 16px; margin: 12px 0; }
+  .step.done { border-color: #0a7c2e; }
+  .step .t { font-weight: 600; }
+  .step .d { color: #555; font-size: 0.92em; }
+  .key { font-family: monospace; font-size: 0.8em; word-break: break-all; background: #f5f5f5; padding: 10px; border-radius: 8px; }
+  pre { background: #f5f5f5; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 0.78em; }
+  .muted { color: #666; font-size: 0.9em; }
+  .err { color: #c00; }
+</style>
+</head>
+<body>
+<h1>Try Payload Flow live, in one click</h1>
+<p class="muted">This runs against the real API (<code>payload-rail.fly.dev</code>). One click gets you a real API key, loads a marketplace revenue graph, and processes a $100 sale. The key is yours to keep.</p>
+<button id="go" onclick="run()">Run it</button>
+<div id="steps"></div>
+
+<script>
+const BASE = 'https://payload-rail.fly.dev';
+const $ = id => document.getElementById(id);
+
+function step(t, d) {
+  const el = document.createElement('div');
+  el.className = 'step';
+  el.innerHTML = '<div class="t">' + t + '</div><div class="d">' + d + '</div>';
+  $('steps').appendChild(el);
+  return el;
+}
+function done(el) { el.classList.add('done'); }
+
+async function run() {
+  $('go').disabled = true;
+  $('steps').innerHTML = '';
+  try {
+    let s = step('Getting your API key…', 'POST /v1/access-keys');
+    let r = await fetch(BASE + '/v1/access-keys', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({label:'one-click-trial'}) });
+    let d = await r.json();
+    const KEY = d.key, H = { 'Authorization': 'Bearer ' + KEY, 'Content-Type': 'application/json' };
+    done(s);
+
+    s = step('Loading a marketplace graph…', '5% affiliate, 10% platform, remainder to seller');
+    const graph = {
+      id: 'trial_market', projectId: 'trial', ownerId: 'platform',
+      participants: [
+        {id:'platform',kind:'company',roles:['platform','owner']},
+        {id:'seller',kind:'person',roles:['contributor']},
+        {id:'affiliate',kind:'person',roles:['referrer']}
+      ],
+      rules: [
+        {id:'r_fee',type:'payload_fee',priority:1,params:{licenseTier:'free'}},
+        {id:'r_aff',type:'referral',priority:2,params:{rateBps:500}},
+        {id:'r_plat',type:'platform_fee',priority:3,params:{rateBps:1000,subjectParticipantId:'platform'}},
+        {id:'r_sell',type:'remainder',priority:4,params:{subjectParticipantId:'seller'}}
+      ]
+    };
+    r = await fetch(BASE + '/v1/graphs', { method: 'POST', headers: H, body: JSON.stringify(graph) });
+    if (!r.ok && r.status !== 409) throw new Error('graph failed: ' + r.status);
+    await fetch(BASE + '/v1/graphs/trial_market/activate', { method: 'POST', headers: H });
+    done(s);
+
+    s = step('Processing a $100 sale…', 'POST /v1/graphs/trial_market/events');
+    const evt = { eventId: 'evt_' + Date.now(), graphId: 'trial_market', type: 'MARKETPLACE_TRANSACTION',
+      rail: 'stripe', occurredAt: new Date().toISOString(),
+      amountMicros: 100000000, processingCostMicros: 3300000, currency: 'USD', raw: {},
+      attribution: { referrerId: 'affiliate' } };
+    r = await fetch(BASE + '/v1/graphs/trial_market/events', { method: 'POST', headers: H, body: JSON.stringify({event: evt}) });
+    d = await r.json();
+    if (d.error) throw new Error(d.error.message);
+    done(s);
+
+    s = step('Entitlements — who gets paid', 'exact conservation, every line explained');
+    const ents = (d.entitlements || []).map(e => ({ participant: e.participantId, amount_usd: (e.amountMicros/1e6).toFixed(4), reason: e.reason }));
+    s.querySelector('.d').innerHTML = '<pre>' + JSON.stringify(ents, null, 2) + '</pre>';
+    done(s);
+
+    s = step('Your key — keep it', 'This key is real. Use it in the quickstart.');
+    s.querySelector('.d').innerHTML = '<div class="key">' + KEY + '</div><p class="muted">Full quickstart: <a href="flow-rail.html">flow-rail.html</a> · Sandbox (no key): <a href="flow-sandbox.html">flow-sandbox.html</a></p>';
+    done(s);
+  } catch (e) {
+    const el = document.createElement('div');
+    el.innerHTML = '<p class="err">' + (e.message || e) + '</p>';
+    $('steps').appendChild(el);
+    $('go').disabled = false;
+  }
+}
+</script>
+</body>
+</html>
