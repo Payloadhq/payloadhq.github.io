@@ -7,7 +7,7 @@ Practical tools that make AI, automation, and business infrastructure safer, cle
 - Free utilities: https://payloadhq.github.io/utilities/robots-txt-checker.html
 - Docs & GitHub: https://payloadhq.github.io/docs.html
 - Changelog: https://payloadhq.github.io/changelog.html
-- Support: kylers.partners@gmail.com
+- Support: kyler.simmons.partners@gmail.com
 
 ## Products (one-time purchase, single-seat perpetual license)
 
