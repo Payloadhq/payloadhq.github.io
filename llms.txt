@@ -9,6 +9,19 @@ Practical tools that make AI, automation, and business infrastructure safer, cle
 - Changelog: https://payloadhq.github.io/changelog.html
 - Support: kyler.simmons.partners@gmail.com
 
+## RevRule by Payload — Programmable Economic Infrastructure
+
+RevRule is a programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money. Create persistent rules for royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees, and API/x402 revenue. RevRule remembers economic state across transactions, applies the correct rules when new revenue events occur, and produces an auditable record of what each participant is entitled to. Your payment rail moves the money. RevRule determines the economics.
+
+- Product page: https://payloadhq.github.io/products.html#revrule
+- Try it live (free, one click, real API): https://payloadhq.github.io/flow-try.html
+- Browser sandbox (simulated): https://payloadhq.github.io/flow-sandbox.html
+- Hosted API base URL: https://payload-rail.fly.dev
+- API health: https://payload-rail.fly.dev/health
+- Open source engine (MIT): https://github.com/Payloadhq/payload-flow
+- Pricing: free sandbox for evaluation; $99 one-time purchase for production. No subscription.
+- x402: machine payments accepted in USDC on Base, verified on-chain.
+
 ## Products (one-time purchase, single-seat perpetual license)
 
 - x402 Paid API Starter Kit ($79): Express middleware charging AI agents per API call in USDC via x402. HTTP 402 challenges, payment verification, usage ledger. Non-custodial; never holds keys or funds. https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit
