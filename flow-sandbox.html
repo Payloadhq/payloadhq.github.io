@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flow Sandbox — program the economics, watch the money move</title>
-<meta name="description" content="Run the real Payload Flow revenue engine in your browser. Program who earns from a revenue event, watch entitlements compute to the micro-unit, and inspect the audit ledger. Simulated; nothing moves money.">
+<meta name="description" content="Run the real RevRule revenue engine in your browser. Program who earns from a revenue event, watch entitlements compute to the micro-unit, and inspect the audit ledger. Simulated; nothing moves money.">
 <link rel="canonical" href="https://payloadhq.github.io/flow-sandbox.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
 <meta property="og:title" content="Flow Sandbox — program the economics, watch the money move">
-<meta property="og:description" content="The real Payload Flow engine, running in your browser. Three scenarios, your own splits, exact conservation, inspectable ledger.">
+<meta property="og:description" content="The real RevRule engine, running in your browser. Three scenarios, your own splits, exact conservation, inspectable ledger.">
 <meta property="og:url" content="https://payloadhq.github.io/flow-sandbox.html">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="style.css">
@@ -54,7 +54,7 @@
 <main id="main">
   <div class="wrap">
     <h1>Flow Sandbox — program the economics, watch the money move</h1>
-    <p class="lede">This page runs the actual Payload Flow revenue engine in your browser, the same code that processed real money during acceptance testing. Pick a scenario, run a revenue event, and watch every micro-unit get assigned, explained, and recorded. Nothing here moves money. Every distribution the engine produces is a proposal, never an execution.</p>
+    <p class="lede">This page runs the actual RevRule revenue engine in your browser, the same code that processed real money during acceptance testing. Pick a scenario, run a revenue event, and watch every micro-unit get assigned, explained, and recorded. Nothing here moves money. Every distribution the engine produces is a proposal, never an execution.</p>
 
     <div class="proof">
       <strong>Proof this engine handles real money.</strong> It processed a $1.00 Stripe charge, two 0.10 USDC settlements on Base Sepolia (<a href="https://sepolia.basescan.org/tx/0x697a0478728b99217186c49a896a7efea31f309f0fd925fc87db00978c6a3f4b">tx 1</a>, <a href="https://sepolia.basescan.org/tx/0x5e68be94cae1b74af31d1a1fe23483c9eae5a50a74ab4e7363f419f33bc9e617">tx 2</a>), and a $1,000 royalty statement, with every split verified to the micro-unit. Sandbox runs below are simulated.
@@ -103,7 +103,7 @@
       <li><strong>Ledger entries</strong> are hash chained. Each entry links the event to the graph version and the rule that produced it.</li>
       <li>The recoupment scenario is stateful: run it six times and watch the $5,000 advance finish recouping before the splits begin.</li>
     </ul>
-    <p class="note">Payload Flow observes economic events, computes who is owed what, and proposes payout instructions. Regulated partners move the money. The engine never holds funds and never controls settlement. Full source: <a href="https://github.com/Payloadhq/payload-flow">github.com/Payloadhq/payload-flow</a>.</p>
+    <p class="note">RevRule observes economic events, computes who is owed what, and proposes payout instructions. Regulated partners move the money. The engine never holds funds and never controls settlement. Full source: <a href="https://github.com/Payloadhq/payload-flow">github.com/Payloadhq/payload-flow</a>.</p>
   </div>
 </main>
 <footer class="site">
