@@ -4,27 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RevRule API Reference — Payload</title>
-<meta name="description" content="RevRule API reference: create Revenue Graphs, process economic events, simulate, read the ledger, and settle fees. REST + JSON, Bearer auth.">
+<meta name="description" content="RevRule API reference: create Revenue Graphs, post economic events, simulate entitlements, read the ledger. OpenAPI spec, Postman collection, and machine-readable docs.">
 <link rel="canonical" href="https://payloadhq.github.io/revrule-api.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
 <meta property="og:title" content="RevRule API Reference — Payload">
-<meta property="og:description" content="RevRule API reference: Revenue Graphs, economic events, entitlements, ledger, x402.">
+<meta property="og:description" content="RevRule API reference: Revenue Graphs, economic events, entitlements, ledger. OpenAPI spec and Postman collection included.">
 <meta property="og:url" content="https://payloadhq.github.io/revrule-api.html">
 <meta property="og:image" content="https://payloadhq.github.io/logo.png">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="style.css">
-<style>
-code.block{display:block;white-space:pre-wrap;background:#f6f8fb;border:1px solid #e3e8f0;border-radius:8px;padding:12px 14px;margin:8px 0;font-size:13px}
-.endpoint{border:1px solid #e3e8f0;border-radius:10px;padding:16px;margin:20px 0}
-.endpoint h3{margin-top:0}
-.method{display:inline-block;font-weight:700;font-size:13px;padding:3px 10px;border-radius:6px;margin-right:8px}
-.get{background:#e8f5e9;color:#1b5e20}.post{background:#e3f2fd;color:#0d47a1}
-.tag-auth{font-size:12px;color:#666;margin-left:8px}
-table.params{width:100%;border-collapse:collapse;margin:8px 0;font-size:14px}
-table.params th,table.params td{border:1px solid #e3e8f0;padding:8px 10px;text-align:left;vertical-align:top}
-table.params th{background:#f6f8fb}
-</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -38,7 +27,7 @@ table.params th{background:#f6f8fb}
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
       <a href="utilities/robots-txt-checker.html">Free utilities</a>
-      <a href="docs.html" aria-current="page">Docs &amp; GitHub</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
       <a href="changelog.html">Changelog</a>
     </nav>
   </div>
@@ -46,188 +35,73 @@ table.params th{background:#f6f8fb}
 <main id="main">
   <div class="wrap">
     <h1>RevRule API Reference</h1>
-    <p class="lede">RevRule by Payload: a programmable revenue rules engine. Define a Revenue Graph, send economic events, get auditable entitlements. Your payment rail moves the money. RevRule determines the economics.</p>
+    <p class="lede">RevRule is a programmable revenue rules engine: post economic events, and it computes who earns what, writes the ledger, and accrues settlement. Base URL <code>https://payload-rail.fly.dev</code>. Auth: <code>Authorization: Bearer YOUR_API_KEY</code>.</p>
 
-    <h2>Base URL</h2>
-    <code class="block">https://payload-rail.fly.dev</code>
+    <h2>Machine-readable</h2>
+    <div class="card">
+      <p><strong>OpenAPI 3.1:</strong> <a href="https://payload-rail.fly.dev/openapi.json">payload-rail.fly.dev/openapi.json</a> — 17 paths, import into Postman, Insomnia, or generate a client.</p>
+      <p><strong>LLM docs:</strong> <a href="https://payload-rail.fly.dev/llms.txt">payload-rail.fly.dev/llms.txt</a> — the whole API in one plain-text file for agents and coding assistants.</p>
+      <p><strong>x402 manifest:</strong> <a href="https://payload-rail.fly.dev/.well-known/x402">/.well-known/x402</a> — machine payment metadata for the paid endpoints.</p>
+    </div>
 
-    <h2>Authentication</h2>
-    <p>All <code>/v1</code> endpoints except <code>/health</code>, <code>/v1/access-keys</code>, and <code>/v1/crypto/config</code> require a Bearer API key:</p>
-    <code class="block">Authorization: Bearer YOUR_API_KEY</code>
-    <p>Get a free key with one call (no credit card). Five keys per IP per 24 hours.</p>
+    <h2>Core endpoints</h2>
+    <div class="card">
+      <h3>Graphs</h3>
+      <p><code>POST /v1/graphs</code> — create a Revenue Graph (name + rules).<br>
+      <code>GET /v1/graphs/{id}</code> — fetch a graph.<br>
+      <code>POST /v1/graphs/{id}/activate</code> — activate a graph for production events.</p>
+      <h3>Events &amp; entitlements</h3>
+      <p><code>POST /v1/graphs/{id}/events</code> — post an economic event (<code>eventId</code>, <code>type</code>, <code>amountMicros</code>, <code>currency</code>). Idempotent on <code>eventId</code>: replays return the original result.<br>
+      <code>POST /v1/graphs/{id}/simulate</code> — dry-run an event, see entitlements without writing the ledger.<br>
+      <code>GET /v1/graphs/{id}/ledger</code> — read ledger entries for a graph.</p>
+      <h3>Crypto</h3>
+      <p><code>GET /v1/crypto/config</code> — accepted assets and receiving address.<br>
+      <code>POST /v1/crypto/purchase</code> — buy a $99 RevRule license with USDC on Base.<br>
+      <code>POST /v1/crypto/fees/settle</code> — settle accrued fees on-chain.<br>
+      <code>GET /v1/fees/balance</code> — accrued fee balances.</p>
+      <h3>x402 machine commerce</h3>
+      <p><code>POST /v1/x402/event</code> — pay-per-call event endpoint (402 + payment requirements when unpaid).<br>
+      <code>GET /v1/x402/public/evaluate</code> — free public evaluation entry point.</p>
+    </div>
 
-    <h2>Quickstart: first economic event in 3 calls</h2>
+    <h2>Quickstart</h2>
+    <div class="card">
+<pre><code># 1. Get an API key (free sandbox in the console)
+#    https://payload-rail.fly.dev/revrule-console/
 
-    <h3>1. Get an API key</h3>
-    <code class="block">curl -X POST https://payload-rail.fly.dev/v1/access-keys \
+# 2. Create a graph
+curl -X POST https://payload-rail.fly.dev/v1/graphs \
+  -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
-  -d '{"label":"quickstart"}'
-# → {"key":"...","accountId":"acct_...","tier":"free"}</code>
+  -d '{"name":"marketplace-v1","rules":[{"type":"percentage","splits":[{"to":"platform","pct":10},{"to":"seller","pct":90}]}]}'
 
-    <h3>2. Create a Revenue Graph</h3>
-    <code class="block">curl -X POST https://payload-rail.fly.dev/v1/graphs \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+# 3. Post an event (amounts in micro-units: 1_000_000 = 1.00)
+curl -X POST https://payload-rail.fly.dev/v1/graphs/GRAPH_ID/events \
+  -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
-  -d '{
-    "id": "marketplace-v1",
-    "participants": [
-      {"id":"seller","type":"person"},
-      {"id":"platform","type":"platform"},
-      {"id":"referrer","type":"person"}
-    ],
-    "rules": [
-      {"id":"platform-fee","type":"percentage","value":10,"payee":"platform"},
-      {"id":"referral","type":"percentage","value":5,"payee":"referrer"},
-      {"id":"seller-remainder","type":"remainder","payee":"seller"}
-    ]
-  }'
-# → 201 {"graph":{...}}</code>
+  -d '{"event":{"eventId":"sale-1","type":"revenue","amountMicros":"25000000","currency":"USD"}}'
 
-    <h3>3. Process an economic event</h3>
-    <code class="block">curl -X POST https://payload-rail.fly.dev/v1/graphs/marketplace-v1/events \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "event": {
-      "eventId": "evt-001",
-      "graphId": "marketplace-v1",
-      "amountMicros": 100000000,
-      "currency": "USD",
-      "occurredAt": "2026-10-04T12:00:00Z"
-    }
-  }'
-# → {"eventId":"evt-001","entitlements":[
-#      {"participantId":"platform","amountMicros":10000000},
-#      {"participantId":"referrer","amountMicros":5000000},
-#      {"participantId":"seller","amountMicros":85000000}
-#    ], ...}</code>
-    <p>Amounts are in micro-units (1,000,000 micros = 1.00). The response is a <em>proposed</em> distribution. RevRule never moves money.</p>
-
-    <h2>Endpoint reference</h2>
-
-    <div class="endpoint">
-      <h3><span class="method get">GET</span> /health <span class="tag-auth">public</span></h3>
-      <p>Service status.</p>
-      <code class="block">curl https://payload-rail.fly.dev/health
-# → {"ok":true}</code>
+# 4. Read the ledger
+curl https://payload-rail.fly.dev/v1/graphs/GRAPH_ID/ledger \
+  -H "Authorization: Bearer $KEY"</code></pre>
     </div>
 
-    <div class="endpoint">
-      <h3><span class="method post">POST</span> /v1/access-keys <span class="tag-auth">public</span></h3>
-      <p>Issue a free API key. Rate limited: 5 per IP per 24 hours. The key is shown once.</p>
-      <table class="params">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-        <tr><td><code>label</code></td><td>string, optional</td><td>Human-readable label, max 200 chars.</td></tr>
-      </table>
+    <h2>Try it without writing code</h2>
+    <div class="card">
+      <p><strong>Postman:</strong> fork the <a href="https://www.postman.com/payloadtools-4441886">Payload public workspace</a> — the RevRule collection runs the whole quickstart with one click per request.</p>
+      <p><strong>CSV import:</strong> <code>npx revrule-csv-import revenue.csv --graph GRAPH_ID --api-key $KEY --dry-run</code> — turn a Stripe export or payout CSV into events. <a href="https://github.com/Payloadhq/revrule-csv-import">GitHub</a>.</p>
+      <p><strong>Console:</strong> <a href="https://payload-rail.fly.dev/revrule-console/">revrule-console</a> — visual sandbox, free, no credit card.</p>
     </div>
 
-    <div class="endpoint">
-      <h3><span class="method post">POST</span> /v1/graphs <span class="tag-auth">auth</span></h3>
-      <p>Define a Revenue Graph (created in <code>draft</code> status). Graph IDs must be unique per account.</p>
-      <table class="params">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-        <tr><td><code>id</code></td><td>string, required</td><td>Unique graph identifier.</td></tr>
-        <tr><td><code>participants</code></td><td>array, required</td><td>Participants with <code>id</code> and <code>type</code>.</td></tr>
-        <tr><td><code>rules</code></td><td>array, required</td><td>Ordered rules: <code>percentage</code>, <code>fixed</code>, <code>remainder</code>, referral, recoupment, waterfall, caps.</td></tr>
-      </table>
+    <h2>Rules of the road</h2>
+    <div class="card">
+      <p>RevRule computes entitlements; it never moves money. Amounts are integers in micro-units (6 decimals). Events are idempotent on <code>eventId</code>. The sandbox is free for evaluation; production Revenue Graphs need the $99 one-time license.</p>
     </div>
-
-    <div class="endpoint">
-      <h3><span class="method get">GET</span> /v1/graphs/:id <span class="tag-auth">auth</span></h3>
-      <p>Fetch a graph definition with its current version and status.</p>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method post">POST</span> /v1/graphs/:id/activate <span class="tag-auth">auth</span></h3>
-      <p>Activate a draft graph so it can process live events. Rule changes create new versions behind an approval gate.</p>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method post">POST</span> /v1/graphs/:id/events <span class="tag-auth">auth</span></h3>
-      <p>Process a live economic event. Computes entitlements, writes ledger entries, accrues the Payload infrastructure fee. Idempotent on <code>eventId</code>: replays return the original result.</p>
-      <table class="params">
-        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-        <tr><td><code>event.eventId</code></td><td>string, required</td><td>Unique event ID (idempotency key).</td></tr>
-        <tr><td><code>event.graphId</code></td><td>string, required</td><td>Must match the URL graph ID.</td></tr>
-        <tr><td><code>event.amountMicros</code></td><td>integer, required</td><td>Event value in micro-units.</td></tr>
-        <tr><td><code>event.currency</code></td><td>string, required</td><td>ISO currency code.</td></tr>
-        <tr><td><code>event.occurredAt</code></td><td>string, required</td><td>ISO 8601 timestamp.</td></tr>
-      </table>
-      <p>Response includes <code>entitlements</code>, <code>fees</code>, <code>distributions</code> (proposed), and <code>ledgerEntries</code>.</p>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method post">POST</span> /v1/graphs/:id/simulate <span class="tag-auth">auth</span></h3>
-      <p>Dry run. Same computation as <code>/events</code> with zero side effects: no ledger writes, no state changes. Use it to preview rule changes.</p>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method get">GET</span> /v1/graphs/:id/ledger <span class="tag-auth">auth</span></h3>
-      <p>Read ledger entries with hash-chain verification. Filter by <code>?eventId=</code>, <code>?participantId=</code>, <code>?type=</code>.</p>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method get">GET</span> /v1/crypto/config <span class="tag-auth">public</span></h3>
-      <p>Machine-readable payment configuration: network, asset, contract, destination, prices.</p>
-      <code class="block">curl https://payload-rail.fly.dev/v1/crypto/config
-# → {"enabled":true,"network":"eip155:8453","asset":"USDC",
-#     "purchasePriceUsdc":"99","eventPriceUsdc":"0.01",...}</code>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method post">POST</span> /v1/crypto/purchase <span class="tag-auth">public</span></h3>
-      <p>Register a $99 one-time production purchase paid in USDC on Base. Send 99 USDC to the configured destination, then POST the transaction hash. Verified on-chain; replay-protected.</p>
-      <code class="block">curl -X POST https://payload-rail.fly.dev/v1/crypto/purchase \
-  -H "Content-Type: application/json" \
-  -d '{"txHash":"0x...","accountId":"acct_..."}'</code>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method get">GET</span> /v1/fees/balance <span class="tag-auth">auth</span></h3>
-      <p>Accrued Payload infrastructure fee balance for the account.</p>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method post">POST</span> /v1/crypto/fees/settle <span class="tag-auth">auth</span></h3>
-      <p>Settle accrued infrastructure fees in USDC on Base. POST the settlement transaction hash; verified on-chain.</p>
-    </div>
-
-    <div class="endpoint">
-      <h3><span class="method post">POST</span> /v1/x402/event <span class="tag-auth">auth</span></h3>
-      <p>Machine-commerce entry point. Accepts x402 payment proofs and converts them into RevRule economic events: the agent pays, RevRule programs who participates. Returns HTTP 402 with machine-readable payment requirements when payment is missing.</p>
-    </div>
-
-    <h2>Errors</h2>
-    <p>All errors return JSON with <code>error.code</code> and <code>error.message</code>:</p>
-    <code class="block">{"error":{"code":"GRAPH_NOT_FOUND","message":"graph \"x\" not found"}}</code>
-    <table class="params">
-      <tr><th>Code</th><th>Meaning</th></tr>
-      <tr><td><code>UNAUTHORIZED</code></td><td>Missing or invalid Bearer key.</td></tr>
-      <tr><td><code>INVALID_BODY</code></td><td>Request body failed validation.</td></tr>
-      <tr><td><code>GRAPH_NOT_FOUND</code></td><td>No graph with that ID for this account.</td></tr>
-      <tr><td><code>DUPLICATE_GRAPH</code></td><td>Graph ID already exists.</td></tr>
-      <tr><td><code>EVENT_GRAPH_MISMATCH</code></td><td>Event graphId does not match the URL.</td></tr>
-      <tr><td><code>RATE_LIMITED</code></td><td>Too many requests; check <code>Retry-After</code>.</td></tr>
-      <tr><td><code>INVALID_GRAPH_SPEC</code></td><td>Graph definition failed validation.</td></tr>
-    </table>
-
-    <h2>Rate limits</h2>
-    <ul>
-      <li>Key issuance: 5 per IP per 24 hours.</li>
-      <li>Authenticated endpoints: per-key rate limiting; <code>429</code> with <code>Retry-After</code> when exceeded.</li>
-    </ul>
-
-    <h2>What RevRule does not do</h2>
-    <p>RevRule computes who is entitled to what. It never holds funds, never executes payouts, never moves money. Your Stripe account, crypto wallet, or payment rail executes the distributions RevRule proposes. The ledger is an auditable record of entitlements, not a money-movement log.</p>
-
-    <p>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a>.</p>
   </div>
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>Payload — small software that earns its keep.</span>
-    <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="benchmark.html">Benchmark</a> · <a href="products.json">Machine-readable catalog (JSON)</a></span>
-    <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a>.</span>
+    <p>Built by <a href="https://payloadhq.github.io/">Payload</a> — small, sharp tools for developers.</p>
   </div>
 </footer>
 </body>
