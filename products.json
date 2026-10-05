@@ -4,9 +4,9 @@
   "license_type": "one-time purchase, single-seat perpetual",
   "products": [
     {
-      "name": "RevRule",
+      "name": "RevRule by Payload",
       "category": "Programmable economic infrastructure",
-      "purpose": "RevRule is a programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money. Create persistent rules for royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees, and API/x402 revenue. Your payment rail moves the money. RevRule determines the economics.",
+      "purpose": "RevRule is a programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money. Create persistent rules for royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees, and API/x402 revenue. Your payment system moves the money. RevRule decides who earns what.",
       "url": "https://payloadhq.github.io/products.html#revrule",
       "api_base_url": "https://payload-rail.fly.dev",
       "try_url": "https://payloadhq.github.io/flow-try.html",
@@ -34,7 +34,7 @@
       "price_usd": 79,
       "purpose": "Express middleware that charges AI agents per API call in USDC using the x402 payment flow: HTTP 402 challenges, payment verification, and an append-only usage ledger. Non-custodial.",
       "url": "https://payloadhq.github.io/products.html#x402",
-      "version": "1.0.1",
+      "version": "1.0.4",
       "license_type": "one-time purchase, single-seat perpetual"
     },
     {
@@ -72,7 +72,7 @@
       "checkout_url": "https://payloadtools.gumroad.com/l/x402-mcp-bundle",
       "documentation_url": "https://payloadhq.github.io/docs.html",
       "inputs": "HTTP API routes (Express) and MCP tool calls (official MCP SDK)",
-      "name": "x402 + MCP Bundle",
+      "name": "x402 plus MCP Monetization Kit Bundle",
       "platforms": [
         "Node.js 18+"
       ],
