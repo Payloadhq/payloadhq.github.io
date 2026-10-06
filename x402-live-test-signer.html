@@ -75,7 +75,7 @@ anywhere.</b></p>
 const USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
 const CHAIN_ID = 8453;
 const PAY_TO = "0xb3ecD1c309bEe30744D28f4B8957aA26D755B36A";
-const TRANSFER_WITH_AUTH_SELECTOR = "0xe3ee160e";
+const TRANSFER_WITH_AUTH_SELECTOR = "e3ee160e"; // no 0x: added once at send time
 let account = null, accepts0 = null, signedAuth = null, signedSig = null, submitted = false;
 
 const $ = id => document.getElementById(id);
