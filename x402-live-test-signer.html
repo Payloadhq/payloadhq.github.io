@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payload x402 — $0.01 Live Test Signer</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:640px;margin:0 auto;padding:20px;color:#1a1a1a}
+h1{font-size:20px}h2{font-size:16px;margin-top:28px}
+.card{border:1px solid #ddd;border-radius:10px;padding:16px;margin:12px 0}
+button{background:#0f172a;color:#fff;border:none;border-radius:8px;padding:12px 18px;font-size:15px;cursor:pointer;margin:6px 0}
+button:disabled{opacity:.4;cursor:default}
+input,textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:14px;margin:6px 0}
+textarea{font-family:monospace;font-size:12px}
+.ok{color:#047857;font-weight:600}.err{color:#b91c1c;font-weight:600}
+.mono{font-family:monospace;font-size:13px;word-break:break-all}
+.small{font-size:13px;color:#555}
+.warn{background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:12px;margin:12px 0;font-size:14px}
+</style>
+</head>
+<body>
+<h1>Payload x402 — $0.01 Live Test Signer</h1>
+<p class="small">Signs a <b>$0.01 USDC</b> EIP-3009 authorization on <b>Base</b> for the Payload live validation.
+Runs 100% in your browser. Your private key never leaves your wallet. Open this page in your wallet's
+in-app browser (MetaMask / Coinbase Wallet mobile).</p>
+
+<div class="warn">Safety: this tool only ever signs a <b>$0.01 (10,000 atomic units)</b> USDC authorization
+to <span class="mono">0xb3ecD1c309bEe30744D28f4B8957aA26D755B36A</span> (your own wallet). Check the amounts
+in your wallet's confirmation screen before approving.</div>
+
+<h2>Step 1 — Connect wallet</h2>
+<div class="card">
+<button id="connect">Connect wallet</button>
+<div id="walletInfo" class="mono small"></div>
+</div>
+
+<h2>Step 2 — Load the live 402 challenge</h2>
+<div class="card">
+<label class="small">Deployed server URL (no trailing slash)</label>
+<input id="baseUrl" placeholder="https://your-app.fly.dev" value="">
+<button id="fetch">Fetch 402 challenge</button>
+<div id="challengeInfo" class="small"></div>
+<label class="small">Or paste the <span class="mono">payment-required</span> header value (base64) manually:</label>
+<textarea id="challengeB64" rows="4" placeholder="paste base64 here (optional)"></textarea>
+</div>
+
+<h2>Step 3 — Sign the $0.01 authorization</h2>
+<div class="card">
+<button id="sign" disabled>Sign $0.01 USDC authorization</button>
+<div id="signInfo" class="small"></div>
+</div>
+
+<h2>Step 4 — Send the payment payload to Muse</h2>
+<div class="card">
+<p class="small">Paste the payload below into your Muse chat <b>within 10 minutes</b> of signing.
+It is safe to transmit: it authorizes exactly <b>$0.01</b> to your own wallet, expires 10 minutes
+after signing, and contains no private key. After 10 minutes it is worthless to anyone.</p>
+<textarea id="paymentOut" rows="6" readonly placeholder="payment payload appears here"></textarea>
+<button id="copy">Copy to clipboard</button>
+<div id="copyInfo" class="small"></div>
+</div>
+
+<script>
+const USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+const CHAIN_ID = 8453;
+let account = null, challenge = null, accepts0 = null;
+
+const $ = id => document.getElementById(id);
+function b64ToJson(b64){
+  const bin = atob(b64.replace(/-/g,"+").replace(/_/g,"/"));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+function jsonToB64(obj){
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function randNonce(){
+  const a = new Uint8Array(32); crypto.getRandomValues(a);
+  return "0x" + [...a].map(b => b.toString(16).padStart(2,"0")).join("");
+}
+
+$("connect").onclick = async () => {
+  try {
+    if (!window.ethereum) { $("walletInfo").innerHTML = '<span class="err">No wallet found. Open this page inside your wallet app browser.</span>'; return; }
+    const accs = await window.ethereum.request({ method: "eth_requestAccounts" });
+    account = accs[0];
+    const chainId = await window.ethereum.request({ method: "eth_chainId" });
+    $("walletInfo").innerHTML = 'Connected: <span class="ok">' + account + "</span><br>Chain: " +
+      (parseInt(chainId,16) === CHAIN_ID ? '<span class="ok">Base (8453) ✓</span>'
+        : '<span class="err">NOT Base — switch to Base (8453) in your wallet, got ' + parseInt(chainId,16) + "</span>");
+    $("sign").disabled = false;
+  } catch(e){ $("walletInfo").innerHTML = '<span class="err">Connect failed: ' + e.message + "</span>"; }
+};
+
+$("fetch").onclick = async () => {
+  try {
+    const base = $("baseUrl").value.trim().replace(/\/+$/,"");
+    if (!base) throw new Error("enter the server URL first");
+    const res = await fetch(base + "/api/joke");
+    if (res.status !== 402) throw new Error("expected HTTP 402, got " + res.status);
+    const h = res.headers.get("payment-required") || res.headers.get("Payment-Required");
+    if (!h) throw new Error("no payment-required header in 402 response");
+    challenge = b64ToJson(h);
+    accepts0 = (challenge.accepts || [])[0];
+    if (!accepts0) throw new Error("challenge has no accepts[] entries");
+    $("challengeInfo").innerHTML = '<span class="ok">Challenge loaded ✓</span><br>' +
+      "network: " + accepts0.network + "<br>amount: " + accepts0.amount + " (" +
+      (Number(accepts0.amount)/1e6) + " USDC)<br>asset: " + accepts0.asset + "<br>payTo: " + accepts0.payTo;
+  } catch(e){ $("challengeInfo").innerHTML = '<span class="err">Fetch failed: ' + e.message + "</span>"; }
+};
+
+$("sign").onclick = async () => {
+  try {
+    if (!account) throw new Error("connect your wallet first");
+    const manual = $("challengeB64").value.trim();
+    if (manual && !challenge) { challenge = b64ToJson(manual); accepts0 = (challenge.accepts||[])[0]; }
+    if (!accepts0) throw new Error("load the 402 challenge first");
+    if (String(accepts0.amount) !== "10000") throw new Error("refusing: amount is not 10000 (got " + accepts0.amount + ")");
+    if (accepts0.network !== "eip155:8453") throw new Error("refusing: network is not eip155:8453");
+    if (accepts0.asset.toLowerCase() !== USDC_BASE.toLowerCase()) throw new Error("refusing: asset is not Base USDC");
+    if (accepts0.payTo.toLowerCase() !== "0xb3ecD1c309bEe30744D28f4B8957aA26D755B36A".toLowerCase())
+      throw new Error("refusing: payTo is not the expected wallet");
+
+    const now = Math.floor(Date.now()/1000);
+    const auth = {
+      from: account,
+      to: accepts0.payTo,
+      value: "10000",
+      validAfter: String(now - 60),
+      validBefore: String(now + 600),
+      nonce: randNonce()
+    };
+    const typedData = {
+      types: {
+        EIP712Domain: [
+          { name: "name", type: "string" },
+          { name: "version", type: "string" },
+          { name: "chainId", type: "uint256" },
+          { name: "verifyingContract", type: "address" }
+        ],
+        TransferWithAuthorization: [
+          { name: "from", type: "address" },
+          { name: "to", type: "address" },
+          { name: "value", type: "uint256" },
+          { name: "validAfter", type: "uint256" },
+          { name: "validBefore", type: "uint256" },
+          { name: "nonce", type: "bytes32" }
+        ]
+      },
+      primaryType: "TransferWithAuthorization",
+      domain: { name: "USD Coin", version: "2", chainId: CHAIN_ID, verifyingContract: USDC_BASE },
+      message: auth
+    };
+    const signature = await window.ethereum.request({
+      method: "eth_signTypedData_v4",
+      params: [account, JSON.stringify(typedData)]
+    });
+    const payment = {
+      x402Version: 2,
+      accepted: accepts0,
+      payload: { signature: signature, authorization: auth },
+      extensions: {}
+    };
+    $("paymentOut").value = jsonToB64(payment);
+    $("signInfo").innerHTML = '<span class="ok">Signed ✓</span><br>nonce: <span class="mono">' +
+      auth.nonce.slice(0,18) + "…</span><br>valid until: " + new Date((now+600)*1000).toLocaleString() + " (10 min)";
+  } catch(e){ $("signInfo").innerHTML = '<span class="err">Sign failed: ' + (e.message||e) + "</span>"; }
+};
+
+$("copy").onclick = async () => {
+  try { await navigator.clipboard.writeText($("paymentOut").value);
+    $("copyInfo").innerHTML = '<span class="ok">Copied ✓ — paste it to Muse in chat.</span>';
+  } catch(e){ $("copyInfo").innerHTML = '<span class="err">Copy failed — select the text manually.</span>'; }
+};
+</script>
+</body>
+</html>
