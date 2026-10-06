@@ -8,40 +8,43 @@
 body{font-family:system-ui,sans-serif;max-width:640px;margin:0 auto;padding:20px;color:#1a1a1a}
 h1{font-size:20px}h2{font-size:16px;margin-top:28px}
 .card{border:1px solid #ddd;border-radius:10px;padding:16px;margin:12px 0}
-button{background:#0f172a;color:#fff;border:none;border-radius:8px;padding:12px 18px;font-size:15px;cursor:pointer;margin:6px 0}
+button{background:#0f172a;color:#fff;border:none;border-radius:8px;padding:12px 18px;font-size:15px;cursor:pointer;margin:6px 4px 6px 0}
 button:disabled{opacity:.4;cursor:default}
+button.secondary{background:#334155}
 input,textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:14px;margin:6px 0}
 textarea{font-family:monospace;font-size:12px}
 .ok{color:#047857;font-weight:600}.err{color:#b91c1c;font-weight:600}
 .mono{font-family:monospace;font-size:13px;word-break:break-all}
 .small{font-size:13px;color:#555}
 .warn{background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:12px;margin:12px 0;font-size:14px}
+.good{background:#ecfdf5;border:1px solid #10b981;border-radius:8px;padding:12px;margin:12px 0;font-size:14px}
 </style>
 </head>
 <body>
 <h1>Payload x402 — $0.01 Live Test Signer</h1>
-<p class="small">Signs a <b>$0.01 USDC</b> EIP-3009 authorization on <b>Base</b> for the Payload live validation.
-Runs 100% in your browser. Your private key never leaves your wallet. Open this page in your wallet's
-in-app browser (MetaMask / Coinbase Wallet mobile).</p>
+<p class="small">Signs <b>and submits</b> a <b>$0.01 USDC</b> EIP-3009 authorization on <b>Base</b> for the Payload live validation.
+Everything happens in your browser + wallet. Your private key never leaves your wallet, and the signed
+authorization never leaves your phone except inside the on-chain transaction itself.</p>
 
-<div class="warn">Safety: this tool only ever signs a <b>$0.01 (10,000 atomic units)</b> USDC authorization
-to <span class="mono">0xb3ecD1c309bEe30744D28f4B8957aA26D755B36A</span> (your own wallet). Check the amounts
-in your wallet's confirmation screen before approving.</div>
+<div class="warn">Safety: this tool only ever moves <b>$0.01 (10,000 atomic units)</b> USDC to
+<span class="mono">0xb3ecD1c309bEe30744D28f4B8957aA26D755B36A</span> (your own wallet). Check the amounts
+in your wallet's confirmation screen before approving.<br><br>
+You also need a tiny amount of <b>Base ETH for gas</b> (about $0.05) in the signing wallet. The $0.01 USDC
+must be on Base in the signing wallet.</div>
 
-<h2>Step 1 — Connect wallet</h2>
+<h2>Step 1 — Connect wallet (on Base)</h2>
 <div class="card">
 <button id="connect">Connect wallet</button>
+<button id="switchbase" class="secondary">Switch to Base</button>
 <div id="walletInfo" class="mono small"></div>
 </div>
 
 <h2>Step 2 — Load the live 402 challenge</h2>
 <div class="card">
-<label class="small">Deployed server URL (no trailing slash)</label>
-<input id="baseUrl" placeholder="https://your-app.fly.dev" value="">
-<button id="fetch">Fetch 402 challenge</button>
+<p class="small">Paste the <span class="mono">payment-required</span> challenge (base64) from Muse:</p>
+<textarea id="challengeB64" rows="4" placeholder="paste base64 challenge here"></textarea>
+<button id="decode">Decode &amp; check terms</button>
 <div id="challengeInfo" class="small"></div>
-<label class="small">Or paste the <span class="mono">payment-required</span> header value (base64) manually:</label>
-<textarea id="challengeB64" rows="4" placeholder="paste base64 here (optional)"></textarea>
 </div>
 
 <h2>Step 3 — Sign the $0.01 authorization</h2>
@@ -50,35 +53,45 @@ in your wallet's confirmation screen before approving.</div>
 <div id="signInfo" class="small"></div>
 </div>
 
-<h2>Step 4 — Send the payment payload to Muse</h2>
+<h2>Step 4 — Submit the $0.01 on Base</h2>
 <div class="card">
-<p class="small">Paste the payload below into your Muse chat <b>within 10 minutes</b> of signing.
-It is safe to transmit: it authorizes exactly <b>$0.01</b> to your own wallet, expires 10 minutes
-after signing, and contains no private key. After 10 minutes it is worthless to anyone.</p>
-<textarea id="paymentOut" rows="6" readonly placeholder="payment payload appears here"></textarea>
-<button id="copy">Copy to clipboard</button>
+<p class="small">This sends the signed authorization to the USDC contract on Base through your wallet.
+Your wallet will show a confirmation — check it says <b>$0.01 USDC</b> before approving.</p>
+<button id="submit" disabled>Submit $0.01 on Base now</button>
+<div id="submitInfo" class="small"></div>
+</div>
+
+<h2>Step 5 — Report the transaction hash</h2>
+<div class="card">
+<p class="small">Copy the transaction hash below and send it to Muse. A transaction hash is public
+blockchain data — it is safe to share. <b>Never paste the signature or authorization payload itself
+anywhere.</b></p>
+<textarea id="txOut" rows="3" readonly placeholder="transaction hash appears here after submit"></textarea>
+<button id="copyTx">Copy tx hash</button>
 <div id="copyInfo" class="small"></div>
 </div>
 
 <script>
 const USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
 const CHAIN_ID = 8453;
-let account = null, challenge = null, accepts0 = null;
+const PAY_TO = "0xb3ecD1c309bEe30744D28f4B8957aA26D755B36A";
+const TRANSFER_WITH_AUTH_SELECTOR = "0xe3ee160e";
+let account = null, accepts0 = null, signedAuth = null, signedSig = null, submitted = false;
 
 const $ = id => document.getElementById(id);
 function b64ToJson(b64){
-  const bin = atob(b64.replace(/-/g,"+").replace(/_/g,"/"));
+  const bin = atob(b64.trim().replace(/-/g,"+").replace(/_/g,"/"));
   const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
   return JSON.parse(new TextDecoder().decode(bytes));
-}
-function jsonToB64(obj){
-  const bytes = new TextEncoder().encode(JSON.stringify(obj));
-  let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b));
-  return btoa(bin);
 }
 function randNonce(){
   const a = new Uint8Array(32); crypto.getRandomValues(a);
   return "0x" + [...a].map(b => b.toString(16).padStart(2,"0")).join("");
+}
+async function chainOk(){
+  if (!window.ethereum) return false;
+  const chainId = await window.ethereum.request({ method: "eth_chainId" });
+  return parseInt(chainId, 16) === CHAIN_ID;
 }
 
 $("connect").onclick = async () => {
@@ -86,47 +99,58 @@ $("connect").onclick = async () => {
     if (!window.ethereum) { $("walletInfo").innerHTML = '<span class="err">No wallet found. Open this page inside your wallet app browser.</span>'; return; }
     const accs = await window.ethereum.request({ method: "eth_requestAccounts" });
     account = accs[0];
-    const chainId = await window.ethereum.request({ method: "eth_chainId" });
+    const ok = await chainOk();
     $("walletInfo").innerHTML = 'Connected: <span class="ok">' + account + "</span><br>Chain: " +
-      (parseInt(chainId,16) === CHAIN_ID ? '<span class="ok">Base (8453) ✓</span>'
-        : '<span class="err">NOT Base — switch to Base (8453) in your wallet, got ' + parseInt(chainId,16) + "</span>");
+      (ok ? '<span class="ok">Base (8453) ✓</span>'
+          : '<span class="err">NOT Base — tap "Switch to Base" (need chain 8453)</span>');
     $("sign").disabled = false;
-  } catch(e){ $("walletInfo").innerHTML = '<span class="err">Connect failed: ' + e.message + "</span>"; }
+  } catch(e){ $("walletInfo").innerHTML = '<span class="err">Connect failed: ' + (e.message||e) + "</span>"; }
 };
 
-$("fetch").onclick = async () => {
+$("switchbase").onclick = async () => {
   try {
-    const base = $("baseUrl").value.trim().replace(/\/+$/,"");
-    if (!base) throw new Error("enter the server URL first");
-    const res = await fetch(base + "/api/joke");
-    if (res.status !== 402) throw new Error("expected HTTP 402, got " + res.status);
-    const h = res.headers.get("payment-required") || res.headers.get("Payment-Required");
-    if (!h) throw new Error("no payment-required header in 402 response");
-    challenge = b64ToJson(h);
+    if (!window.ethereum) throw new Error("no wallet");
+    try {
+      await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x2105" }] });
+    } catch (e) {
+      if (e.code === 4902) {
+        await window.ethereum.request({ method: "wallet_addEthereumChain", params: [{
+          chainId: "0x2105", chainName: "Base",
+          nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
+          rpcUrls: ["https://mainnet.base.org"], blockExplorerUrls: ["https://basescan.org"]
+        }]});
+      } else throw e;
+    }
+    const ok = await chainOk();
+    $("walletInfo").innerHTML += '<br>Chain now: ' + (ok ? '<span class="ok">Base (8453) ✓</span>' : '<span class="err">still not Base</span>');
+  } catch(e){ $("walletInfo").innerHTML += '<br><span class="err">Switch failed: ' + (e.message||e) + "</span>"; }
+};
+
+$("decode").onclick = () => {
+  try {
+    const raw = $("challengeB64").value.trim();
+    if (!raw) throw new Error("paste the challenge first");
+    const challenge = b64ToJson(raw);
     accepts0 = (challenge.accepts || [])[0];
     if (!accepts0) throw new Error("challenge has no accepts[] entries");
-    $("challengeInfo").innerHTML = '<span class="ok">Challenge loaded ✓</span><br>' +
-      "network: " + accepts0.network + "<br>amount: " + accepts0.amount + " (" +
-      (Number(accepts0.amount)/1e6) + " USDC)<br>asset: " + accepts0.asset + "<br>payTo: " + accepts0.payTo;
-  } catch(e){ $("challengeInfo").innerHTML = '<span class="err">Fetch failed: ' + e.message + "</span>"; }
+    if (String(accepts0.amount) !== "10000") throw new Error("refusing: amount is not 10000 (got " + accepts0.amount + ")");
+    if (accepts0.network !== "eip155:8453") throw new Error("refusing: network is not eip155:8453");
+    if (String(accepts0.asset).toLowerCase() !== USDC_BASE.toLowerCase()) throw new Error("refusing: asset is not Base USDC");
+    if (String(accepts0.payTo).toLowerCase() !== PAY_TO.toLowerCase()) throw new Error("refusing: payTo is not the expected wallet");
+    $("challengeInfo").innerHTML = '<span class="ok">Challenge OK ✓</span><br>' +
+      "pay <b>$0.01 USDC</b> on <b>Base</b> to <span class='mono'>" + accepts0.payTo + "</span>";
+  } catch(e){ accepts0 = null; $("challengeInfo").innerHTML = '<span class="err">Challenge error: ' + (e.message||e) + "</span>"; }
 };
 
 $("sign").onclick = async () => {
   try {
     if (!account) throw new Error("connect your wallet first");
-    const manual = $("challengeB64").value.trim();
-    if (manual && !challenge) { challenge = b64ToJson(manual); accepts0 = (challenge.accepts||[])[0]; }
-    if (!accepts0) throw new Error("load the 402 challenge first");
-    if (String(accepts0.amount) !== "10000") throw new Error("refusing: amount is not 10000 (got " + accepts0.amount + ")");
-    if (accepts0.network !== "eip155:8453") throw new Error("refusing: network is not eip155:8453");
-    if (accepts0.asset.toLowerCase() !== USDC_BASE.toLowerCase()) throw new Error("refusing: asset is not Base USDC");
-    if (accepts0.payTo.toLowerCase() !== "0xb3ecD1c309bEe30744D28f4B8957aA26D755B36A".toLowerCase())
-      throw new Error("refusing: payTo is not the expected wallet");
-
+    if (!(await chainOk())) throw new Error("switch to Base (8453) first");
+    if (!accepts0) throw new Error("decode the challenge first (Step 2)");
     const now = Math.floor(Date.now()/1000);
-    const auth = {
+    signedAuth = {
       from: account,
-      to: accepts0.payTo,
+      to: PAY_TO,
       value: "10000",
       validAfter: String(now - 60),
       validBefore: String(now + 600),
@@ -151,27 +175,55 @@ $("sign").onclick = async () => {
       },
       primaryType: "TransferWithAuthorization",
       domain: { name: "USD Coin", version: "2", chainId: CHAIN_ID, verifyingContract: USDC_BASE },
-      message: auth
+      message: signedAuth
     };
-    const signature = await window.ethereum.request({
+    signedSig = await window.ethereum.request({
       method: "eth_signTypedData_v4",
       params: [account, JSON.stringify(typedData)]
     });
-    const payment = {
-      x402Version: 2,
-      accepted: accepts0,
-      payload: { signature: signature, authorization: auth },
-      extensions: {}
-    };
-    $("paymentOut").value = jsonToB64(payment);
-    $("signInfo").innerHTML = '<span class="ok">Signed ✓</span><br>nonce: <span class="mono">' +
-      auth.nonce.slice(0,18) + "…</span><br>valid until: " + new Date((now+600)*1000).toLocaleString() + " (10 min)";
+    submitted = false;
+    $("submit").disabled = false;
+    $("signInfo").innerHTML = '<span class="ok">Signed ✓</span><br>valid until: ' +
+      new Date((now+600)*1000).toLocaleString() + " (10 min) — submit in Step 4 before then.";
   } catch(e){ $("signInfo").innerHTML = '<span class="err">Sign failed: ' + (e.message||e) + "</span>"; }
 };
 
-$("copy").onclick = async () => {
-  try { await navigator.clipboard.writeText($("paymentOut").value);
-    $("copyInfo").innerHTML = '<span class="ok">Copied ✓ — paste it to Muse in chat.</span>';
+function encAddr(a){ return a.toLowerCase().replace(/^0x/,"").padStart(64,"0"); }
+function encUint(v){ return BigInt(v).toString(16).padStart(64,"0"); }
+function encB32(h){ const s = h.toLowerCase().replace(/^0x/,""); if (s.length !== 64) throw new Error("bad bytes32"); return s; }
+
+$("submit").onclick = async () => {
+  if (submitted) return;
+  try {
+    if (!signedAuth || !signedSig) throw new Error("sign first (Step 3)");
+    if (!(await chainOk())) throw new Error("switch to Base (8453) first");
+    const sig = signedSig.replace(/^0x/,"");
+    if (sig.length !== 130) throw new Error("bad signature length");
+    const r = "0x" + sig.slice(0,64), s = "0x" + sig.slice(64,128);
+    let v = parseInt(sig.slice(128,130), 16); if (v < 27) v += 27;
+    const data = TRANSFER_WITH_AUTH_SELECTOR
+      + encAddr(signedAuth.from) + encAddr(signedAuth.to)
+      + encUint(signedAuth.value) + encUint(signedAuth.validAfter) + encUint(signedAuth.validBefore)
+      + encB32(signedAuth.nonce)
+      + encUint(v) + encB32(r) + encB32(s);
+    $("submitInfo").innerHTML = 'Sending to your wallet for confirmation…';
+    const txHash = await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [{ from: account, to: USDC_BASE, data: "0x" + data }]
+    });
+    submitted = true;
+    $("submit").disabled = true;
+    $("txOut").value = txHash;
+    $("submitInfo").innerHTML = '<div class="good"><span class="ok">Submitted ✓</span><br>' +
+      'tx: <span class="mono">' + txHash + '</span><br>' +
+      '<a href="https://basescan.org/tx/' + txHash + '" target="_blank">view on Basescan</a><br>' +
+      'Copy the hash in Step 5 and send it to Muse.</div>';
+  } catch(e){ $("submitInfo").innerHTML = '<span class="err">Submit failed: ' + (e.message||e) + "</span>"; }
+};
+
+$("copyTx").onclick = async () => {
+  try { await navigator.clipboard.writeText($("txOut").value);
+    $("copyInfo").innerHTML = '<span class="ok">Copied ✓ — send it to Muse.</span>';
   } catch(e){ $("copyInfo").innerHTML = '<span class="err">Copy failed — select the text manually.</span>'; }
 };
 </script>
