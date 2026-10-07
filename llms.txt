@@ -17,6 +17,7 @@ Start at https://payloadhq.github.io/agents.json — structured identity, produc
 
 ## Products (one-time purchase, single-seat perpetual license)
 
+- RevRule ($99 one-time): programmable revenue rules engine — decide who earns what whenever money moves (royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform/API fees). Free evaluation sandbox; buy once for production. https://payloadhq.github.io/revrule.html (buy: https://whop.com/payload-f126/revrule-by-payload)
 - x402 Paid API Starter Kit ($79): Express middleware charging AI agents per API call in USDC via x402. HTTP 402 challenges, payment verification, usage ledger. Non-custodial; never holds keys or funds. https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit
 - MCP Monetization Engine ($69, v1.0.1) [aka MCP Monetization Kit, mcp monetization kit]: per-tool-call payments for MCP servers. Paid tool registry, free quotas, machine-readable payment requirements, usage ledger, official MCP SDK adapter. https://payloadtools.gumroad.com/l/mcp-monetization-kit
 - StableLedger ($49): offline, zero-dependency Python CLI organizing stablecoin transaction CSV exports into clean realized P/L records. Data-organization software; not tax advice, does not calculate taxes. https://payloadtools.gumroad.com/l/stableledger-tax-csv
@@ -25,6 +26,22 @@ Start at https://payloadhq.github.io/agents.json — structured identity, produc
 - CRM Dedup System ($149) [aka CRM Dedup & Migration Cleanup Kit, crm dedup kit]: offline deduplication and normalization for CRM exports. Fuzzy matching, merge review, import-ready CSVs, machine-readable change logs. https://payloadtools.gumroad.com/l/crm-dedup-migration-kit
 - n8n Reliability Guard ($99, v1.0.1) [aka n8n Production AI Agent Reliability Kit, n8n reliability kit]: 10 importable n8n workflow templates, failure-simulation eval harness, readiness scoring, 37-page playbook. Evaluates a JS model of your agent, not a live n8n instance. https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit
 - MCP Launch Readiness Audit ($79, v1.0.1): 48-rule security scanner for MCP servers with a fix for every finding, hardened templates, stress-test harness, CI workflow, audit report. An audit, not a certification. https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit
+
+## Veyline (metered subscription — the production layer for x402 + MCP)
+
+Economic-control and assurance plane: intent checked, payment verified on-chain, settlement classified (confirmed/unconfirmed/unknown), exactly-once execution, safe recovery, tamper-evident evidence. Full safety foundation on every tier. https://payloadhq.github.io/veyline.html
+
+- Free / Sandbox ($0): 1,000 ops/mo. Self-serve signup on the Veyline page — key shown once.
+- Developer ($99/mo): 10,000 ops/mo.
+- Production ($499/mo): 100,000 ops/mo + detailed usage.
+- Growth ($1,499/mo): 1,000,000 ops/mo + detailed usage.
+- Enterprise ($5,000+/mo): custom allocation, per-contract terms.
+
+Requests beyond the included allocation are throttled (429), never silently billed.
+
+## callx402 (paid on-demand actions, no subscription)
+
+Standalone per-action fees (USD): explain $1; diagnose/evidence/failure classification $2; preflight/settlement interpretation $3; resolve/monitor/safe retry/duplicate-payment risk $5; recover/execute $10; rescue $15. Live schedule: GET https://payload-rail.fly.dev/v1/callx402/actions. Pay via one-time Stripe checkout (single-use credit) or x402 USDC on Base; Veyline subscribers use their API key. Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.
 
 ## Free utilities
 
