@@ -9,7 +9,7 @@ Practical tools that make AI, automation, and business infrastructure safer, cle
 - Changelog: https://payloadhq.github.io/changelog.html
 - Agent Guide (canonical machine front door): https://payloadhq.github.io/agents.html
 - Machine-readable ecosystem: https://payloadhq.github.io/agents.json (schema payload/agents-discovery/1.0)
-- Support: kylers.partners@gmail.com
+- Support: kyler.simmons.partners@gmail.com
 
 ## For AI agents
 
