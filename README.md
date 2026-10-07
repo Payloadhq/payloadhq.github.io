@@ -1,6 +1,53 @@
-# payloadhq.github.io
+# Payload Developer Portal
 
-Source for the [Payload developer portal](https://payloadhq.github.io/):
-products, free utilities, docs, changelog, llms.txt, sitemap.
+**Source for the Payload developer portal** — by Payload. The canonical docs home
+for Veyline, callx402, RevRule, and the Payload free utilities.
 
-Payload — small, sharp tools for developers. Static site, no trackers.
+Live site: https://payloadhq.github.io/
+
+## What it is
+
+The public, static home of Payload documentation: product pages, developer docs,
+how-to guides, browser utilities, and the X402 Observatory reference data. No
+trackers, no build step. Brand hierarchy on every page: PAYLOAD is the parent
+company; Veyline by Payload is the flagship; callx402 by Payload (powered by
+Veyline) is the x402 action layer; RevRule by Payload is the separate
+programmable revenue rules engine.
+
+## Repository layout
+
+- `index.html` — portal home
+- `docs.html` — documentation hub
+- `products.html` — product catalog (data from `products.json`)
+- `revrule.html`, `revrule-api.html` — RevRule product and API docs
+- `x402-observatory/` — the X402 Observatory: reference data and check pages
+- `guides/` — how-to guides (x402 402 payments, MCP, n8n, AI search, CRM)
+- `utilities/` — browser-based utilities
+- `llms.txt`, `sitemap.xml`, `robots.txt` — machine-readable discovery files
+
+## Local preview
+
+No build step required. Serve the directory with any static file server:
+
+```sh
+cd payloadhq.github.io
+npx serve .
+```
+
+Then open http://localhost:3000 in your browser.
+
+## Contributing changes
+
+Edits are plain HTML, CSS, and JavaScript. When you change products or pages,
+keep `products.json`, `sitemap.xml`, and `llms.txt` in sync with the live content.
+
+## Links
+
+- Canonical docs: https://payloadhq.github.io/
+- Payload on GitHub: https://github.com/Payloadhq
+- callx402 (x402 action layer): https://github.com/Payloadhq/callx402
+
+## License
+
+No license file is published in this repo. Free utilities linked from the portal
+are MIT in their own repositories; commercial products carry their own license terms.
