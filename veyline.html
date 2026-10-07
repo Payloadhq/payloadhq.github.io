@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Veyline by Payload — The production layer for x402 + MCP</title>
+<link rel="canonical" href="https://payloadhq.github.io/veyline.html">
+<link rel="alternate" hreflang="en" href="https://payloadhq.github.io/veyline.html">
+<link rel="alternate" hreflang="es" href="https://payloadhq.github.io/es.html">
+<link rel="alternate" hreflang="pt" href="https://payloadhq.github.io/pt.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Veyline by Payload — The production layer for x402 + MCP">
+<meta property="og:description" content="Veyline by Payload is production infrastructure for x402 and MCP: economic control, settlement certainty, exactly-once execution, recovery, and evidence for autonomous commerce.">
+<meta property="og:url" content="https://payloadhq.github.io/veyline.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+
 <meta name="description" content="Veyline by Payload is production infrastructure for x402 and MCP: economic control, settlement certainty, exactly-once execution, recovery, and evidence for autonomous commerce.">
 <style>
   :root {
@@ -521,7 +533,7 @@ curl -X POST https://api.veyline.io/v1/operations \
         <p>Set your policies and spend limits. Your agents operate autonomously inside them — every operation verified, settled, and evidenced against your plan's included operations.</p>
       </div>
     </div>
-    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base? Use the <a href="#pricing" id="crypto-contact-link" style="color:var(--lime);">Enterprise contact form</a> and we'll arrange it. By subscribing you agree to our <a href="https://payloadhq.github.io/terms.html" style="color:var(--lime);">Terms of Service</a> and <a href="https://payloadhq.github.io/privacy.html" style="color:var(--lime);">Privacy Policy</a>.</p>
+    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base, or Stripe isn't available in your country? That path is open for <strong>any plan</strong>, not just Enterprise: use the <a href="#pricing" id="crypto-contact-link" style="color:var(--lime);">contact form</a> and we'll arrange a crypto checkout for your tier. By subscribing you agree to our <a href="https://payloadhq.github.io/terms.html" style="color:var(--lime);">Terms of Service</a> and <a href="https://payloadhq.github.io/privacy.html" style="color:var(--lime);">Privacy Policy</a>.</p>
     <div class="cta-row" style="margin-top:24px;">
       <a class="btn btn-primary" href="#pricing">Choose Your Plan</a>
     </div>
@@ -562,6 +574,10 @@ curl -X POST https://api.veyline.io/v1/operations \
         <summary>Is RevRule included with Veyline?</summary>
         <div class="faq-body">No. RevRule is a separate Payload product with its own purchase and entitlement. Veyline works fully without it; the two can integrate where that makes sense for your use case.</div>
       </details>
+      <details class="faq">
+        <summary>What if Stripe isn't available in my country?</summary>
+        <div class="faq-body">Use the USDC path: it works for any plan, in any country. Open the contact form from the purchase section above, tell us which plan you want, and we'll arrange a crypto checkout in USDC on Base. Your API key is issued the same way — shown once, ready to use immediately.</div>
+      </details>
     </div>
   </div>
 </section>
@@ -574,6 +590,7 @@ curl -X POST https://api.veyline.io/v1/operations \
       <a href="https://payloadhq.github.io/products.html">Products</a>
       <a href="https://payloadhq.github.io/terms.html">Terms</a>
       <a href="https://payloadhq.github.io/privacy.html">Privacy</a>
+      <a href="mailto:kyler.simmons.partners@gmail.com">Support</a>
       <a href="#purchase">Get API Access</a>
     </div>
   </div>
@@ -612,7 +629,7 @@ curl -X POST https://api.veyline.io/v1/operations \
     } catch (e) {
       btn.disabled = false;
       btn.textContent = original;
-      showError('Checkout could not be started. Please try again in a moment, or contact support if it persists.');
+      showError('Checkout could not be started. Please try again in a moment, or contact support at kyler.simmons.partners@gmail.com if it persists.');
     }
   }
 
@@ -711,7 +728,9 @@ curl -X POST https://api.veyline.io/v1/operations \
           entForm.style.display = 'none';
           entBtn.style.display = 'none';
           entResult.style.display = 'block';
-          entResult.innerHTML = '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day. Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.';
+          entResult.innerHTML = cryptoIntent
+            ? '<strong style="color:var(--lime);">USDC request received.</strong> We reply within one business day with a wallet address and payment details for your plan. Your API key is issued right after the payment confirms.'
+            : '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day. Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.';
           return;
         }
         var msg = (data && data.error && data.error.message) || ('Send failed (HTTP ' + res.status + ')');
@@ -727,12 +746,14 @@ curl -X POST https://api.veyline.io/v1/operations \
     });
   }
   var cryptoLink = document.getElementById('crypto-contact-link');
+  var cryptoIntent = false;
   if (cryptoLink) {
     cryptoLink.addEventListener('click', function (e) {
       e.preventDefault();
+      cryptoIntent = true;
       openEnterpriseForm();
       var msgEl = document.getElementById('ent-message');
-      if (msgEl && !msgEl.value) msgEl.value = 'I would like to pay in USDC on Base. ';
+      if (msgEl && !msgEl.value) msgEl.value = 'I would like to pay in USDC on Base for the [Developer/Production/Growth] plan. ';
     });
   }
 })();
