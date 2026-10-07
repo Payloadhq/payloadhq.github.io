@@ -3,133 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RevRule API — live API for programmable revenue | Payload</title>
-<meta name="description" content="RevRule API is the hosted API for RevRule: define a Revenue Graph, send economic events, get auditable entitlements back. No custody, ever. Free to try.">
-<link rel="canonical" href="https://payloadhq.github.io/flow-rail.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Payload">
-<meta property="og:title" content="RevRule API — live API for programmable revenue">
-<meta property="og:description" content="Define a Revenue Graph, send economic events, get auditable entitlements back. The royalty belongs to the graph, not the payment rail.">
-<meta property="og:url" content="https://payloadhq.github.io/flow-rail.html">
-<meta name="twitter:card" content="summary">
-<link rel="stylesheet" href="style.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "RevRule API",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Web",
-  "url": "https://payloadhq.github.io/flow-rail.html",
-  "description": "Hosted API for RevRule: programmable revenue infrastructure. Revenue Graphs, economic events, auditable entitlements. No custody."
-}
-</script>
+<title>RevRule API Reference — Payload</title>
+<meta http-equiv="refresh" content="0; url=revrule-api.html">
+<link rel="canonical" href="https://payloadhq.github.io/revrule-api.html">
+<meta name="robots" content="noindex">
+<script>location.replace("revrule-api.html");</script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="site">
-  <div class="wrap">
-    <a class="brand" href="index.html" aria-label="Payload home">
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
-      Payload
-    </a>
-    <nav class="site" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="benchmark.html">Benchmark</a>
-      <a href="guides/index.html">Guides</a>
-      <a href="utilities/robots-txt-checker.html">Free utilities</a>
-      <a href="docs.html">Docs &amp; GitHub</a>
-      <a href="changelog.html">Changelog</a>
-    </nav>
-  </div>
-</header>
-<main id="main">
-  <div class="wrap">
-    <h1>RevRule API</h1>
-    <p class="lede">The hosted API for RevRule. Define a Revenue Graph, send economic events, get auditable entitlements back. Live now.</p>
-
-    <p><strong>Base URL:</strong> <code>https://payload-rail.fly.dev</code></p>
-
-    <h2>Try it in 60 seconds</h2>
-    <p>Get a free API key (no signup form, no credit card):</p>
-    <pre><code>curl -s -X POST https://payload-rail.fly.dev/v1/access-keys \
-  -H 'Content-Type: application/json' -d '{"label":"my first key"}'</code></pre>
-    <p>Then create a graph and run money through it:</p>
-    <pre><code>KEY=&lt;your key&gt;
-BASE=https://payload-rail.fly.dev
-
-# 1. Define a revenue graph: developer gets 2%, owner gets the rest
-curl -s -X POST $BASE/v1/graphs -H "Authorization: Bearer $KEY" \
-  -H 'Content-Type: application/json' -d '{
-    "id": "g1", "projectId": "p1", "ownerId": "owner",
-    "participants": [
-      {"id":"owner","kind":"person","roles":["owner"],
-       "payoutDestinations":[{"rail":"stripe","address":"acct_owner"}]},
-      {"id":"dev","kind":"person","roles":["contributor"],
-       "payoutDestinations":[{"rail":"stripe","address":"acct_dev"}]}
-    ],
-    "rules": [
-      {"id":"r_fee","type":"payload_fee","priority":1,"params":{"licenseTier":"free"}},
-      {"id":"r_dev","type":"percentage","priority":2,
-       "params":{"rateBps":200,"subjectParticipantId":"dev"}},
-      {"id":"r_rem","type":"remainder","priority":3,
-       "params":{"subjectParticipantId":"owner"}}
-    ]
-  }'
-
-# 2. Activate it
-curl -s -X POST $BASE/v1/graphs/g1/activate -H "Authorization: Bearer $KEY"
-
-# 3. Send a $10.00 event and watch the split
-curl -s -X POST $BASE/v1/graphs/g1/events -H "Authorization: Bearer $KEY" \
-  -H 'Content-Type: application/json' -d '{
-    "event": {
-      "eventId": "evt_001", "graphId": "g1", "type": "SALE_COMPLETED",
-      "occurredAt": "2026-10-04T00:00:00.000Z",
-      "amountMicros": 10000000, "currency": "USD", "rail": "stripe",
-      "processingCostMicros": 330000, "raw": {}
-    }
-  }'</code></pre>
-
-    <h2>What you get back</h2>
-    <ul>
-      <li><strong>Entitlements:</strong> who is owed what, computed by your rules, with a human-readable reason for every line.</li>
-      <li><strong>Ledger:</strong> append-only, hash-chained. <code>GET /v1/graphs/g1/ledger</code> returns every entry plus <code>chainValid</code>.</li>
-      <li><strong>Simulation:</strong> <code>POST /v1/graphs/g1/simulate</code> dry-runs an event with zero side effects.</li>
-    </ul>
-
-    <h2>What it is not</h2>
-    <ul>
-      <li><strong>Not custody.</strong> Every distribution is <code>status: "proposed"</code>. The RevRule API never holds funds, never moves money, never calls a payment network. Your Stripe Connect or facilitator executes payouts.</li>
-      <li><strong>Not a payment processor.</strong> It computes who is owed what; regulated partners move the money.</li>
-    </ul>
-
-    <h2>The principle</h2>
-    <p>The royalty belongs to the Revenue Graph, not the payment rail. Change processors, keep the economics: entitlements persist across rails, recoupment remembers history, rules version with an approval gate. Read the <a href="https://github.com/Payloadhq/payload-flow/blob/main/PERSISTENT_ENTITLEMENT_CHARTER.md">Persistent Economic Entitlement Charter</a>.</p>
-
-    <h2>Prefer to explore first?</h2>
-    <p><a class="btn" href="flow-sandbox.html">Open the Flow Sandbox</a> — the real engine in your browser, no key needed. Or read the <a href="https://github.com/Payloadhq/payload-flow">open-source engine on GitHub</a>.</p>
-
-    <h2>Endpoints</h2>
-    <ul>
-      <li><code>GET /health</code> — liveness, no auth</li>
-      <li><code>POST /v1/access-keys</code> — issue a free key, no auth</li>
-      <li><code>POST /v1/graphs</code> — define a graph (draft)</li>
-      <li><code>POST /v1/graphs/:id/activate</code> — draft to active</li>
-      <li><code>POST /v1/graphs/:id/events</code> — evaluate an event</li>
-      <li><code>POST /v1/graphs/:id/simulate</code> — dry run, zero side effects</li>
-      <li><code>GET /v1/graphs/:id/ledger</code> — entries plus chain validity</li>
-    </ul>
-    <p>Amounts are integer micro-units (USD 1.00 = 1,000,000). All <code>/v1/*</code> except <code>/health</code> and <code>/access-keys</code> need <code>Authorization: Bearer &lt;key&gt;</code>.</p>
-  </div>
-</main>
-<footer class="site">
-  <div class="wrap">
-    <span>Payload — developer infrastructure for x402, agent payments, and programmable revenue.</span>
-    <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="benchmark.html">Benchmark</a> · <a href="products.json">Machine-readable catalog (JSON)</a></span>
-    <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com?subject=Payload%20Support%20Request">Support</a></span>
-  </div>
-</footer>
+<p>This page has moved to <a href="revrule-api.html">RevRule API Reference</a>.</p>
 </body>
 </html>
