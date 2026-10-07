@@ -3,105 +3,170 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pay RevRule with USDC | Payload</title>
-<meta name="description" content="Pay for RevRule with USDC on Base. Verified on-chain, recorded in the ledger.">
+<title>Pay for RevRule with USDC | Payload</title>
+<meta name="description" content="Buy a $99 RevRule license with USDC on Base. Cryptographically-bound order, wallet signature, on-chain payment, API key issued after verification.">
 <style>
-  body { font-family: -apple-system, system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px 16px; color: #1a1a1a; }
+  body { font-family: -apple-system, system-ui, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px 16px; color: #1a1a1a; }
   h1 { font-size: 1.4em; }
+  h2 { font-size: 1.1em; margin-top: 28px; }
   .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 12px 0; }
   .addr { font-family: monospace; font-size: 0.8em; word-break: break-all; background: #f5f5f5; padding: 8px; border-radius: 8px; }
   button { background: #0052ff; color: white; border: none; border-radius: 10px; padding: 14px 20px; font-size: 1em; width: 100%; margin: 8px 0; cursor: pointer; }
-  button:disabled { background: #999; }
+  button:disabled { background: #999; cursor: default; }
+  button.secondary { background: #334155; }
   input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9em; box-sizing: border-box; }
   .ok { color: #0a7c2e; } .err { color: #c00; }
+  .step { border-left: 4px solid #ddd; padding: 8px 12px; margin: 10px 0; }
+  .step.done { border-color: #0a7c2e; }
+  .step .t { font-weight: 600; }
+  .step .d { font-size: 0.85em; color: #555; font-family: monospace; word-break: break-all; }
   pre { background: #f5f5f5; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 0.8em; }
   .muted { color: #666; font-size: 0.9em; }
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #eee; font-size: 0.85em; color: #666; }
+  footer a { color: #0052ff; }
 </style>
 </head>
 <body>
-<h1>Pay with USDC on Base</h1>
-<p class="muted">Real settlement. Your wallet sends USDC directly to Payload on Base. The Rail verifies the transfer on-chain before issuing anything. No custody, no middleman.</p>
+<h1>Pay for RevRule with USDC</h1>
+<p class="muted">Buy a <strong>$99 one-time RevRule license</strong> with USDC on Base. The flow is cryptographically bound to your wallet: you create an order, sign it, pay the exact amount on-chain, and the Rail verifies the transfer before issuing your API key. No custody, no middleman. Prefer card? <a href="https://whop.com/payload-f126/revrule-by-payload">Buy RevRule on Whop</a>.</p>
 
 <div class="card">
-  <div><strong>Amount:</strong> <span id="amount">149</span> USDC</div>
-  <div><strong>Network:</strong> Base</div>
-  <div><strong>To (Payload):</strong></div>
-  <div class="addr" id="payto">loading…</div>
+  <h2 style="margin-top:0">Step 1 — Create your purchase order</h2>
+  <button id="orderBtn" onclick="createOrder()">Create order</button>
+  <div id="orderInfo"></div>
 </div>
 
-<button id="payBtn" onclick="pay()">1. Pay with wallet</button>
-<p class="muted">Uses your phone wallet (MetaMask, Coinbase Wallet). Switch to Base network if asked. This sends a normal USDC transfer.</p>
+<div class="card">
+  <h2 style="margin-top:0">Step 2 — Sign the order with your wallet</h2>
+  <p class="muted">Your wallet signs the order message (personal_sign). This proves the order is yours; it moves no money.</p>
+  <button id="signBtn" onclick="signOrder()" disabled>Sign order</button>
+  <div id="signInfo"></div>
+</div>
 
 <div class="card">
-  <strong>2. Verify payment</strong>
-  <p class="muted">Paste the transaction hash from your wallet:</p>
+  <h2 style="margin-top:0">Step 3 — Pay the exact USDC amount on Base</h2>
+  <p class="muted">Uses your phone wallet (MetaMask, Coinbase Wallet). Switch to Base if asked. Sends a normal USDC transfer to Payload's receiving address.</p>
+  <button id="payBtn" onclick="pay()" disabled>Pay with wallet</button>
+  <div id="payInfo"></div>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">Step 4 — Redeem and get your API key</h2>
+  <p class="muted">Paste the transaction hash from your wallet. The Rail verifies the transfer on-chain and your payment is bound to your signature before issuing anything.</p>
   <input id="txhash" placeholder="0x…">
-  <button onclick="verify()">Verify and get my API key</button>
+  <button id="redeemBtn" onclick="redeem()" disabled>Verify and get my API key</button>
   <div id="result"></div>
 </div>
+
+<footer>
+  <p>By purchasing you agree to Payload's <a href="https://payloadhq.github.io/terms.html">Terms of Service</a> and <a href="https://payloadhq.github.io/privacy.html">Privacy Policy</a>.</p>
+</footer>
 
 <script>
 const API = 'https://payload-rail.fly.dev';
 const USDC_BASE = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
-let cfg = null;
-
-async function init() {
-  const r = await fetch(API + '/v1/crypto/config');
-  cfg = await r.json();
-  if (!cfg.enabled) {
-    document.getElementById('result').innerHTML = '<p class="err">Crypto settlement is not configured yet.</p>';
-    document.getElementById('payBtn').disabled = true;
-    return;
-  }
-  document.getElementById('payto').textContent = cfg.payTo;
-  document.getElementById('amount').textContent = cfg.purchasePriceUsdc;
-}
-init();
+let order = null;
+let signature = null;
+let account = null;
 
 function toBaseUnits(s) {
   const [i, f = ''] = s.split('.');
   return (BigInt(i) * 1000000n + BigInt((f + '000000').slice(0, 6))).toString(16).padStart(64, '0');
 }
 
-async function pay() {
-  const out = document.getElementById('result');
+async function createOrder() {
+  const out = document.getElementById('orderInfo');
+  const btn = document.getElementById('orderBtn');
+  btn.disabled = true;
+  out.innerHTML = '<p class="muted">Creating order…</p>';
   try {
-    if (!window.ethereum) { out.innerHTML = '<p class="err">No wallet found. Open this page in MetaMask or Coinbase Wallet.</p>'; return; }
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const from = accounts[0];
-    // transfer(address,uint256)
-    const data = '0xa9059cbb'
-      + cfg.payTo.slice(2).toLowerCase().padStart(64, '0')
-      + toBaseUnits(cfg.purchasePriceUsdc);
-    const txHash = await window.ethereum.request({
-      method: 'eth_sendTransaction',
-      params: [{ from, to: USDC_BASE, data, chainId: '0x2105' }],
+    const r = await fetch(API + '/v1/purchases/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product: 'revrule' }),
     });
-    document.getElementById('txhash').value = txHash;
-    out.innerHTML = '<p class="ok">Sent: <a href="https://basescan.org/tx/' + txHash + '">' + txHash.slice(0, 18) + '…</a>. Now tap Verify below.</p>';
+    const d = await r.json();
+    if (!r.ok) { out.innerHTML = '<p class="err">' + (d.error && d.error.message || 'order failed') + '</p>'; btn.disabled = false; return; }
+    order = d;
+    out.innerHTML = '<p class="ok"><strong>Order created.</strong></p>'
+      + '<div class="addr">order_id: ' + d.order_id + '<br>amount: ' + d.amount_usdc + ' USDC<br>to: ' + d.recipient + '<br>expires: ' + d.expires_at + '</div>';
+    document.getElementById('signBtn').disabled = false;
   } catch (e) {
-    out.innerHTML = '<p class="err">' + (e.message || e) + '</p>';
+    out.innerHTML = '<p class="err">Could not reach the order service. Please try again.</p>';
+    btn.disabled = false;
   }
 }
 
-async function verify() {
+async function signOrder() {
+  const out = document.getElementById('signInfo');
+  const btn = document.getElementById('signBtn');
+  if (!order) { out.innerHTML = '<p class="err">Create an order first.</p>'; return; }
+  btn.disabled = true;
+  try {
+    if (!window.ethereum) { out.innerHTML = '<p class="err">No wallet found. Open this page in MetaMask or Coinbase Wallet.</p>'; btn.disabled = false; return; }
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    account = accounts[0];
+    signature = await window.ethereum.request({
+      method: 'personal_sign',
+      params: [order.message_to_sign, account],
+    });
+    out.innerHTML = '<p class="ok"><strong>Signed.</strong> Wallet: <span class="addr">' + account + '</span></p>';
+    document.getElementById('payBtn').disabled = false;
+  } catch (e) {
+    out.innerHTML = '<p class="err">Sign failed: ' + (e.message || e) + '</p>';
+    btn.disabled = false;
+  }
+}
+
+async function pay() {
+  const out = document.getElementById('payInfo');
+  const btn = document.getElementById('payBtn');
+  if (!order || !signature) { out.innerHTML = '<p class="err">Create an order and sign it first.</p>'; return; }
+  btn.disabled = true;
+  try {
+    const data = '0xa9059cbb'
+      + order.recipient.slice(2).toLowerCase().padStart(64, '0')
+      + toBaseUnits(order.amount_usdc);
+    const txHash = await window.ethereum.request({
+      method: 'eth_sendTransaction',
+      params: [{ from: account, to: USDC_BASE, data, chainId: '0x2105' }],
+    });
+    document.getElementById('txhash').value = txHash;
+    out.innerHTML = '<p class="ok">Sent: <a href="https://basescan.org/tx/' + txHash + '">' + txHash.slice(0, 18) + '…</a>. Now tap Verify in Step 4.</p>';
+    document.getElementById('redeemBtn').disabled = false;
+  } catch (e) {
+    out.innerHTML = '<p class="err">Payment failed: ' + (e.message || e) + '</p>';
+    btn.disabled = false;
+  }
+}
+
+async function redeem() {
   const out = document.getElementById('result');
   const txHash = document.getElementById('txhash').value.trim();
   if (!txHash) { out.innerHTML = '<p class="err">Enter a transaction hash first.</p>'; return; }
+  if (!order || !signature) { out.innerHTML = '<p class="err">Your order or signature is missing — start again from Step 1.</p>'; return; }
+  const btn = document.getElementById('redeemBtn');
+  btn.disabled = true;
   out.innerHTML = '<p>Verifying on-chain…</p>';
   try {
-    const r = await fetch(API + '/v1/crypto/purchase', {
+    const r = await fetch(API + '/v1/purchases/redeem', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ txHash, label: 'flow-purchase' }),
+      body: JSON.stringify({ order_id: order.order_id, tx_hash: txHash, signature: signature }),
     });
     const d = await r.json();
-    if (!r.ok) { out.innerHTML = '<p class="err">' + (d.error && d.error.message || 'failed') + '</p>'; return; }
-    out.innerHTML = '<p class="ok"><strong>Verified.</strong> ' + d.payment.amountUsdc + ' USDC received.</p>'
-      + '<p>Your API key (shown once, copy it now):</p><div class="addr">' + d.key + '</div>'
-      + '<pre>' + JSON.stringify({ accountId: d.accountId, txHash: d.payment.txHash, basescan: d.payment.basescanUrl }, null, 2) + '</pre>';
+    if (!r.ok) { out.innerHTML = '<p class="err">' + (d.error && d.error.message || 'redeem failed') + '</p>'; btn.disabled = false; return; }
+    if (d.api_key) {
+      out.innerHTML = '<p class="ok"><strong>Verified.</strong> Payment confirmed on-chain.</p>'
+        + '<p>Your API key (shown once, copy it now):</p><div class="addr">' + d.api_key + '</div>'
+        + '<pre>' + JSON.stringify({ order_id: d.order_id || order.order_id, entitlement_id: d.entitlement && d.entitlement.entitlement_id, product: d.entitlement && d.entitlement.product, tier: d.entitlement && d.entitlement.tier }, null, 2) + '</pre>'
+        + '<p class="muted">' + (d.notice || '') + '</p>';
+    } else {
+      out.innerHTML = '<p class="ok"><strong>Verified.</strong></p><p class="muted">' + (d.notice || 'Order already redeemed.') + '</p>';
+    }
   } catch (e) {
-    out.innerHTML = '<p class="err">' + (e.message || e) + '</p>';
+    out.innerHTML = '<p class="err">Could not reach the server. Your payment is on-chain; retry redeeming with the same tx hash.</p>';
+    btn.disabled = false;
   }
 }
 </script>
