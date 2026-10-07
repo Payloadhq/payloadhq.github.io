@@ -36,15 +36,16 @@ Economic-control and assurance plane: intent checked, payment verified on-chain,
 - Production ($499/mo): 100,000 ops/mo + detailed usage.
 - Growth ($1,499/mo): 1,000,000 ops/mo + detailed usage.
 - Enterprise ($5,000+/mo): custom allocation, per-contract terms.
-  Enterprise admin endpoints: GET /v1/enterprise/keys (list; service accounts distinguishable), POST /v1/enterprise/keys (scoped service-account keys), POST /v1/enterprise/keys/{keyId}/revoke, GET /v1/enterprise/usage (org-wide with history), GET/PUT /v1/enterprise/policy (action allow/deny lists, per-op spend cap, rate limits), GET /v1/enterprise/audit-export (full org audit evidence). Gate: enterprise entitlement + veyline:admin scope; 401 unauthenticated, 403 otherwise. Negotiated allocation enforced in real time (429 over limit, never billed). 14-day pilot with negotiated allocation, operator-provisioned.
-- Economic governor: standing mandates (POST /v1/veyline/mandates, /authorize, /commit, /approvals, /bindings) compiled from natural language, fail-closed. Enforcement is live on callx402 actions for orgs with active mandates: worst decision wins (DENY > ESCALATE_HUMAN > ALLOW), blocking happens BEFORE credit consumption, human approvals are single-use (POST /v1/veyline/mandates/{id}/approvals, 15-min TTL). Enterprise org policy (PUT /v1/enterprise/policy) gates actions before mandate evaluation.
+
+Localized Veyline entry points (same product, pricing, and purchase paths; checkout page in English):
+- Spanish: https://payloadhq.github.io/es.html
+- Portuguese (Brazil): https://payloadhq.github.io/pt.html
 
 Requests beyond the included allocation are throttled (429), never silently billed.
 
 ## callx402 (paid on-demand actions, no subscription)
 
 Standalone per-action fees (USD): explain $1; diagnose/evidence/failure classification $2; preflight/settlement interpretation $3; resolve/monitor/safe retry/duplicate-payment risk $5; recover/execute $10; rescue $15. Live schedule: GET https://payload-rail.fly.dev/v1/callx402/actions. Pay via one-time Stripe checkout (single-use credit) or x402 USDC on Base; Veyline subscribers use their API key. Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.
-  Valuation layer (live): the x402 402 amount is a deterministic value-based quote from GET /v1/callx402/quote (quote_id = sha256 of canonical inputs; 10-min TTL). Per-path floors: Stripe = fixed schedule; x402 = schedule/20 (min $0.01). Classes: A informational (caps $6-$10), B assurance (caps $100-$200), C intervention (continuous banded curve). $5,000 automated ceiling: above it requires authorize_above_ceiling=true attestation. Corroboration rule: declared exposure never raises a quote; only on-chain-verified USDC volume (corroborate_tx) counts. The 402 carries the full quote; payment echoes {txHash, quote_id, quote}.
 
 ## Free utilities
 
