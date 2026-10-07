@@ -11,7 +11,7 @@
     "solves": "Need proof of what happened — establish ground truth before acting on any incident.",
     "when_to_use": "FIRST step in any incident: establish ground truth — event trail, latest per-plane states (payment/execution/delivery), protocols involved.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $2.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $2.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the recorded event trail and latest per-plane states for the operation.",
     "veyline_when": "If you need this proof continuously for every operation without invoking it yourself -> Veyline.",
@@ -23,7 +23,7 @@
     "solves": "Need a plain-language explanation of an operation's state before deciding what to do.",
     "when_to_use": "You need a plain-language assessment of an operation's state from recorded evidence (NO_BASIS, INCOMPLETE, KNOWN_SAFE, RECOVERY_CANDIDATE, PARTIAL) before deciding whether to retry, refund, or escalate.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $1.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $1.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the state assessment plus the safe next step for that state.",
     "veyline_when": "If every operation needs automatic assessment at scale -> Veyline.",
@@ -35,7 +35,7 @@
     "solves": "Retry uncertainty — something went wrong and you need to know what before deciding whether a retry is safe.",
     "when_to_use": "Something went wrong with an x402 payment or MCP/x402 interaction and you need a diagnosis from failure evidence.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $2.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $2.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the diagnosis: what failed, why, and whether retry is safe.",
     "veyline_when": "If failures need automatic diagnosis across a production workload -> Veyline.",
@@ -47,7 +47,7 @@
     "solves": "Lost result after payment — paid but the result never arrived.",
     "when_to_use": "Payment succeeded but the result was lost (paid but no result). Returns the safe recovery decision (RECOVERABLE/SAFE_RETRY -> KNOWN_SAFE, or HUMAN_REVIEW). READ-ONLY: nothing charged, nothing executed.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $10.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $10.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the recovery decision and, where proven, the prior result — never a blind re-execution.",
     "veyline_when": "If paid-but-no-result must be handled automatically for every transaction -> Veyline.",
@@ -59,7 +59,7 @@
     "solves": "Settlement uncertainty — a payment/operation whose settlement state cannot be determined from current information.",
     "when_to_use": "Settlement state is pending and you need it resolved from evidence (e.g. was the broadcast transaction confirmed on chain?). Use instead of blind retry.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $5.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $5.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the resolved settlement state: confirmed, unconfirmed, or unknown (fail-closed).",
     "veyline_when": "If settlement verification must run continuously on every payment -> Veyline.",
@@ -71,7 +71,7 @@
     "solves": "Before an economic operation: need to check intent, payment readiness, and risk before committing.",
     "when_to_use": "Before an economic operation: check intent, payment readiness, and risk before committing.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $3.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $3.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the preflight verdict: safe to proceed, blocked with reasons, or needs changes.",
     "veyline_when": "If every operation needs automatic preflight gating in production -> Veyline.",
@@ -83,7 +83,7 @@
     "solves": "Need to watch an operation or workload for state changes, failures, or anomalies.",
     "when_to_use": "Watch an operation or workload for state changes, failures, or anomalies.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $5.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $5.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns state-change alerts and anomaly findings for the watched scope.",
     "veyline_when": "If monitoring must run continuously without manual invocation -> Veyline.",
@@ -95,7 +95,7 @@
     "solves": "Need to run an economic operation through the protected path (exactly-once).",
     "when_to_use": "Run an economic operation through the protected path: exact-once execution with budget and safety checks. On-demand action — not gated by a Veyline subscription.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $10.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $10.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the execution outcome with exactly-once guarantees and an evidence trail.",
     "veyline_when": "If execution needs continuous protection, metering, and automatic recovery at production scale -> Veyline subscription.",
@@ -107,7 +107,7 @@
     "solves": "An incident is in progress and guided rescue decisions are needed.",
     "when_to_use": "An incident is in progress and you need guided rescue decisions (read-only assessment; execution only via your own authorized path).",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $15.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $15.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns guided rescue decisions: what to do, in what order, with safety constraints.",
     "veyline_when": "If incidents must be rescued automatically without human invocation -> Veyline.",
@@ -119,7 +119,7 @@
     "solves": "Have chain/payment evidence and need to know what it actually proves.",
     "when_to_use": "You have chain/payment evidence and need to know what it actually proves: confirmed, unconfirmed, or unknown.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $3.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $3.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the settlement interpretation with certainty level — ambiguity is reported, never hidden.",
     "veyline_when": "If every settlement needs automatic interpretation -> Veyline.",
@@ -131,7 +131,7 @@
     "solves": "Retry uncertainty — need to prove a retry cannot double-pay or double-execute before retrying.",
     "when_to_use": "You need to retry an operation and must first prove the retry cannot double-pay or double-execute.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $5.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $5.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the safety proof for the retry, or a refusal with reasons (fail-closed).",
     "veyline_when": "If retries must be automatically proven safe across a workload -> Veyline.",
@@ -143,7 +143,7 @@
     "solves": "Need to classify a failure into a known class with its safe action instead of guessing.",
     "when_to_use": "Classify a failure into a known class (with the safe action for that class) instead of guessing.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $2.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $2.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the failure class and the recommended safe action for that class.",
     "veyline_when": "If failures must be auto-classified across production traffic -> Veyline.",
@@ -155,7 +155,7 @@
     "solves": "Before paying or retrying: need to assess whether the action risks paying twice.",
     "when_to_use": "Before paying or retrying: assess whether the action risks paying twice.",
     "fee_model": "per_action",
-    "fee_note": "Per-action fee for hosted on-demand invocation: $5.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.",
+    "fee_note": "Per-action fee for hosted on-demand invocation: $5.00 (live schedule at GET /v1/callx402/actions; owner-adjustable server-side). Paid via one-time Stripe checkout (single-use credit) or x402 USDC on Base (verified on-chain before authorization). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only. The x402-path amount in the 402 is the valuation-layer quote (GET /v1/callx402/quote), not the raw schedule: floor + value component on corroborated exposure; the fixed schedule is the Stripe-path floor.",
     "how_to_pay": "Two first-class paths. HUMAN: POST https://payload-rail.fly.dev/v1/callx402/checkout {action} -> one-time Stripe checkout -> single-use credit shown once on the success page -> POST /v1/callx402/actions/{action} {credit_id}. AUTONOMOUS AGENT: POST /v1/callx402/actions/{action} with no auth -> standards-compliant x402 v2 402 Payment Required (exact USDC amount on Base, pay-to, 300s window) -> pay from an authorized wallet -> retry with {txHash} -> rail verifies on-chain BEFORE authorizing; each txHash is single-use (atomic reservation; replay rejected 409). Veyline subscribers: Authorization: Bearer <veyline-key> instead (metered to subscription). Local CLI/SDK/MCP-stdio: free read-only diagnostics, no payment.",
     "returns": "Returns the duplicate-payment risk assessment with the safe course of action.",
     "veyline_when": "If duplicate-payment protection must be automatic on every payment -> Veyline.",
@@ -163,7 +163,7 @@
     "fee_usd_cents": 500
    }
   ],
-  "description": "Outward-facing x402 action/response layer. Paid on-demand actions: match your incident to the action, pay the applicable per-action fee, receive the result, continue — no subscription required. Local CLI/SDK/MCP-stdio diagnostics are free and read-only. Powered by Veyline.",
+  "description": "Outward-facing x402 action/response layer. Paid on-demand actions: match your incident to the action, pay the applicable per-action fee, receive the result, continue — no subscription required. Local CLI/SDK/MCP-stdio diagnostics are free and read-only. Powered by Veyline. Value-based quotes: GET /v1/callx402/quote (deterministic quote_id; per-path floors; $5,000 automated ceiling with explicit-authorization attestation; caller-declared exposure is ignored unless corroborated on-chain).",
   "name": "callx402 by Payload — powered by Veyline",
   "sdk_and_cli": {
    "cli": "callx402 (bin/callx402.js) — diagnose, explain, evidence, recover, resolve, preflight, monitor, execute, rescue",
@@ -359,7 +359,7 @@
   "transport": "JSON-RPC 2.0 over stdio",
   "routing": {
    "this_surface": "The 6 tools below are the free read-only diagnostic surface of callx402. They never charge, never execute, carry no auth or tier hooks by design.",
-   "paid_actions": "The paid on-demand callx402 actions are the commercial path for incidents: see commercial_routing.paths.incident and callx402.capabilities.",
+   "paid_actions": "The paid on-demand callx402 actions are the commercial path for incidents: see commercial_routing.paths.incident and callx402.capabilities. The 402 on the paid action path now carries a valuation quote (quote_id, breakdown, expiry); the MCP diagnostic surface itself is unchanged: free, read-only, no auth.",
    "veyline_gated": "Continuous/automatic/at-scale protection is the Veyline subscription: see commercial_routing.paths.ongoing. MCP tools are never Veyline-gated."
   }
  },
@@ -428,7 +428,18 @@
      "name": "Enterprise",
      "onboarding": "Contact form at https://payloadhq.github.io/veyline.html#pricing (POST https://payload-rail.fly.dev/v1/contact). Approved inquiries are provisioned by an operator as a 14-day Enterprise pilot with a negotiated operations allocation; there is no self-serve enterprise signup.",
      "price_note": "custom, from $5,000/month",
-     "price_usd_per_month": 5000
+     "price_usd_per_month": 5000,
+     "endpoints": {
+      "GET /v1/enterprise/keys": "List the org's API keys (service accounts distinguishable from user keys).",
+      "POST /v1/enterprise/keys": "Issue a key with custom scopes and labels (service account).",
+      "POST /v1/enterprise/keys/{keyId}/revoke": "Revoke a key; the key 401s immediately.",
+      "GET /v1/enterprise/usage": "Org-wide usage with history.",
+      "GET /v1/enterprise/policy": "Read the org's authorization policy.",
+      "PUT /v1/enterprise/policy": "Set the policy: action allow/deny lists, per-operation spend cap, custom rate limits.",
+      "GET /v1/enterprise/audit-export": "Full org-scoped audit evidence export: governor decisions, invocations, usage ledger, contracts.",
+      "gate": "Active enterprise entitlement AND the veyline:admin key scope. Non-admin enterprise keys and non-enterprise tiers get 403; unauthenticated gets 401.",
+      "quota": "Negotiated operations allocation is enforced in real time (429 over limit, never billed)."
+     }
     }
    ],
    "type": "subscription",
@@ -573,9 +584,18 @@
     "POST /v1/veyline/mandates/{id}/commit": "{amountUsd} -> records executed spend (append-only).",
     "POST /v1/veyline/mandates/{id}/release": "{amountUsd} -> drops an ephemeral reservation.",
     "POST /v1/veyline/mandates/{id}/revoke": "Permanently revokes the mandate.",
-    "GET /v1/veyline/mandates/{id}/bindings": "AP2 IntentMandate and x402-constraints compatibility shapes for the compiled mandate."
+    "GET /v1/veyline/mandates/{id}/bindings": "AP2 IntentMandate and x402-constraints compatibility shapes for the compiled mandate.",
+    "POST /v1/veyline/mandates/{id}/approvals": "{step_fingerprint, note?} -> 201 {approval_id}. Single-use human approval for an escalated step (15-minute TTL)."
    },
-   "notes": "The firewall defaults to DENY. Paid steps without a compiled spend cap are denied. Idempotency keys are durable: reusing a key with a different step fingerprint is rejected as replay-substitution, surviving restarts."
+   "notes": "The firewall defaults to DENY. Paid steps without a compiled spend cap are denied. Idempotency keys are durable: reusing a key with a different step fingerprint is rejected as replay-substitution, surviving restarts.",
+   "callx402_enforcement": {
+    "status": "live",
+    "description": "For orgs with ACTIVE mandates, every callx402 action invocation on the subscription and credit paths runs through each mandate's intent firewall BEFORE the rail authorizes or consumes anything. Opt-in: orgs with no active mandates see zero behavior change.",
+    "semantics": "Worst decision wins across active mandates: DENY beats ESCALATE_HUMAN beats ALLOW. DENY or unapproved escalation blocks BEFORE credit consumption: a paid single-use credit is never burned on a governor-blocked action. On ALLOW, spend commits to the mandate budget at authorization time and every decision is audited.",
+    "escalation": "ESCALATE_HUMAN is upgraded to ALLOW only by a single-use human approval recorded at POST /v1/veyline/mandates/{id}/approvals for the exact step fingerprint, consumed atomically and valid 15 minutes. A second retry with the same step escalates again.",
+    "org_policy_gate": "Enterprise configurable authorization runs BEFORE mandate evaluation and binds orgs with zero mandates too: action denylist (deny wins), action allowlist (when non-empty, only listed actions may run), max spend per operation. Policy denials are audited with mandate_id 'org-policy'.",
+    "not_governed": "The x402 on-chain payment path is NOT governed (its org is x402_<address> and cannot hold mandates). The advisory POST /v1/veyline/mandates/{id}/authorize endpoint remains for control-plane checks."
+   }
   }
  },
  "commercial_routing": {
@@ -625,5 +645,27 @@
    "x402_agent": "{ \"txHash\": \"0x...\" }",
    "stripe_credit": "{ \"credit_id\": \"cxa_...\" }"
   }
+ },
+ "valuation_layer": {
+  "name": "callx402 valuation layer",
+  "status": "live",
+  "description": "Value-based quoting on top of the fixed per-action fee schedule. The fixed schedule is NEVER changed by quoting: it becomes the Stripe-path floor. The x402 402 payment-required object now carries a valuation quote (quote_id, full breakdown, expiry) instead of the raw schedule price, and the caller must pay the quoted price.",
+  "quote_endpoint": "GET https://payload-rail.fly.dev/v1/callx402/quote?action=<action>&path=x402|stripe&exposure_usd=<optional declared>&complexity=<default 1>&risk_tier=low|medium|high&resource_units=<default 0>&corroborate_tx=<optional 0x hash>&authorize_above_ceiling=<true|false>",
+  "determinism": "quote_id = sha256 hex of the canonical inputs (action, path, declared/corroborated exposure, complexity, risk tier, resource units, authorize flag, corroborate tx, issued_at, policy + formula versions). Same inputs + same policy -> identical quote_id and price. Policy val-policy-1, formula val-formula-1.",
+  "formula": "quoted = clamp(base_path + V + C + R + S, floor = base_path, per-action cap). V = class value curve on corroborated exposure only. C = base x (complexity - 1) x 5%. R = $0 / $2 / $5 for LOW / MEDIUM / HIGH risk tier. S = 1 cent per resource unit.",
+  "per_path_floors": {
+   "stripe": "Fixed per-action fee schedule (unchanged). Quoted price can never go below the schedule.",
+   "x402": "Schedule / 20 (min $0.01). Agents pay the micro floor plus value component for large exposures."
+  },
+  "action_classes": {
+   "A": "Informational (explain, diagnose, evidence, failure_classification): saturating curve V_MAX $3-5, knee $200K, de minimis $500, caps $6-10.",
+   "B": "Assurance/prevention (preflight, monitor, settlement_interpretation, safe_retry, duplicate_payment_risk, resolve): V = p_loss x $40 x P/(P+$30K), de minimis $25, caps $100-200.",
+   "C": "Intervention (recover, execute, rescue): banded curve — band1 $2000/K$150K + band2 $8000/K$5M above $1M + band3 $20000/K$25M above $25M; continuous (no price jumps at band thresholds)."
+  },
+  "auth_ceiling": "Quotes above $5,000 carry requires_explicit_authorization = true. Payment above the ceiling is rejected unless the quote was requested with authorize_above_ceiling=true (payer attestation; the flag is hashed into quote_id so it cannot be flipped after issuance).",
+  "corroboration_rule": "Protectable value P comes from verified on-chain evidence ONLY. Caller-declared exposure NEVER raises a quote without independent corroboration: uncorroborated -> P = $0 -> the quote is base + complexity + risk + resource only. For tx-bound actions the caller may supply corroborate_tx; the rail reads the settled USDC volume of that transaction directly from Base RPC. Non-USDC value is not corroborable on-chain.",
+  "quote_ttl": "Quotes expire 600 seconds after issuance (plus 60s clock-skew grace). Every issued quote is audit-logged with its inputs hash and policy version.",
+  "payment_binding": "At payment time the rail re-derives the quote from the caller-echoed canonical inputs: quote_id mismatches, expired quotes, underpayment, and above-ceiling payment without the attestation flag are all rejected. The x402 402 object includes the full quote; payment must echo { txHash, quote_id, quote }.",
+  "uncorroborated_exposure": "Same inputs with declared exposure but no corroboration -> value component V = $0 (base only). Verify this with two quote calls."
  }
 }
