@@ -24,7 +24,7 @@
       "name": "What is the default timeout on n8n's HTTP Request node?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "10,000 milliseconds (10 seconds), set under the node's Options tab. Any call slower than that fails unless you raise it."
+        "text": "The Timeout field pre-fills 10,000 milliseconds when you add it under the node's Options tab, but if you never add the option, current n8n versions fall back to 300,000 ms (5 minutes) in code. Set an explicit timeout per node instead of inheriting either default."
       }
     },
     {
@@ -81,7 +81,7 @@
 <p class="lede">AI agent workflows make far more HTTP calls than classic automations: model APIs, tool endpoints, webhooks, vector stores. When those calls are slow, n8n's defaults turn intermittent slowness into failed executions.</p>
 
 <h2>What the default behavior is</h2>
-<p>Every <strong>HTTP Request</strong> node in n8n has an <strong>Options &rarr; Timeout</strong> setting, in milliseconds. If you never set it, the node uses its built-in default of <strong>10,000 ms (10 seconds)</strong>. A model API that takes 12 seconds to stream a response will fail the node with an <code>ETIMEDOUT</code>-style error &mdash; even though the API was working fine.</p>
+<p>Every <strong>HTTP Request</strong> node in n8n has an <strong>Options &rarr; Timeout</strong> setting, in milliseconds. The field pre-fills <strong>10,000 ms</strong> when you add it &mdash; but if you never add the option at all, current n8n versions fall back to <strong>300,000 ms (5 minutes)</strong> in code (<code>HttpRequestV3.node.ts</code>: <q>set default timeout to 5 minutes</q>). Either way, the default is doing something you did not choose: a hung request stalls the execution for up to five minutes, burning concurrency, and big-context model calls can still hit the 300-second ceiling. Set the timeout explicitly per node instead of inheriting either default.</p>
 <p>There is also a <strong>workflow-level execution timeout</strong> (workflow Settings &rarr; Timeout Workflow). A node timeout that is too generous can push the whole run into the workflow timeout instead. Set both deliberately.</p>
 
 <h2>Fix 1: set an explicit timeout per node</h2>
@@ -117,29 +117,29 @@
 <p>Expected output for a healthy workflow:</p>
 <pre><code>Call LLM API: timeout=60000 onError=continueErrorOutput retryOnFail=true
 Fetch embeddings: timeout=30000 onError=continueErrorOutput retryOnFail=true</code></pre>
-<p>Any line showing <code>NOT SET</code> or <code>stopWorkflow (default)</code> is a node that will fail loudly the first time an API is slow.</p>
+<p>Any line showing <code>NOT SET</code> is a node running on the invisible 5-minute code fallback instead of a timeout you chose; a hung request there stalls the whole execution. Any line showing <code>stopWorkflow (default)</code> is a node that halts the entire run on the first failed call.</p>
 
 <h2>Common failures</h2>
 <ul>
-  <li><strong>No timeout set on slow LLM calls.</strong> The 10-second default kills calls that just needed 15 seconds.</li>
+  <li><strong>No timeout set on slow LLM calls.</strong> An unset timeout falls back to 5 minutes in code, so a hung request stalls the execution instead of failing fast &mdash; and big-context calls can still hit the 300-second ceiling.</li>
   <li><strong>No <code>onError</code> handling.</strong> One flaky webhook stops a 40-node agent run.</li>
   <li><strong>Retry storms.</strong> Retrying a non-idempotent POST, or retrying aggressively against a rate-limited API, turns one failure into many &mdash; and can get the API key throttled.</li>
   <li><strong>Timeout set too high.</strong> A 5-minute node timeout on every node means the workflow-level execution timeout fires first, and the error message points at the wrong place.</li>
 </ul>
 
 <h2>Go further</h2>
-<p>The free <a href="https://github.com/Payloadhq/n8n-workflow-linter">n8n-workflow-linter</a> checks exported workflow JSON for exactly these smells &mdash; missing timeouts, missing error handling, and more. For the full treatment (10 importable reliability workflows, a failure-simulation eval harness, readiness scoring, and a 37-page production playbook), see the <a href="https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit">n8n Production AI Agent Reliability Kit</a> ($99, one-time).</p>
+<p>The free <a href="https://github.com/Payloadhq/n8n-workflow-linter">n8n-workflow-linter</a> checks exported workflow JSON for exactly these smells &mdash; missing timeouts, missing error handling, and more. For the full treatment (10 importable reliability workflows, a failure-simulation eval harness, readiness scoring, and a 37-page production playbook), see the <a href="https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit?utm_source=payload-portal&utm_medium=web&utm_content=n8n-agent-timeout">n8n Reliability Guard</a> ($99, one-time).</p>
 
     <div class="card">
       <h3>Built by Payload</h3>
-      <p>Payload builds practical software that makes AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Support: <a href="mailto:kyler.simmons.partners@gmail.com?subject=Payload%20Support%20Request">Support</a></p>
+      <p>Payload builds practical software that makes AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></p>
     </div>
   </div>
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>Payload &mdash; developer infrastructure for x402, agent payments, and programmable revenue.</span>
-    <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com?subject=Payload%20Support%20Request">Support</a></span>
+    <span>Payload &mdash; small software that earns its keep.</span>
+    <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span>
   </div>
 </footer>
 </body>
