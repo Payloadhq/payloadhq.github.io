@@ -471,9 +471,11 @@ curl -X POST https://api.veyline.io/v1/operations \
         <div class="price-note">Custom terms</div>
         <ul>
           <li>Full safety foundation</li>
-          <li>Negotiated operations allocation</li>
-          <li>Detailed usage breakdown</li>
-          <li>Per-contract terms</li>
+          <li>Negotiated operations allocation, enforced in real time</li>
+          <li>Org admin: key management, org usage, audit export</li>
+          <li>Economic governor: mandates with human-approval thresholds</li>
+          <li>Configurable authorization: spend caps, action allow/deny lists, custom rate limits</li>
+          <li>14-day pilot after inquiry review</li>
         </ul>
         <button class="btn btn-ghost" id="enterprise-btn" style="width:100%;">Contact Us</button>
         <form id="enterprise-form" style="display:none;margin-top:12px;text-align:left;">
@@ -709,7 +711,7 @@ curl -X POST https://api.veyline.io/v1/operations \
           entForm.style.display = 'none';
           entBtn.style.display = 'none';
           entResult.style.display = 'block';
-          entResult.innerHTML = '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day.';
+          entResult.innerHTML = '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day. Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.';
           return;
         }
         var msg = (data && data.error && data.error.message) || ('Send failed (HTTP ' + res.status + ')');
