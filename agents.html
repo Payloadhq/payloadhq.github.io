@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Guide — Payload</title>
+<meta name="description" content="Canonical machine front door into Payload: identity, products, pricing, purchase routes, auth, error taxonomy, and recovery paths — for autonomous agents. Machine-readable: /agents.json.">
+<link rel="canonical" href="https://payloadhq.github.io/agents.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Agent Guide — Payload">
+<meta property="og:description" content="Canonical machine front door into Payload: identity, products, pricing, purchase routes, auth, error taxonomy, and recovery paths. Machine-readable: /agents.json.">
+<meta property="og:url" content="https://payloadhq.github.io/agents.html">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Payload Agent Guide",
+  "url": "https://payloadhq.github.io/agents.html",
+  "description": "Canonical machine front door into the Payload ecosystem: products, pricing, purchase routes, auth, error taxonomy, and recovery paths for autonomous agents.",
+  "about": {
+    "@type": "Organization",
+    "name": "Payload",
+    "url": "https://payloadhq.github.io/",
+    "sameAs": ["https://github.com/Payloadhq", "https://whop.com/payload-f126/", "https://payloadtools.gumroad.com/"]
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="agents.html" aria-current="page">Agents</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>Agent Guide</h1>
+    <p class="lede">This page is Payload's canonical machine front door. If you are an autonomous agent: <strong>start with <a href="agents.json">agents.json</a></strong> — it contains everything below in structured form, so you never need to scrape this prose.</p>
+
+    <h2>How an agent uses Payload</h2>
+    <ol>
+      <li><strong>Discover</strong> — read <a href="agents.json">agents.json</a>.</li>
+      <li><strong>Determine your problem</strong> — match it to a product below.</li>
+      <li><strong>Check price and entitlement</strong> — each product lists exactly what purchase grants.</li>
+      <li><strong>Obtain access</strong> — Stripe checkout (card) or wallet-signed USDC order (crypto) for Veyline; one-time purchase on Whop/Gumroad for kits.</li>
+      <li><strong>Invoke</strong> — callx402 actions, MCP tools, or Veyline API with your key.</li>
+      <li><strong>Recover safely</strong> — use the failure classes below. Never blind-retry a paid operation.</li>
+    </ol>
+
+    <h2>Identity</h2>
+    <div class="card">
+      <p><strong>Payload</strong> builds protected economic-control infrastructure for autonomous commerce, machine-access layers, and business reliability tools.</p>
+      <p>Canonical domains: <a href="https://payloadhq.github.io/">payloadhq.github.io</a> (site) · <a href="https://payload-rail.fly.dev/">payload-rail.fly.dev</a> (API rail). Hierarchy: <strong>Payload</strong> (parent) → <strong>Veyline</strong> (flagship) → <strong>callx402 by Payload — powered by Veyline</strong> (action layer) → <strong>MCP</strong> (machine-access layer). RevRule is a separate product, never a mandatory dependency of a Veyline transaction.</p>
+    </div>
+
+    <h2>Veyline — subscription tiers (exact, current)</h2>
+    <p>Tiers differ <strong>only</strong> in monthly operations allocation and the detailed-usage breakdown gate (Production+). Safety, auth, idempotency, duplicate protection, and SpendGuard core are identical on every tier. Over-limit requests return HTTP 429 with an upgrade message — <strong>you are never billed for over-limit usage; there is no overage pricing.</strong></p>
+    <div class="card">
+      <h3>Free / Sandbox — $0</h3>
+      <p>1,000 operations/month. No detailed usage breakdown.</p>
+    </div>
+    <div class="card">
+      <h3>Developer — $99/month</h3>
+      <p>10,000 operations/month. No detailed usage breakdown.</p>
+    </div>
+    <div class="card">
+      <h3>Production — $499/month</h3>
+      <p>100,000 operations/month. Detailed usage breakdown included.</p>
+    </div>
+    <div class="card">
+      <h3>Growth — $1,499/month</h3>
+      <p>1,000,000 operations/month. Detailed usage breakdown included.</p>
+    </div>
+    <div class="card">
+      <h3>Enterprise — $5,000+/month custom</h3>
+      <p>Negotiated allocation. Detailed usage breakdown included. Per-contract terms.</p>
+    </div>
+    <p>A Veyline purchase entitles your organization to: an API key bound to your tier; metering against your included operations; <code>GET /v1/veyline/status</code> and <code>GET /v1/veyline/usage</code>; fail-closed economic protection on every operation at every tier. <a href="veyline.html">Subscribe</a>.</p>
+
+    <h2>callx402 — action taxonomy</h2>
+    <p>The outward-facing x402 action/response layer. The local CLI, SDKs, and MCP tools are tier-agnostic and read-only diagnostic surfaces — no entitlement needed for diagnostics.</p>
+    <div class="card">
+      <h3>Incident response (use first)</h3>
+      <p><strong>evidence</strong> — establish ground truth first: event trail, per-plane states, protocols. <strong>explain</strong> — plain-language assessment (NO_BASIS, INCOMPLETE, KNOWN_SAFE, RECOVERY_CANDIDATE, PARTIAL). <strong>diagnose</strong> — diagnose from failure evidence. <strong>recover</strong> — safe recovery decision for paid-but-no-result (read-only; nothing charged or executed). <strong>resolve</strong> — resolve pending settlement from evidence instead of blind retry. <strong>failure classification</strong> — classify into a known class with its safe action. <strong>settlement interpretation</strong> — what chain/payment evidence actually proves. <strong>duplicate-payment risk</strong> — assess double-pay risk before paying or retrying. <strong>safe retry</strong> — prove a retry cannot double-pay or double-execute.</p>
+      <h3>Operations</h3>
+      <p><strong>preflight</strong> — check intent, readiness, and risk before committing. <strong>execute</strong> — run through the protected path (exact-once, metered). <strong>monitor</strong> — watch operations for state changes or failures. <strong>rescue</strong> — guided rescue decisions for an in-progress incident.</p>
+      <p>MCP equivalents (stdio, JSON-RPC 2.0): <code>x402_diagnose</code>, <code>x402_evidence</code>, <code>x402_explain</code>, <code>x402_recover</code>, <code>x402_resolve</code>, <code>x402_status</code>. All read-only. No auth or tier hooks exist on the MCP surface by design.</p>
+    </div>
+
+    <h2>Other live products</h2>
+    <p>All one-time purchase, single-seat perpetual license, on <a href="https://whop.com/payload-f126/">Whop</a> or <a href="https://payloadtools.gumroad.com/">Gumroad</a>:</p>
+    <ul>
+      <li><strong>RevRule</strong> — $99. Revenue-rule engine (separate product).</li>
+      <li><strong>Veyline Developer Primer</strong> — $79. Onboarding product for agent-generated codebases.</li>
+      <li><strong>MCP Monetization Engine</strong> — $69. Charge per tool call on your MCP server (paid tool registry, free quotas, usage ledger, SDK adapter).</li>
+      <li><strong>x402 + MCP Bundle</strong> — $119. Primer + Engine together.</li>
+      <li><strong>n8n Reliability Guard</strong> — $99. Guardrails, evals, readiness scoring for n8n agent workflows.</li>
+      <li><strong>CRM Dedup System</strong> — $149. Offline duplicate finder for HubSpot/Salesforce CSV exports.</li>
+      <li><strong>StableLedger</strong> — $49. Stablecoin tax CSV normalizer (data organization only; not tax advice).</li>
+      <li><strong>MCP Launch Readiness Audit</strong> — $79. 48-rule security scanner for MCP servers (an audit, not a certification).</li>
+      <li><strong>AI Search Readiness Audit</strong> — $59. Chrome extension auditing pages for AI-search readiness.</li>
+    </ul>
+
+    <h2>Purchase routes</h2>
+    <div class="card">
+      <h3>Veyline — card (Stripe)</h3>
+      <p><code>POST https://payload-rail.fly.dev/v1/stripe/checkout</code> with JSON <code>{"tier": "developer|production|growth|enterprise"}</code>. No auth required — a fresh organization is provisioned server-side. Follow the returned Checkout URL. After successful payment, the success page shows your API key <strong>exactly once</strong> — copy it then. Entitlements are created only by the Stripe-verified webhook; an unpaid session yields no entitlement and no key.</p>
+      <h3>Veyline — crypto (USDC on Base)</h3>
+      <p>Secure order flow only: <code>POST /v1/purchases/orders</code> to create an order, then <code>POST /v1/purchases/redeem</code> with wallet-signed <code>{order_id, tx_hash, signature}</code>. The rail verifies the transfer on-chain before executing. The bare-txHash endpoint is permanently disabled (410) — never submit a bare transaction hash as payment proof.</p>
+      <h3>Kits and audits</h3>
+      <p>One-time purchase on <a href="https://whop.com/payload-f126/">Whop</a> or <a href="https://payloadtools.gumroad.com/">Gumroad</a>. Download link delivered at purchase.</p>
+    </div>
+
+    <h2>Authentication</h2>
+    <div class="card">
+      <p>Veyline API: Bearer token in the <code>Authorization</code> header. Obtain via the Stripe success page or the crypto redeem flow. Keys are <strong>product-bound</strong> — a RevRule key used on Veyline routes returns 403. Revoked keys return 401. Marketplace products require no API auth (download links are delivered by the store). The MCP diagnostic surface requires no auth by design.</p>
+      <p>Never expose wallet secrets, Stripe secrets, administrative credentials, or raw API keys in logs, prompts, or shared artifacts.</p>
+    </div>
+
+    <h2>Error taxonomy — safe action per failure class</h2>
+    <div class="card">
+      <h3>HTTP / API errors</h3>
+      <ul>
+        <li><strong>401 UNAUTHORIZED</strong> — key missing, invalid, or revoked. Do not retry the same key; re-authenticate or obtain a new one.</li>
+        <li><strong>403 PRODUCT_MISMATCH</strong> — key belongs to a different product. Use a key issued for the product you are calling.</li>
+        <li><strong>403 FEATURE_NOT_INCLUDED</strong> — detailed usage on Free/Developer. Use <code>/v1/veyline/usage</code> without the breakdown, or upgrade to Production+.</li>
+        <li><strong>429 QUOTA_EXCEEDED</strong> — allocation exhausted. Stop sending traffic; upgrade for a larger allocation. Never billed for over-limit usage.</li>
+        <li><strong>400 INVALID_TIER</strong> — use exactly: developer, production, growth, enterprise.</li>
+        <li><strong>410 ENDPOINT_DISABLED</strong> — use the secure order flow instead.</li>
+        <li><strong>PAYMENT_INCOMPLETE</strong> — session unpaid; no entitlement, no key. Complete payment first.</li>
+      </ul>
+      <h3>Operation failure classes (fail-closed)</h3>
+      <ul>
+        <li><strong>UNKNOWN</strong> — bare evidence. Do not act, retry, or repay. Gather evidence first.</li>
+        <li><strong>SETTLEMENT_UNKNOWN → HUMAN_REVIEW</strong> — never guess settlement.</li>
+        <li><strong>PAID_BUT_RESULT_LOST</strong> — call <code>recover</code> (read-only); recover the prior proven result; prohibit unsafe re-execution. Never blind-retry.</li>
+        <li><strong>INCOMPLETE</strong> — do not retry, do not repay. Collect more evidence.</li>
+        <li><strong>NO_BASIS</strong> — treat as unproven; establish evidence first.</li>
+        <li><strong>RECOVERY_CANDIDATE</strong> — follow the recover output; execute only via an explicitly authorized path.</li>
+        <li><strong>KNOWN_SAFE</strong> — complete. Do not re-execute.</li>
+        <li><strong>PARTIAL</strong> — resolve the unconfirmed planes before acting.</li>
+      </ul>
+    </div>
+
+    <h2>Capability and entitlement requirements</h2>
+    <div class="card">
+      <ul>
+        <li><strong>Veyline operations</strong> — active Veyline entitlement (any tier). Capability availability is identical across tiers.</li>
+        <li><strong>callx402 diagnostics / MCP tools</strong> — no entitlement required; tier-agnostic, read-only.</li>
+        <li><strong>One-time products</strong> — purchase receipt from Whop or Gumroad.</li>
+        <li><strong>RevRule</strong> — never a mandatory dependency of a Veyline transaction.</li>
+      </ul>
+    </div>
+
+    <h2>Support and recovery paths</h2>
+    <div class="card">
+      <p><strong>Canonical support:</strong> kyler.simmons.partners@gmail.com — include your order ID or API key prefix (never the full key). <strong>Recovery:</strong> for paid-but-no-result, start with <code>callx402 recover</code> (read-only) before contacting support. <strong>Docs:</strong> <a href="docs.html">docs.html</a>. <strong>API reference:</strong> <a href="https://payload-rail.fly.dev/v1/openapi.json">rail OpenAPI</a>. <strong>GitHub:</strong> <a href="https://github.com/Payloadhq">Payloadhq</a>.</p>
+    </div>
+
+    <h2>Machine-readable</h2>
+    <p>Everything on this page, structured: <a href="agents.json"><code>agents.json</code></a> (schema <code>payload/agents-discovery/1.0</code>). Discoverable from <a href="llms.txt">llms.txt</a>, robots.txt, and the sitemap.</p>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <p><a href="index.html">Payload</a> · <a href="products.html">Products</a> · <a href="agents.json">agents.json</a> · <a href="llms.txt">llms.txt</a> · <a href="docs.html">Docs</a></p>
+  </div>
+</footer>
+</body>
+</html>
