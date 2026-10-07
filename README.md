@@ -1,7 +1,7 @@
 # Payload Developer Portal
 
 **Source for the Payload developer portal** — by Payload. The canonical docs home
-for Veyline, callx402, RevRule, and the Payload free utilities.
+for RevRule by Payload and the Payload free utilities.
 
 Live site: https://payloadhq.github.io/
 
@@ -9,10 +9,12 @@ Live site: https://payloadhq.github.io/
 
 The public, static home of Payload documentation: product pages, developer docs,
 how-to guides, browser utilities, and the X402 Observatory reference data. No
-trackers, no build step. Brand hierarchy on every page: PAYLOAD is the parent
-company; Veyline by Payload is the flagship; callx402 by Payload (powered by
-Veyline) is the x402 action layer; RevRule by Payload is the separate
-programmable revenue rules engine.
+trackers, no build step. Payload's brand order is: PAYLOAD is the parent company;
+Veyline by Payload is the flagship; callx402 by Payload (powered by Veyline) is
+the x402 action layer; RevRule by Payload is the separate programmable revenue
+rules engine. The portal's current published coverage is RevRule by Payload and
+the Payload free utilities; Veyline and callx402 docs are not yet published on
+the portal.
 
 ## Repository layout
 
