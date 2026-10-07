@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Payload Rail — live API for programmable revenue | Payload</title>
-<meta name="description" content="Payload Rail is the hosted API for RevRule: define a Revenue Graph, send economic events, get auditable entitlements back. No custody, ever. Free to try.">
+<title>RevRule API — live API for programmable revenue | Payload</title>
+<meta name="description" content="RevRule API is the hosted API for RevRule: define a Revenue Graph, send economic events, get auditable entitlements back. No custody, ever. Free to try.">
 <link rel="canonical" href="https://payloadhq.github.io/flow-rail.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
-<meta property="og:title" content="Payload Rail — live API for programmable revenue">
+<meta property="og:title" content="RevRule API — live API for programmable revenue">
 <meta property="og:description" content="Define a Revenue Graph, send economic events, get auditable entitlements back. The royalty belongs to the graph, not the payment rail.">
 <meta property="og:url" content="https://payloadhq.github.io/flow-rail.html">
 <meta name="twitter:card" content="summary">
@@ -17,7 +17,7 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Payload Rail",
+  "name": "RevRule API",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Web",
   "url": "https://payloadhq.github.io/flow-rail.html",
@@ -46,7 +46,7 @@
 </header>
 <main id="main">
   <div class="wrap">
-    <h1>Payload Rail</h1>
+    <h1>RevRule API</h1>
     <p class="lede">The hosted API for RevRule. Define a Revenue Graph, send economic events, get auditable entitlements back. Live now.</p>
 
     <p><strong>Base URL:</strong> <code>https://payload-rail.fly.dev</code></p>
@@ -101,7 +101,7 @@ curl -s -X POST $BASE/v1/graphs/g1/events -H "Authorization: Bearer $KEY" \
 
     <h2>What it is not</h2>
     <ul>
-      <li><strong>Not custody.</strong> Every distribution is <code>status: "proposed"</code>. The Rail never holds funds, never moves money, never calls a payment network. Your Stripe Connect or facilitator executes payouts.</li>
+      <li><strong>Not custody.</strong> Every distribution is <code>status: "proposed"</code>. The RevRule API never holds funds, never moves money, never calls a payment network. Your Stripe Connect or facilitator executes payouts.</li>
       <li><strong>Not a payment processor.</strong> It computes who is owed what; regulated partners move the money.</li>
     </ul>
 
