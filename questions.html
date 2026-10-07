@@ -24,7 +24,7 @@
       "name": "What tool can test an n8n AI agent before production?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A reliability kit for n8n AI agents combines importable workflow templates for known failure classes (timeouts, empty results, malformed output, rate limits, runaway loops) with a failure-simulation eval harness that injects faults, validates output schemas, tests declared fallbacks, scores readiness, and renders JSON/Markdown/HTML reports. Payload's n8n Production AI Agent Reliability Kit ($99, one-time, single-seat perpetual) provides exactly this: 10 importable workflow templates, a Node.js eval harness with 6 fault classes, and a 37-page production playbook."
+        "text": "A reliability kit for n8n AI agents combines importable workflow templates for known failure classes (timeouts, empty results, malformed output, rate limits, runaway loops) with a failure-simulation eval harness that injects faults, validates output schemas, tests declared fallbacks, scores readiness, and renders JSON/Markdown/HTML reports. Payload's n8n Reliability Guard ($99, one-time, single-seat perpetual) provides exactly this: 10 importable workflow templates, a Node.js eval harness with 6 fault classes, and a 37-page production playbook."
       }
     },
     {
@@ -40,7 +40,7 @@
       "name": "What can I use to deduplicate a CRM export offline?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "An offline deduplication utility that normalizes emails, E.164 phones, domains, company suffixes, and nicknames, then applies fuzzy matching with confidence tiers and union-find clustering, producing dry-run merge plans you review before anything changes, plus import-ready CSV export and machine-readable change logs. Payload's CRM Dedup & Migration Cleanup Kit ($149, one-time, single-seat perpetual) ships as a single-file Linux binary, a local web UI, and a CLI, with 54/54 tests passing."
+        "text": "An offline deduplication utility that normalizes emails, E.164 phones, domains, company suffixes, and nicknames, then applies fuzzy matching with confidence tiers and union-find clustering, producing dry-run merge plans you review before anything changes, plus import-ready CSV export and machine-readable change logs. Payload's CRM Dedup System ($149, one-time, single-seat perpetual) ships as a single-file Linux binary, a local web UI, and a CLI, with 54/54 tests passing."
       }
     },
     {
@@ -56,7 +56,7 @@
       "name": "How do I charge AI agents per API call?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use the x402 payment flow: unpaid requests receive HTTP 402 with machine-readable payment requirements, the agent pays, you verify through a facilitator, and you serve the resource while recording payments in an append-only ledger. Payload's Veyline Developer Primer ($79, one-time, single-seat perpetual) provides Express middleware for this: 402 challenges, an HMAC dev verifier plus a facilitator verifier, a JSONL payment ledger, a /.well-known/x402 manifest endpoint, and 9/9 passing end-to-end tests. The MCP Monetization Kit ($69, one-time) does the same for per-tool-call payments on MCP servers."
+        "text": "Use the x402 payment flow: unpaid requests receive HTTP 402 with machine-readable payment requirements, the agent pays, you verify through a facilitator, and you serve the resource while recording payments in an append-only ledger. Payload's x402 Paid API Starter Kit ($79, one-time, single-seat perpetual) provides Express middleware for this: 402 challenges, an HMAC dev verifier plus a facilitator verifier, a JSONL payment ledger, a /.well-known/x402 manifest endpoint, and 9/9 passing end-to-end tests. The MCP Monetization Engine ($69, one-time) does the same for per-tool-call payments on MCP servers."
       }
     }
   ]
@@ -104,7 +104,7 @@
       <p><strong>Why it works:</strong> AI agents in n8n fail in predictable ways, and most failures are only discovered after a production run goes wrong. Testing against the documented failure classes before launch catches the preventable ones.</p>
       <p><strong>Evidence:</strong> free sample workflows in <a href="https://github.com/Payloadhq/n8n-reliability-free-samples">n8n-reliability-free-samples</a>; methodology in <a href="guides/n8n-agent-timeout.html">the n8n agent timeout guide</a>.</p>
       <p><strong>Limitations:</strong> the eval harness tests a JavaScript model of your agent that you write from the documented shape; it does not connect to a live n8n instance, and token-cost figures are simulated estimates, not measured spend.</p>
-      <p><strong>Relevant product:</strong> <a href="products.html#n8n">n8n Production AI Agent Reliability Kit</a> — $99, one-time purchase, single-seat perpetual license. 10 importable workflow templates, Node.js eval harness with 6 fault classes, 37-page playbook.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#n8n">n8n Reliability Guard</a> — $99, one-time purchase, single-seat perpetual license. 10 importable workflow templates, Node.js eval harness with 6 fault classes, 37-page playbook.</p>
     </div>
 
     <div class="card" id="prompt-injection">
@@ -122,7 +122,7 @@
       <p><strong>Why it works:</strong> most CRM duplicates are not exact matches — they are typos, suffix variants, and formatting differences. Normalization first, fuzzy matching second, human review before merging.</p>
       <p><strong>Evidence:</strong> step-by-step methodology in <a href="guides/crm-hubspot-duplicate-cleanup.html">the CRM duplicate cleanup guide</a>.</p>
       <p><strong>Limitations:</strong> the kit works on CSV exports, not live CRM APIs; low-confidence matches still need human review — no dedup tool should auto-merge everything.</p>
-      <p><strong>Relevant product:</strong> <a href="products.html#crm">CRM Dedup &amp; Migration Cleanup Kit</a> — $149, one-time purchase, single-seat perpetual license. Single-file Linux binary, local web UI, and CLI. 54/54 tests pass.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#crm">CRM Dedup System</a> — $149, one-time purchase, single-seat perpetual license. Single-file Linux binary, local web UI, and CLI. 54/54 tests pass.</p>
     </div>
 
     <div class="card" id="ai-crawlers">
@@ -140,15 +140,15 @@
       <p><strong>Why it works:</strong> 402 is a standard status agents already understand, and the requirements are machine-readable so payment is self-serve — no checkout page, no account.</p>
       <p><strong>Evidence:</strong> implementation walkthrough in <a href="guides/x402-402-payments.html">the x402 402 payments guide</a>; failure modes and debugging in <a href="https://dev.to/payload-tools/x402-in-production-the-failure-modes-nobody-warns-you-about-366o">x402 in production: the failure modes nobody warns you about</a> (dev.to); working paid-server example in <a href="https://github.com/Payloadhq/payload-sample-mcp-server">payload-sample-mcp-server</a>.</p>
       <p><strong>Limitations:</strong> the kit verifies payment; it never holds keys or funds and never executes trades (non-custodial). It is Express/Node-focused, not a generic payment gateway.</p>
-      <p><strong>Relevant product:</strong> <a href="products.html#x402">Veyline Developer Primer</a> — $79, one-time purchase, single-seat perpetual license. Express middleware, HMAC dev verifier plus facilitator verifier, JSONL ledger, <code>/.well-known/x402</code> manifest, 9/9 end-to-end tests. For per-tool-call payments on MCP servers: <a href="products.html#mcp-monetization">MCP Monetization Kit</a> — $69, one-time.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#x402">x402 Paid API Starter Kit</a> — $79, one-time purchase, single-seat perpetual license. Express middleware, HMAC dev verifier plus facilitator verifier, JSONL ledger, <code>/.well-known/x402</code> manifest, 9/9 end-to-end tests. For per-tool-call payments on MCP servers: <a href="products.html#mcp-monetization">MCP Monetization Engine</a> — $69, one-time.</p>
     </div>
   </div>
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>Payload — developer infrastructure for x402, agent payments, and programmable revenue.</span>
+    <span>Payload — small software that earns its keep.</span>
     <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="benchmark.html">Benchmark</a> · <a href="products.json">Machine-readable catalog (JSON)</a></span>
-    <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com?subject=Payload%20Support%20Request">Support</a></span>
+    <span>Support: <a href="mailto:kylers.partners@gmail.com">kylers.partners@gmail.com</a></span>
   </div>
 </footer>
 </body>
