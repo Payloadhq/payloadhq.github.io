@@ -56,7 +56,7 @@
       "name": "How do I charge AI agents per API call?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use the x402 payment flow: unpaid requests receive HTTP 402 with machine-readable payment requirements, the agent pays, you verify through a facilitator, and you serve the resource while recording payments in an append-only ledger. Payload's x402 Paid API Starter Kit ($79, one-time, single-seat perpetual) provides Express middleware for this: 402 challenges, an HMAC dev verifier plus a facilitator verifier, a JSONL payment ledger, a /.well-known/x402 manifest endpoint, and 9/9 passing end-to-end tests. The MCP Monetization Kit ($69, one-time) does the same for per-tool-call payments on MCP servers."
+        "text": "Use the x402 payment flow: unpaid requests receive HTTP 402 with machine-readable payment requirements, the agent pays, you verify through a facilitator, and you serve the resource while recording payments in an append-only ledger. Payload's Veyline Developer Primer ($79, one-time, single-seat perpetual) provides Express middleware for this: 402 challenges, an HMAC dev verifier plus a facilitator verifier, a JSONL payment ledger, a /.well-known/x402 manifest endpoint, and 9/9 passing end-to-end tests. The MCP Monetization Kit ($69, one-time) does the same for per-tool-call payments on MCP servers."
       }
     }
   ]
@@ -140,13 +140,13 @@
       <p><strong>Why it works:</strong> 402 is a standard status agents already understand, and the requirements are machine-readable so payment is self-serve — no checkout page, no account.</p>
       <p><strong>Evidence:</strong> implementation walkthrough in <a href="guides/x402-402-payments.html">the x402 402 payments guide</a>; failure modes and debugging in <a href="https://dev.to/payload-tools/x402-in-production-the-failure-modes-nobody-warns-you-about-366o">x402 in production: the failure modes nobody warns you about</a> (dev.to); working paid-server example in <a href="https://github.com/Payloadhq/payload-sample-mcp-server">payload-sample-mcp-server</a>.</p>
       <p><strong>Limitations:</strong> the kit verifies payment; it never holds keys or funds and never executes trades (non-custodial). It is Express/Node-focused, not a generic payment gateway.</p>
-      <p><strong>Relevant product:</strong> <a href="products.html#x402">x402 Paid API Starter Kit</a> — $79, one-time purchase, single-seat perpetual license. Express middleware, HMAC dev verifier plus facilitator verifier, JSONL ledger, <code>/.well-known/x402</code> manifest, 9/9 end-to-end tests. For per-tool-call payments on MCP servers: <a href="products.html#mcp-monetization">MCP Monetization Kit</a> — $69, one-time.</p>
+      <p><strong>Relevant product:</strong> <a href="products.html#x402">Veyline Developer Primer</a> — $79, one-time purchase, single-seat perpetual license. Express middleware, HMAC dev verifier plus facilitator verifier, JSONL ledger, <code>/.well-known/x402</code> manifest, 9/9 end-to-end tests. For per-tool-call payments on MCP servers: <a href="products.html#mcp-monetization">MCP Monetization Kit</a> — $69, one-time.</p>
     </div>
   </div>
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>Payload — small software that earns its keep.</span>
+    <span>Payload — developer infrastructure for x402, agent payments, and programmable revenue.</span>
     <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="benchmark.html">Benchmark</a> · <a href="products.json">Machine-readable catalog (JSON)</a></span>
     <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span>
   </div>
