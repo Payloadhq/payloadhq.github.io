@@ -1,6 +1,8 @@
 # Payload
 
-Practical tools that make AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Small software that earns its keep.
+Developer infrastructure for x402, agent payments, and programmable revenue.
+
+Product hierarchy: PAYLOAD (parent company) → VEYLINE (flagship infrastructure platform) → CALLX402 (the x402 action layer, powered by Veyline) → REVRULE (a separate programmable economic-rights product, not a Veyline dependency) → commercial developer products (one-time purchases) → free utilities.
 
 - Home: https://payloadhq.github.io/
 - Products: https://payloadhq.github.io/products.html
@@ -9,11 +11,24 @@ Practical tools that make AI, automation, and business infrastructure safer, cle
 - Changelog: https://payloadhq.github.io/changelog.html
 - Support: kyler.simmons.partners@gmail.com
 
-## RevRule by Payload — Programmable Economic Infrastructure
+## Veyline by Payload — flagship infrastructure platform
 
-RevRule is a programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money. Create persistent rules for royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees, and API/x402 revenue. RevRule remembers economic state across transactions, applies the correct rules when new revenue events occur, and produces an auditable record of what each participant is entitled to. Your payment rail moves the money. RevRule determines the economics.
+Veyline is the production layer for x402 and MCP, by Payload: the infrastructure platform behind agent payments. Monthly tiers: Sandbox $0, Developer $99, Production $499, Growth $1,499, Enterprise $5,000+/mo (custom).
 
-- Product page: https://payloadhq.github.io/products.html#revrule
+- Accessed through callx402: https://github.com/Payloadhq/callx402
+- For tier access: kyler.simmons.partners@gmail.com
+
+## callx402 — the x402 action layer (powered by Veyline)
+
+callx402 is the universal action for x402 infrastructure: diagnose, rescue, route, resolve, execute. An access layer into Veyline, not a standalone product.
+
+- GitHub: https://github.com/Payloadhq/callx402
+
+## RevRule by Payload — separate programmable economic-rights product
+
+RevRule is a programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money. Create persistent rules for royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees, and API/x402 revenue. RevRule remembers economic state across transactions, applies the correct rules when new revenue events occur, and produces an auditable record of what each participant is entitled to. Your payment rail moves the money. RevRule determines the economics. RevRule is a separate product, not a Veyline dependency.
+
+- Product page: https://payloadhq.github.io/revrule.html
 - Try it live (free, one click, real API): https://payloadhq.github.io/flow-try.html
 - Browser sandbox (simulated): https://payloadhq.github.io/flow-sandbox.html
 - Hosted API base URL: https://payload-rail.fly.dev
@@ -22,12 +37,12 @@ RevRule is a programmable revenue rules engine for deciding who earns what whene
 - Pricing: free sandbox for evaluation; $99 one-time purchase for production. No subscription.
 - x402: machine payments accepted in USDC on Base, verified on-chain.
 
-## Products (one-time purchase, single-seat perpetual license)
+## Commercial developer products (one-time purchase, single-seat perpetual license)
 
-- x402 Paid API Starter Kit ($79): Express middleware charging AI agents per API call in USDC via x402. HTTP 402 challenges, payment verification, usage ledger. Non-custodial; never holds keys or funds. https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit
+- Veyline Developer Primer ($79): Express middleware charging AI agents per API call in USDC via x402. HTTP 402 challenges, payment verification, usage ledger. Non-custodial; never holds keys or funds. https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit
 - MCP Monetization Kit ($69, v1.0.1): per-tool-call payments for MCP servers. Paid tool registry, free quotas, machine-readable payment requirements, usage ledger, official MCP SDK adapter. https://payloadtools.gumroad.com/l/mcp-monetization-kit
+- x402+MCP Bundle ($119): the Veyline Developer Primer and the MCP Monetization Kit together. https://payloadtools.gumroad.com/l/x402-mcp-bundle
 - StableLedger ($49): offline, zero-dependency Python CLI organizing stablecoin transaction CSV exports into clean realized P/L records. Data-organization software; not tax advice, does not calculate taxes. https://payloadtools.gumroad.com/l/stableledger-tax-csv
-- x402 + MCP Bundle ($119): both kits above together. https://payloadtools.gumroad.com/l/x402-mcp-bundle
 - AI Search Readiness Audit ($59): Chrome extension (MV3) auditing any page for AI-search readiness: raw-HTML coverage, AI Overviews eligibility, AI-crawler robots.txt matrix, dead schema detection. 100% client-side; no account, no server, no tracking. https://payloadtools.gumroad.com/l/ai-search-readiness-audit
 - CRM Dedup & Migration Cleanup Kit ($149): offline deduplication and normalization for CRM exports. Fuzzy matching, merge review, import-ready CSVs, machine-readable change logs. https://payloadtools.gumroad.com/l/crm-dedup-migration-kit
 - n8n Production AI Agent Reliability Kit ($99, v1.0.1): 10 importable n8n workflow templates, failure-simulation eval harness, readiness scoring, 37-page playbook. Evaluates a JS model of your agent, not a live n8n instance. https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit
@@ -39,11 +54,13 @@ RevRule is a programmable revenue rules engine for deciding who earns what whene
 
 ## GitHub (Payloadhq org)
 
+- https://github.com/Payloadhq/callx402 — callx402, the x402 action layer
+- https://github.com/Payloadhq/payload-flow — open-source RevRule engine (MIT)
 - https://github.com/Payloadhq/payload-sample-mcp-server — free sample MCP server (MIT)
 - https://github.com/Payloadhq/mcp-monetization-demo — free metering demo (MIT)
 - https://github.com/Payloadhq/n8n-reliability-free-samples — two free n8n workflows (MIT)
 - https://github.com/Payloadhq/privacy — public privacy policies
-- https://github.com/Payloadhq/x402-paid-api-starter-kit — product docs
+- https://github.com/Payloadhq/x402-paid-api-starter-kit — Veyline Developer Primer docs
 - https://github.com/Payloadhq/mcp-monetization-kit — product docs
 - https://github.com/Payloadhq/stableledger — product docs
 
