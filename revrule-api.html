@@ -39,7 +39,7 @@
 
     <h2>Machine-readable</h2>
     <div class="card">
-      <p><strong>OpenAPI 3.1:</strong> <a href="https://payload-rail.fly.dev/openapi.json">payload-rail.fly.dev/openapi.json</a> — 17 paths, import into Postman, Insomnia, or generate a client.</p>
+      <p><strong>OpenAPI 3.1:</strong> <a href="https://payload-rail.fly.dev/openapi.json">payload-rail.fly.dev/openapi.json</a> — 2 paths (the x402 machine-commerce endpoints), import into Postman, Insomnia, or generate a client.</p>
       <p><strong>LLM docs:</strong> <a href="https://payload-rail.fly.dev/llms.txt">payload-rail.fly.dev/llms.txt</a> — the whole API in one plain-text file for agents and coding assistants.</p>
       <p><strong>x402 manifest:</strong> <a href="https://payload-rail.fly.dev/.well-known/x402">/.well-known/x402</a> — machine payment metadata for the paid endpoints.</p>
     </div>
@@ -56,7 +56,8 @@
       <code>GET /v1/graphs/{id}/ledger</code> — read ledger entries for a graph.</p>
       <h3>Crypto</h3>
       <p><code>GET /v1/crypto/config</code> — accepted assets and receiving address.<br>
-      <code>POST /v1/crypto/purchase</code> — buy a $99 RevRule license with USDC on Base.<br>
+      <code>POST /v1/purchases/orders</code> — create a cryptographically-bound purchase order: <code>{"product": "revrule"}</code> returns the order id, exact USDC amount, recipient, and a <code>message_to_sign</code>.<br>
+      <code>POST /v1/purchases/redeem</code> — redeem <code>{order_id, tx_hash, signature}</code> (personal_sign of the order message by the paying wallet) to buy a $99 RevRule license with USDC on Base; the rail verifies the transfer on-chain before issuing your API key.<br>
       <code>POST /v1/crypto/fees/settle</code> — settle accrued fees on-chain.<br>
       <code>GET /v1/fees/balance</code> — accrued fee balances.</p>
       <h3>x402 machine commerce</h3>
