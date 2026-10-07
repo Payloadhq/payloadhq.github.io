@@ -12,9 +12,10 @@ how-to guides, browser utilities, and the X402 Observatory reference data. No
 trackers, no build step. Payload's brand order is: PAYLOAD is the parent company;
 Veyline by Payload is the flagship; callx402 by Payload (powered by Veyline) is
 the x402 action layer; RevRule by Payload is the separate programmable revenue
-rules engine. The portal's current published coverage is RevRule by Payload and
-the Payload free utilities; Veyline and callx402 docs are not yet published on
-the portal.
+rules engine. The portal's current published coverage: Veyline and callx402
+(`veyline.html`, `agents.html`, `agents.json`), RevRule by Payload
+(`revrule.html`, `revrule-api.html`, `revrule-sandbox.html`), and the Payload
+free utilities.
 
 ## Repository layout
 
