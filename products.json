@@ -4,6 +4,24 @@
   "license_type": "one-time purchase, single-seat perpetual",
   "products": [
     {
+      "name": "Veyline by Payload",
+      "category": "Protected economic-control infrastructure",
+      "purpose": "Veyline is the flagship protected economic-control and autonomous-commerce infrastructure: the production layer for x402 + MCP. It wraps every economic operation in verification \u2014 intent checked, payment verified on-chain, settlement classified with certainty, execution exactly once, failures recovered safely, outcome proven and recorded as tamper-evident evidence. callx402 by Payload \u2014 powered by Veyline is the outward-facing action/response layer.",
+      "url": "https://payloadhq.github.io/veyline.html",
+      "api_base_url": "https://payload-rail.fly.dev",
+      "try_url": "https://payloadhq.github.io/veyline.html#pricing",
+      "sandbox_url": "",
+      "open_source": "",
+      "price_usd": 99,
+      "license_type": "metered monthly subscription; free sandbox tier (1,000 ops/mo); Developer $99, Production $499, Growth $1,499, Enterprise $5,000+ custom",
+      "platforms": [
+        "Hosted API",
+        "callx402 CLI"
+      ],
+      "inputs": "Economic operations via REST API or callx402",
+      "version": "1.0.0"
+    },
+    {
       "name": "RevRule",
       "category": "Programmable economic infrastructure",
       "purpose": "RevRule is a programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money. Create persistent rules for royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees, and API/x402 revenue. Your payment rail moves the money. RevRule determines the economics.",
