@@ -415,9 +415,18 @@
     },
     {
      "allocation": "negotiated",
+     "capabilities": [
+      "Negotiated operations allocation enforced in real time (HTTP 429 when exceeded, never billed)",
+      "Organization admin controls: list/revoke API keys, org-wide usage with history",
+      "Service accounts: keys with custom scopes and labels, distinguishable from user keys",
+      "Economic governor: standing mandates with ALLOW/DENY/ESCALATE_HUMAN, human-approval thresholds, multi-mandate policies",
+      "Configurable authorization: per-org spend caps, per-action allow/deny lists, custom rate limits",
+      "Full org-scoped audit evidence export (governor decisions, invocations, usage ledger, contracts)"
+     ],
      "detailed_usage_breakdown": true,
      "included_operations_per_month": null,
      "name": "Enterprise",
+     "onboarding": "Contact form at https://payloadhq.github.io/veyline.html#pricing (POST https://payload-rail.fly.dev/v1/contact). Approved inquiries are provisioned by an operator as a 14-day Enterprise pilot with a negotiated operations allocation; there is no self-serve enterprise signup.",
      "price_note": "custom, from $5,000/month",
      "price_usd_per_month": 5000
     }
