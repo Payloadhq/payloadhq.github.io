@@ -424,7 +424,12 @@ curl -X POST https://api.veyline.io/v1/operations \
           <li>1,000 operations/month</li>
           <li>Detailed usage: not included</li>
         </ul>
-        <a class="btn btn-ghost" href="https://payloadhq.github.io/docs.html" style="text-align:center;">Start Free</a>
+        <form id="sandbox-form" style="margin-top:12px;">
+          <input type="email" id="sandbox-email" placeholder="you@company.com" required aria-label="Email for sandbox signup"
+            style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
+          <button type="submit" class="btn btn-ghost" id="sandbox-btn" style="width:100%;">Start Free</button>
+        </form>
+        <div id="sandbox-result" style="display:none;margin-top:12px;font-size:13px;"></div>
       </div>
       <div class="tier">
         <div class="tname">Developer</div>
@@ -469,7 +474,19 @@ curl -X POST https://api.veyline.io/v1/operations \
           <li>Detailed usage breakdown</li>
           <li>Per-contract terms</li>
         </ul>
-        <a class="btn btn-ghost" href="mailto:kyler.simmons.partners@gmail.com?subject=Veyline%20Enterprise%20inquiry" style="text-align:center;">Contact Us</a>
+        <button class="btn btn-ghost" id="enterprise-btn" style="width:100%;">Contact Us</button>
+        <form id="enterprise-form" style="display:none;margin-top:12px;text-align:left;">
+          <input type="text" id="ent-name" placeholder="Your name" required aria-label="Name"
+            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
+          <input type="email" id="ent-email" placeholder="you@company.com" required aria-label="Work email"
+            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
+          <input type="text" id="ent-company" placeholder="Company (optional)" aria-label="Company"
+            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
+          <textarea id="ent-message" placeholder="What are you protecting?" required rows="3" aria-label="Message"
+            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;resize:vertical;"></textarea>
+          <button type="submit" class="btn btn-primary" id="ent-submit" style="width:100%;">Send Inquiry</button>
+        </form>
+        <div id="enterprise-result" style="display:none;margin-top:10px;font-size:13px;"></div>
       </div>
     </div>
     <div id="checkout-error" class="checkout-error" role="alert"></div>
@@ -501,7 +518,7 @@ curl -X POST https://api.veyline.io/v1/operations \
         <p>Set your policies and spend limits. Your agents operate autonomously inside them — every operation verified, settled, and evidenced against your plan's included operations.</p>
       </div>
     </div>
-    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base? <a href="mailto:kyler.simmons.partners@gmail.com?subject=Veyline%20crypto%20checkout" style="color:var(--lime);">Contact us</a> and we'll arrange it.</p>
+    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base? Use the <a href="#pricing" id="crypto-contact-link" style="color:var(--lime);">Enterprise contact form</a> and we'll arrange it. By subscribing you agree to our <a href="https://payloadhq.github.io/terms.html" style="color:var(--lime);">Terms of Service</a> and <a href="https://payloadhq.github.io/privacy.html" style="color:var(--lime);">Privacy Policy</a>.</p>
     <div class="cta-row" style="margin-top:24px;">
       <a class="btn btn-primary" href="#pricing">Choose Your Plan</a>
     </div>
@@ -552,6 +569,8 @@ curl -X POST https://api.veyline.io/v1/operations \
     <div class="foot-links">
       <a href="https://payloadhq.github.io/docs.html">Docs</a>
       <a href="https://payloadhq.github.io/products.html">Products</a>
+      <a href="https://payloadhq.github.io/terms.html">Terms</a>
+      <a href="https://payloadhq.github.io/privacy.html">Privacy</a>
       <a href="#purchase">Get API Access</a>
     </div>
   </div>
@@ -597,6 +616,122 @@ curl -X POST https://api.veyline.io/v1/operations \
   document.querySelectorAll('.veyline-buy').forEach(function (btn) {
     btn.addEventListener('click', function () { startCheckout(btn.getAttribute('data-tier'), btn); });
   });
+
+  // Sandbox self-serve signup: POST email → org + free entitlement + one key.
+  var sandboxForm = document.getElementById('sandbox-form');
+  if (sandboxForm) {
+    sandboxForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var emailEl = document.getElementById('sandbox-email');
+      var btn = document.getElementById('sandbox-btn');
+      var result = document.getElementById('sandbox-result');
+      var email = (emailEl.value || '').trim();
+      if (!email) return;
+      btn.disabled = true;
+      btn.textContent = 'Creating sandbox…';
+      result.style.display = 'none';
+      try {
+        var res = await fetch(RAIL + '/v1/veyline/sandbox-signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        });
+        var data = null;
+        try { data = await res.json(); } catch (e2) { /* non-JSON */ }
+        if (res.ok && data && data.api_key) {
+          sandboxForm.style.display = 'none';
+          result.style.display = 'block';
+          result.innerHTML =
+            '<strong style="color:var(--lime);">Sandbox ready.</strong><br>' +
+            'Your API key (shown once — copy it now):<br>' +
+            '<code id="sandbox-key" style="display:block;word-break:break-all;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0;font-size:12px;"></code>' +
+            '<button type="button" id="sandbox-copy" class="btn btn-ghost" style="width:100%;">Copy Key</button>' +
+            '<p style="margin-top:8px;opacity:0.8;">1,000 ops/month. <a href="https://payloadhq.github.io/docs.html" style="color:var(--lime);">Read the docs</a> to make your first call.</p>';
+          document.getElementById('sandbox-key').textContent = data.api_key;
+          document.getElementById('sandbox-copy').addEventListener('click', function () {
+            navigator.clipboard.writeText(data.api_key).then(function () {
+              document.getElementById('sandbox-copy').textContent = 'Copied';
+            });
+          });
+          return;
+        }
+        var msg = (data && data.error && data.error.message) || ('Signup failed (HTTP ' + res.status + ')');
+        result.style.display = 'block';
+        result.innerHTML = '<span style="color:#ff7a7a;">' + msg.replace(/</g, '&lt;') + '</span>';
+      } catch (e3) {
+        result.style.display = 'block';
+        result.innerHTML = '<span style="color:#ff7a7a;">Could not reach the signup service. Please try again.</span>';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Start Free';
+      }
+    });
+  }
+
+  // Enterprise contact form: toggle + POST to /v1/contact.
+  var entBtn = document.getElementById('enterprise-btn');
+  var entForm = document.getElementById('enterprise-form');
+  var entResult = document.getElementById('enterprise-result');
+  function openEnterpriseForm() {
+    if (entForm.style.display === 'none') {
+      entForm.style.display = 'block';
+      entBtn.textContent = 'Hide Form';
+      entForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+  if (entBtn && entForm) {
+    entBtn.addEventListener('click', function () {
+      if (entForm.style.display === 'none') { openEnterpriseForm(); }
+      else { entForm.style.display = 'none'; entBtn.textContent = 'Contact Us'; }
+    });
+    entForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var submit = document.getElementById('ent-submit');
+      submit.disabled = true;
+      submit.textContent = 'Sending…';
+      entResult.style.display = 'none';
+      try {
+        var res = await fetch(RAIL + '/v1/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('ent-name').value.trim(),
+            email: document.getElementById('ent-email').value.trim(),
+            company: document.getElementById('ent-company').value.trim(),
+            message: document.getElementById('ent-message').value.trim(),
+            source: 'veyline.html'
+          })
+        });
+        var data = null;
+        try { data = await res.json(); } catch (e2) { /* non-JSON */ }
+        if (res.ok && data && data.received) {
+          entForm.style.display = 'none';
+          entBtn.style.display = 'none';
+          entResult.style.display = 'block';
+          entResult.innerHTML = '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day.';
+          return;
+        }
+        var msg = (data && data.error && data.error.message) || ('Send failed (HTTP ' + res.status + ')');
+        entResult.style.display = 'block';
+        entResult.innerHTML = '<span style="color:#ff7a7a;">' + msg.replace(/</g, '&lt;') + '</span>';
+      } catch (e3) {
+        entResult.style.display = 'block';
+        entResult.innerHTML = '<span style="color:#ff7a7a;">Could not reach the server. Please try again.</span>';
+      } finally {
+        submit.disabled = false;
+        submit.textContent = 'Send Inquiry';
+      }
+    });
+  }
+  var cryptoLink = document.getElementById('crypto-contact-link');
+  if (cryptoLink) {
+    cryptoLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      openEnterpriseForm();
+      var msgEl = document.getElementById('ent-message');
+      if (msgEl && !msgEl.value) msgEl.value = 'I would like to pay in USDC on Base. ';
+    });
+  }
 })();
 </script>
 
