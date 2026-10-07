@@ -100,7 +100,17 @@
       <h3>Enterprise — $5,000+/month custom</h3>
       <p>Negotiated allocation. Detailed usage breakdown included. Per-contract terms.</p>
     </div>
-    <p>A Veyline purchase entitles your organization to: an API key bound to your tier; metering against your included operations; <code>GET /v1/veyline/status</code> and <code>GET /v1/veyline/usage</code>; fail-closed economic protection on every operation at every tier. <a href="veyline.html">Subscribe</a>.</p>
+    <p>A Veyline purchase entitles your organization to: an API key bound to your tier; metering against your included operations; <code>GET /v1/veyline/status</code> and <code>GET /v1/veyline/usage</code>; the economic governor below; fail-closed economic protection on every operation at every tier. <a href="veyline.html">Subscribe</a>.</p>
+
+    <h3>Economic governor — standing spending mandates</h3>
+    <p>Veyline subscribers can compile a natural-language spending policy into machine-enforced constraints, then authorize every paid agent step against it. Deterministic (no LLM); fail-closed: conflicting or injected intents never compile, and the firewall defaults to DENY.</p>
+    <ul>
+      <li><code>POST /v1/veyline/mandates</code> — <code>{nl_text}</code> → compiled mandate (spend caps, network/asset/provider allowlists, retry limits, human-approval thresholds)</li>
+      <li><code>POST /v1/veyline/mandates/{id}/authorize</code> — <code>{step}</code> → <code>ALLOW</code> / <code>DENY</code> / <code>ESCALATE_HUMAN</code> with reasons</li>
+      <li><code>POST /v1/veyline/mandates/{id}/commit</code> — record executed spend (durable budget)</li>
+      <li><code>GET /v1/veyline/mandates/{id}/bindings</code> — AP2 and x402 compatibility shapes</li>
+    </ul>
+    <p>Example: <em>"Allow spending up to $50 total, at most $10 per call, use only base network, use only usdc, require human approval above $25 per call"</em> → every step checked before it spends. Idempotency keys are durable: replaying a key with a different step is rejected.</p>
 
     <h2>callx402 — paid on-demand actions</h2>
     <p><strong>callx402 gets paid to help with the incident.</strong> Each action below is a standalone paid action: match your problem, pay the applicable per-action fee, receive the result, continue. Live fee schedule: <code>GET https://payload-rail.fly.dev/v1/callx402/actions</code> (server-side, owner-adjustable). The local CLI, SDKs, and MCP-stdio tools are the free read-only diagnostic surface — no payment, no auth, no entitlement.</p>
