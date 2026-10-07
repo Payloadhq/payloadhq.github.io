@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veyline by Payload — La capa de producción para x402 + MCP</title>
+<link rel="canonical" href="https://payloadhq.github.io/es.html">
+<link rel="alternate" hreflang="es" href="https://payloadhq.github.io/es.html">
+<link rel="alternate" hreflang="pt" href="https://payloadhq.github.io/pt.html">
+<link rel="alternate" hreflang="en" href="https://payloadhq.github.io/veyline.html">
+<meta name="description" content="Veyline by Payload es infraestructura de producción para x402 y MCP: control económico, certeza de liquidación, ejecución exactamente una vez, recuperación y evidencia para el comercio autónomo.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Veyline by Payload — La capa de producción para x402 + MCP">
+<meta property="og:description" content="Veyline by Payload es infraestructura de producción para x402 y MCP: control económico, certeza de liquidación, ejecución exactamente una vez, recuperación y evidencia para el comercio autónomo.">
+<meta property="og:url" content="https://payloadhq.github.io/es.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #0a0a0b; --bg-2: #101012; --bg-3: #161618;
+    --lime: #c8f31d; --lime-dim: #9cc214;
+    --text: #ececef; --text-dim: #9a9aa0;
+    --border: #232326; --line: #232326; --card: #111113;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  header.nav { border-bottom: 1px solid var(--border); padding: 16px 0; position: sticky; top: 0; background: rgba(10,10,11,.92); z-index: 10; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 800; letter-spacing: .14em; font-size: 15px; }
+  .brand .lime { color: var(--lime); }
+  .brand small { display: block; font-size: 10px; letter-spacing: .22em; color: var(--text-dim); font-weight: 500; }
+  .nav-cta { background: var(--lime); color: #0a0a0b; font-weight: 700; font-size: 14px; padding: 10px 20px; border-radius: 6px; text-decoration: none; }
+  section { padding: 72px 0; }
+  .eyebrow { color: var(--lime); font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1.1; letter-spacing: -.01em; margin-bottom: 18px; }
+  h1 .lime { color: var(--lime); }
+  h2 { font-size: clamp(24px, 4vw, 34px); margin-bottom: 16px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; margin-bottom: 8px; }
+  p.lede { font-size: 18px; color: var(--text-dim); max-width: 680px; margin-bottom: 28px; }
+  .hero { padding: 96px 0 80px; }
+  .hero-tag { display: inline-block; border: 1px solid var(--border); border-radius: 999px; padding: 6px 16px; font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+  .hero-tag .lime { color: var(--lime); font-weight: 700; }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  .btn { display: inline-block; padding: 14px 28px; border-radius: 6px; font-weight: 700; font-size: 16px; text-decoration: none; border: 1px solid var(--border); }
+  .btn-primary { background: var(--lime); color: #0a0a0b; border-color: var(--lime); }
+  .btn-ghost { color: var(--text); background: transparent; }
+  .grid { display: grid; gap: 20px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+  .card h3 { color: var(--lime); font-size: 16px; margin-bottom: 8px; }
+  .card p, .card li { color: var(--text-dim); font-size: 14.5px; }
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+  .tier { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; display: flex; flex-direction: column; }
+  .tier.featured { border-color: var(--lime); }
+  .tier .tname { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+  .tier.featured .tname { color: var(--lime); }
+  .tier .price { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+  .tier .price-note { font-size: 13px; color: var(--text-dim); margin-bottom: 18px; }
+  .tier ul { list-style: none; margin-bottom: 22px; flex: 1; }
+  .tier li { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; padding-left: 20px; position: relative; }
+  .tier li::before { content: "✓"; position: absolute; left: 0; color: var(--lime); font-weight: 700; }
+  details.faq { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; background: var(--card); }
+  details.faq summary { padding: 18px 22px; cursor: pointer; font-weight: 700; font-size: 15.5px; list-style: none; }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::after { content: "+"; float: right; color: var(--lime); font-size: 20px; }
+  details.faq[open] summary::after { content: "–"; }
+  details.faq .faq-body { padding: 0 22px 20px; color: var(--text-dim); font-size: 14.5px; }
+  footer { border-top: 1px solid var(--border); padding: 40px 0; margin-top: 40px; }
+  .foot-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .foot-inner p { color: var(--text-dim); font-size: 13.5px; }
+  .foot-links a { color: var(--text-dim); font-size: 13.5px; text-decoration: none; margin-left: 20px; }
+  .note { font-size: 13px; color: var(--text-dim); font-style: italic; margin-top: 12px; }
+  .divider { height: 1px; background: var(--border); border: none; }
+  a.inline { color: var(--lime); }
+  @media (max-width: 760px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    section { padding: 52px 0; }
+    .hero { padding: 64px 0 56px; }
+    .foot-inner { flex-direction: column; align-items: flex-start; }
+    .foot-links a { margin-left: 0; margin-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="lime">■</span> VEYLINE<small>BY PAYLOAD</small></div>
+    <a class="nav-cta" href="#comprar">Obtener acceso</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-tag"><span class="lime">●</span> &nbsp;x402 ya disponible</div>
+    <h1>VEYLINE <span class="lime">BY PAYLOAD</span></h1>
+    <p class="lede" style="font-size:21px; color:var(--text); font-weight:600;">La capa de producción para x402 + MCP.</p>
+    <p class="lede">Veyline es el plano de control económico y garantía para el comercio autónomo. Envuelve los protocolos que tus agentes ya usan — x402, MCP y más — y hace que cada operación económica sea segura, demostrable y recuperable: intención verificada, pago verificado, liquidación confirmada, ejecución exactamente una vez, entrega probada, resultado registrado.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#comprar">Obtener acceso</a>
+      <a class="btn btn-ghost" href="https://payloadhq.github.io/veyline.html#how-it-works">Cómo funciona</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="que-es">
+  <div class="wrap">
+    <div class="eyebrow">Qué es</div>
+    <h2>No es una billetera. No es un facilitador de pagos.<br>Es un plano de garantía para el comercio de máquinas.</h2>
+    <div class="grid grid-3" style="margin-top:28px;">
+      <div class="card">
+        <h3>Control económico</h3>
+        <p>Cada operación pasa verificaciones de política antes de que se mueva el dinero. Límites de gasto, acciones aprobadas y términos comerciales aplicados por la plataforma, no a discreción del agente.</p>
+      </div>
+      <div class="card">
+        <h3>Certeza de liquidación</h3>
+        <p>Veyline verifica los pagos de forma independiente en la cadena y clasifica la liquidación como confirmada, sin confirmar o desconocida. Nunca adivina. La ambigüedad se reporta, no se oculta.</p>
+      </div>
+      <div class="card">
+        <h3>Recuperación, no solo reintentos</h3>
+        <p>Cuando las operaciones fallan a mitad de camino, Veyline las recupera de forma segura: sin cargos duplicados, sin efectos duplicados, sin fallos silenciosos. Cada operación tiene un estado terminal conocido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planes" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Precios</div>
+    <h2>Planes que escalan con tus operaciones</h2>
+    <p class="lede">Todos los planes incluyen la base completa de seguridad: protección contra pagos duplicados, certeza de liquidación, integridad de evidencia y recuperación segura.</p>
+    <div class="tiers" style="margin-top:28px;">
+      <div class="tier">
+        <div class="tname">Sandbox / Gratis</div>
+        <div class="price">$0</div>
+        <div class="price-note">Gratis para siempre</div>
+        <ul><li>1.000 operaciones/mes</li><li>Base completa de seguridad</li></ul>
+      </div>
+      <div class="tier">
+        <div class="tname">Developer</div>
+        <div class="price">$99<span style="font-size:16px; font-weight:600;">/mes</span></div>
+        <div class="price-note">por mes</div>
+        <ul><li>10.000 operaciones/mes</li><li>Base completa de seguridad</li></ul>
+      </div>
+      <div class="tier featured">
+        <div class="tname">Production</div>
+        <div class="price">$499<span style="font-size:16px; font-weight:600;">/mes</span></div>
+        <div class="price-note">por mes</div>
+        <ul><li>100.000 operaciones/mes</li><li>Desglose detallado de uso</li></ul>
+      </div>
+      <div class="tier">
+        <div class="tname">Growth</div>
+        <div class="price">$1.499<span style="font-size:16px; font-weight:600;">/mes</span></div>
+        <div class="price-note">por mes</div>
+        <ul><li>1.000.000 operaciones/mes</li><li>Desglose detallado de uso</li></ul>
+      </div>
+      <div class="tier">
+        <div class="tname">Enterprise</div>
+        <div class="price">$5.000+<span style="font-size:16px; font-weight:600;">/mes</span></div>
+        <div class="price-note">Términos personalizados</div>
+        <ul><li>Asignación de operaciones negociada</li><li>Piloto de 14 días tras revisión</li></ul>
+      </div>
+    </div>
+    <p class="note">Las operaciones se miden contra la asignación incluida de tu plan en tiempo real: el exceso se limita (429), nunca se factura en silencio.</p>
+  </div>
+</section>
+
+<section id="comprar">
+  <div class="wrap">
+    <div class="eyebrow">Cómo comprar</div>
+    <h2>Suscríbete en minutos, clave en mano</h2>
+    <p class="lede">Veyline es una suscripción medida. Elige un plan, paga de forma segura y tu clave API se emite automáticamente: se muestra una sola vez en la página de confirmación, lista para usar de inmediato.</p>
+    <div class="grid grid-3" style="margin-top:28px;">
+      <div class="card">
+        <h3>1. Elige tu plan</h3>
+        <p>Selecciona un nivel arriba. Todos incluyen la base completa de seguridad.</p>
+      </div>
+      <div class="card">
+        <h3>2. Paga de forma segura</h3>
+        <p>Con tarjeta mediante Stripe, o en <strong>USDC en Base para cualquier plan y cualquier país</strong>: escríbenos a <a class="inline" href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a> indicando el plan que quieres y coordinamos el pago en cripto.</p>
+      </div>
+      <div class="card">
+        <h3>3. Recibe tu clave API</h3>
+        <p>Tras el pago, tu clave se muestra una sola vez en la página de confirmación. Guárdala bien: las claves se almacenan cifradas y solo se muestran al crearlas.</p>
+      </div>
+    </div>
+    <p class="note">Las suscripciones se renuevan mensualmente. Al suscribirte aceptas nuestros <a class="inline" href="https://payloadhq.github.io/terms.html">Términos del Servicio</a> y nuestra <a class="inline" href="https://payloadhq.github.io/privacy.html">Política de Privacidad</a> (en inglés).</p>
+    <div class="cta-row" style="margin-top:24px;">
+      <a class="btn btn-primary" href="https://payloadhq.github.io/veyline.html#purchase">Suscribirme — desde $99/mes</a>
+      <a class="btn btn-ghost" href="https://payloadhq.github.io/veyline.html#pricing">Ver planes en inglés</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Preguntas</div>
+    <h2>Preguntas frecuentes</h2>
+    <div style="margin-top:28px;">
+      <details class="faq">
+        <summary>¿Veyline es una billetera?</summary>
+        <div class="faq-body">No. Veyline nunca custodia tus fondos, tus claves privadas ni tus frases semilla. Tu billetera sigue siendo tuya. Veyline verifica los pagos en la cadena y controla lo que tus agentes están autorizados a hacer; nunca toma custodia.</div>
+      </details>
+      <details class="faq">
+        <summary>¿Qué cadenas y activos son compatibles?</summary>
+        <div class="faq-body">En el lanzamiento: USDC en Base. Se agregarán más redes y activos según la demanda.</div>
+      </details>
+      <details class="faq">
+        <summary>¿Qué pasa si Stripe no está disponible en mi país?</summary>
+        <div class="faq-body">Usa la vía USDC: funciona para cualquier plan, en cualquier país. Escríbenos a <a class="inline" href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a> indicando el plan que quieres y coordinamos el pago en USDC en Base. Tu clave API se emite igual: se muestra una vez, lista para usar.</div>
+      </details>
+      <details class="faq">
+        <summary>¿Cómo obtengo ayuda?</summary>
+        <div class="faq-body">Escríbenos a <a class="inline" href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a>. Respondemos en un día hábil.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p>© 2026 Payload. Veyline by Payload.</p>
+    <div class="foot-links">
+      <a href="https://payloadhq.github.io/docs.html">Documentación</a>
+      <a href="https://payloadhq.github.io/products.html">Productos</a>
+      <a href="https://payloadhq.github.io/terms.html">Términos</a>
+      <a href="https://payloadhq.github.io/privacy.html">Privacidad</a>
+      <a href="https://payloadhq.github.io/veyline.html">English version</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
