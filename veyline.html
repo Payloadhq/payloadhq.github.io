@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veyline by Payload — The production layer for x402 + MCP</title>
+<meta name="description" content="Veyline by Payload is production infrastructure for x402 and MCP: economic control, settlement certainty, exactly-once execution, recovery, and evidence for autonomous commerce.">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-2: #101012;
+    --bg-3: #161618;
+    --lime: #c8f31d;
+    --lime-dim: #9cc214;
+    --text: #ececef;
+    --text-dim: #9a9aa0;
+    --border: #232326;
+    --card: #111113;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  header.nav {
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    position: sticky; top: 0; background: rgba(10,10,11,.92);
+    backdrop-filter: blur(8px); z-index: 10;
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 800; letter-spacing: .14em; font-size: 15px; }
+  .brand .lime { color: var(--lime); }
+  .brand small { display: block; font-size: 10px; letter-spacing: .22em; color: var(--text-dim); font-weight: 500; }
+  .nav-cta {
+    background: var(--lime); color: #0a0a0b; font-weight: 700; font-size: 14px;
+    padding: 10px 20px; border-radius: 6px; text-decoration: none; border: none;
+  }
+  .nav-cta:hover { background: var(--lime-dim); }
+  section { padding: 72px 0; }
+  .eyebrow {
+    color: var(--lime); font-size: 12px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase; margin-bottom: 14px;
+  }
+  h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1.1; letter-spacing: -.01em; margin-bottom: 18px; }
+  h1 .lime { color: var(--lime); }
+  h2 { font-size: clamp(24px, 4vw, 34px); margin-bottom: 16px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; margin-bottom: 8px; }
+  p.lede { font-size: 18px; color: var(--text-dim); max-width: 680px; margin-bottom: 28px; }
+  .hero { padding: 96px 0 80px; }
+  .hero-tag {
+    display: inline-block; border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 16px; font-size: 13px; color: var(--text-dim); margin-bottom: 24px;
+  }
+  .hero-tag .lime { color: var(--lime); font-weight: 700; }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+  .btn {
+    display: inline-block; padding: 14px 28px; border-radius: 6px; font-weight: 700;
+    font-size: 16px; text-decoration: none; border: 1px solid var(--border);
+  }
+  .btn-primary { background: var(--lime); color: #0a0a0b; border-color: var(--lime); }
+  .btn-primary:hover { background: var(--lime-dim); }
+  .btn-ghost { color: var(--text); background: transparent; }
+  .btn-ghost:hover { border-color: var(--lime); color: var(--lime); }
+  button.btn { cursor: pointer; font: inherit; }
+  button.btn:disabled { opacity: .55; cursor: wait; }
+  .checkout-error {
+    display: none; margin-top: 16px; padding: 14px 18px; border-radius: 8px;
+    border: 1px solid #7f2d2d; background: #1a0f0f; color: #f0a3a3; font-size: 14px;
+  }
+  .grid { display: grid; gap: 20px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px;
+  }
+  .card h3 { color: var(--lime); font-size: 16px; margin-bottom: 8px; }
+  .card p, .card li { color: var(--text-dim); font-size: 14.5px; }
+  .card ul { list-style: none; }
+  .card li { margin-bottom: 6px; padding-left: 18px; position: relative; }
+  .card li::before { content: "—"; position: absolute; left: 0; color: var(--lime); }
+  /* lifecycle flow */
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 28px 0; }
+  .flow .step {
+    background: var(--bg-3); border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px 14px; font-size: 12.5px; font-weight: 700; letter-spacing: .08em;
+  }
+  .flow .step.key { border-color: var(--lime); color: var(--lime); }
+  .flow .arrow { color: var(--text-dim); font-size: 14px; }
+  .proto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+  .proto {
+    border: 1px solid var(--border); border-radius: 8px; padding: 18px; text-align: center;
+    background: var(--card);
+  }
+  .proto .name { font-weight: 800; font-size: 17px; letter-spacing: .06em; }
+  .proto .status { font-size: 12px; margin-top: 6px; color: var(--text-dim); }
+  .proto.live .status { color: var(--lime); }
+  /* pricing */
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+  .tier { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; display: flex; flex-direction: column; }
+  .tier.featured { border-color: var(--lime); }
+  .tier .tname { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+  .tier.featured .tname { color: var(--lime); }
+  .tier .price { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+  .tier .price-note { font-size: 13px; color: var(--text-dim); margin-bottom: 18px; }
+  .tier ul { list-style: none; margin-bottom: 22px; flex: 1; }
+  .tier li { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; padding-left: 20px; position: relative; }
+  .tier li::before { content: "✓"; position: absolute; left: 0; color: var(--lime); font-weight: 700; }
+  .tier li.no { opacity: .45; }
+  .tier li.no::before { content: "–"; color: var(--text-dim); }
+  /* code */
+  pre.code {
+    background: #060607; border: 1px solid var(--border); border-radius: 10px;
+    padding: 22px; overflow-x: auto; font-size: 13.5px; line-height: 1.6;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: #d4d4d8;
+  }
+  pre.code .c { color: #6b7280; }
+  pre.code .k { color: var(--lime); }
+  pre.code .s { color: #a5d6a7; }
+  .steps { counter-reset: step; }
+  .steps .card { position: relative; }
+  .steps .card::before {
+    counter-increment: step; content: counter(step);
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--lime); color: #0a0a0b; font-weight: 800; font-size: 14px;
+    margin-bottom: 14px;
+  }
+  details.faq {
+    border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px;
+    background: var(--card);
+  }
+  details.faq summary {
+    padding: 18px 22px; cursor: pointer; font-weight: 700; font-size: 15.5px;
+    list-style: none;
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::after { content: "+"; float: right; color: var(--lime); font-size: 20px; }
+  details.faq[open] summary::after { content: "–"; }
+  details.faq .faq-body { padding: 0 22px 20px; color: var(--text-dim); font-size: 14.5px; }
+  footer {
+    border-top: 1px solid var(--border); padding: 40px 0; margin-top: 40px;
+  }
+  .foot-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .foot-inner p { color: var(--text-dim); font-size: 13.5px; }
+  .foot-links a { color: var(--text-dim); font-size: 13.5px; text-decoration: none; margin-left: 20px; }
+  .foot-links a:hover { color: var(--lime); }
+  .note { font-size: 13px; color: var(--text-dim); font-style: italic; margin-top: 12px; }
+  .divider { height: 1px; background: var(--border); border: none; }
+  @media (max-width: 760px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    section { padding: 52px 0; }
+    .hero { padding: 64px 0 56px; }
+    .foot-inner { flex-direction: column; align-items: flex-start; }
+    .foot-links a { margin-left: 0; margin-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="lime">■</span> VEYLINE<small>BY PAYLOAD</small></div>
+    <a class="nav-cta" href="#purchase">Get API Access</a>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-tag"><span class="lime">●</span> &nbsp;x402 live now</div>
+    <h1>VEYLINE <span class="lime">BY PAYLOAD</span></h1>
+    <p class="lede" style="font-size:21px; color:var(--text); font-weight:600;">The production layer for x402 + MCP.</p>
+    <p class="lede">Veyline is the economic control and assurance plane for autonomous commerce. It sits around the protocols your agents already use — x402, MCP, and more — and makes every economic operation safe, provable, and recoverable: intent checked, payment verified, settlement confirmed, execution exactly once, delivery proven, outcome recorded.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#purchase">Get API Access</a>
+      <a class="btn btn-ghost" href="#how-it-works">How it works</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 2. WHAT VEYLINE IS -->
+<section id="what">
+  <div class="wrap">
+    <div class="eyebrow">What it is</div>
+    <h2>Not a wallet. Not a payment facilitator.<br>An assurance plane for machine commerce.</h2>
+    <p class="lede">Veyline is the infrastructure that surrounds an economic operation from start to finish. When an AI agent needs to pay for something, settle a transaction, or execute a paid action, Veyline is the layer that verifies the intent is legitimate, the payment is real, the settlement actually happened, the execution ran exactly once, and the evidence is preserved.</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Economic control</h3>
+        <p>Every operation passes policy checks before money moves. Spending limits, approved actions, and commercial terms are enforced by the platform — not left to the agent's discretion.</p>
+      </div>
+      <div class="card">
+        <h3>Settlement certainty</h3>
+        <p>Veyline independently verifies payments on-chain and classifies settlement as confirmed, unconfirmed, or unknown — never guessing. Ambiguity is reported, not hidden.</p>
+      </div>
+      <div class="card">
+        <h3>Recovery, not just retries</h3>
+        <p>When operations fail mid-flight, Veyline recovers them safely: no duplicate charges, no duplicate effects, no silent failures. Every operation has a known terminal state.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. WHO IT'S FOR -->
+<section id="who" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Who it's for</div>
+    <h2>Built for people shipping autonomous commerce</h2>
+    <div class="grid grid-3" style="margin-top:28px;">
+      <div class="card">
+        <h3>AI agent developers</h3>
+        <p>Your agents need to pay for APIs, data, and services. Veyline gives them a safe way to do it — with policy guardrails, spend limits, and proof of every transaction.</p>
+      </div>
+      <div class="card">
+        <h3>API providers</h3>
+        <p>Charge per call with x402 and let Veyline handle the hard parts: payment verification, settlement certainty, duplicate protection, and auditable evidence.</p>
+      </div>
+      <div class="card">
+        <h3>Autonomous commerce builders</h3>
+        <p>Building marketplaces, agent economies, or machine-to-machine payment flows? Veyline is the control plane that keeps the economics correct when no human is watching.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="eyebrow">The problem</div>
+    <h2>Agents are moving money without a safety layer</h2>
+    <p class="lede">The x402 protocol solved how software pays. Nobody solved what happens after it pays. Teams building agent commerce today face the same failure modes, over and over:</p>
+    <div class="grid grid-2" style="margin-top:28px;">
+      <div class="card">
+        <h3>Duplicate payments</h3>
+        <p>A retry after a network timeout becomes a second charge. A copied transaction hash becomes a second claim. Without atomic replay protection, the same money gets spent twice.</p>
+      </div>
+      <div class="card">
+        <h3>Uncertain settlement</h3>
+        <p>Was the payment actually settled, or just submitted? Most integrations treat "sent" as "done." When settlement is ambiguous, operations proceed on hope — and hope isn't an accounting method.</p>
+      </div>
+      <div class="card">
+        <h3>No recovery path</h3>
+        <p>Payment succeeded but the response never arrived. The operation is done, the money is gone, and the caller has no way to find out what happened. Retry, and you risk paying again.</p>
+      </div>
+      <div class="card">
+        <h3>No evidence trail</h3>
+        <p>When something goes wrong — and it will — there's no tamper-evident record of what was authorized, what was paid, what was delivered, and what the outcome was. Disputes become arguments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. HOW IT WORKS -->
+<section id="how-it-works" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>One operation, fully tracked</h2>
+    <p class="lede">Every economic operation through Veyline follows the same lifecycle. Each stage is verified before the next begins, and the full trail is preserved as evidence.</p>
+    <div class="flow">
+      <span class="step key">INTENT</span><span class="arrow">→</span>
+      <span class="step key">POLICY</span><span class="arrow">→</span>
+      <span class="step">PREFLIGHT</span><span class="arrow">→</span>
+      <span class="step">ROUTING</span><span class="arrow">→</span>
+      <span class="step">AUTHORIZATION</span><span class="arrow">→</span>
+      <span class="step key">PAYMENT</span><span class="arrow">→</span>
+      <span class="step key">SETTLEMENT</span><span class="arrow">→</span>
+      <span class="step">EXECUTION</span><span class="arrow">→</span>
+      <span class="step">DELIVERY</span><span class="arrow">→</span>
+      <span class="step">OUTCOME</span><span class="arrow">→</span>
+      <span class="step">RECONCILIATION</span><span class="arrow">→</span>
+      <span class="step key">RECOVERY</span><span class="arrow">→</span>
+      <span class="step key">EVIDENCE</span>
+    </div>
+    <div class="grid grid-3" style="margin-top:12px;">
+      <div class="card">
+        <h3>Before the money moves</h3>
+        <p>Intent is checked against your policies. Preflight simulation confirms the operation is viable. Nothing executes without authorization.</p>
+      </div>
+      <div class="card">
+        <h3>While the money moves</h3>
+        <p>Payment is verified on-chain. Settlement is classified with certainty — confirmed, unconfirmed, or unknown. Execution runs exactly once, even under retries and crashes.</p>
+      </div>
+      <div class="card">
+        <h3>After the money moves</h3>
+        <p>Delivery and outcome are proven separately from payment. Failures recover safely. The entire operation is recorded as tamper-evident evidence you can audit later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. PROTOCOLS -->
+<section id="protocols">
+  <div class="wrap">
+    <div class="eyebrow">Protocols</div>
+    <h2>Protocol-agnostic by design</h2>
+    <p class="lede">Veyline wraps the economic operation, not the wire format. x402 is the first live protocol. Others are on the roadmap — the assurance model is the same regardless of how the payment travels.</p>
+    <div class="proto-grid" style="margin-top:28px;">
+      <div class="proto live"><div class="name">x402</div><div class="status">● Live now</div></div>
+      <div class="proto"><div class="name">MCP</div><div class="status">On roadmap</div></div>
+      <div class="proto"><div class="name">A2A</div><div class="status">On roadmap</div></div>
+      <div class="proto"><div class="name">AP2</div><div class="status">On roadmap</div></div>
+      <div class="proto"><div class="name">MPP</div><div class="status">On roadmap</div></div>
+      <div class="proto"><div class="name">HTTP</div><div class="status">On roadmap</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. SECURITY / ASSURANCE -->
+<section id="assurance" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Assurance model</div>
+    <h2>Safety is the foundation, not a tier</h2>
+    <p class="lede">Every Veyline customer gets the full safety model on every plan. Protection against duplicate payments, uncertain settlement, and silent failures is not something we sell as an upgrade.</p>
+    <div class="grid grid-3" style="margin-top:28px;">
+      <div class="card">
+        <h3>Duplicate protection</h3>
+        <ul>
+          <li>Atomic transaction-hash reservation prevents double-claims</li>
+          <li>Idempotency keys make retries safe — same request, one effect</li>
+          <li>Concurrent submissions resolve to exactly one outcome</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Settlement certainty</h3>
+        <ul>
+          <li>Payments verified independently on-chain, not trusted on submission</li>
+          <li>Settlement classified as confirmed, unconfirmed, or unknown</li>
+          <li>Unknown settlement never silently becomes "paid"</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Evidence integrity</h3>
+        <ul>
+          <li>Every operation recorded in a hash-chained ledger</li>
+          <li>Payment, execution, delivery, and outcome proven separately</li>
+          <li>Deterministic replay reconstructs any operation for audit</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Safe retry &amp; recovery</h3>
+        <ul>
+          <li>Failed operations recover to a known state — never half-done</li>
+          <li>No retry after unknown settlement without explicit review</li>
+          <li>Crash-safe: interrupted operations resume or roll back cleanly</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Policy enforcement</h3>
+        <ul>
+          <li>Intent checked against your policies before authorization</li>
+          <li>Budgets enforced before execution, approval thresholds that fail closed</li>
+          <li>Server-side enforcement — client assertions are never trusted</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Credential security</h3>
+        <ul>
+          <li>High-entropy API keys, stored hashed, shown once</li>
+          <li>Scoped and product-bound — a key can't exceed its entitlement</li>
+          <li>Revocable and rotatable at any time</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. INTEGRATE -->
+<section id="integrate">
+  <div class="wrap">
+    <div class="eyebrow">Integration</div>
+    <h2>Live in three steps</h2>
+    <div class="grid grid-3 steps" style="margin-top:28px; margin-bottom:32px;">
+      <div class="card">
+        <h3>Get an API key</h3>
+        <p>Purchase access below. You receive a scoped API key bound to your account and your plan's entitlements.</p>
+      </div>
+      <div class="card">
+        <h3>Connect via callx402 or REST</h3>
+        <p>Use the <span style="color:var(--lime); font-weight:700;">callx402 by Payload</span> CLI for quick operations, or call the REST API directly from your agent or application.</p>
+      </div>
+      <div class="card">
+        <h3>Go live</h3>
+        <p>Set your policies and spend limits. Your agents operate autonomously inside them — every operation verified, settled, and evidenced.</p>
+      </div>
+    </div>
+<pre class="code"><span class="c"># callx402 by Payload — powered by Veyline</span>
+<span class="k">callx402</span> pay --to api.example.com/data --amount 0.05 --asset USDC
+<span class="c"># Veyline verifies intent, policy, payment, settlement —</span>
+<span class="c"># then returns proof of execution and outcome.</span>
+
+<span class="c"># Or via REST:</span>
+curl -X POST https://api.veyline.io/v1/operations \
+  -H <span class="s">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -d <span class="s">'{"intent": "purchase", "target": "api.example.com/data", "max_spend_usdc": "0.05"}'</span></pre>
+    <p class="note">Endpoint hostnames shown are illustrative. Production API details are provided with your credentials.</p>
+  </div>
+</section>
+
+<!-- 9. PRICING -->
+<section id="pricing" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Pricing</div>
+    <h2>Plans that scale with your operations</h2>
+    <p class="lede">Every plan includes the full safety foundation — duplicate protection, settlement certainty, evidence integrity, and safe recovery. Plans differ on monthly operations volume and detailed usage access.</p>
+    <div class="tiers" style="margin-top:28px;">
+      <div class="tier">
+        <div class="tname">Free / Sandbox</div>
+        <div class="price">$0</div>
+        <div class="price-note">Free forever</div>
+        <ul>
+          <li>Full safety foundation</li>
+          <li>1,000 operations/month</li>
+          <li>Detailed usage: not included</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://payloadhq.github.io/docs.html" style="text-align:center;">Start Free</a>
+      </div>
+      <div class="tier">
+        <div class="tname">Developer</div>
+        <div class="price">$99<span style="font-size:16px; font-weight:600;">/mo</span></div>
+        <div class="price-note">per month</div>
+        <ul>
+          <li>Full safety foundation</li>
+          <li>10,000 operations/month</li>
+          <li>Detailed usage: not included</li>
+        </ul>
+        <button class="btn btn-ghost veyline-buy" data-tier="developer" style="width:100%;">Get Access</button>
+      </div>
+      <div class="tier featured">
+        <div class="tname">Production</div>
+        <div class="price">$499<span style="font-size:16px; font-weight:600;">/mo</span></div>
+        <div class="price-note">per month</div>
+        <ul>
+          <li>Full safety foundation</li>
+          <li>100,000 operations/month</li>
+          <li>Detailed usage breakdown</li>
+        </ul>
+        <button class="btn btn-primary veyline-buy" data-tier="production" style="width:100%;">Get Access</button>
+      </div>
+      <div class="tier">
+        <div class="tname">Growth</div>
+        <div class="price">$1,499<span style="font-size:16px; font-weight:600;">/mo</span></div>
+        <div class="price-note">per month</div>
+        <ul>
+          <li>Full safety foundation</li>
+          <li>1,000,000 operations/month</li>
+          <li>Detailed usage breakdown</li>
+        </ul>
+        <button class="btn btn-ghost veyline-buy" data-tier="growth" style="width:100%;">Get Access</button>
+      </div>
+      <div class="tier">
+        <div class="tname">Enterprise</div>
+        <div class="price">$5,000+<span style="font-size:16px; font-weight:600;">/mo</span></div>
+        <div class="price-note">Custom terms</div>
+        <ul>
+          <li>Full safety foundation</li>
+          <li>Negotiated operations allocation</li>
+          <li>Detailed usage breakdown</li>
+          <li>Per-contract terms</li>
+        </ul>
+        <a class="btn btn-ghost" href="mailto:kyler.simmons.partners@gmail.com?subject=Veyline%20Enterprise%20inquiry" style="text-align:center;">Contact Us</a>
+      </div>
+    </div>
+    <div id="checkout-error" class="checkout-error" role="alert"></div>
+    <p class="note">Operations are metered against your plan's included allocation in real time: requests beyond it are throttled (429), not billed. Usage overages and protected-volume (basis-point) fees are disabled by design today.</p>
+  </div>
+</section>
+
+<!-- 10. PURCHASE -->
+<section id="purchase">
+  <div class="wrap">
+    <div class="eyebrow">How to purchase</div>
+    <h2>Subscribe in minutes, key in hand</h2>
+    <p class="lede">Veyline is a metered subscription. Pick a plan, check out securely through Stripe, and your API key is issued automatically — shown once on the confirmation page, ready to use immediately.</p>
+    <div class="grid grid-2 steps" style="margin-top:28px;">
+      <div class="card">
+        <h3>Choose your plan</h3>
+        <p>Select a tier above. Every plan includes the full safety foundation — duplicate protection, settlement certainty, evidence integrity, and safe recovery.</p>
+      </div>
+      <div class="card">
+        <h3>Check out securely</h3>
+        <p>Click Get Access to open a secure Stripe checkout for your plan. A fresh account is created for you automatically — no signup form, no waiting.</p>
+      </div>
+      <div class="card">
+        <h3>Receive your API key</h3>
+        <p>After payment, your entitlement is created and your API key is shown once on the success page. Store it safely — keys are stored hashed and shown only at creation.</p>
+      </div>
+      <div class="card">
+        <h3>Go live</h3>
+        <p>Set your policies and spend limits. Your agents operate autonomously inside them — every operation verified, settled, and evidenced against your plan's included operations.</p>
+      </div>
+    </div>
+    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base? <a href="mailto:kyler.simmons.partners@gmail.com?subject=Veyline%20crypto%20checkout" style="color:var(--lime);">Contact us</a> and we'll arrange it.</p>
+    <div class="cta-row" style="margin-top:24px;">
+      <a class="btn btn-primary" href="#pricing">Choose Your Plan</a>
+    </div>
+  </div>
+</section>
+
+<!-- 11. FAQ -->
+<section id="faq" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2>Questions</h2>
+    <div style="margin-top:28px;">
+      <details class="faq">
+        <summary>Is Veyline a wallet?</summary>
+        <div class="faq-body">No. Veyline never holds your funds, your private keys, or your seed phrases. Your wallet stays yours. Veyline verifies payments on-chain and controls what your agents are authorized to do — it never takes custody.</div>
+      </details>
+      <details class="faq">
+        <summary>Do I get Veyline's source code?</summary>
+        <div class="faq-body">No. You purchase licensed access to Veyline's capabilities — the API, the CLI, the documentation, and your entitled features. The underlying platform, including its safety systems and proprietary logic, remains operated by Payload.</div>
+      </details>
+      <details class="faq">
+        <summary>What chains and assets are supported?</summary>
+        <div class="faq-body">At launch: USDC on Base. Additional networks and assets will be added as demand and verification support them.</div>
+      </details>
+      <details class="faq">
+        <summary>How is Veyline different from the Veyline Developer Primer?</summary>
+        <div class="faq-body">The Developer Primer ($79) is the downloadable starter kit for learning x402 and adding payments to your own server — you run everything yourself. Veyline is the hosted production platform that evolved from that direction: the full economic lifecycle with settlement certainty, exactly-once execution, recovery, and evidence, operated as a service.</div>
+      </details>
+      <details class="faq">
+        <summary>Do my agents need me to approve every payment?</summary>
+        <div class="faq-body">No. Once you've configured your policies, spend limits, and entitlements, your agents operate autonomously inside them. Purchasing access is a one-time human step; economic operations run on their own within your approved bounds.</div>
+      </details>
+      <details class="faq">
+        <summary>What happens if a payment succeeds but something fails afterward?</summary>
+        <div class="faq-body">Veyline recovers the operation to a known state. You can query the operation to see exactly what happened — what was paid, what executed, what was delivered — and retry safely without risk of duplicate charges.</div>
+      </details>
+      <details class="faq">
+        <summary>Is RevRule included with Veyline?</summary>
+        <div class="faq-body">No. RevRule is a separate Payload product with its own purchase and entitlement. Veyline works fully without it; the two can integrate where that makes sense for your use case.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p>© 2026 Payload. Veyline by Payload.</p>
+    <div class="foot-links">
+      <a href="https://payloadhq.github.io/docs.html">Docs</a>
+      <a href="https://payloadhq.github.io/products.html">Products</a>
+      <a href="#purchase">Get API Access</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var RAIL = 'https://payload-rail.fly.dev';
+  var errBox = document.getElementById('checkout-error');
+
+  function showError(msg) {
+    if (errBox) {
+      errBox.textContent = msg;
+      errBox.style.display = 'block';
+      errBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  async function startCheckout(tier, btn) {
+    var original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Opening checkout…';
+    try {
+      var res = await fetch(RAIL + '/v1/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier: tier })
+      });
+      var data = null;
+      try { data = await res.json(); } catch (e) { /* non-JSON body */ }
+      if (res.ok && data && data.checkout_url) {
+        window.location.href = data.checkout_url;
+        return;
+      }
+      throw new Error((data && data.error) || ('Checkout failed (HTTP ' + res.status + ')'));
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = original;
+      showError('Checkout could not be started. Please try again in a moment, or contact support if it persists.');
+    }
+  }
+
+  document.querySelectorAll('.veyline-buy').forEach(function (btn) {
+    btn.addEventListener('click', function () { startCheckout(btn.getAttribute('data-tier'), btn); });
+  });
+})();
+</script>
+
+</body>
+</html>
