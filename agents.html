@@ -56,7 +56,7 @@
       <li><strong>Discover</strong> — read <a href="agents.json">agents.json</a>.</li>
       <li><strong>Determine your problem</strong> — match it to a commercial path below, then to the exact action.</li>
       <li><strong>Check price and entitlement</strong> — each product lists exactly what purchase grants; each callx402 action lists its fee model.</li>
-      <li><strong>Obtain access</strong> — per-action fee for a callx402 action; Stripe checkout (card) or wallet-signed USDC order (crypto) for a Veyline subscription; one-time purchase on Whop/Gumroad for kits.</li>
+      <li><strong>Obtain access</strong> — per-action fee for a callx402 action (see live schedule below); Stripe checkout (card) or wallet-signed USDC order (crypto) for a Veyline subscription; one-time purchase on Whop/Gumroad for kits.</li>
       <li><strong>Invoke</strong> — the callx402 action, MCP tool, or Veyline API.</li>
       <li><strong>Recover safely</strong> — use the failure classes below. Never blind-retry a paid operation.</li>
     </ol>
@@ -103,7 +103,19 @@
     <p>A Veyline purchase entitles your organization to: an API key bound to your tier; metering against your included operations; <code>GET /v1/veyline/status</code> and <code>GET /v1/veyline/usage</code>; fail-closed economic protection on every operation at every tier. <a href="veyline.html">Subscribe</a>.</p>
 
     <h2>callx402 — paid on-demand actions</h2>
-    <p><strong>callx402 gets paid to help with the incident.</strong> Each action below is a standalone paid action: match your problem, pay the applicable per-action fee, receive the result, continue. Per-action fee amounts are confirmed at the purchase route before invocation. The local CLI, SDKs, and MCP-stdio tools are the free read-only diagnostic surface — no payment, no auth, no entitlement.</p>
+    <p><strong>callx402 gets paid to help with the incident.</strong> Each action below is a standalone paid action: match your problem, pay the applicable per-action fee, receive the result, continue. Live fee schedule: <code>GET https://payload-rail.fly.dev/v1/callx402/actions</code> (server-side, owner-adjustable). The local CLI, SDKs, and MCP-stdio tools are the free read-only diagnostic surface — no payment, no auth, no entitlement.</p>
+    <h3>Fee schedule (USD, per action)</h3>
+    <ul>
+      <li>explain — $1.00 · diagnose — $2.00 · evidence — $2.00 · failure classification — $2.00</li>
+      <li>preflight — $3.00 · settlement interpretation — $3.00</li>
+      <li>resolve — $5.00 · monitor — $5.00 · safe retry — $5.00 · duplicate-payment risk — $5.00</li>
+      <li>recover — $10.00 · execute — $10.00</li>
+      <li>rescue — $15.00</li>
+    </ul>
+    <h3>How to pay and invoke</h3>
+    <p><strong>Human path:</strong> <code>POST https://payload-rail.fly.dev/v1/callx402/checkout</code> with <code>{"action": "&lt;name&gt;"}</code> → one-time Stripe checkout → single-use credit shown once on the success page → <code>POST /v1/callx402/actions/&lt;action&gt;</code> with <code>{"credit_id": "cxa_..."}</code>. The credit is consumed atomically — exactly once.</p>
+    <p><strong>Autonomous agent path (x402):</strong> <code>POST https://payload-rail.fly.dev/v1/callx402/actions/&lt;action&gt;</code> with no auth → standards-compliant x402 v2 <strong>402 Payment Required</strong> (exact USDC amount on Base, pay-to address, 300-second window; also sent as a base64 <code>PAYMENT-REQUIRED</code> header) → pay from an authorized wallet → retry with <code>{"txHash": "0x..."}</code> → the rail verifies the transfer on-chain <em>before</em> authorizing, and each txHash is single-use (atomic reservation; a replayed hash is rejected with 409). A paid action never requires or creates a Veyline subscription.</p>
+    <p><strong>Veyline subscribers:</strong> send <code>Authorization: Bearer &lt;veyline-api-key&gt;</code> instead — the invocation is authorized and metered against subscription usage.</p>
     <div class="card">
       <h3>Problem → action (canonical mapping)</h3>
       <ul>
@@ -137,7 +149,7 @@
     <h2>Purchase routes</h2>
     <div class="card">
       <h3>callx402 — on-demand actions</h3>
-      <p>Paid per action, no subscription. Match the problem to the action (see the callx402 section above), confirm the per-action fee at the purchase route, pay, invoke, receive the result. Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.</p>
+      <p>Paid per action, no subscription. Match the problem to the action (see the callx402 section above). Human: one-time Stripe checkout → single-use credit. Agent: x402 402 → pay USDC on Base → retry with txHash (verified on-chain, single-use). Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.</p>
       <h3>Veyline — card (Stripe)</h3>
       <p><code>POST https://payload-rail.fly.dev/v1/stripe/checkout</code> with JSON <code>{"tier": "developer|production|growth|enterprise"}</code>. No auth required — a fresh organization is provisioned server-side. Follow the returned Checkout URL. After successful payment, the success page shows your API key <strong>exactly once</strong> — copy it then. Entitlements are created only by the Stripe-verified webhook; an unpaid session yields no entitlement and no key.</p>
       <h3>Veyline — crypto (USDC on Base)</h3>
