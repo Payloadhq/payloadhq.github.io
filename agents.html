@@ -99,6 +99,7 @@
     <div class="card">
       <h3>Enterprise — $5,000+/month custom</h3>
       <p>Negotiated allocation. Detailed usage breakdown included. Per-contract terms.</p>
+      <p><strong>Enterprise admin endpoints</strong> (active enterprise entitlement + <code>veyline:admin</code> key scope): <code>GET /v1/enterprise/keys</code> (list; service accounts distinguishable), <code>POST /v1/enterprise/keys</code> (issue scoped keys), <code>POST /v1/enterprise/keys/{keyId}/revoke</code> (immediate 401), <code>GET /v1/enterprise/usage</code> (org-wide with history), <code>GET/PUT /v1/enterprise/policy</code> (action allow/deny lists, per-operation spend cap, rate limits), <code>GET /v1/enterprise/audit-export</code> (full org-scoped audit evidence: governor decisions, invocations, usage ledger, contracts). Negotiated allocation enforced in real time — 429 over limit, never billed. Pilots: 14-day Enterprise pilot with negotiated allocation, provisioned by an operator.</p>
     </div>
     <p>A Veyline purchase entitles your organization to: an API key bound to your tier; metering against your included operations; <code>GET /v1/veyline/status</code> and <code>GET /v1/veyline/usage</code>; the economic governor below; fail-closed economic protection on every operation at every tier. <a href="veyline.html">Subscribe</a>.</p>
 
@@ -111,6 +112,7 @@
       <li><code>GET /v1/veyline/mandates/{id}/bindings</code> — AP2 and x402 compatibility shapes</li>
     </ul>
     <p>Example: <em>"Allow spending up to $50 total, at most $10 per call, use only base network, use only usdc, require human approval above $25 per call"</em> → every step checked before it spends. Idempotency keys are durable: replaying a key with a different step is rejected.</p>
+    <p><strong>Enforcement on callx402 actions (live):</strong> for orgs with active mandates, every callx402 invocation on the subscription and credit paths is evaluated against each mandate <em>before</em> the rail authorizes anything. Worst decision wins: DENY beats ESCALATE_HUMAN beats ALLOW. A DENY or unapproved escalation blocks <strong>before credit consumption</strong> — a paid single-use credit is never burned on a governor-blocked action. ESCALATE_HUMAN is resolved only by a single-use human approval: <code>POST /v1/veyline/mandates/{id}/approvals</code> with the exact step fingerprint (15-minute TTL, consumed atomically). Enterprise orgs can additionally set an org policy (action allow/deny lists, per-operation spend cap, rate limits) via <code>PUT /v1/enterprise/policy</code>, enforced before mandate evaluation. The x402 on-chain path is not governed.</p>
 
     <h2>callx402 — paid on-demand actions</h2>
     <p><strong>callx402 gets paid to help with the incident.</strong> Each action below is a standalone paid action: match your problem, pay the applicable per-action fee, receive the result, continue. Live fee schedule: <code>GET https://payload-rail.fly.dev/v1/callx402/actions</code> (server-side, owner-adjustable). The local CLI, SDKs, and MCP-stdio tools are the free read-only diagnostic surface — no payment, no auth, no entitlement.</p>
@@ -122,6 +124,15 @@
       <li>recover — $10.00 · execute — $10.00</li>
       <li>rescue — $15.00</li>
     </ul>
+    <h3>Valuation layer — value-based quotes (live)</h3>
+    <p>The x402 402 amount is now a <strong>valuation quote</strong>, not the raw schedule price. Get it first: <code>GET https://payload-rail.fly.dev/v1/callx402/quote?action=&lt;name&gt;&amp;path=x402|stripe&amp;exposure_usd=&lt;optional&gt;&amp;complexity=&lt;1 default&gt;&amp;risk_tier=low|medium|high&amp;resource_units=&lt;0 default&gt;&amp;corroborate_tx=&lt;optional 0x hash&gt;</code>. Quotes are <strong>deterministic</strong> (quote_id = sha256 of the canonical inputs; same inputs → same quote_id and price), expire in 10 minutes, and are audit-logged.</p>
+    <ul>
+      <li><strong>Per-path floors:</strong> Stripe path floor = the fixed fee schedule above (never below it). x402 path floor = schedule / 20 (min $0.01).</li>
+      <li><strong>Action classes:</strong> A (informational: explain, diagnose, evidence, failure classification) — saturating value curve, caps $6–$10. B (assurance: preflight, monitor, settlement interpretation, safe retry, duplicate-payment risk, resolve) — loss-probability-weighted curve, caps $100–$200. C (intervention: recover, execute, rescue) — continuous banded curve ($2K/K$150K + $8K/K$5M above $1M + $20K/K$25M above $25M).</li>
+      <li><strong>$5,000 automated ceiling:</strong> quotes above $5,000 require explicit payer authorization — re-request with <code>authorize_above_ceiling=true</code> to attest. Payment above the ceiling without the attestation is rejected.</li>
+      <li><strong>Corroboration rule (fail-closed):</strong> caller-declared exposure <em>never</em> raises a quote. Only independently verified on-chain USDC volume counts — supply <code>corroborate_tx</code> and the rail reads the settled USDC volume from Base RPC. Uncorroborated → value component $0 (base only).</li>
+    </ul>
+    <p>The 402 object carries the full quote (quote_id, breakdown, expiry); payment must echo <code>{ txHash, quote_id, quote }</code>. The rail re-derives the quote and rejects mismatches, expired quotes, and underpayment.</p>
     <h3>How to pay and invoke</h3>
     <p><strong>Human path:</strong> <code>POST https://payload-rail.fly.dev/v1/callx402/checkout</code> with <code>{"action": "&lt;name&gt;"}</code> → one-time Stripe checkout → single-use credit shown once on the success page → <code>POST /v1/callx402/actions/&lt;action&gt;</code> with <code>{"credit_id": "cxa_..."}</code>. The credit is consumed atomically — exactly once.</p>
     <p><strong>Autonomous agent path (x402):</strong> <code>POST https://payload-rail.fly.dev/v1/callx402/actions/&lt;action&gt;</code> with no auth → standards-compliant x402 v2 <strong>402 Payment Required</strong> (exact USDC amount on Base, pay-to address, 300-second window; also sent as a base64 <code>PAYMENT-REQUIRED</code> header) → pay from an authorized wallet → retry with <code>{"txHash": "0x..."}</code> → the rail verifies the transfer on-chain <em>before</em> authorizing, and each txHash is single-use (atomic reservation; a replayed hash is rejected with 409). A paid action never requires or creates a Veyline subscription.</p>
