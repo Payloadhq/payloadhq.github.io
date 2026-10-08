@@ -82,7 +82,16 @@
       <li><a href="https://github.com/Payloadhq/stableledger">stableledger</a> — docs and checkout link for StableLedger.</li>
     </ul>
 
-    <h2>Privacy policies</h2>
+    
+      <h2 id="veyline">Veyline quickstart</h2>
+      <p>Start free, get an API key, and make your first calls. The free Sandbox tier includes 1,000 operations per month and the full safety foundation.</p>
+      <ol>
+        <li><strong>Start your free sandbox.</strong> In the <a href="https://payloadhq.github.io/veyline.html#pricing">Veyline pricing section</a>, enter your email and click Start Free. Your API key is shown once &mdash; copy it immediately; it cannot be recovered later.</li>
+        <li><strong>Check your account.</strong> <code>curl -H "Authorization: Bearer YOUR_KEY" https://payload-rail.fly.dev/v1/veyline/status</code> returns your org, tier, and status. <code>.../v1/veyline/usage</code> shows operations used against your included allocation.</li>
+        <li><strong>Run a hosted action on your subscription.</strong> <code>curl -X POST -H "Authorization: Bearer YOUR_KEY" -H "Content-Type: application/json" -d '{"intent":"purchase","target":"api.example.com/data","max_spend_usdc":"0.05"}' https://payload-rail.fly.dev/v1/callx402/actions/preflight</code> authorizes a preflight check metered to your subscription and returns an invocation id; the action itself executes in your callx402 runtime. List all actions with <code>GET https://payload-rail.fly.dev/v1/callx402/actions</code>.</li>
+      </ol>
+      <p>Every call sends your key as <code>Authorization: Bearer &lt;key&gt;</code>. Keys are product-bound to Veyline. The full machine-readable API reference is in <a href="https://payloadhq.github.io/agents.json">agents.json</a>.</p>
+      <h2>Privacy policies</h2>
     <p>Public privacy policies for Payload products: <a href="https://github.com/Payloadhq/privacy">github.com/Payloadhq/privacy</a>.</p>
     <ul>
       <li><a href="https://github.com/Payloadhq/privacy/blob/main/PRIVACY.md">AI Search Readiness Audit privacy policy</a> — the extension is 100% client-side: no account, no server, no analytics, no tracking.</li>
