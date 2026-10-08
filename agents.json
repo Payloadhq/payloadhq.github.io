@@ -553,7 +553,8 @@
   "machine_discovery": "https://payloadhq.github.io/agents.json",
   "products": "https://payloadhq.github.io/products.html",
   "purchase_page": "https://payloadhq.github.io/veyline.html",
-  "rail_openapi": "https://payload-rail.fly.dev/openapi.json"
+  "rail_openapi": "https://payload-rail.fly.dev/openapi.json",
+  "enterprise_brief": "https://payloadhq.github.io/veyline-enterprise.html"
  },
  "schema": "payload/agents-discovery/1.0",
  "veyline_endpoints": {
