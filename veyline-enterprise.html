@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veyline Enterprise — Security, Architecture &amp; Procurement Brief — Payload</title>
+<meta name="description" content="Enterprise brief for Veyline by Payload: use cases, production architecture, security and governance evidence, deployment, support expectations, and how to start a 14-day pilot.">
+<link rel="canonical" href="https://payloadhq.github.io/veyline-enterprise.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Veyline Enterprise — Security, Architecture &amp; Procurement Brief">
+<meta property="og:description" content="Use cases, architecture, security evidence, deployment, and support expectations for Veyline Enterprise. Print or save this page for procurement review.">
+<meta property="og:url" content="https://payloadhq.github.io/veyline-enterprise.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<style>
+  .brief-meta { color: var(--muted); font-size: 14px; }
+  .toc { margin: 18px 0; }
+  .toc a { display: inline-block; margin: 4px 10px 4px 0; }
+  h2 { margin-top: 34px; }
+  .check li { margin-bottom: 8px; }
+  @media print {
+    header.site, footer.site, .no-print { display: none !important; }
+    body { color: #000; background: #fff; }
+    a { color: #1d4ed8; text-decoration: underline; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="agents.html">Agents</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <p class="brief-meta">Veyline by Payload · Enterprise brief · Last updated 2026-10-07 · <a href="#" onclick="window.print();return false;">Print / save as PDF</a></p>
+    <h1>Veyline Enterprise: security, architecture, and procurement brief</h1>
+    <p class="lede">This page is the enterprise evaluation packet for Veyline: what it does for an organization, how the production system is built, what security and governance evidence exists, how it is deployed and supported, and how to start a 14-day pilot. Everything here is stated plainly, and anything not claimed is marked as not claimed.</p>
+    <p class="toc no-print"><strong>Contents:</strong>
+      <a href="#use-cases">Enterprise use cases</a>
+      <a href="#architecture">Production architecture</a>
+      <a href="#security">Security and governance</a>
+      <a href="#not-claimed">What we do not claim</a>
+      <a href="#deployment">Deployment</a>
+      <a href="#support">Support and commercial terms</a>
+      <a href="#procurement">Procurement checklist</a>
+      <a href="#pilot">Start a pilot</a>
+    </p>
+
+    <h2 id="use-cases">Enterprise use cases</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Agent fleet spend governance</h3>
+        <p>Put machine-enforced policy between your agents and your money. Org-level authorization with spend caps, action allow and deny lists, and custom rate limits runs before every operation. The economic governor compiles natural-language spending policy into enforced mandates with human-approval thresholds that fail closed; each step is decided ALLOW, DENY, or ESCALATE_HUMAN, and spend commits against a durable budget.</p>
+      </div>
+      <div class="card">
+        <h3>Finance-grade audit trail</h3>
+        <p>Every operation records payment, execution, delivery, and outcome as separate, independently proven stages in a hash-chained evidence ledger with deterministic replay. Enterprise orgs can pull org-level usage reporting and export the audit and evidence trail through a dedicated endpoint.</p>
+      </div>
+      <div class="card">
+        <h3>API provider monetization at scale</h3>
+        <p>Charge per call with x402 and keep the hard parts in the platform: payment verification, settlement certainty, duplicate protection, and auditable evidence for every paid call.</p>
+      </div>
+      <div class="card">
+        <h3>Marketplace and machine-to-machine settlement</h3>
+        <p>Run autonomous commerce flows where no human watches the economics: intent checked against policy, settlement classified with certainty instead of assumed, failures recovered to a known terminal state, and the full trail preserved as evidence.</p>
+      </div>
+    </div>
+
+    <h2 id="architecture">Production architecture</h2>
+    <p>Concise summary an evaluator can verify against the live system:</p>
+    <ul class="check">
+      <li><strong>Hosted REST API.</strong> The production service runs at <code>https://payload-rail.fly.dev</code> (the OpenAPI server URL). 47 paths, 51 operations, published at <code>https://payload-rail.fly.dev/openapi.json</code>. All traffic is over HTTPS.</li>
+      <li><strong>Stack.</strong> Express with TypeScript, SQLite persistence, hosted on Fly.io. The production architecture is frozen and the service is the same one all plans use.</li>
+      <li><strong>Authentication.</strong> API-key auth with per-account namespacing, sent as a Bearer token (<code>Authorization: Bearer &lt;key&gt;</code>). Keys are high-entropy, stored hashed, shown once at creation, scoped and product-bound so a key cannot exceed its entitlement, and revocable and rotatable at any time. Enterprise org admin operations additionally require an active enterprise entitlement plus the <code>veyline:admin</code> key scope: non-admin enterprise keys and non-enterprise tiers receive 403, unauthenticated requests receive 401.</li>
+      <li><strong>Settlement chain.</strong> At launch: USDC on Base. Payments are verified independently on-chain and classified as confirmed, unconfirmed, or unknown. Ambiguity is reported, never silently treated as paid.</li>
+      <li><strong>Exactly-once execution.</strong> Atomic transaction-hash reservation prevents double claims; idempotency keys make retries safe; concurrent submissions resolve to a single outcome; crash-interrupted operations resume or roll back cleanly to a known state.</li>
+      <li><strong>Operation lifecycle.</strong> Intent, policy check, preflight, routing, authorization, payment, settlement, execution, delivery, outcome, reconciliation, recovery, evidence. Each stage is verified before the next begins.</li>
+      <li><strong>Non-custodial.</strong> Veyline never holds funds, private keys, or seed phrases. It verifies payments on-chain and controls what agents are authorized to do. It is not a wallet and not a payment facilitator.</li>
+    </ul>
+
+    <h2 id="security">Security and governance evidence</h2>
+    <ul class="check">
+      <li><strong>Server-side enforcement.</strong> Policy checks, budgets, and approval thresholds are enforced by the platform before money moves. Client assertions are never trusted; approval thresholds fail closed.</li>
+      <li><strong>Evidence integrity.</strong> Every operation is recorded in a hash-chained ledger. Payment, execution, delivery, and outcome are proven separately. Deterministic replay reconstructs any operation for audit.</li>
+      <li><strong>Settlement certainty.</strong> Unknown settlement never silently becomes "paid." No retry after unknown settlement without explicit review.</li>
+      <li><strong>Org administration (Enterprise).</strong> Dedicated endpoints for listing, creating, and revoking scoped org keys; reading and updating org governance policy; org-level usage reporting; and exporting the audit and evidence trail. All gated on enterprise entitlement plus <code>veyline:admin</code> scope.</li>
+      <li><strong>Metering honesty.</strong> Operations are metered against the plan's included allocation in real time; requests beyond it are throttled (429), not silently billed. Usage overages and basis-point fees on protected volume are disabled by design today.</li>
+    </ul>
+
+    <h2 id="not-claimed">What we do not claim</h2>
+    <p>Stated explicitly so a procurement review has no ambiguity:</p>
+    <ul class="check">
+      <li>We do <strong>not</strong> claim SOC 2, ISO 27001, HIPAA, PCI DSS, or any other compliance certification. None is held or implied.</li>
+      <li>We do <strong>not</strong> publish a penetration-test attestation. The MCP Launch Readiness Audit is a security scanner with fixes, not a certification or penetration test.</li>
+      <li>We do <strong>not</strong> publish a formal SLA or uptime figure for self-serve tiers. Enterprise availability and response terms are negotiated per contract.</li>
+      <li>Veyline is <strong>not</strong> a wallet, money transmitter, or payment facilitator, and takes no custody of funds or keys.</li>
+      <li>Public pages carry illustrative example hostnames only; production API details are provided with issued credentials.</li>
+    </ul>
+
+    <h2 id="deployment">Deployment</h2>
+    <ul class="check">
+      <li><strong>Veyline is a hosted service.</strong> There is no self-hosted Veyline. The platform is operated by Payload on Fly.io and reached over HTTPS at <code>https://payload-rail.fly.dev</code>.</li>
+      <li><strong>Separate self-hosted option.</strong> The Veyline Developer Primer ($79) is a different product: downloadable Node.js middleware you run yourself to add per-call x402 payments to your own server. It is not the hosted Veyline platform.</li>
+    </ul>
+
+    <h2 id="support">Support and commercial terms</h2>
+    <ul class="check">
+      <li><strong>Support channel.</strong> <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a>. Inquiries are answered within one business day.</li>
+      <li><strong>Enterprise pricing.</strong> $5,000+/month with custom terms and a negotiated operations allocation, enforced in real time. Full safety foundation included on every plan.</li>
+      <li><strong>Pilot.</strong> Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation, after inquiry review.</li>
+      <li><strong>Payment.</strong> Self-serve plans check out through Stripe. USDC on Base checkout is available for any plan where Stripe is unavailable or unwanted; start with the inquiry form and mention the plan.</li>
+      <li><strong>Legal.</strong> Subscription is governed by the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>. Enterprise custom agreements, DPAs, and vendor-security questionnaires are handled per deal on request.</li>
+    </ul>
+
+    <h2 id="procurement">Procurement checklist</h2>
+    <p>Materials a procurement or security team can review right now:</p>
+    <ul class="check">
+      <li>This brief (print or save as PDF from your browser).</li>
+      <li>Live API contract: <a href="https://payload-rail.fly.dev/openapi.json">openapi.json</a> (47 paths, 51 operations).</li>
+      <li><a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>.</li>
+      <li>Product page with pricing: <a href="veyline.html">veyline.html</a>.</li>
+      <li>Machine-readable product record: <a href="agents.json">agents.json</a>.</li>
+    </ul>
+
+    <h2 id="pilot">Start a pilot</h2>
+    <p>Send an enterprise inquiry. We reply within one business day, and approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.</p>
+    <div class="card no-print" style="max-width:560px;">
+      <form id="ent-brief-form" style="text-align:left;">
+        <input type="text" id="eb-name" placeholder="Your name" required aria-label="Name"
+          style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
+        <input type="email" id="eb-email" placeholder="you@company.com" required aria-label="Work email"
+          style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
+        <input type="text" id="eb-company" placeholder="Company (optional)" aria-label="Company"
+          style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
+        <textarea id="eb-message" placeholder="What are you protecting?" required rows="4" aria-label="Message"
+          style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:14px;margin-bottom:8px;box-sizing:border-box;resize:vertical;"></textarea>
+        <button type="submit" class="btn" id="eb-submit" style="width:100%;">Send Enterprise Inquiry</button>
+      </form>
+      <div id="ent-brief-result" style="display:none;margin-top:10px;font-size:14px;"></div>
+      <p style="font-size:13px;color:var(--muted);margin-top:10px;">Prefer email? <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload — small software that earns its keep.</span>
+    <span><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></span>
+    <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span>
+  </div>
+</footer>
+<script>
+(function () {
+  var RAIL = 'https://payload-rail.fly.dev';
+  var form = document.getElementById('ent-brief-form');
+  var result = document.getElementById('ent-brief-result');
+  if (!form) return;
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var submit = document.getElementById('eb-submit');
+    submit.disabled = true;
+    submit.textContent = 'Sending…';
+    result.style.display = 'none';
+    try {
+      var res = await fetch(RAIL + '/v1/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('eb-name').value.trim(),
+          email: document.getElementById('eb-email').value.trim(),
+          company: document.getElementById('eb-company').value.trim(),
+          message: document.getElementById('eb-message').value.trim(),
+          source: 'veyline-enterprise.html'
+        })
+      });
+      var data = null;
+      try { data = await res.json(); } catch (e2) {}
+      if (res.ok && data && data.received) {
+        form.style.display = 'none';
+        result.style.display = 'block';
+        result.innerHTML = '<strong>Inquiry sent.</strong> We reply within one business day. Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.';
+        return;
+      }
+      var msg = (data && data.error && data.error.message) || ('Send failed (HTTP ' + res.status + ')');
+      result.style.display = 'block';
+      result.innerHTML = '<span style="color:#ff7a7a;">' + msg.replace(/</g, '&lt;') + '</span>';
+    } catch (e3) {
+      result.style.display = 'block';
+      result.innerHTML = '<span style="color:#ff7a7a;">Could not reach the server. Please try again, or email <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a>.</span>';
+    } finally {
+      submit.disabled = false;
+      submit.textContent = 'Send Enterprise Inquiry';
+    }
+  });
+})();
+</script>
+</body>
+</html>
