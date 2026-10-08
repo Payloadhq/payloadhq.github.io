@@ -489,6 +489,7 @@ curl -X POST https://api.veyline.io/v1/operations \
           <li>Configurable authorization: spend caps, action allow/deny lists, custom rate limits</li>
           <li>14-day pilot after inquiry review</li>
         </ul>
+        <p style="font-size:12.5px;margin:6px 0 10px;"><a href="veyline-enterprise.html" style="color:var(--lime);">Security, architecture, and procurement brief</a></p>
         <button class="btn btn-ghost" id="enterprise-btn" style="width:100%;">Contact Us</button>
         <form id="enterprise-form" style="display:none;margin-top:12px;text-align:left;">
           <input type="text" id="ent-name" placeholder="Your name" required aria-label="Name"
@@ -569,6 +570,10 @@ curl -X POST https://api.veyline.io/v1/operations \
       <details class="faq">
         <summary>What happens if a payment succeeds but something fails afterward?</summary>
         <div class="faq-body">Veyline recovers the operation to a known state. You can query the operation to see exactly what happened — what was paid, what executed, what was delivered — and retry safely without risk of duplicate charges.</div>
+      </details>
+      <details class="faq">
+        <summary>Is there a security or architecture brief for procurement?</summary>
+        <div class="faq-body">Yes. The <a href="veyline-enterprise.html">enterprise brief</a> covers use cases, production architecture, security and governance evidence, deployment, support expectations, and a procurement checklist. It states plainly what is and is not claimed, and prints cleanly for review.</div>
       </details>
       <details class="faq">
         <summary>Is RevRule included with Veyline?</summary>
