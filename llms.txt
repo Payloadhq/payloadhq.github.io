@@ -35,7 +35,7 @@ Economic-control and assurance plane: intent checked, payment verified on-chain,
 - Developer ($99/mo): 10,000 ops/mo.
 - Production ($499/mo): 100,000 ops/mo + detailed usage.
 - Growth ($1,499/mo): 1,000,000 ops/mo + detailed usage.
-- Enterprise ($5,000+/mo): custom allocation, per-contract terms.
+- Enterprise ($5,000+/mo): custom allocation, per-contract terms. Enterprise evaluation brief (use cases, architecture, security evidence, deployment, support, procurement checklist): https://payloadhq.github.io/veyline-enterprise.html
 
 Localized Veyline entry points (same product, pricing, and purchase paths; checkout page in English):
 - Spanish: https://payloadhq.github.io/es.html
