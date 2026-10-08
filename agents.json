@@ -2,7 +2,7 @@
  "authentication": {
   "admin": "Internal only. Never exposed to customers or agents.",
   "marketplace_products": "No API auth — download links delivered by Whop/Gumroad at purchase.",
-  "veyline_api": "Bearer token in Authorization header. Obtain via Stripe checkout success page or crypto redeem flow. Keys are product-bound to 'veyline'."
+  "veyline_api": "Bearer token in Authorization header. Obtain via the free sandbox signup on veyline.html, the Stripe checkout success page, or the crypto redeem flow. Keys are product-bound to 'veyline'."
  },
  "callx402": {
   "capabilities": [
