@@ -396,7 +396,7 @@
     <div class="grid grid-3 steps" style="margin-top:28px; margin-bottom:32px;">
       <div class="card">
         <h3>Get an API key</h3>
-        <p>Purchase access below. You receive a scoped API key bound to your account and your plan's entitlements.</p>
+        <p>Start free in the pricing section below (email only, no purchase) or pick a paid plan. You receive a scoped API key bound to your account and your plan's entitlements.</p>
       </div>
       <div class="card">
         <h3>Connect via callx402 or REST</h3>
@@ -417,7 +417,7 @@ curl -X POST https://api.veyline.io/v1/operations \
   -H <span class="s">"Authorization: Bearer YOUR_API_KEY"</span> \
   -H <span class="s">"Content-Type: application/json"</span> \
   -d <span class="s">'{"intent": "purchase", "target": "api.example.com/data", "max_spend_usdc": "0.05"}'</span></pre>
-    <p class="note">Endpoint hostnames shown are illustrative. Production API details are provided with your credentials.</p>
+    <p class="note">Endpoint hostnames shown are illustrative. The real endpoints and first-call steps are in the <a href="https://payloadhq.github.io/docs.html#veyline" style="color:var(--lime);">Docs quickstart</a>.</p>
   </div>
 </section>
 
@@ -515,7 +515,7 @@ curl -X POST https://api.veyline.io/v1/operations \
   <div class="wrap">
     <div class="eyebrow">How to purchase</div>
     <h2>Subscribe in minutes, key in hand</h2>
-    <p class="lede">Veyline is a metered subscription. Pick a plan, check out securely through Stripe, and your API key is issued automatically — shown once on the confirmation page, ready to use immediately.</p>
+    <p class="lede">Veyline is a metered subscription. Pick a plan, check out securely through Stripe, and your API key is issued automatically — shown once on the confirmation page, ready to use immediately. The Free / Sandbox tier skips checkout entirely: start it from the pricing grid above with just your email.</p>
     <div class="grid grid-2 steps" style="margin-top:28px;">
       <div class="card">
         <h3>Choose your plan</h3>
@@ -671,7 +671,7 @@ curl -X POST https://api.veyline.io/v1/operations \
             'Your API key (shown once — copy it now):<br>' +
             '<code id="sandbox-key" style="display:block;word-break:break-all;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0;font-size:12px;"></code>' +
             '<button type="button" id="sandbox-copy" class="btn btn-ghost" style="width:100%;">Copy Key</button>' +
-            '<p style="margin-top:8px;opacity:0.8;">1,000 ops/month. <a href="https://payloadhq.github.io/docs.html" style="color:var(--lime);">Read the docs</a> to make your first call.</p>';
+            '<p style="margin-top:8px;opacity:0.8;">1,000 ops/month. <a href="https://payloadhq.github.io/docs.html#veyline" style="color:var(--lime);">Read the docs</a> to make your first call.</p>';
           document.getElementById('sandbox-key').textContent = data.api_key;
           document.getElementById('sandbox-copy').addEventListener('click', function () {
             navigator.clipboard.writeText(data.api_key).then(function () {
