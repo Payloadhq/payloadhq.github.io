@@ -147,13 +147,13 @@ async function connectAndExecute() {
     // Sign the Safe transaction hash
     const signature = await signer.signMessage(ethers.getBytes(safeTxHash));
 
-    // Adjust v value for Safe (eth_sign style)
+    // Adjust v value for Safe eth_sign flow: always add 4 to v (27->31, 28->32)
+    // This tells Safe the signature came from eth_sign/personal_sign
     let sig = signature;
     const v = parseInt(sig.slice(-2), 16);
-    if (v < 27) {
-      const newV = (v + 4).toString(16).padStart(2, '0');
-      sig = sig.slice(0, -2) + newV;
-    }
+    const adjustedV = v >= 27 ? v + 4 : v + 31; // 27->31, 28->32
+    const newVHex = adjustedV.toString(16).padStart(2, '0');
+    sig = sig.slice(0, -2) + newVHex;
 
     showStatus('Submitting transaction to Base...', 'info');
 
