@@ -512,14 +512,19 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
 </section>
 
 <!-- 10. PURCHASE -->
-<!-- Customer-owned Safe pilot: scoped to current supported integration. -->
-<section id="safe-pilot" style="background:var(--bg-2);">
+<!-- Customer-controlled Safe execution: verify commercial acceptance before publishing -->
+<section id="safe-execution" style="background:var(--bg-2);">
   <div class="wrap">
-    <div class="eyebrow">Customer-owned Safe pilot</div>
-    <h2>Keep the keys. Set the policy.</h2>
-    <p class="lede">Veyline offers an invitation-only, customer-owned Safe pilot on Base. In the supported execution path, a signed payment intent is checked against enrolled limits and approved recipients before the customer's own wallet signs. Transfer settlement is then independently reconciled against the Base USDC transaction receipt.</p>
-    <p class="note">Initial Safe execution supports a one-signature threshold. Wallet owners retain the ability to transact outside Veyline: this is an opt-in execution workflow, not an on-chain Safe Guard or universal wallet-wide restriction. Safe execution is not included as automatic self-serve functionality with a subscription.</p>
-    <p><a href="veyline-enterprise.html" class="btn btn-ghost">Ask about Safe pilot access</a></p>
+    <div class="eyebrow">Customer-controlled execution</div>
+    <h2>Your wallet. Your funds. Defined payment controls.</h2>
+    <p class="lede">Connect a customer-owned Safe on Base to Veyline's authorization workflow. For payment requests made through the supported integration, Veyline checks the intended recipient, amount and spending limits before the connected wallet signs, then reconciles Base USDC settlement against on-chain evidence.</p>
+    <div class="grid grid-3" style="margin:24px 0;">
+      <div class="card"><h3>Maintain custody</h3><p>Funds and wallet owner keys stay with your organization, not in a Payload treasury wallet.</p></div>
+      <div class="card"><h3>Authorize before signing</h3><p>Use issuer and executor credentials to validate exact signed payment intent and claim an authorization once.</p></div>
+      <div class="card"><h3>Reconcile settlement</h3><p>Match the on-chain Base USDC receipt to the intended payer, recipient and amount.</p></div>
+    </div>
+    <p class="note">Current Safe integration supports Base USDC with a one-signature Safe threshold and customer-managed execution. Veyline controls payments routed through its integration; it does not restrict independent owner-initiated Safe transfers. Setup is provisioned per organization and is not enabled by a subscription checkout alone.</p>
+    <p><a href="veyline-enterprise.html" class="btn btn-ghost">Discuss Safe integration</a></p>
   </div>
 </section>
 
