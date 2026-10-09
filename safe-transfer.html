@@ -1,188 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Veyline Safe Transfer — $0.01 USDC Test</title>
-<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.0/dist/ethers.umd.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Veyline | Safe Transaction Reference</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0e1a; color: #e0e0e0; padding: 20px; min-height: 100vh; }
-  .container { max-width: 600px; margin: 0 auto; }
-  h1 { font-size: 22px; margin-bottom: 8px; color: #fff; }
-  .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
-  .card { background: #141a2e; border: 1px solid #2a3350; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-  .card h2 { font-size: 16px; margin-bottom: 12px; color: #fff; }
-  .detail { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1a2138; font-size: 14px; }
-  .detail:last-child { border-bottom: none; }
-  .detail .label { color: #888; }
-  .detail .value { color: #fff; font-family: monospace; font-size: 13px; text-align: right; max-width: 60%; word-break: break-all; }
-  .status { padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; display: none; }
-  .status.show { display: block; }
-  .status.info { background: #1a2744; border: 1px solid #2d4a7a; color: #7eb8ff; }
-  .status.success { background: #1a3a2a; border: 1px solid #2d7a4a; color: #7effb8; }
-  .status.error { background: #3a1a1a; border: 1px solid #7a2d2d; color: #ff7e7e; }
-  .btn { display: block; width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btn-primary { background: #f6851b; color: #fff; }
-  .btn-secondary { background: #2a3350; color: #fff; }
-  .btn-success { background: #2d7a4a; color: #fff; }
-  .warning { background: #3a2a1a; border: 1px solid #7a5a2d; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #ffcc7e; margin-bottom: 16px; }
-  .tx-hash { background: #0a0e1a; border: 1px solid #2d7a4a; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; word-break: break-all; color: #7effb8; margin-top: 12px; display: none; }
-  .tx-hash.show { display: block; }
+:root{color-scheme:dark;--bg:#0a0a0b;--card:#141416;--border:#2b2b30;--text:#f1f1f2;--muted:#a7a7af;--accent:#c8f31d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65;padding:28px 20px}
+main{max-width:690px;margin:8vh auto 0}
+.eyebrow{text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:700;font-size:12px}
+h1{font-size:clamp(27px,5vw,40px);line-height:1.16;margin:12px 0 18px}
+p{color:var(--muted)}
+.card{padding:24px;border:1px solid var(--border);background:var(--card);border-radius:12px;margin:24px 0}
+table{width:100%;border-collapse:collapse}
+td{padding:11px 0;border-bottom:1px solid var(--border);word-break:break-word;vertical-align:top}
+td:first-child{color:var(--muted);width:32%}
+tr:last-child td{border-bottom:0}
+a{color:var(--accent)}
+.cta{display:inline-block;text-decoration:none;background:var(--accent);color:#0a0a0b;font-weight:750;padding:13px 18px;border-radius:7px}
+.note{font-size:14px}
 </style>
 </head>
-<body>
-<div class="container">
-  <h1>Veyline Safe Transfer</h1>
-  <p class="subtitle">$0.01 USDC test — Safe to owner wallet</p>
-  <div id="status" class="status"></div>
-
-  <div class="card">
-    <h2>Transaction Details</h2>
-    <div class="detail"><span class="label">From (Safe)</span><span class="value">0x101C...efbe</span></div>
-    <div class="detail"><span class="label">To</span><span class="value">0x699c...2b7d</span></div>
-    <div class="detail"><span class="label">Amount</span><span class="value">$0.01 USDC</span></div>
-    <div class="detail"><span class="label">Network</span><span class="value">Base (8453)</span></div>
-    <div class="detail"><span class="label">Veyline Auth</span><span class="value">org_ZS1v94EvpN6N ✅</span></div>
-  </div>
-
-  <div class="warning">
-    This will send a real $0.01 USDC transfer from your Safe on Base mainnet. Gas (~$0.003) is paid from the Safe's ETH balance.
-  </div>
-
-  <button class="btn btn-primary" id="connectBtn" onclick="connectAndExecute()">Connect & Execute Transfer</button>
-
-  <div class="tx-hash" id="txBox">
-    <strong>Transaction submitted:</strong><br><br>
-    <span id="txHash"></span><br><br>
-    <a id="txLink" href="#" target="_blank" style="color:#7eb8ff;">View on BaseScan →</a>
-  </div>
+<body><main>
+<div class="eyebrow">VEYLINE by Payload · Historical transaction</div>
+<h1>Safe transfer pilot reference</h1>
+<p>This URL previously hosted a one-off, wallet-owner-signed Base USDC transfer demonstration. To avoid accidental repeat payments, the direct-send interface has been retired. This page is read-only.</p>
+<div class="card">
+<h2 style="margin-top:0">Reported $0.01 USDC test</h2>
+<table aria-label="Pilot transaction details">
+<tr><td>Network</td><td>Base Mainnet (8453)</td></tr>
+<tr><td>Source Safe</td><td>0x101C129249Bb15D150E8Ef7d848E879E62e9efbe</td></tr>
+<tr><td>Recipient</td><td>0x699c7549c4deb0bd52ebd384cb13d04110ba2b7d</td></tr>
+<tr><td>Amount</td><td>0.01 USDC</td></tr>
+<tr><td>Transaction</td><td><a rel="noopener noreferrer" target="_blank" href="https://basescan.org/tx/0x44d73d4bcf8541c7d9c9587a73e070dbe8d6f842ae9178e24897cd770cbde615">View the reported transaction on BaseScan</a></td></tr>
+</table>
+<p class="note">The transaction identifiers above are pilot-operator-reported. A wallet transfer alone does not prove that a Veyline policy authorization was obtained and consumed before signing.</p>
 </div>
-
-<script>
-const SAFE_ADDRESS = '0x101C129249Bb15D150E8Ef7d848E879E62e9efbe';
-const USDC_ADDRESS = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
-const RECIPIENT = '0x699c7549c4deb0bd52ebd384cb13d04110ba2b7d';
-const AMOUNT = '10000'; // $0.01 in USDC (6 decimals)
-const EXPECTED_OWNER = '0x699c7549c4deb0bd52ebd384cb13d04110ba2b7d'.toLowerCase();
-
-function showStatus(msg, type) {
-  const el = document.getElementById('status');
-  el.textContent = msg;
-  el.className = 'status show ' + type;
-}
-
-async function connectAndExecute() {
-  if (typeof window.ethereum === 'undefined') {
-    showStatus('MetaMask not detected. Open in MetaMask mobile browser.', 'error');
-    return;
-  }
-
-  try {
-    showStatus('Connecting wallet...', 'info');
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const userAddress = accounts[0];
-
-    if (userAddress.toLowerCase() !== EXPECTED_OWNER) {
-      showStatus('Please connect the Safe owner wallet (0x699c...2b7d).', 'error');
-      return;
-    }
-
-    // Switch to Base
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x2105' }], // 8453
-      });
-    } catch (e) {
-      if (e.code === 4902) {
-        await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [{
-            chainId: '0x2105',
-            chainName: 'Base',
-            nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-            rpcUrls: ['https://mainnet.base.org'],
-            blockExplorerUrls: ['https://basescan.org'],
-          }],
-        });
-      } else throw e;
-    }
-
-    showStatus('Preparing Safe transaction...', 'info');
-
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-
-    // Build USDC transfer calldata: transfer(address,uint256)
-    const usdcIface = new ethers.Interface(['function transfer(address to, uint256 amount) returns (bool)']);
-    const transferData = usdcIface.encodeFunctionData('transfer', [RECIPIENT, AMOUNT]);
-
-    // Safe execTransaction parameters
-    // For simplicity, we use the Safe contract directly
-    const safeIface = new ethers.Interface([
-      'function execTransaction(address to, uint256 value, bytes calldata data, uint8 operation, uint256 safeTxGas, uint256 baseGas, uint256 gasPrice, address gasToken, address payable refundReceiver, bytes memory signatures) payable returns (bool)'
-    ]);
-
-    // Get nonce from Safe
-    const safeContract = new ethers.Contract(SAFE_ADDRESS, [
-      'function nonce() view returns (uint256)',
-      'function getTransactionHash(address to, uint256 value, bytes calldata data, uint8 operation, uint256 safeTxGas, uint256 baseGas, uint256 gasPrice, address gasToken, address refundReceiver, uint256 _nonce) view returns (bytes32)'
-    ], provider);
-
-    const nonce = await safeContract.nonce();
-    showStatus('Safe nonce: ' + nonce.toString(), 'info');
-
-    // Get the Safe transaction hash for signing
-    const safeTxHash = await safeContract.getTransactionHash(
-      USDC_ADDRESS, 0, transferData, 0, 0, 0, 0,
-      '0x0000000000000000000000000000000000000000',
-      '0x0000000000000000000000000000000000000000',
-      nonce
-    );
-
-    showStatus('Please sign the Safe transaction in MetaMask...', 'info');
-
-    // Sign the Safe transaction hash
-    const signature = await signer.signMessage(ethers.getBytes(safeTxHash));
-
-    // Adjust v value for Safe eth_sign flow: always add 4 to v (27->31, 28->32)
-    // This tells Safe the signature came from eth_sign/personal_sign
-    let sig = signature;
-    const v = parseInt(sig.slice(-2), 16);
-    const adjustedV = v >= 27 ? v + 4 : v + 31; // 27->31, 28->32
-    const newVHex = adjustedV.toString(16).padStart(2, '0');
-    sig = sig.slice(0, -2) + newVHex;
-
-    showStatus('Submitting transaction to Base...', 'info');
-
-    // Execute via Safe
-    const safeWithSigner = new ethers.Contract(SAFE_ADDRESS, safeIface.fragments, signer);
-    const tx = await safeWithSigner.execTransaction(
-      USDC_ADDRESS, 0, transferData, 0, 0, 0, 0,
-      '0x0000000000000000000000000000000000000000',
-      '0x0000000000000000000000000000000000000000',
-      sig
-    );
-
-    showStatus('Transaction submitted! Waiting for confirmation...', 'info');
-    document.getElementById('txHash').textContent = tx.hash;
-    document.getElementById('txLink').href = 'https://basescan.org/tx/' + tx.hash;
-    document.getElementById('txBox').classList.add('show');
-
-    const receipt = await tx.wait();
-    if (receipt.status === 1) {
-      showStatus('✅ Transfer confirmed! $0.01 USDC sent.', 'success');
-    } else {
-      showStatus('Transaction failed on-chain.', 'error');
-    }
-
-  } catch (err) {
-    console.error(err);
-    showStatus('Error: ' + (err.message || err), 'error');
-  }
-}
-</script>
-</body>
+<div class="card">
+<h2 style="margin-top:0">Customer-controlled Safe pilot</h2>
+<p>Veyline's supported owner-mediated payment path validates exact payment intent, verifies a signed authorization, atomically claims it <strong>before</strong> the wallet signs, and reconciles the matching blockchain receipt. This requires an enrolled organization and approved executor integration, not a generic browser send button.</p>
+<p class="note">Safe owners can independently transact through other applications. Veyline does not impose an on-chain Guard or claim universal wallet-level blocking. The first supported pilot uses a threshold of one signer.</p>
+</div>
+<a class="cta" href="veyline.html">Explore Veyline</a>
+<p class="note">Do not send funds or approve wallet transactions from links claiming to be this retired demo.</p>
+</main></body>
 </html>
