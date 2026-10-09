@@ -211,7 +211,7 @@
     <div class="grid grid-3">
       <div class="card">
         <h3>Economic control</h3>
-        <p>Every operation passes policy checks before money moves. Spending limits, approved actions, and commercial terms are enforced by the platform — not left to the agent's discretion.</p>
+        <p>For operations routed through Veyline's supported authorization workflow, configurable spending limits and approved actions are checked before that workflow executes. Customer-controlled wallets retain independent owner access outside Veyline.</p>
       </div>
       <div class="card">
         <h3>Settlement certainty</h3>
@@ -488,7 +488,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
           <li>Org admin: key management, org usage, audit export</li>
           <li>Economic governor: mandates with human-approval thresholds</li>
           <li>Configurable authorization: spend caps, action allow/deny lists, custom rate limits</li>
-          <li>14-day pilot after inquiry review</li>
+          <li>14-day guided evaluation after inquiry review</li>
         </ul>
         <p style="font-size:12.5px;margin:6px 0 10px;"><a href="veyline-enterprise.html" style="color:var(--lime);">Security, architecture, and procurement brief</a></p>
         <button class="btn btn-ghost" id="enterprise-btn" style="width:100%;">Contact Us</button>
@@ -512,6 +512,22 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
 </section>
 
 <!-- 10. PURCHASE -->
+<!-- Customer-controlled Safe execution: verify commercial acceptance before publishing -->
+<section id="safe-execution" style="background:var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Customer-controlled execution</div>
+    <h2>Your wallet. Your funds. Defined payment controls.</h2>
+    <p class="lede">Integrate a customer-owned Safe on Base with Veyline's authorization workflow. For payment requests made through the supported integration, Veyline checks the intended recipient, amount and spending limits before the connected wallet signs, then reconciles Base USDC settlement against on-chain evidence.</p>
+    <div class="grid grid-3" style="margin:24px 0;">
+      <div class="card"><h3>Maintain custody</h3><p>Funds and wallet owner keys stay with your organization, not in a Payload treasury wallet.</p></div>
+      <div class="card"><h3>Authorize before signing</h3><p>Use issuer and executor credentials to validate exact signed payment intent and claim an authorization once.</p></div>
+      <div class="card"><h3>Reconcile settlement</h3><p>Match the on-chain Base USDC receipt to the intended payer, recipient and amount.</p></div>
+    </div>
+    <p class="note">Current Safe integration supports Base USDC with a one-signature Safe threshold and customer-managed execution. Veyline controls payments routed through its integration; it does not restrict independent owner-initiated Safe transfers. Setup is provisioned per organization and is not enabled by a subscription checkout alone.</p>
+    <p><a href="veyline-enterprise.html" class="btn btn-ghost">Discuss Safe integration</a></p>
+  </div>
+</section>
+
 <section id="purchase">
   <div class="wrap">
     <div class="eyebrow">How to purchase</div>
@@ -736,7 +752,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
           entResult.style.display = 'block';
           entResult.innerHTML = cryptoIntent
             ? '<strong style="color:var(--lime);">USDC request received.</strong> We reply within one business day with a wallet address and payment details for your plan. Your API key is issued right after the payment confirms.'
-            : '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day. Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.';
+            : '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day. Approved inquiries are provisioned as a 14-day guided Enterprise evaluation with a negotiated operations allocation.';
           return;
         }
         var msg = (data && data.error && data.error.message) || ('Send failed (HTTP ' + res.status + ')');
