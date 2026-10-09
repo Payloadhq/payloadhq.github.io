@@ -407,17 +407,18 @@
         <p>Set your policies and spend limits. Your agents operate autonomously inside them — every operation verified, settled, and evidenced.</p>
       </div>
     </div>
-<pre class="code"><span class="c"># callx402 by Payload — powered by Veyline</span>
-<span class="k">callx402</span> pay --to api.example.com/data --amount 0.05 --asset USDC
-<span class="c"># Veyline verifies intent, policy, payment, settlement —</span>
-<span class="c"># then returns proof of execution and outcome.</span>
+<pre class="code"><span class="c"># callx402 — see a FREE quote before approving payment</span>
+<span class="k">callx402</span> diagnose --evidence '{"error":"settlement_pending"}'
+<span class="c"># This command will ask for approval. It does not auto-pay.</span>
 
-<span class="c"># Or via REST:</span>
-curl -X POST https://api.veyline.io/v1/operations \
-  -H <span class="s">"Authorization: Bearer YOUR_API_KEY"</span> \
-  -H <span class="s">"Content-Type: application/json"</span> \
-  -d <span class="s">'{"intent": "purchase", "target": "api.example.com/data", "max_spend_usdc": "0.05"}'</span></pre>
-    <p class="note">Endpoint hostnames shown are illustrative. The real endpoints and first-call steps are in the <a href="https://payloadhq.github.io/docs.html#veyline" style="color:var(--lime);">Docs quickstart</a>.</p>
+<span class="c"># Veyline REST — inspect your own active subscription</span>
+curl https://payload-rail.fly.dev/v1/veyline/status \
+  -H <span class="s">"Authorization: Bearer YOUR_VEYLINE_API_KEY"</span>
+
+<span class="c"># Read your current monthly operation quota</span>
+curl https://payload-rail.fly.dev/v1/veyline/usage \
+  -H <span class="s">"Authorization: Bearer YOUR_VEYLINE_API_KEY"</span></pre>
+    <p class="note">These are actual hosted endpoints. The status and usage calls require an active Veyline key with read permission. Paid callx402 actions require explicit approval and their designated payment authorization. See the <a href="https://payloadhq.github.io/docs.html#veyline" style="color:var(--lime);">Veyline quickstart</a>.</p>
   </div>
 </section>
 
