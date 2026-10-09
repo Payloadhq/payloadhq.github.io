@@ -211,7 +211,7 @@
     <div class="grid grid-3">
       <div class="card">
         <h3>Economic control</h3>
-        <p>Every operation passes policy checks before money moves. Spending limits, approved actions, and commercial terms are enforced by the platform — not left to the agent's discretion.</p>
+        <p>For operations routed through Veyline's supported authorization workflow, configurable spending limits and approved actions are checked before that workflow executes. Customer-controlled wallets retain independent owner access outside Veyline.</p>
       </div>
       <div class="card">
         <h3>Settlement certainty</h3>
@@ -512,6 +512,17 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
 </section>
 
 <!-- 10. PURCHASE -->
+<!-- Customer-owned Safe pilot: scoped to current supported integration. -->
+<section id="safe-pilot" style="background:var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Customer-owned Safe pilot</div>
+    <h2>Keep the keys. Set the policy.</h2>
+    <p class="lede">Veyline offers an invitation-only, customer-owned Safe pilot on Base. In the supported execution path, a signed payment intent is checked against enrolled limits and approved recipients before the customer's own wallet signs. Transfer settlement is then independently reconciled against the Base USDC transaction receipt.</p>
+    <p class="note">Initial Safe execution supports a one-signature threshold. Wallet owners retain the ability to transact outside Veyline: this is an opt-in execution workflow, not an on-chain Safe Guard or universal wallet-wide restriction. Safe execution is not included as automatic self-serve functionality with a subscription.</p>
+    <p><a href="veyline-enterprise.html" class="btn btn-ghost">Ask about Safe pilot access</a></p>
+  </div>
+</section>
+
 <section id="purchase">
   <div class="wrap">
     <div class="eyebrow">How to purchase</div>
