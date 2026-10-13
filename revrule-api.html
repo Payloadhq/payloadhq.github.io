@@ -47,11 +47,11 @@
     <h2>Core endpoints</h2>
     <div class="card">
       <h3>Graphs</h3>
-      <p><code>POST /v1/graphs</code> — create a Revenue Graph (name + rules).<br>
+      <p><code>POST /v1/graphs</code> — create a Revenue Graph (id, projectId, ownerId, participants, rules).<br>
       <code>GET /v1/graphs/{id}</code> — fetch a graph.<br>
       <code>POST /v1/graphs/{id}/activate</code> — activate a graph for production events.</p>
       <h3>Events &amp; entitlements</h3>
-      <p><code>POST /v1/graphs/{id}/events</code> — post an economic event (<code>eventId</code>, <code>type</code>, <code>amountMicros</code>, <code>currency</code>). Idempotent on <code>eventId</code>: replays return the original result.<br>
+      <p><code>POST /v1/graphs/{id}/events</code> — post an economic event (validated envelope: <code>eventId</code>, <code>graphId</code>, <code>type</code>, <code>occurredAt</code>, <code>amountMicros</code>, <code>currency</code>, <code>rail</code>, <code>processingCostMicros</code>, <code>raw</code>). Idempotent on <code>eventId</code>: replays return the original result.<br>
       <code>POST /v1/graphs/{id}/simulate</code> — dry-run an event, see entitlements without writing the ledger.<br>
       <code>GET /v1/graphs/{id}/ledger</code> — read ledger entries for a graph.</p>
       <h3>Crypto</h3>
@@ -62,28 +62,66 @@
       <code>GET /v1/fees/balance</code> — accrued fee balances.</p>
       <h3>x402 machine commerce</h3>
       <p><code>POST /v1/x402/event</code> — pay-per-call event endpoint (402 + payment requirements when unpaid).<br>
-      <code>GET /v1/x402/public/evaluate</code> — free public evaluation entry point.</p>
+      <code>GET|POST /v1/x402/public/evaluate</code> — paid public evaluation: $0.01 USDC on Base, no API key. An unpaid call returns an x402 v2 <strong>402</strong> payment challenge; after paying, POST <code>{event, txHash}</code> to evaluate your event against the fixed public demo graph.</p>
     </div>
 
     <h2>Quickstart</h2>
     <div class="card">
-<pre><code># 1. Get an API key (free sandbox in the console)
-#    https://payload-rail.fly.dev/revrule-console/
+<pre><code># 1. Get a free API key — creates a free-tier account; the key is shown once.
+#    (Or use the console: https://payload-rail.fly.dev/revrule-console/)
+curl -X POST https://payload-rail.fly.dev/v1/access-keys \
+  -H "Content-Type: application/json" \
+  -d '{"label":"quickstart"}'
+# -&gt; {"key":"...","accountId":"..."} — save the key as $KEY below.
 
-# 2. Create a graph
+# 2. Create a graph. This is the public demo graph spec: platform 5% of gross,
+#    creator 70% of the remainder, referrer 25% of the remainder (only when the
+#    event carries attribution), creator takes what is left. A graph spec must
+#    name an ownerId, and that participant must carry the "owner" role.
 curl -X POST https://payload-rail.fly.dev/v1/graphs \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
-  -d '{"name":"marketplace-v1","rules":[{"type":"percentage","splits":[{"to":"platform","pct":10},{"to":"seller","pct":90}]}]}'
+  -d '{
+    "id": "x402-public",
+    "projectId": "x402-public",
+    "ownerId": "creator",
+    "participants": [
+      {"id": "payload_platform", "kind": "company", "roles": ["platform"], "payoutDestinations": []},
+      {"id": "creator", "kind": "person", "roles": ["creator", "owner"], "payoutDestinations": []},
+      {"id": "referrer", "kind": "person", "roles": ["referrer"], "payoutDestinations": []}
+    ],
+    "revenueSources": [
+      {"id": "x402", "kind": "x402", "config": {}, "eventTypes": ["API_PAYMENT"]}
+    ],
+    "rules": [
+      {"id": "platform-fee", "type": "percentage", "priority": 1,
+       "params": {"rateBps": 500, "subjectParticipantId": "payload_platform", "base": "gross"}},
+      {"id": "creator-share", "type": "percentage", "priority": 2,
+       "params": {"rateBps": 7000, "subjectParticipantId": "creator", "base": "remaining"}},
+      {"id": "referrer-share", "type": "percentage", "priority": 3,
+       "params": {"rateBps": 2500, "subjectParticipantId": "referrer", "base": "remaining"},
+       "conditions": {"requireAttribution": true}},
+      {"id": "creator-remainder", "type": "remainder", "priority": 4,
+       "params": {"subjectParticipantId": "creator"}}
+    ]
+  }'
 
-# 3. Post an event (amounts in micro-units: 1_000_000 = 1.00)
-curl -X POST https://payload-rail.fly.dev/v1/graphs/GRAPH_ID/events \
+# 3. Activate it (new graphs start as drafts)
+curl -X POST https://payload-rail.fly.dev/v1/graphs/x402-public/activate \
+  -H "Authorization: Bearer $KEY"
+
+# 4. Dry-run an event — no ledger entries are written, no state changes.
+#    Amounts are integer micro-units (1_000_000 = 1.00), never strings.
+curl -X POST https://payload-rail.fly.dev/v1/graphs/x402-public/simulate \
   -H "Authorization: Bearer $KEY" \
   -H "Content-Type: application/json" \
-  -d '{"event":{"eventId":"sale-1","type":"revenue","amountMicros":"25000000","currency":"USD"}}'
+  -d '{"event":{"eventId":"sale-1","graphId":"x402-public","type":"API_PAYMENT","occurredAt":"2026-01-15T00:00:00Z","amountMicros":25000000,"currency":"USD","rail":"x402","processingCostMicros":0,"raw":{}}}'
 
-# 4. Read the ledger
-curl https://payload-rail.fly.dev/v1/graphs/GRAPH_ID/ledger \
+# 5. Post the same event for real: POST /v1/graphs/x402-public/events
+#    with the identical body.
+
+# 6. Read the ledger
+curl https://payload-rail.fly.dev/v1/graphs/x402-public/ledger \
   -H "Authorization: Bearer $KEY"</code></pre>
     </div>
 
@@ -96,7 +134,7 @@ curl https://payload-rail.fly.dev/v1/graphs/GRAPH_ID/ledger \
 
     <h2>Rules of the road</h2>
     <div class="card">
-      <p>RevRule computes entitlements; it never moves money. Amounts are integers in micro-units (6 decimals). Events are idempotent on <code>eventId</code>. The sandbox is free for evaluation; production Revenue Graphs need the $99 one-time license.</p>
+      <p>RevRule computes entitlements; it never moves money. Amounts are integers in micro-units (6 decimals). Events are idempotent on <code>eventId</code>. A free key can create, activate, simulate, and post events to your own graphs; the $99 one-time license adds the entitlement-gated surfaces (payout evidence).</p>
     </div>
   </div>
 </main>
