@@ -104,6 +104,15 @@
       <li>The recoupment scenario is stateful: run it six times and watch the $5,000 advance finish recouping before the splits begin.</li>
     </ul>
     <p class="note">RevRule observes economic events, computes who is owed what, and proposes payout instructions. Regulated partners move the money. The engine never holds funds and never controls settlement. Full source: <a href="https://github.com/Payloadhq/payload-flow">github.com/Payloadhq/payload-flow</a>.</p>
+
+    <h2>Run this against the live API</h2>
+    <p>Everything above runs in your browser and is simulated. The same engine is hosted as the RevRule API at <code>https://payload-rail.fly.dev</code>, and you can run your own graph against it for free:</p>
+    <ol>
+      <li><strong>Get a free access key.</strong> Use the <a href="https://payload-rail.fly.dev/revrule-console/">RevRule Console</a> ("Get a free API key"), or one call: <code>POST https://payload-rail.fly.dev/v1/access-keys</code> with body <code>{"label":"..."}</code>. The key is returned once; it creates a free-tier account.</li>
+      <li><strong>Create your own graph</strong> with <code>POST /v1/graphs</code> (Bearer key), then activate it with <code>POST /v1/graphs/{id}/activate</code>. The <a href="revrule-api.html">API reference quickstart</a> has a complete graph spec you can copy.</li>
+      <li><strong>Dry-run an event</strong> with <code>POST /v1/graphs/{id}/simulate</code> — the same event envelope as a real event, with zero side effects: no ledger entries are written and no state changes. When you are ready, post real events to <code>POST /v1/graphs/{id}/events</code>.</li>
+    </ol>
+    <p class="note">Full quickstart in one file: <a href="https://payload-rail.fly.dev/llms.txt">payload-rail.fly.dev/llms.txt</a> · Endpoint reference: <a href="revrule-api.html">RevRule API Reference</a>.</p>
   </div>
 </main>
 <footer class="site">
