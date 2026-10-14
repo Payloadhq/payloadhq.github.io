@@ -219,7 +219,7 @@
       </div>
       <div class="card">
         <h3>Recovery, not just retries</h3>
-        <p>When operations fail mid-flight, Veyline recovers them safely: no duplicate charges, no duplicate effects, no silent failures. Every operation has a known terminal state.</p>
+        <p>When operations fail mid-flight, Veyline recovers them safely, with replay protection standing against duplicate charges and duplicate effects, and no silent failures. Every operation has a known terminal state.</p>
       </div>
     </div>
   </div>
@@ -570,7 +570,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
       </details>
       <details class="faq">
         <summary>What happens if a payment succeeds but something fails afterward?</summary>
-        <div class="faq-body">Veyline recovers the operation to a known state. You can query the operation to see exactly what happened — what was paid, what executed, what was delivered — and retry safely without risk of duplicate charges.</div>
+        <div class="faq-body">Veyline recovers the operation to a known state. You can query the operation to see exactly what happened — what was paid, what executed, what was delivered — and retry safely, with replay protection standing between the retry and a duplicate charge.</div>
       </details>
       <details class="faq">
         <summary>Is there a security or architecture brief for procurement?</summary>
