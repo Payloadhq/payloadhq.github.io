@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redeem your AppSumo purchase — Payload</title>
+<link rel="canonical" href="https://payloadhq.github.io/redeem.html">
+<meta name="description" content="Redeem an AppSumo code for a Payload product. Send us your code, we validate it, and your license is activated under your email.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>Redeem your AppSumo purchase</h1>
+    <p class="lede">Thanks for buying through AppSumo. Send us your code, we validate it against our records, and your license is activated under your email. Most redemptions are completed within one business day.</p>
+
+    <h2>What you need</h2>
+    <p>Your AppSumo code, which is in your AppSumo receipt and in your AppSumo product library. Have your AppSumo order ID handy if you can; it helps us match your purchase if anything needs a second look.</p>
+
+    <h2>How redemption works</h2>
+    <p>1. Fill in the short form below and press the button. It opens your email app with your redemption request already written.</p>
+    <p>2. Send the email as it is. The subject line helps us route your request to the right product.</p>
+    <p>3. We validate your code and reply from our support address with your license confirmation and activation instructions.</p>
+
+    <h2>Redemption form</h2>
+    <form id="redeem-form">
+      <p>
+        <label for="f-product">Product</label><br>
+        <select id="f-product" name="product">
+          <option value="RevRule by Payload" selected>RevRule by Payload</option>
+        </select>
+      </p>
+      <p>
+        <label for="f-code">AppSumo code</label><br>
+        <input id="f-code" name="code" type="text" required autocomplete="off" placeholder="RVR1-XXXX-XXXX-XXXX-XXXX" size="32">
+      </p>
+      <p>
+        <label for="f-email">Email to register the license to</label><br>
+        <input id="f-email" name="email" type="email" required autocomplete="email" size="32">
+      </p>
+      <p>
+        <label for="f-order">AppSumo order ID (optional)</label><br>
+        <input id="f-order" name="order" type="text" autocomplete="off" size="32">
+      </p>
+      <p>
+        <button type="submit">Prepare my redemption email</button>
+      </p>
+    </form>
+    <p>If the button does not open your email app, write to <strong>kyler.simmons.partners@gmail.com</strong> with the subject line <strong>AppSumo redemption: RevRule by Payload</strong> and include your code and the email you want the license registered to.</p>
+
+    <h2>What you receive</h2>
+    <p>Your RevRule license is registered to your email in our records. Your confirmation email includes your license details and activation instructions, including how to create your Payload rail access key from the RevRule console and where to reach support. RevRule establishes what is owed and verifies payouts against genuine entitlements. It works alongside your existing payment systems, never holds your funds, and never executes payments.</p>
+
+    <h2>One code, one license</h2>
+    <p>Each code redeems once. If a code has already been redeemed, we will let you know when it was used. If it was yours and you have lost access, contact support and we will help you recover it.</p>
+
+    <h2>Refunds</h2>
+    <p>Refunds for AppSumo purchases are handled by AppSumo under AppSumo's refund policy. When a purchase is refunded, the redeemed license is revoked.</p>
+
+    <h2>Support</h2>
+    <p>Questions about your purchase or redemption: kyler.simmons.partners@gmail.com. We answer in the order requests arrive, usually within one business day.</p>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload — small software that earns its keep.</span>
+    <span><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></span>
+  </div>
+</footer>
+<script>
+document.getElementById('redeem-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var product = document.getElementById('f-product').value;
+  var code = document.getElementById('f-code').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var order = document.getElementById('f-order').value.trim();
+  var subject = 'AppSumo redemption: ' + product;
+  var lines = [
+    'Product: ' + product,
+    'AppSumo code: ' + code,
+    'License email: ' + email
+  ];
+  if (order) { lines.push('AppSumo order ID: ' + order); }
+  lines.push('');
+  lines.push('Please activate my license.');
+  var href = 'mailto:kyler.simmons.partners@gmail.com'
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body=' + encodeURIComponent(lines.join('\n'));
+  window.location.href = href;
+});
+</script>
+</body>
+</html>
