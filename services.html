@@ -46,6 +46,7 @@
       <p class="meta"><span class="price">$0.10 to $0.50 USDC</span> · per action · USDC on Base via x402</p>
       <p><strong>Solves:</strong> x402 payment failed, facilitator settlement failed, paid but the result never arrived, unsure whether a retry is safe, possible duplicate payment.</p>
       <p>Hosted diagnostic actions (diagnose, failure_classification, preflight, settlement_interpretation, resolve, duplicate_payment_risk, recover) that return structured evidence and an explanation. A free quote endpoint returns the exact price before any payment: <code>GET https://payload-rail.fly.dev/v1/callx402/quote</code>. Invoke with <code>POST https://payload-rail.fly.dev/v1/callx402/actions/{action}</code>, or through the MCP server <code>io.github.payload-tools/callx402</code>.</p>
+      <p><strong>How payment works:</strong> quote first (free), then pay per action. Call an action unpaid to get its x402 v2 402 challenge with the exact USDC amount and payTo on Base. Pay from your own wallet, then redeem the original quote with the payment tx hash plus an EIP-191 signed authorization from the paying wallet; the rail verifies the payment exactly once on-chain and returns the result. Settlement runs through Payload's signed-redemption flow, not a generic x402 facilitator, so facilitator-only clients cannot complete a hosted purchase. The free local MCP tools in the npm package are the no-payment alternative: read-only diagnostics that never move money.</p>
       <p class="meta">Limits: no guaranteed recovery and no diagnosis of every failure is promised. Settlement uses Payload's signed-redemption contract rather than the standard facilitator flow.</p>
     </div>
     <div class="card">
@@ -60,6 +61,7 @@
       <p class="meta"><span class="price">$0.01 USDC</span> · public evaluate · license $99 one time</p>
       <p><strong>Solves:</strong> payout does not match amount owed, revenue share split needs verification, royalty or affiliate payout dispute.</p>
       <p>Programmable revenue graphs that compute what is owed, keep an entitlement ledger, and verify on-chain Base USDC payout evidence against it. The keyless public evaluate endpoint runs a fixed demo graph: <code>POST https://payload-rail.fly.dev/v1/x402/public/evaluate</code>. A free console key runs your own graphs, and the MCP server is <code>io.github.payload-tools/revrule-mcp</code>. A public payout evidence record is discussed in <a href="https://github.com/x402-foundation/x402/issues/3758#issuecomment-6156473438">x402 Foundation issue 3758</a>.</p>
+      <p>Integrating directly? The <a href="revrule-integration.html">RevRule integration reference</a> has the complete graph spec and every required event field, with examples verified against the live API.</p>
       <p class="meta">Limits: RevRule does not execute payments and never holds funds.</p>
     </div>
 
