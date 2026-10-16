@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RevRule Integration Reference - Payload</title>
+<meta name="description" content="RevRule integration reference: the complete Revenue Graph spec, the full economic event envelope with every required field, the free API key route, the public evaluate endpoint, and the MCP tools. Every example verified against the live API.">
+<link rel="canonical" href="https://payloadhq.github.io/revrule-integration.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="RevRule Integration Reference - Payload">
+<meta property="og:description" content="The complete RevRule graph and event field reference, with worked examples verified against the live API.">
+<meta property="og:url" content="https://payloadhq.github.io/revrule-integration.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>RevRule integration reference</h1>
+    <p class="lede">RevRule computes who is owed what from economic events and keeps the auditable record. Your payment rail moves the money; RevRule determines the economics. RevRule never holds funds and never executes payments. Base URL <code>https://payload-rail.fly.dev</code>. Every example on this page was run against the live API.</p>
+
+    <h2>1. Get a free API key</h2>
+    <div class="card">
+      <p><code>POST /v1/access-keys</code> needs no authentication and returns a free self-serve key:</p>
+<pre><code>curl -X POST https://payload-rail.fly.dev/v1/access-keys \
+  -H "Content-Type: application/json" \
+  -d '{"label":"my-integration"}'
+# -&gt; 201 {"key":"...","accountId":"...","tier":"free"}</code></pre>
+      <p>The key is shown once, so store it when it is returned. Send it as <code>Authorization: Bearer &lt;key&gt;</code>. A free key can create, activate, simulate, and post events to your own graphs. The $99 one-time license adds the entitlement-gated surfaces, including payout evidence.</p>
+    </div>
+
+    <h2>2. Create a Revenue Graph</h2>
+    <div class="card">
+      <p><code>POST /v1/graphs</code> (Bearer key) creates a graph. New graphs start as drafts. The complete spec:</p>
+      <ul>
+        <li><code>id</code> (string, required): your unique graph id.</li>
+        <li><code>projectId</code> (string, required): the project the graph belongs to.</li>
+        <li><code>ownerId</code> (string, required): the id of the owning participant. It must match one of the participants, and that participant must carry the <code>"owner"</code> role.</li>
+        <li><code>participants</code> (array, required): each entry is <code>{id, kind, roles, payoutDestinations}</code>.</li>
+        <li><code>revenueSources</code> (array): each entry is <code>{id, kind, config, eventTypes}</code>; <code>eventTypes</code> lists the event types the graph accepts.</li>
+        <li><code>rules</code> (array, required): each entry is <code>{id, type, priority, params}</code> with an optional <code>conditions</code>. Rule types: percentage, fixed, remainder, referral, recoupment, waterfall, caps. A percentage rule takes <code>rateBps</code> (basis points) and a <code>base</code> of <code>gross</code> or <code>remaining</code>; <code>subjectParticipantId</code> names the participant the rule pays.</li>
+      </ul>
+      <p>This complete example passes the live validator (platform 5% of gross, creator 70% of the remainder, referrer 25% of the remainder when the event carries attribution, creator takes what is left):</p>
+<pre><code>curl -X POST https://payload-rail.fly.dev/v1/graphs \
+  -H "Authorization: Bearer $KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "creator-split",
+    "projectId": "creator-split",
+    "ownerId": "creator",
+    "participants": [
+      {"id": "payload_platform", "kind": "company", "roles": ["platform"], "payoutDestinations": []},
+      {"id": "creator", "kind": "person", "roles": ["creator", "owner"], "payoutDestinations": []},
+      {"id": "referrer", "kind": "person", "roles": ["referrer"], "payoutDestinations": []}
+    ],
+    "revenueSources": [
+      {"id": "x402", "kind": "x402", "config": {}, "eventTypes": ["API_PAYMENT"]}
+    ],
+    "rules": [
+      {"id": "platform-fee", "type": "percentage", "priority": 1,
+       "params": {"rateBps": 500, "subjectParticipantId": "payload_platform", "base": "gross"}},
+      {"id": "creator-share", "type": "percentage", "priority": 2,
+       "params": {"rateBps": 7000, "subjectParticipantId": "creator", "base": "remaining"}},
+      {"id": "referrer-share", "type": "percentage", "priority": 3,
+       "params": {"rateBps": 2500, "subjectParticipantId": "referrer", "base": "remaining"},
+       "conditions": {"requireAttribution": true}},
+      {"id": "creator-remainder", "type": "remainder", "priority": 4,
+       "params": {"subjectParticipantId": "creator"}}
+    ]
+  }'
+# -&gt; 201, graph returned with "status": "draft"</code></pre>
+      <p>Activate it before production events:</p>
+<pre><code>curl -X POST https://payload-rail.fly.dev/v1/graphs/creator-split/activate \
+  -H "Authorization: Bearer $KEY"
+# -&gt; 200, "status": "active"</code></pre>
+    </div>
+
+    <h2>3. Post an economic event</h2>
+    <div class="card">
+      <p><code>POST /v1/graphs/{id}/events</code> (Bearer key) takes the body <code>{"event": {...}}</code>. On this path every field in the envelope is required. The server validates the event before anything is written and answers <code>400 INVALID_EVENT</code> naming the first missing or invalid field.</p>
+      <ul>
+        <li><code>eventId</code>: a unique string. Events are idempotent on <code>eventId</code>; a replay returns the original result.</li>
+        <li><code>graphId</code>: the graph id.</li>
+        <li><code>type</code>: one of <code>SALE_COMPLETED</code>, <code>API_PAYMENT</code>, <code>LICENSE_PAID</code>, <code>SUBSCRIPTION_PAYMENT</code>, <code>REFERRAL_CONVERTED</code>, <code>ROYALTY_RECEIVED</code>, <code>CAMPAIGN_MILESTONE</code>, <code>MARKETPLACE_TRANSACTION</code>, <code>TOUCH</code>. Use a type the graph lists in its revenue source <code>eventTypes</code>.</li>
+        <li><code>occurredAt</code>: ISO 8601 timestamp.</li>
+        <li><code>amountMicros</code>: integer micro-units (1000000 = 1.00). Integers, never strings.</li>
+        <li><code>currency</code>: for example <code>USD</code>.</li>
+        <li><code>rail</code>: one of <code>stripe</code>, <code>ach</code>, <code>x402</code>, <code>manual</code>, <code>stablecoin</code>.</li>
+        <li><code>processingCostMicros</code>: integer, 0 or more, the processing cost in micro-units.</li>
+        <li><code>raw</code>: an object holding the source-native payload, retained for audit. It may be an empty object, but it must be present.</li>
+      </ul>
+<pre><code>curl -X POST https://payload-rail.fly.dev/v1/graphs/creator-split/events \
+  -H "Authorization: Bearer $KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"event":{"eventId":"sale-1","graphId":"creator-split","type":"API_PAYMENT","occurredAt":"2026-10-16T00:00:00Z","amountMicros":25000000,"currency":"USD","rail":"x402","processingCostMicros":0,"raw":{}}}'</code></pre>
+      <p>Dry run first: <code>POST /v1/graphs/{id}/simulate</code> with the same body returns the entitlements and writes nothing. Read the results with <code>GET /v1/graphs/{id}/ledger</code>.</p>
+    </div>
+
+    <h2>4. Public evaluate (no key, $0.01)</h2>
+    <div class="card">
+      <p><code>POST /v1/x402/public/evaluate</code> evaluates one event against a fixed public demo graph (the split in section 2) for $0.01 USDC on Base. No API key is needed. The event is validated before payment: a malformed body gets a 400, and a valid unpaid body gets the x402 v2 402 challenge.</p>
+      <p>Required event fields on this endpoint: <code>eventId</code>, <code>type</code> (same list as section 3), <code>rail</code>, and <code>amountMicros</code>. <code>currency</code> defaults to USD and <code>occurredAt</code> to the current time when omitted. The endpoint accepts the full envelope from section 3, including <code>processingCostMicros</code> and <code>raw</code>, and that full shape is the one to send. <code>graphId</code> is fixed to the demo graph; do not set it.</p>
+      <p>One gap to know about: the 402 challenge's advertised bazaar bodySchema lists only <code>type</code>, <code>amountMicros</code>, <code>currency</code>, and <code>occurredAt</code>. <code>eventId</code> and <code>rail</code> are also required, and an event that follows only the advertised schema gets a 400 naming the missing field. This complete example reaches the 402 stage:</p>
+<pre><code>curl -X POST https://payload-rail.fly.dev/v1/x402/public/evaluate \
+  -H "Content-Type: application/json" \
+  -d '{"event":{"eventId":"eval-1","type":"API_PAYMENT","occurredAt":"2026-10-16T00:00:00Z","amountMicros":25000000,"currency":"USD","rail":"x402","processingCostMicros":0,"raw":{}}}'
+# -&gt; 402 with the x402 v2 payment requirements (0.01 USDC, Base, network eip155:8453)</code></pre>
+      <p>To complete the evaluation, pay the $0.01 to the <code>payTo</code> address in the challenge and resubmit the same body with <code>"txHash": "0x..."</code> added at the top level. Each txHash is single-use.</p>
+    </div>
+
+    <h2>5. MCP tools</h2>
+    <div class="card">
+      <p>The RevRule MCP server (<code>io.github.payload-tools/revrule-mcp</code>, listed on the <a href="https://registry.modelcontextprotocol.io">official MCP Registry</a> and <a href="https://smithery.ai/servers/kyler-simmons-partners/revrule">Smithery</a>) exposes three tools:</p>
+      <ul>
+        <li><code>revrule_get_graph</code>: read a graph and its current state.</li>
+        <li><code>revrule_list_payout_evidence</code>: list payout evidence recorded against a graph's entitlements.</li>
+        <li><code>revrule_simulate_event</code>: dry-run an event. Pass the event in the same <code>{event: ...}</code> envelope as section 3; nothing is written.</li>
+      </ul>
+    </div>
+
+    <h2>6. Errors and limits</h2>
+    <div class="card">
+      <p>Errors return <code>{"error": {"code": "...", "message": "..."}}</code>. The common ones: <code>400 INVALID_EVENT</code> (the event failed validation; the message names the field), <code>401</code> (missing or invalid key), <code>402</code> (payment required on the paid endpoints). RevRule computes entitlements and keeps the record; it does not execute payments, hold funds, or guarantee that a payout happens.</p>
+      <p>More: <a href="revrule-api.html">API reference with the full quickstart</a> · <a href="https://payload-rail.fly.dev/revrule-console/">console</a> · <a href="revrule-sandbox.html">in-browser sandbox</a> · <a href="https://payload-rail.fly.dev/llms.txt">llms.txt</a> · <a href="https://payload-rail.fly.dev/openapi.json">OpenAPI</a> · <a href="services.html">all Payload services</a></p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload - small software that earns its keep.</span>
+    <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="benchmark.html">Benchmark</a> · <a href="products.json">Machine-readable catalog (JSON)</a> · <a href="services.html">Autonomous services</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a></span>
+    <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
