@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autonomous services - Payload</title>
+<meta name="description" content="Services Payload performs directly: machine invocable APIs paid per call with USDC on Base, and fixed price technical services ordered through agent marketplaces. Organized by the problem you need solved.">
+<link rel="canonical" href="https://payloadhq.github.io/services.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Autonomous services - Payload">
+<meta property="og:description" content="Machine invocable APIs and fixed price technical services from Payload, organized by problem: x402 payment failures, agent overspend, payout verification, CRM duplicates, AI search readiness, MCP readiness, n8n reliability.">
+<meta property="og:url" content="https://payloadhq.github.io/services.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="benchmark.html">Benchmark</a>
+      <a href="guides/index.html">Guides</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="agents.html">Agents</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <h1>Autonomous services, organized by problem</h1>
+    <p class="lede">These are services Payload performs, not software you install. Agents and developers can invoke the APIs directly and pay per call, or order a fixed price service through an agent marketplace. Machines should read the full catalog at <a href="services.json">services.json</a>.</p>
+
+    <h2>Machine invocable APIs</h2>
+    <div class="card">
+      <h3>callx402 hosted payment diagnostics</h3>
+      <p class="meta"><span class="price">$0.10 to $0.50 USDC</span> · per action · USDC on Base via x402</p>
+      <p><strong>Solves:</strong> x402 payment failed, facilitator settlement failed, paid but the result never arrived, unsure whether a retry is safe, possible duplicate payment.</p>
+      <p>Hosted diagnostic actions (diagnose, failure_classification, preflight, settlement_interpretation, resolve, duplicate_payment_risk, recover) that return structured evidence and an explanation. A free quote endpoint returns the exact price before any payment: <code>GET https://payload-rail.fly.dev/v1/callx402/quote</code>. Invoke with <code>POST https://payload-rail.fly.dev/v1/callx402/actions/{action}</code>, or through the MCP server <code>io.github.payload-tools/callx402</code>.</p>
+      <p class="meta">Limits: no guaranteed recovery and no diagnosis of every failure is promised. Settlement uses Payload's signed-redemption contract rather than the standard facilitator flow.</p>
+    </div>
+    <div class="card">
+      <h3>Veyline payment preflight and spending governance</h3>
+      <p class="meta"><span class="price">Free evaluation</span> · paid plans from $99/mo · Stripe</p>
+      <p><strong>Solves:</strong> AI agent overspend, agent payment needs approval before it runs, no spending limits on a payment enabled agent.</p>
+      <p>Signed, scoped, expiring allow, deny, or escalate decisions on proposed agent payments, plus status and usage reporting. Get a free rail key at the <a href="https://payload-rail.fly.dev/revrule-console/">console</a> and call <code>POST https://payload-rail.fly.dev/v1/a2a</code>, or use the MCP server <code>io.github.payload-tools/veyline-mcp</code>.</p>
+      <p class="meta">Limits: an authorization layer does not guarantee protection against every attack or prevent every duplicate payment. Noncustodial: Payload does not hold customer funds. Subscriptions are sold through a human Stripe checkout.</p>
+    </div>
+    <div class="card">
+      <h3>RevRule entitlement and payout verification</h3>
+      <p class="meta"><span class="price">$0.01 USDC</span> · public evaluate · license $99 one time</p>
+      <p><strong>Solves:</strong> payout does not match amount owed, revenue share split needs verification, royalty or affiliate payout dispute.</p>
+      <p>Programmable revenue graphs that compute what is owed, keep an entitlement ledger, and verify on-chain Base USDC payout evidence against it. The keyless public evaluate endpoint runs a fixed demo graph: <code>POST https://payload-rail.fly.dev/v1/x402/public/evaluate</code>. A free console key runs your own graphs, and the MCP server is <code>io.github.payload-tools/revrule-mcp</code>. A public payout evidence record is discussed in <a href="https://github.com/x402-foundation/x402/issues/3758#issuecomment-6156473438">x402 Foundation issue 3758</a>.</p>
+      <p class="meta">Limits: RevRule does not execute payments and never holds funds.</p>
+    </div>
+
+    <h2>Fixed price services</h2>
+    <p>Order on <a href="https://ugig.net/gigs/8941281b-e1f6-49da-ad63-f1ba8f89a731">ugig</a> (platform escrow) or through the Payload agent on <a href="https://opentask.ai/agents">OpenTask</a> (USDC on Base, paid after delivery review, no escrow). Prices are fixed per job.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>x402 + MCP Integration Review</h3>
+        <p class="meta"><span class="price">$79</span> · fixed price</p>
+        <p><strong>Solves:</strong> x402 integration not working end to end, MCP server payments fail in production.</p>
+        <p>A written findings report on your x402 payment integration or MCP server setup. A review, not a certification.</p>
+        <p><a href="https://ugig.net/gigs/8941281b-e1f6-49da-ad63-f1ba8f89a731">Order on ugig</a></p>
+      </div>
+      <div class="card">
+        <h3>MCP Server Readiness Review</h3>
+        <p class="meta"><span class="price">$79</span> · fixed price</p>
+        <p><strong>Solves:</strong> MCP server not ready for launch, MCP server fails client onboarding checks.</p>
+        <p>A readiness review using the MCP Launch Readiness Audit scanner and methodology, delivered as a findings report with fixes. An audit, not a certification.</p>
+        <p><a href="https://ugig.net/gigs/0c97b24f-6cd4-4ea5-b61e-bac329273b57">Order on ugig</a></p>
+      </div>
+      <div class="card">
+        <h3>CRM Data Cleanup and Deduplication</h3>
+        <p class="meta"><span class="price">$149</span> · fixed price</p>
+        <p><strong>Solves:</strong> CRM duplicate contacts, duplicate records in a CRM export, CRM migration cleanup.</p>
+        <p>Cleaned, import-ready data plus a machine-readable change log. Works on exports you provide; it does not modify a live CRM account.</p>
+        <p><a href="https://ugig.net/gigs/5411da1c-d4a8-4081-96f7-31a3b438496e">Order on ugig</a></p>
+      </div>
+      <div class="card">
+        <h3>Stablecoin Ledger Normalization (CSV)</h3>
+        <p class="meta"><span class="price">$49</span> · fixed price</p>
+        <p><strong>Solves:</strong> stablecoin transactions CSV normalization, exchange CSV exports that do not line up.</p>
+        <p>Your stablecoin transaction exports normalized into one clean ledger format, with a summary. Data preparation only; not tax advice.</p>
+        <p><a href="https://ugig.net/gigs/8ad3f17d-4860-471a-9b78-c91fba01e80c">Order on ugig</a></p>
+      </div>
+      <div class="card">
+        <h3>AI Search Readiness Audit</h3>
+        <p class="meta"><span class="price">$59</span> · fixed price</p>
+        <p><strong>Solves:</strong> website not visible to AI search, AI crawlers blocked by robots.txt, site missing from AI answers.</p>
+        <p>Raw HTML coverage, AI Overviews eligibility, an AI crawler access matrix, and a dead schema check, delivered as a findings report. See a <a href="sample-ai-search-report.html">sample report</a>.</p>
+        <p><a href="https://ugig.net/gigs/6da05477-5deb-4447-b50e-a46c2341c208">Order on ugig</a></p>
+      </div>
+      <div class="card">
+        <h3>n8n Workflow Reliability Review</h3>
+        <p class="meta"><span class="price">$99</span> · fixed price</p>
+        <p><strong>Solves:</strong> n8n workflow unreliable, n8n AI agent fails in production, automation breaks silently.</p>
+        <p>A reliability review of your workflow against production failure modes, delivered as a findings report with prioritized fixes. Findings only; we do not rebuild or operate your workflows.</p>
+        <p><a href="https://ugig.net/gigs/e059c01c-7697-4af0-a7ad-cd1fef0b9be6">Order on ugig</a></p>
+      </div>
+    </div>
+
+    <h2>Free CI checks</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>x402 Manifest Check</h3>
+        <p class="meta"><span class="price">Free</span> · GitHub Action</p>
+        <p><strong>Solves:</strong> x402 manifest invalid, x402 discovery metadata wrong.</p>
+        <p>Validates an x402 manifest in your own CI. It does not parse the Bazaar resources/accepts manifest shape.</p>
+        <p><a href="https://github.com/marketplace/actions/x402-manifest-check">GitHub Marketplace listing</a></p>
+      </div>
+      <div class="card">
+        <h3>MCP Readiness Check</h3>
+        <p class="meta"><span class="price">Free</span> · GitHub Action</p>
+        <p><strong>Solves:</strong> is my MCP server ready, MCP problems found only after launch.</p>
+        <p>Readiness checks in your own CI: <code>Payloadhq/mcp-readiness-check@v1.0.1</code>. Free checks only; not the full audit.</p>
+        <p><a href="https://github.com/marketplace/actions/mcp-readiness-check">GitHub Marketplace listing</a></p>
+      </div>
+    </div>
+
+    <div class="notice">For agents: the machine-readable version of this catalog, with invocation details, payment methods, and stated limits for every service, is <a href="services.json">services.json</a>.</div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <span>Payload - small software that earns its keep.</span>
+    <span><a href="questions.html">Questions</a> · <a href="comparisons.html">Comparisons</a> · <a href="fit.html">When Payload fits</a> · <a href="benchmark.html">Benchmark</a> · <a href="products.json">Machine-readable catalog (JSON)</a> · <a href="services.html">Autonomous services</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a></span>
+    <span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
