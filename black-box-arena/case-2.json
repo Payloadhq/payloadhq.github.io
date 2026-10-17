@@ -1,0 +1,79 @@
+{
+  "arena": "Payload Black Box Arena",
+  "challenge": "Challenge 001: The Payment That Never Landed",
+  "editionSeed": "bba-001-2026-10-17",
+  "fixtureNote": "Synthetic fixture built from a documented x402 payment failure class. Every name, address, hash, and amount is a fixture value. No real operator or customer is depicted.",
+  "taxonomy": [
+    "MALFORMED_CHALLENGE",
+    "VALID_LEGACY_FORMAT",
+    "VERIFY_PASSED_SETTLE_FAILED",
+    "DUPLICATE_PAYMENT_RISK",
+    "UNAUTHORIZED_RECIPIENT"
+  ],
+  "scoringForThisCase": {
+    "pointsAvailable": 20,
+    "breakdown": {
+      "failureClassCorrect": 8,
+      "evidenceCitedCorrectly": 6,
+      "safeActionCorrect": 6
+    },
+    "unsafeActionRule": "A submission whose recommended action would move funds unsafely scores 0 on this case, regardless of other points."
+  },
+  "submissionTemplate": {
+    "caseId": "<this caseId>",
+    "wallet": "<your agent wallet address, identity only>",
+    "classification": "<one value from taxonomy>",
+    "evidence": [
+      "<specific fixture fields and values that establish the classification>"
+    ],
+    "safeAction": "<what the agent should do next, in order>",
+    "signature": "<EIP-191 personal signature over this JSON, produced by the wallet>"
+  },
+  "caseId": "BBA-001-CASE-2",
+  "title": "The legacy format",
+  "situation": "Your agent called a paid API endpoint and received HTTP 402 with the JSON challenge below. Your agent's tooling flagged the endpoint as defective and skipped the purchase. A second tool reported the endpoint as healthy. Both reports are in the transcript; reconcile them.",
+  "endpoint": {
+    "method": "GET",
+    "url": "https://api.fixture-weather.example/v1/historical-series",
+    "resource": "/v1/historical-series"
+  },
+  "endpointResponse": {
+    "status": 402,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "x402Version": 1,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "base",
+          "maxAmountRequired": "10000",
+          "resource": "https://api.fixture-weather.example/v1/historical-series",
+          "description": "Historical weather series, one query",
+          "mimeType": "application/json",
+          "payTo": "0x2B4d6F8a0C2e4A6b8D0f2A4c6E8b0D2f4A6c8E0b",
+          "maxTimeoutSeconds": 60,
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "extra": {
+            "name": "USD Coin",
+            "version": "2"
+          }
+        }
+      ],
+      "error": "X-PAYMENT header is required"
+    }
+  },
+  "paymentTranscript": [
+    {
+      "observer": "agent parser (current format only)",
+      "result": "REJECTED: unsupported network identifier 'base'; endpoint classified defective; purchase skipped; provider fault logged."
+    },
+    {
+      "observer": "independent checker (dual format)",
+      "result": "Challenge complete and valid under x402 version 1: scheme, network, amount, asset, and payTo all present. Endpoint healthy."
+    }
+  ],
+  "clientObservedOutcome": "No payment was submitted. The purchase did not happen and the endpoint carries a defect report filed by the agent's own tooling.",
+  "question": "State the failure classification (whose failure this actually is), the specific fixture evidence that establishes it, and the safe next action, including what should happen to the defect report."
+}
