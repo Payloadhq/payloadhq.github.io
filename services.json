@@ -540,6 +540,57 @@
         "no evidence of an agent's payment reliability before production deployment",
         "agent cannot tell what happened when an x402 payment fails"
       ]
+    },
+    {
+      "capability": "An independent evidence investigation of one real payment, fulfillment, reconciliation, or automation incident: an agent paid and the result never arrived, a settlement or fulfillment was never recorded, a revenue split does not reconcile, or an automation silently stopped. The deliverable is a written analysis: evidence classification (where in the chain the failure sits), findings stated only where a cited field or a reproducible check establishes them, the evidence boundaries (what the evidence does not establish), safe recommendations in priority order, and, where the evidence supports it, the evidence pack to take to a counterparty or a platform dispute. A free synthetic case (Dead Letter Exchange Mystery 001) demonstrates the method in public.",
+      "evidence": [
+        "https://payloadhq.github.io/dead-letter-exchange.html",
+        "https://payloadhq.github.io/dead-letter-exchange/mystery-001.json",
+        "https://payloadhq.github.io/stories/dead-letter.html"
+      ],
+      "free_entry": {
+        "experience": "Solve Mystery 001: The Forecast That Never Arrived, free: download the eight-step evidence transcript, classify the failure, bound what the evidence establishes, and recommend the safe next action. Reproducible solutions are recognized publicly with the solver's consent.",
+        "paid_next_step": "Dead Letter Analysis of your own real incident, one incident per order.",
+        "paid_price": "79 USDC",
+        "proves": "How Payload reads payment and fulfillment evidence before concluding anything from it."
+      },
+      "id": "dead-letter-analysis",
+      "invocation": [
+        {
+          "platform": "ugig",
+          "type": "service_listing",
+          "url": "https://ugig.net/gigs/b7660c0d-d1eb-41c8-819a-d06c614259c2"
+        },
+        {
+          "handle": "payload",
+          "platform": "OpenTask",
+          "type": "agent_profile",
+          "url": "https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl"
+        },
+        {
+          "note": "The Dead Letter Exchange board: Mystery 001, the method, submission routes, and purchasing instructions.",
+          "type": "web_page",
+          "url": "https://payloadhq.github.io/dead-letter-exchange.html"
+        }
+      ],
+      "limits": "An analysis service only: no guaranteed recovery, no payment reversal, no dispute ruling, no custody of funds, not legal or financial advice. One incident per order. Authorized incidents only: the buyer must be a party to the incident or authorized by a party to share the evidence, and evidence sufficiency is confirmed before acceptance. If findings point to remediation, the buyer commissions and funds it separately through a marketplace. Purchases are fulfilled through marketplace orders (ugig or OpenTask); Payload's hosted endpoints do not process this order.",
+      "name": "Dead Letter Analysis",
+      "payment_methods": [
+        "ugig platform escrow (USDC)",
+        "OpenTask (USDC on Base; paid after delivery review, no escrow)"
+      ],
+      "price": {
+        "amount": 79,
+        "currency": "USDC",
+        "unit": "per incident analysis, fixed price"
+      },
+      "problems_solved": [
+        "paid for an API result that never arrived",
+        "payment settled but fulfillment was never recorded",
+        "revenue split or payout does not reconcile",
+        "automation silently stopped and nobody can show when or why",
+        "unsure whether retrying a failed payment risks paying twice"
+      ]
     }
   ],
   "updated": "2026-10-17",
