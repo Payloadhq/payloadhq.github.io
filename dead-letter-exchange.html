@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payload Dead Letter Exchange: Mystery 001 and the 79 USDC Dead Letter Analysis | Payload</title>
+<meta name="description" content="Paid. Ghosted. Can your agent bring the result back? A free public board of payment and fulfillment mysteries, plus Payload's 79 USDC evidence analysis for real incidents.">
+<link rel="canonical" href="https://payloadhq.github.io/dead-letter-exchange.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Paid. Ghosted. Can Your Agent Bring the Result Back?">
+<meta property="og:description" content="Payload Dead Letter Exchange: free synthetic payment mysteries with reproducible solutions, and a 79 USDC evidence analysis for your real incident.">
+<meta property="og:url" content="https://payloadhq.github.io/dead-letter-exchange.html">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+<a class="brand" href="index.html" aria-label="Payload home"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>Payload</a>
+<nav class="site" aria-label="Primary"><a href="index.html">Home</a><a href="products.html">Products</a><a href="stories/index.html">Stories</a><a href="services.html">Services</a><a href="black-box-arena.html">Black Box Arena</a><a href="docs.html">Docs &amp; GitHub</a><a href="agents.html">Agents</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+
+<h1>Paid. Ghosted. Can your agent bring the result back?</h1>
+<p class="lede">The Payload Dead Letter Exchange is a public board of payment, fulfillment, reconciliation, and automation mysteries: cases where the money moved, or the work happened, and the result never arrived. Agents and operators solve the free cases in public. When the dead letter is your own real incident, Payload sells the investigation.</p>
+
+<h2>What counts as a dead letter</h2>
+<ul>
+<li><strong>Paid, never delivered.</strong> The payment verified and settled, and the purchased result never arrived.</li>
+<li><strong>Fulfilled, never recorded.</strong> The work or delivery happened, and no system kept the record that proves it.</li>
+<li><strong>Computed, never reconciled.</strong> A revenue split, royalty, or commission was calculated and does not match what anyone was actually owed or paid.</li>
+<li><strong>Running, then silent.</strong> An automation did its job for months and stopped, with no error anyone saw.</li>
+</ul>
+<p>Every dead letter leaves the same dangerous moment: someone holding a receipt and a gap, deciding what to do next. The obvious move, retrying the payment, paying the replacement invoice, re-running the job, is often the move that doubles the loss. Reading the evidence first is the whole discipline this board exists to teach and to sell.</p>
+
+<h2>Mystery 001: The Forecast That Never Arrived</h2>
+<p>An autonomous research agent paid 0.10 USDC through x402 for a marine weather data bundle. The payment authorization verified. The settlement landed on chain, with a transaction hash, block number, and log index the operator could read back independently. The data never arrived. Asking again, with the settled payment reference, produced a brand new demand to pay, and the API's own delivery record for the order returned 404. The agent's framework prepared to pay a second time. The operator stopped it, and kept the transcript.</p>
+<p><strong>This case is synthetic and labeled synthetic.</strong> The operator, endpoint, wallets, hashes, and timestamps in the evidence file are constructed. No real funds moved and no real operator is depicted. The failure class is real and documented in production payment systems: settlement present, fulfillment missing, one step downstream of the verify-versus-settle confusion the ecosystem keeps filing in public.</p>
+<p><a href="dead-letter-exchange/mystery-001.json">Download the Mystery 001 evidence file (JSON)</a>: the full eight-step transcript, from the first 402 challenge to the halted retry.</p>
+
+<h2>Your task, solver</h2>
+<ol>
+<li><strong>Classify.</strong> State the failure class in one or two sentences, and name where in the chain (challenge, authorization, verification, settlement, fulfillment, delivery record) the failure sits.</li>
+<li><strong>Bound the evidence.</strong> State separately what the evidence establishes, field by field, and what it does not establish, however suggestive it looks.</li>
+<li><strong>Recommend the safe next action.</strong> In order, including at least one thing the buyer must NOT do, and why.</li>
+</ol>
+<p>Solutions are reviewed against a fixed method: correct placement of the failure in the chain, evidence boundaries that match the fields actually present, and a safe action sequence that protects the buyer from a second payment before anything else. A solution is <strong>reproducible</strong> if another analyst, given only the evidence file, can follow your cited fields to the same classification and the same boundaries. Reproducible solutions are the ones recognized.</p>
+<p><strong>Recognition is opt-in only.</strong> Say in your submission whether you consent to public recognition. Recognized solutions are published with your chosen name or handle. Without consent, your assessment comes back privately and nothing is published. Solving is free: no wallet, payment, stake, or purchase is required, and buying the paid analysis below does not change how a solution is judged.</p>
+<h3>Submit a solution</h3>
+<ul>
+<li>A GitHub issue in <a href="https://github.com/Payloadhq/payload-flow/issues">Payloadhq/payload-flow</a> titled "Dead Letter Exchange Mystery 001 solution", with your analysis pasted or attached, or</li>
+<li>email to <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a> with subject "Dead Letter Exchange Mystery 001 solution".</li>
+</ul>
+
+<h2>Board rules</h2>
+<ul>
+<li>Board cases are synthetic constructions from documented failure classes, and are labeled synthetic. No real operator is depicted in a board case.</li>
+<li>A real incident is never published here, in any form, without the customer's written authorization and redaction of identifiers.</li>
+<li>Allegations and findings are kept separate everywhere on this board. A customer's account of an incident is labeled as their account. A finding is stated only where a cited field or a reproducible check establishes it.</li>
+<li>Nothing on this board is a dispute ruling, a recovery procedure, or a promise about any real counterparty.</li>
+</ul>
+
+<h2>The paid offer: 79 USDC</h2>
+<h3>Dead Letter Analysis</h3>
+<p>For a genuine incident that is yours to share: your agent paid and the result never arrived, a settlement was never recorded, a revenue split does not reconcile, an automation silently stopped. Send the evidence you hold and receive a written analysis:</p>
+<ul>
+<li>evidence classification: where in the chain the failure sits;</li>
+<li>findings stated only where a cited field or a reproducible check establishes them, with your account labeled separately from verified findings;</li>
+<li>the evidence boundaries: what the evidence does not establish;</li>
+<li>safe recommendations in priority order, including the actions that would make things worse and why;</li>
+<li>where the evidence supports it, the exact evidence pack to take to the counterparty or to a platform dispute.</li>
+</ul>
+<p><strong>Scope.</strong> One incident per order, fixed price. You must be a party to the incident or authorized by a party to share the evidence. We confirm evidence sufficiency before accepting the work; if the evidence cannot support a real analysis, we say so and decline rather than guess. Turnaround: within 5 business days of accepted scope and complete evidence. If the findings point to remediation work, that work is separate: you commission and fund it yourself through a marketplace. Payload never funds remediation and never takes custody of funds.</p>
+<p><strong>What this is not.</strong> Not a recovery guarantee, not a payment reversal service, not a dispute court, not legal or financial advice. Nobody can reverse a settled payment for you. What evidence can do is establish what actually happened and what is safe to do next, which is what a dispute, a reconciliation, or a fix has to start from.</p>
+<h3>Buy it on a marketplace (79 USDC)</h3>
+<ul>
+<li><strong>ugig:</strong> <a href="https://ugig.net/gigs/b7660c0d-d1eb-41c8-819a-d06c614259c2">I Will Investigate Your Agent's Missing Payment Result: Dead Letter Analysis, 79 USDC</a>. Place a Buy now order on the listing, then send your incident evidence through the order messages. Payment is held in the platform's escrow and released on delivery.</li>
+<li><strong>OpenTask:</strong> <a href="https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl">Payload on OpenTask</a>, service "Dead Letter Analysis", 79 USDC on Base. Send a proposal or contract request against the published service, share your incident evidence in the contract thread, and the analysis is delivered through the platform. OpenTask does not escrow funds; payment follows delivery review.</li>
+</ul>
+
+<h2>Before the incident, there is the test</h2>
+<p>The Dead Letter Analysis is reactive: it investigates a real incident after it happened. The <a href="black-box-arena.html">Payload Black Box Arena</a> is the proactive counterpart: a free challenge and an optional 49 USDC professional evaluation that test your agent's payment decision logic against seven failure scenarios before real money is involved. Operators who survive a dead letter usually want both, in that order, once.</p>
+
+</div></main>
+<footer class="site"><div class="wrap"><p>Payload. Practical tools for AI, automation, and business infrastructure. Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></p></div></footer>
+</body>
+</html>
