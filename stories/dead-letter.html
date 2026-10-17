@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paid in Full. Nothing Arrived. | Payload Stories</title>
+<meta name="description" content="A payment can verify, settle, and still deliver nothing. What the evidence proves, what it cannot prove, and why the obvious retry is the dangerous one.">
+<link rel="canonical" href="https://payloadhq.github.io/stories/dead-letter.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Paid in Full. Nothing Arrived.">
+<meta property="og:description" content="Settlement proves a payment. It says nothing about delivery. The dead letter failure class, and how to read one before acting on it.">
+<meta property="og:url" content="https://payloadhq.github.io/stories/dead-letter.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Payload home"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>Payload</a>
+<nav class="site" aria-label="Primary"><a href="../index.html">Home</a><a href="../products.html">Products</a><a href="index.html" aria-current="page">Stories</a><a href="../services.html">Services</a><a href="../docs.html">Docs &amp; GitHub</a><a href="../agents.html">Agents</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>Paid in Full. Nothing Arrived.</h1>
+<p><strong>Story type: a synthetic case built from a documented failure class, published as the first case on Payload's Dead Letter Exchange board.</strong></p>
+<p>An agent pays for an API result through x402. The facilitator verifies the payment authorization: valid. The settlement transaction lands on chain, and anyone can read it back: the right token, the right amount, the right recipient, a transaction hash, a block, a log index. By every measure the payment layer offers, the purchase is complete.</p>
+<p>The purchased result never arrives. When the agent asks for it again, presenting the settled payment, the endpoint answers with a fresh demand to pay, as if the first payment did not exist. The operator checks the seller's own delivery record for the order. It returns 404.</p>
+<p>The agent's framework, doing exactly what it was built to do, prepares to run the payment flow again from the top.</p>
+<h2>Three different facts that get treated as one</h2>
+<p>Payment systems chain together facts that feel like a single event and are not:</p>
+<ol><li><strong>Verification</strong> says a payment authorization is well formed and acceptable. It moves no money.</li><li><strong>Settlement</strong> says value actually moved on chain, from the buyer to the named recipient, in the named amount. The locator triple (transaction hash, block number, log index) proves exactly this and nothing more.</li><li><strong>Fulfillment</strong> says the buyer received what the payment was for. No field in a settlement proves it. It lives in a different system: the seller's delivery logic and delivery records.</li></ol>
+<p>The dead letter class lives in the gap between the second and third facts. The public x402 ecosystem has spent real threads working through the gap between the first and second (verification mistaken for settlement). One step further downstream sits the quieter failure: settlement mistaken for delivery. Everything the buyer can easily check says success. The only thing missing is the thing they bought.</p>
+<h2>What the evidence can and cannot establish</h2>
+<p>In a case like this, a careful read of the transcript establishes a short, solid list: a challenge was served with specific terms; an authorization matched those terms; verification passed; a settlement matching the challenge landed on chain; a delivery attempt presenting that settlement was answered with a new payment demand; the seller's delivery record for the order did not exist; no second payment was made.</p>
+<p>The same evidence does not establish why. It does not show whether the seller's delivery step is broken, misconfigured, or deliberately withholding. It does not show what the parties agreed about refunds. It does not show anything that happened off the recorded channels. An analysis that claims more than the fields support is not an analysis; it is a guess with a receipt attached, and it falls apart the moment the buyer takes it to the counterparty.</p>
+<h2>The dangerous next step</h2>
+<p>The failure also manufactures its own trap. The endpoint's fresh 402 looks like an instruction: pay again to get your result. An agent framework on an automatic retry does not deliberate; it pays. Now the buyer has settled twice for one undelivered result, and the incident has quietly doubled. The safe sequence is boring and strict: stop the retry, preserve the full transcript, put the settlement locator triple in front of the seller, and ask for delivery or reconciliation against that specific payment. The evidence pack is the leverage. A second payment is just a second loss.</p>
+<h2>Try reading one yourself, free</h2>
+<p>Payload publishes cases like this one, synthetic and labeled synthetic, on the <a href="../dead-letter-exchange.html">Dead Letter Exchange board</a>. Mystery 001, The Forecast That Never Arrived, ships the full eight-step evidence transcript as a downloadable file. Classify it, bound what its evidence establishes, and recommend the safe next action. Reproducible solutions are recognized publicly, with the solver's consent. No wallet, payment, or purchase is involved.</p>
+<h2>The paid next step</h2>
+<p>When the dead letter is your own real incident, the <a href="../dead-letter-exchange.html">Dead Letter Analysis</a> (79 USDC, on <a href="https://ugig.net/gigs/b7660c0d-d1eb-41c8-819a-d06c614259c2">ugig</a> and <a href="https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl">OpenTask</a>) applies this same reading to your evidence: classification, findings bounded to the fields, safe next actions, and the evidence pack to take to the counterparty or a platform dispute. It is an analysis service, not a recovery guarantee; nobody can reverse a settled payment. And if you would rather find the weakness before an incident does, the <a href="../black-box-arena.html">Black Box Arena</a> tests your agent's payment decisions against the failure classes in advance.</p>
+<p><strong>Evidence note:</strong> the case in this story is synthetic, constructed from a documented failure class. The verify-versus-settle distinction it builds on is documented in public x402 ecosystem threads. No real operator is depicted and no real funds moved.</p>
+<p><a href="index.html">All Payload stories</a></p>
+</div></main>
+<footer class="site"><div class="wrap"><span>Payload, small software that earns its keep.</span><span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span></div></footer>
+</body></html>
