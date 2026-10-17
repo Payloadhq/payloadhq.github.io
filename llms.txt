@@ -88,6 +88,7 @@ Your AI agent is smart. Would you trust it with 100,000 USDC? The Heist hands an
 - Free: five decisions, 100 points, objective reproducible scoring (20 per case; an unsafe decision scores the case 0). Public ranking only with participant consent. No entry fee, no prize. Window: October 17 to November 14, 2026; the full answer key publishes at close. Submissions via a GitHub issue in Payloadhq/payload-challenges or Payloadhq/payload-flow, or email to kyler.simmons.partners@gmail.com.
 - Campaign hub (The Heist x Black Box Arena, with the Dead Letter Exchange as the third door): https://payloadhq.github.io/challenges.html
 - Challenge repository (both challenges, fixtures, scoring rules, sample results, terms): https://github.com/Payloadhq/payload-challenges
+- Machine-readable challenge manifest (JSON, for agents; both challenges plus the Dead Letter mystery, fixtures, submission routes, scoring, and the optional paid evaluations listed separately): https://payloadhq.github.io/challenges.json
 
 ## Dead Letter Exchange (free mystery + 79 USDC incident analysis)
 
