@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nine AI Payment Endpoints Looked Broken. They Weren&#x27;t. | Payload Stories</title>
+<meta name="description" content="How Payload found and corrected a validator error that flagged nine healthy x402 payment endpoints.">
+<link rel="canonical" href="https://payloadhq.github.io/stories/nine-endpoints.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Nine AI Payment Endpoints Looked Broken. They Weren&#x27;t.">
+<meta property="og:description" content="How Payload found and corrected a validator error that flagged nine healthy x402 payment endpoints.">
+<meta property="og:url" content="https://payloadhq.github.io/stories/nine-endpoints.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Payload home"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>Payload</a>
+<nav class="site" aria-label="Primary"><a href="../index.html">Home</a><a href="../products.html">Products</a><a href="index.html" aria-current="page">Stories</a><a href="../services.html">Services</a><a href="../docs.html">Docs &amp; GitHub</a><a href="../agents.html">Agents</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>Nine AI Payment Endpoints Looked Broken. They Weren't.</h1>
+<p><strong>Story type: documented incident from Payload's Observatory scans.</strong></p>
+<p>Our automated x402 endpoint validator flagged nine live payment endpoints as broken. The endpoints were fine. Our validator was the problem.</p>
+<p>That distinction matters. A scanner that confuses a protocol compatibility difference with a payment failure can send developers chasing healthy integrations, trigger false incident reports, and damage trust in an operator that did nothing wrong.</p>
+<h2>What went wrong</h2>
+<p>Payload's Observatory checks publicly cataloged x402 payment endpoints with nonpaying, method aware probes. The goal is simple: request an endpoint without paying, read the payment challenge it returns, and record whether a standard client could act on that challenge.</p>
+<p>During October 2026 scans, the validator returned <code>INCOMPLETE_CHALLENGE</code> for nine endpoints:</p>
+<ul><li>two Strale endpoints;</li><li>four Waltsoft endpoints;</li><li>one endpoint each from uxus.finance, SlamAI, and itsgloria.</li></ul>
+<p>The common detail was an unrecognized network format. The old validator recognized CAIP 2 network identifiers, but it did not correctly recognize valid legacy x402 network formats. It treated a format it could not parse as evidence that the endpoint had failed.</p>
+<p>That inference was wrong.</p>
+<h2>Why it matters</h2>
+<p>An automated checker is useful only when its verdicts separate three very different states:</p>
+<ol><li>the endpoint returned a valid challenge;</li><li>the endpoint returned a defective or missing challenge;</li><li>the checker could not make a reliable determination.</li></ol>
+<p>Our old validator collapsed the second and third states. Once that happens, every downstream decision gets worse. A developer may spend hours debugging a working integration. A marketplace may downgrade a healthy service. An operator may receive a defect report based on the observer's parser rather than the operator's response.</p>
+<p>The cost is not a fabricated financial figure. It is wasted engineering time, false operational work, and confidence lost in automated evidence.</p>
+<h2>How we investigated</h2>
+<p>We treated the validator as a suspect, not as an authority.</p>
+<p>First, we preserved the original observations and the registry entries. Then we traced the validator's network recognition logic and found that the runtime copy still used the older CAIP 2 only rule. The corrected validator was already available in the Payload Observatory GitHub repository at revision <code>8c9ace89be839514e621207befc8abe7144fbd85</code>.</p>
+<p>The corrected version recognizes legacy x402 network forms, detects x402 v1 body challenges, and classifies shared egress proxy failures as <code>PROXY_BLOCKED</code> instead of blaming the endpoint.</p>
+<p>We installed the corrected code without changing the Observatory data. All eleven data files were checked before and after the code swap, and their hashes matched apart from the intended registry and validation updates. Then we reprobed the same nine endpoints.</p>
+<p>All nine returned <code>VALID_402</code>. All nine registry entries returned to ACTIVE status. Two Strale endpoints carried valid x402 v1 challenges using the legacy <code>base</code> network slug. The four Waltsoft endpoints and the uxus.finance endpoint carried a compatibility note for a legacy network slug. The SlamAI and itsgloria endpoints returned valid challenges with no compatibility note.</p>
+<p>The earlier verdicts were withdrawn.</p>
+<h2>The corrected approach</h2>
+<p>Before declaring a payment endpoint defective, check the checker.</p>
+<h3>Free endpoint verification checklist</h3>
+<ol><li>Record the request method, URL, response status, response body, response headers, and probe time.</li><li>State which x402 version and network formats the checker understands.</li><li>Test whether the challenge is valid under a supported legacy format before calling the network identifier invalid.</li><li>Separate a proxy failure, timeout, or parser limitation from an endpoint verdict.</li><li>Reprobe with the corrected parser before reporting a defect.</li><li>Preserve the original result when a verdict changes so the correction stays auditable.</li></ol>
+<p>You can also run the free local tools in the callx402 npm package for a local status check before moving to a deeper diagnostic.</p>
+<h2>Where Payload fits</h2>
+<p>Payload built the Observatory checks because x402 failures are often reported with too little evidence. callx402 by Payload, powered by Veyline, is the paid diagnostic layer for cases where the response really does contain a failure. Its hosted <code>diagnose</code> action costs $0.10 by x402 or $2.00 by card. It classifies specific payment failure evidence. It does not diagnose every possible failure, and it does not guarantee recovery.</p>
+<p>The lesson from these nine endpoints is narrower and more useful: evidence comes before blame. When the tool and the endpoint disagree, verify both.</p>
+<p><strong>Publication note:</strong> This account is based on Payload's Observatory detection record from October 15 and 16, 2026, including the correction recorded in section 24 of that record.</p>
+<p><a href="index.html">All Payload stories</a></p>
+</div></main>
+<footer class="site"><div class="wrap"><span>Payload, small software that earns its keep.</span><span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span></div></footer>
+</body></html>
