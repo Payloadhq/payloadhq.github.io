@@ -594,5 +594,7 @@
     }
   ],
   "updated": "2026-10-17",
-  "version": "1.0"
+  "version": "1.0",
+  "challenges_page": "https://payloadhq.github.io/challenges.html",
+  "challenge_manifest": "https://payloadhq.github.io/challenges.json"
 }
