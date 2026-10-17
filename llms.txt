@@ -17,7 +17,7 @@ Start at https://payloadhq.github.io/agents.json — structured identity, produc
 
 ## Products (one-time purchase, single-seat perpetual license)
 
-- RevRule ($99 one-time): programmable revenue rules engine — decide who earns what whenever money moves (royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform/API fees). Free evaluation sandbox; buy once for production. https://payloadhq.github.io/revrule.html (buy: https://whop.com/payload-f126/revrule-by-payload)
+- RevRule ($99 one-time): programmable revenue obligations and payout verification. RevRule establishes what is owed under your rules (royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees) and verifies payouts against genuine entitlements. It does not execute payments and never holds funds. Free: a browser sandbox running the real engine (labeled simulated) at https://payloadhq.github.io/revrule-sandbox.html, a free self-serve API key from https://payload-rail.fly.dev/revrule-console/, event simulation as a dry run, and a keyless public evaluate on a fixed demo graph for $0.01 USDC. MCP: io.github.payload-tools/revrule-mcp. Buy the license for production graphs: https://payloadhq.github.io/revrule.html (buy: https://whop.com/payload-f126/revrule-by-payload)
 - x402 Paid API Starter Kit ($79): Express middleware charging AI agents per API call in USDC via x402. HTTP 402 challenges, payment verification, usage ledger. Non-custodial; never holds keys or funds. https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit
 - MCP Monetization Engine ($69, v1.0.1) [aka MCP Monetization Kit, mcp monetization kit]: per-tool-call payments for MCP servers. Paid tool registry, free quotas, machine-readable payment requirements, usage ledger, official MCP SDK adapter. https://payloadtools.gumroad.com/l/mcp-monetization-kit
 - StableLedger ($49): offline, zero-dependency Python CLI organizing stablecoin transaction CSV exports into clean realized P/L records. Data-organization software; not tax advice, does not calculate taxes. https://payloadtools.gumroad.com/l/stableledger-tax-csv
@@ -29,9 +29,9 @@ Start at https://payloadhq.github.io/agents.json — structured identity, produc
 
 ## Veyline (metered subscription — the production layer for x402 + MCP)
 
-Economic-control and assurance plane: intent checked, payment verified on-chain, settlement classified (confirmed/unconfirmed/unknown), exactly-once execution, safe recovery, tamper-evident evidence. Full safety foundation on every tier. https://payloadhq.github.io/veyline.html
+Authorization and financial governance for autonomous agents. Veyline checks a proposed agent payment against your policies before financial activity and returns signed, scoped, expiring allow, deny, or escalate decisions where supported, with replay protection. The controls sit outside the agent's own instructions. Noncustodial: Payload does not hold customer funds, and Veyline does not provide custody, settlement, or execution. An authorization layer does not guarantee protection against every attack or prevent every duplicate payment. https://payloadhq.github.io/veyline.html
 
-- Free / Sandbox ($0): 1,000 ops/mo. Self-serve signup on the Veyline page — key shown once.
+- Free / Sandbox ($0): 1,000 ops/mo. Self-serve signup on the Veyline page, key shown once. Free evaluation: sign up, take the free key, and run preflight on a proposed payment to receive a signed decision. MCP: io.github.payload-tools/veyline-mcp (Smithery: https://smithery.ai/servers/kyler-simmons-partners/veyline).
 - Developer ($99/mo): 10,000 ops/mo.
 - Production ($499/mo): 100,000 ops/mo + detailed usage.
 - Growth ($1,499/mo): 1,000,000 ops/mo + detailed usage.
@@ -43,9 +43,13 @@ Localized Veyline entry points (same product, pricing, and purchase paths; check
 
 Requests beyond the included allocation are throttled (429), never silently billed.
 
-## callx402 (paid on-demand actions, no subscription)
+## callx402 (x402 payment diagnostics)
 
-Standalone per-action fees (USD): explain $1; diagnose/evidence/failure classification $2; preflight/settlement interpretation $3; resolve/monitor/safe retry/duplicate-payment risk $5; recover/execute $10; rescue $15. Live schedule: GET https://payload-rail.fly.dev/v1/callx402/actions. Pay via one-time Stripe checkout (single-use credit) or x402 USDC on Base; Veyline subscribers use their API key. Local CLI/SDK/MCP-stdio diagnostic use is free and read-only.
+When an x402 payment fails, callx402 returns actionable answers instead of another layer of guesswork.
+
+Free: the npm package callx402 (v1.0.5) ships six free local MCP tools (x402_status, x402_diagnose, x402_evidence, x402_explain, x402_recover, x402_resolve). Local use is free and read-only; the tools never move money and need no account.
+
+Hosted actions, run by Payload and paid per action: the card schedule is diagnose $2.00, preflight $1.00, verify_receipt $1.00, explain_error $0.50, with the remaining hosted actions on the live schedule at GET https://payload-rail.fly.dev/v1/callx402/actions. Paid in USDC on Base via x402, hosted actions cost one twentieth of the card schedule (diagnose $0.10, preflight $0.05, verify_receipt $0.05, explain_error $0.025, up to $0.50). A free quote endpoint (GET https://payload-rail.fly.dev/v1/callx402/quote) returns the exact price before any payment. Settlement uses Payload's signed-redemption flow, not a generic x402 facilitator, so facilitator-only clients cannot complete a hosted purchase; the free local tools are the alternative. Local-only actions (safe_retry, rescue, monitor, execute) are not sold on the hosted rail. No guaranteed recovery and no diagnosis of every failure is promised. MCP: io.github.payload-tools/callx402 (official MCP Registry) and Smithery (local install).
 
 ## Free utilities
 
