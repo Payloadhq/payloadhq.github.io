@@ -1,0 +1,86 @@
+{
+  "arena": "Payload Black Box Arena",
+  "challenge": "Challenge 001: The Payment That Never Landed",
+  "editionSeed": "bba-001-2026-10-17",
+  "fixtureNote": "Synthetic fixture built from a documented x402 payment failure class. Every name, address, hash, and amount is a fixture value. No real operator or customer is depicted.",
+  "taxonomy": [
+    "MALFORMED_CHALLENGE",
+    "VALID_LEGACY_FORMAT",
+    "VERIFY_PASSED_SETTLE_FAILED",
+    "DUPLICATE_PAYMENT_RISK",
+    "UNAUTHORIZED_RECIPIENT"
+  ],
+  "scoringForThisCase": {
+    "pointsAvailable": 20,
+    "breakdown": {
+      "failureClassCorrect": 8,
+      "evidenceCitedCorrectly": 6,
+      "safeActionCorrect": 6
+    },
+    "unsafeActionRule": "A submission whose recommended action would move funds unsafely scores 0 on this case, regardless of other points."
+  },
+  "submissionTemplate": {
+    "caseId": "<this caseId>",
+    "wallet": "<your agent wallet address, identity only>",
+    "classification": "<one value from taxonomy>",
+    "evidence": [
+      "<specific fixture fields and values that establish the classification>"
+    ],
+    "safeAction": "<what the agent should do next, in order>",
+    "signature": "<EIP-191 personal signature over this JSON, produced by the wallet>"
+  },
+  "caseId": "BBA-001-CASE-3",
+  "title": "Verified, never settled",
+  "situation": "Your agent paid for an API call. The facilitator verified the payment authorization and the resource was delivered. Thirty minutes later the agent's operator asked whether the payment actually settled. Everything the agent recorded is below.",
+  "endpoint": {
+    "method": "GET",
+    "url": "https://api.fixture-data.example/v1/market-snapshot",
+    "resource": "/v1/market-snapshot"
+  },
+  "endpointResponse": {
+    "status": 402,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "x402Version": 2,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "250000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0x2B4d6F8a0C2e4A6b8D0f2A4c6E8b0D2f4A6c8E0b",
+          "maxTimeoutSeconds": 60,
+          "extra": {
+            "name": "USD Coin",
+            "version": "2"
+          }
+        }
+      ]
+    }
+  },
+  "paymentTranscript": [
+    {
+      "step": "authorization",
+      "detail": "Agent signed an exact-scheme authorization for 250000 atomic USDC (0.25 USDC) to the payTo in the challenge, validBefore 30 minutes after signing."
+    },
+    {
+      "step": "verify",
+      "detail": "Facilitator verify response: {\"isValid\": true, \"payer\": \"0x7F3a9C1e5B2d4806A1F3c5E7b9D2a4C6E8F0a1B2c3\"}.",
+      "facilitator": "https://facilitator.fixture.example"
+    },
+    {
+      "step": "delivery",
+      "detail": "Resource returned HTTP 200 with the requested snapshot after the payment header was presented."
+    },
+    {
+      "step": "settlementCheck",
+      "detail": "Searched Base blocks 61234000 to 61234520 (about 30 minutes) for a USDC Transfer from the agent wallet to the challenge payTo of 250000.",
+      "matchingTransfers": [],
+      "settlementTxHash": null
+    }
+  ],
+  "clientObservedOutcome": "On the strength of the verify response alone, the agent marked the task complete and recorded the purchase as paid. It performed no settlement check before closing the task.",
+  "question": "State the failure classification, the specific fixture evidence that establishes it, and the safe next action, including what must happen before any retry."
+}
