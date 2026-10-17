@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A 402 Response Is Not Always a Payment Challenge | Payload Stories</title>
+<meta name="description" content="Two documented response classes that stop payment automation before it can begin.">
+<link rel="canonical" href="https://payloadhq.github.io/stories/when-402-is-not-a-challenge.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="A 402 Response Is Not Always a Payment Challenge">
+<meta property="og:description" content="Two documented response classes that stop payment automation before it can begin.">
+<meta property="og:url" content="https://payloadhq.github.io/stories/when-402-is-not-a-challenge.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Payload home"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>Payload</a>
+<nav class="site" aria-label="Primary"><a href="../index.html">Home</a><a href="../products.html">Products</a><a href="index.html" aria-current="page">Stories</a><a href="../services.html">Services</a><a href="../docs.html">Docs &amp; GitHub</a><a href="../agents.html">Agents</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>A 402 Response Is Not Always a Payment Challenge</h1>
+<p><strong>Story type: documented external endpoint observations with public GitHub issues.</strong></p>
+<p>An HTTP 402 response tells a client that payment is required. It does not, by itself, give the client enough information to pay.</p>
+<p>That difference showed up in two Observatory findings that Payload reported publicly. One endpoint returned a 402 without a parseable x402 challenge. Another set of paid catalog routes answered HTTP 200 without presenting a challenge at all.</p>
+<p>We are describing the observed response classes, not questioning either operator's intent. A route may be intentionally free, temporarily misconfigured, or described by a stale catalog entry. The integration problem remains: the catalog expectation and the live behavior do not match.</p>
+<h2>Finding one: a 402 with no usable challenge</h2>
+<p>Payload's nonpaying probe of <code>POST <a href="https://conc-exe.xyz/api/concierge-security-scan">https://conc-exe.xyz/api/concierge-security-scan</a></code> returned HTTP 402 without a parseable x402 challenge. The observation took about 16 seconds during the October 15, 2026 scan.</p>
+<p>A standard client cannot turn that response into a payment because the challenge does not provide usable payment terms. The client knows payment is required, but not how to satisfy the requirement through the expected protocol.</p>
+<p>Payload filed the observation as theconcierge99-hue/gold-panel issue 2:</p>
+<p><a href="https://github.com/theconcierge99-hue/gold-panel/issues/2">https://github.com/theconcierge99-hue/gold-panel/issues/2</a></p>
+<h2>Finding two: paid listings that answered without a challenge</h2>
+<p>Payload also observed Locus catalog routes answering HTTP 200 without payment. The clearest recorded example was <code>POST <a href="https://api.locus.report/api/locus-radon-zone">https://api.locus.report/api/locus-radon-zone</a></code>, which answered without an x402 challenge despite a paid catalog listing. A second Locus route was recorded with the same class of behavior.</p>
+<p>Payload filed the drift report as velinussage/locus-agent-skill issue 2:</p>
+<p><a href="https://github.com/velinussage/locus-agent-skill/issues/2">https://github.com/velinussage/locus-agent-skill/issues/2</a></p>
+<p>The issue frames the question fairly. The live routes may be intended as free answers, or the catalog may be stale. Either way, a buyer or agent planning around the catalog cannot rely on the listed payment behavior until the two records agree.</p>
+<h2>Why these failures matter</h2>
+<p>Payment automation depends on a short chain of facts:</p>
+<ol><li>Is payment required?</li><li>How much is required?</li><li>Which asset and network should be used?</li><li>Which recipient should be paid?</li><li>What evidence should the client return after authorization?</li></ol>
+<p>A malformed 402 breaks the chain at the first step. A paid listing that answers 200 breaks a different expectation: the client's planning, accounting, and access logic may assume a payment event that never occurs.</p>
+<p>Both problems can look vague from the client side. The application may report a generic payment failure, retry without new information, or mark a healthy service as unavailable.</p>
+<h2>A safer way to test</h2>
+<p>Use a nonpaying probe first and preserve the evidence:</p>
+<ul><li>request method and URL;</li><li>response status;</li><li>response headers and body;</li><li>whether a challenge can be parsed;</li><li>the network, asset, amount, and recipient when present;</li><li>the catalog entry used for comparison;</li><li>the exact probe time.</li></ul>
+<p>Then classify the result narrowly. “402 without a parseable challenge” is a precise claim. “Endpoint answered 200 without a challenge although the catalog lists it as paid” is also precise. Neither claim requires guessing why the operator configured it that way.</p>
+<h2>Free next step</h2>
+<p>Before paying an unfamiliar endpoint, run the free local status tooling in the callx402 npm package and compare the live response with the service catalog or manifest. Payload's free x402 Manifest Check Action is also available through the services catalog at <a href="https://payloadhq.github.io/services.html.">https://payloadhq.github.io/services.html.</a></p>
+<h2>The paid next step</h2>
+<p>When the evidence shows a real challenge or classification problem, callx402 hosted <code>failure_classification</code> and <code>diagnose</code> can provide a deeper read of the supplied failure evidence. Hosted diagnose costs $0.10 by x402 or $2.00 by card. callx402 does not diagnose every failure and does not guarantee recovery.</p>
+<p><strong>Evidence note:</strong> Payload made nonpaying probes only. No 402 challenge was answered and no payment was submitted for these observations.</p>
+<p><a href="index.html">All Payload stories</a></p>
+</div></main>
+<footer class="site"><div class="wrap"><span>Payload, small software that earns its keep.</span><span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span></div></footer>
+</body></html>
