@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your AI Agent Tried Sending Money to the Wrong Wallet | Payload Stories</title>
+<meta name="description" content="A verified Veyline preflight demonstration with a signed ALLOW, an unauthorized recipient denial, and a spend cap denial.">
+<link rel="canonical" href="https://payloadhq.github.io/stories/wrong-wallet.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Your AI Agent Tried Sending Money to the Wrong Wallet">
+<meta property="og:description" content="A verified Veyline preflight demonstration with a signed ALLOW, an unauthorized recipient denial, and a spend cap denial.">
+<meta property="og:url" content="https://payloadhq.github.io/stories/wrong-wallet.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Payload home"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>Payload</a>
+<nav class="site" aria-label="Primary"><a href="../index.html">Home</a><a href="../products.html">Products</a><a href="index.html" aria-current="page">Stories</a><a href="../services.html">Services</a><a href="../docs.html">Docs &amp; GitHub</a><a href="../agents.html">Agents</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>Your AI Agent Tried Sending Money to the Wrong Wallet</h1>
+<p><strong>Story type: reproducible demonstration, verified live against Payload production.</strong></p>
+<p>This did not happen to a customer. It is a controlled demonstration of a failure mode every agent operator should test before an agent receives payment access.</p>
+<p>An agent can choose the right service, read the right price, and still prepare a payment with the wrong destination or an amount outside policy. If the payment system simply follows the agent's instructions, the mistake becomes a transaction.</p>
+<h2>The demonstration</h2>
+<p>Payload tested Veyline preflight with a genuine callx402 quote for a $0.10 diagnose action.</p>
+<p>Three versions of the payment intent were checked:</p>
+<ul><li>A valid intent to the designated rail payee returned a signed <code>ALLOW</code>. The Ed25519 attestation signature was verified against the public key endpoint.</li><li>The same intent with the recipient changed to a dead address returned HTTP 403 with <code>UNAUTHORIZED_RECIPIENT</code>.</li><li>An intent for $20.00 returned HTTP 403 with <code>TIER_SPEND_CAP_EXCEEDED</code>, because the free test organization had a $10 per operation cap.</li></ul>
+<p>No payment was initiated or settled during the preflight test. The point was the decision before financial activity.</p>
+<h2>Why it matters</h2>
+<p>Agent instructions are not a control system. A model can copy an address incorrectly, follow stale configuration, or assemble an amount that no longer matches the quote. A separate policy check gives the operator a place to enforce facts that should not depend on the agent's memory or reasoning in that moment:</p>
+<ul><li>the recipient must be authorized;</li><li>the amount must match the quote;</li><li>the amount must stay inside the applicable cap;</li><li>the decision must expire quickly;</li><li>the decision should be signed and reviewable where supported.</li></ul>
+<p>In the verified demonstration, the signed attestation had a 60 second lifetime. That short window limits how long a decision can be reused outside the context in which it was made.</p>
+<h2>The safer workflow</h2>
+<ol><li>Ask the payment service for a current quote.</li><li>Build the payment intent from that quote, not from a cached price.</li><li>Check recipient, amount, protocol, provider, and policy limits before payment.</li><li>Treat a denial as useful evidence and stop rather than retrying with altered fields.</li><li>Keep the authorization decision separate from the agent's own instructions.</li></ol>
+<p>Veyline does not remove the need for sound wallet controls or careful operations. Its role is narrower: check a proposed financial action against policy before the action proceeds.</p>
+<h2>Try the free version</h2>
+<p>The Veyline free sandbox gives an organization a free key and 1,000 operations per month. You can run the same preflight pattern with a valid intent, an unauthorized recipient, and an amount above the sandbox cap.</p>
+<p>Start with the free evaluation at <a href="https://payloadhq.github.io/veyline.html">https://payloadhq.github.io/veyline.html</a> and the service catalog at <a href="https://payloadhq.github.io/services.html.">https://payloadhq.github.io/services.html.</a></p>
+<h2>The paid next step</h2>
+<p>Paid Veyline plans start with Developer at $99 per month for teams that need production governance around autonomous financial activity. Veyline is noncustodial. It does not hold customer funds, provide settlement, or guarantee protection against every attack or duplicate payment.</p>
+<p><strong>Evidence note:</strong> The ALLOW and denial results were verified live on October 15, 2026 and repeated in the corrected production battery on October 16, 2026.</p>
+<p><a href="index.html">All Payload stories</a></p>
+</div></main>
+<footer class="site"><div class="wrap"><span>Payload, small software that earns its keep.</span><span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span></div></footer>
+</body></html>
