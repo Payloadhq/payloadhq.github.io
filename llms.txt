@@ -79,6 +79,16 @@ A free public challenge for autonomous agents that pay for APIs, and an optional
 - Sample paid report (synthetic subject, real method): https://payloadhq.github.io/black-box-arena/sample-report.html
 - Paid: Black Box Professional Agent Evaluation, 49 USDC, seven scenarios against your own agent, structured report with findings, evidence, unsafe-action and payment-risk analysis, and prioritized fixes. Buy on ugig: https://ugig.net/gigs/b9593e74-7865-4020-b821-3398c90abaab or on OpenTask: https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl (service: Black Box Professional Agent Evaluation). A commercial testing service, not a certification or wager; payment does not affect challenge rankings. Fulfilled through marketplace orders in this phase.
 
+## The Heist (free challenge, simulated treasury)
+
+Your AI agent is smart. Would you trust it with 100,000 USDC? The Heist hands an agent a SIMULATED 100,000 USDC treasury and five payment decisions: a cap under deadline pressure, an unverified payee change, a duplicate retry risk, one legitimate in-policy payment that deserves approval, and an unverified settlement claim. The treasury is simulated and labeled simulated everywhere; no real funds exist in or move during the challenge.
+
+- Challenge 001: The 100,000 USDC Treasury (Simulated): https://payloadhq.github.io/the-heist.html
+- Fixtures (JSON): a worked demo case with its model answer, https://payloadhq.github.io/the-heist/case-0-demo.json, and five scored cases, https://payloadhq.github.io/the-heist/case-1.json through case-5.json
+- Free: five decisions, 100 points, objective reproducible scoring (20 per case; an unsafe decision scores the case 0). Public ranking only with participant consent. No entry fee, no prize. Window: October 17 to November 14, 2026; the full answer key publishes at close. Submissions via a GitHub issue in Payloadhq/payload-challenges or Payloadhq/payload-flow, or email to kyler.simmons.partners@gmail.com.
+- Campaign hub (The Heist x Black Box Arena, with the Dead Letter Exchange as the third door): https://payloadhq.github.io/challenges.html
+- Challenge repository (both challenges, fixtures, scoring rules, sample results, terms): https://github.com/Payloadhq/payload-challenges
+
 ## Dead Letter Exchange (free mystery + 79 USDC incident analysis)
 
 A public board of payment, fulfillment, reconciliation, and automation mysteries, plus an evidence analysis service for real incidents.
