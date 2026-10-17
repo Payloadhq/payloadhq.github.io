@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your MCP Server Works Locally. Why Can&#x27;t Other Agents Use It? | Payload Stories</title>
+<meta name="description" content="How empty public capability listings hid working Payload MCP servers and how the releases were corrected.">
+<link rel="canonical" href="https://payloadhq.github.io/stories/mcp-server-invisible.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Your MCP Server Works Locally. Why Can&#x27;t Other Agents Use It?">
+<meta property="og:description" content="How empty public capability listings hid working Payload MCP servers and how the releases were corrected.">
+<meta property="og:url" content="https://payloadhq.github.io/stories/mcp-server-invisible.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Payload home"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>Payload</a>
+<nav class="site" aria-label="Primary"><a href="../index.html">Home</a><a href="../products.html">Products</a><a href="index.html" aria-current="page">Stories</a><a href="../services.html">Services</a><a href="../docs.html">Docs &amp; GitHub</a><a href="../agents.html">Agents</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>Your MCP Server Works Locally. Why Can't Other Agents Use It?</h1>
+<p><strong>Story type: documented incident from Payload's own MCP releases.</strong></p>
+<p>Payload's MCP servers worked. Their public listings still told the ecosystem almost nothing.</p>
+<p>For several days, the Smithery pages for callx402, Veyline, and RevRule showed “No capabilities found.” A developer or agent visiting those pages could see that a server existed, but not the tools it exposed. That is a distribution failure even when the underlying software is sound.</p>
+<h2>What happened</h2>
+<p>The servers answered tool discovery when run directly. The published Smithery bundles were the weak link.</p>
+<p>The bundle manifests declared an empty tools list. The reason was more subtle than a forgotten field. Smithery's bundle flow expects full tool objects during release validation, while the MCPB manifest format carries a narrower tool description. The CLI published bundles therefore landed without the capability set that discovery systems needed.</p>
+<p>The practical result was simple: local verification passed, while public discovery stayed empty.</p>
+<h2>Why it matters</h2>
+<p>An MCP listing is not just a marketing page. It is part of the interface between a server and the agents that may call it.</p>
+<p>If the listing exposes no tools, an agent cannot reliably determine:</p>
+<ul><li>what the server can do;</li><li>which inputs a tool needs;</li><li>whether the server fits the current task;</li><li>whether installing it is worth the effort.</li></ul>
+<p>Teams can miss this failure because their own development environment already knows the server. Fresh users and automated discovery systems see only what the registry and marketplace publish.</p>
+<h2>How we found and fixed it</h2>
+<p>We compared three views of the same products:</p>
+<ol><li>the tools returned by each local server;</li><li>the records in the official MCP Registry;</li><li>the public Smithery listing and its displayed capabilities.</li></ol>
+<p>The mismatch isolated the bundle and release metadata as the problem. Payload corrected the releases and verified the public result.</p>
+<p>Current verified state:</p>
+<ul><li>callx402 1.0.5 shows six free local MCP tools;</li><li>Veyline MCP 1.1.0 shows three tools;</li><li>RevRule MCP 1.1.0 shows three tools;</li><li>Smithery displays three tools for Veyline, three for RevRule, and six for callx402.</li></ul>
+<p>The servers were usable before the correction. After the correction, they were also discoverable in the form agents and developers expect.</p>
+<h2>A practical publication check</h2>
+<p>Before announcing an MCP server, verify it from the outside:</p>
+<ol><li>Install it from the published package, not from your source tree.</li><li>Start it with the documented configuration only.</li><li>Record the exact tools returned by the client handshake.</li><li>Open the registry record and marketplace page in a signed out view.</li><li>Compare names, versions, and tool counts across every public surface.</li><li>Follow the free evaluation path exactly as a new user would.</li><li>Repeat the check after every bundle or registry release.</li></ol>
+<p>Payload offers two free GitHub Actions for this kind of outside view: MCP Readiness Check and x402 Manifest Check. They are linked from <a href="https://payloadhq.github.io/services.html.">https://payloadhq.github.io/services.html.</a></p>
+<h2>The paid next step</h2>
+<p>For a deeper prelaunch review, Payload offers the MCP Launch Readiness Audit for $79 and an MCP Server Readiness Review for $79 through its existing service channels. The free checks are the right first step. The paid review is useful when a team needs a broader readiness assessment before a public launch.</p>
+<p><strong>Evidence note:</strong> The empty capability state and root cause were documented on October 13, 2026. Corrected Registry and Smithery states were verified on October 16, 2026.</p>
+<p><a href="index.html">All Payload stories</a></p>
+</div></main>
+<footer class="site"><div class="wrap"><span>Payload, small software that earns its keep.</span><span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span></div></footer>
+</body></html>
