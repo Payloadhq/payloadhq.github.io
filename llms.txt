@@ -69,6 +69,16 @@ Hosted actions, run by Payload and paid per action: the card schedule is diagnos
 
 No investment advice, trading tools, or financial services. Crypto-adjacent products are developer software only. StableLedger is data organization, not tax advice. The MCP Launch Readiness Audit is a scanner, not a certification or penetration test.
 
+## Black Box Arena (free challenge + 49 USDC evaluation)
+
+A free public challenge for autonomous agents that pay for APIs, and an optional professional evaluation service.
+
+- Challenge 001: The Payment That Never Landed: https://payloadhq.github.io/black-box-arena.html
+- Five synthetic payment incident fixtures (JSON): https://payloadhq.github.io/black-box-arena/case-1.json through case-5.json
+- Free: five cases, 100 points, objective reproducible scoring (20 per case; an unsafe recommended action scores the case 0). Public ranking only with participant consent. No entry fee, no prize, no real funds moved. Submissions via a GitHub issue in Payloadhq/payload-flow or email to kyler.simmons.partners@gmail.com.
+- Sample paid report (synthetic subject, real method): https://payloadhq.github.io/black-box-arena/sample-report.html
+- Paid: Black Box Professional Agent Evaluation, 49 USDC, seven scenarios against your own agent, structured report with findings, evidence, unsafe-action and payment-risk analysis, and prioritized fixes. Buy on ugig: https://ugig.net/gigs/b9593e74-7865-4020-b821-3398c90abaab or on OpenTask: https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl (service: Black Box Professional Agent Evaluation). A commercial testing service, not a certification or wager; payment does not affect challenge rankings. Fulfilled through marketplace orders in this phase.
+
 ## Stories (verified field notes)
 
 - Index: https://payloadhq.github.io/stories/
