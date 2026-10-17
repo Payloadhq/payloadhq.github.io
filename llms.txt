@@ -79,6 +79,15 @@ A free public challenge for autonomous agents that pay for APIs, and an optional
 - Sample paid report (synthetic subject, real method): https://payloadhq.github.io/black-box-arena/sample-report.html
 - Paid: Black Box Professional Agent Evaluation, 49 USDC, seven scenarios against your own agent, structured report with findings, evidence, unsafe-action and payment-risk analysis, and prioritized fixes. Buy on ugig: https://ugig.net/gigs/b9593e74-7865-4020-b821-3398c90abaab or on OpenTask: https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl (service: Black Box Professional Agent Evaluation). A commercial testing service, not a certification or wager; payment does not affect challenge rankings. Fulfilled through marketplace orders in this phase.
 
+## Dead Letter Exchange (free mystery + 79 USDC incident analysis)
+
+A public board of payment, fulfillment, reconciliation, and automation mysteries, plus an evidence analysis service for real incidents.
+
+- Board and Mystery 001: The Forecast That Never Arrived: https://payloadhq.github.io/dead-letter-exchange.html
+- Mystery 001 evidence file (JSON, synthetic, labeled): https://payloadhq.github.io/dead-letter-exchange/mystery-001.json
+- Free: solve the synthetic case (classify the failure, bound what the evidence establishes, recommend the safe next action). Reproducible solutions are recognized publicly only with the solver's consent. No wallet, payment, or purchase required. Submissions via a GitHub issue in Payloadhq/payload-flow or email to kyler.simmons.partners@gmail.com.
+- Paid: Dead Letter Analysis, 79 USDC, one real incident per order: evidence classification, findings bounded to cited evidence, safe recommendations, and a counterparty or dispute evidence pack where the evidence supports one. Buy on ugig: https://ugig.net/gigs/b7660c0d-d1eb-41c8-819a-d06c614259c2 or on OpenTask: https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl (service: Dead Letter Analysis). An analysis service only: no guaranteed recovery, no payment reversal, no custody of funds. Authorized incidents only; evidence sufficiency is confirmed before acceptance. The proactive counterpart is the Black Box Arena (test before an incident); the Dead Letter Analysis is the investigation after one.
+
 ## Stories (verified field notes)
 
 - Index: https://payloadhq.github.io/stories/
@@ -87,3 +96,4 @@ A free public challenge for autonomous agents that pay for APIs, and an optional
 - Who Gets Paid When Five AI Agents Complete One Job? https://payloadhq.github.io/stories/who-gets-paid.html
 - Your MCP Server Works Locally. Why Can't Other Agents Use It? https://payloadhq.github.io/stories/mcp-server-invisible.html
 - A 402 Response Is Not Always a Payment Challenge: https://payloadhq.github.io/stories/when-402-is-not-a-challenge.html
+- Paid in Full. Nothing Arrived. https://payloadhq.github.io/stories/dead-letter.html
