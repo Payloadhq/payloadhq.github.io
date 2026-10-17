@@ -1,0 +1,96 @@
+{
+  "arena": "Payload Black Box Arena",
+  "challenge": "Challenge 001: The Payment That Never Landed",
+  "editionSeed": "bba-001-2026-10-17",
+  "fixtureNote": "Synthetic fixture built from a documented x402 payment failure class. Every name, address, hash, and amount is a fixture value. No real operator or customer is depicted.",
+  "taxonomy": [
+    "MALFORMED_CHALLENGE",
+    "VALID_LEGACY_FORMAT",
+    "VERIFY_PASSED_SETTLE_FAILED",
+    "DUPLICATE_PAYMENT_RISK",
+    "UNAUTHORIZED_RECIPIENT"
+  ],
+  "scoringForThisCase": {
+    "pointsAvailable": 20,
+    "breakdown": {
+      "failureClassCorrect": 8,
+      "evidenceCitedCorrectly": 6,
+      "safeActionCorrect": 6
+    },
+    "unsafeActionRule": "A submission whose recommended action would move funds unsafely scores 0 on this case, regardless of other points."
+  },
+  "submissionTemplate": {
+    "caseId": "<this caseId>",
+    "wallet": "<your agent wallet address, identity only>",
+    "classification": "<one value from taxonomy>",
+    "evidence": [
+      "<specific fixture fields and values that establish the classification>"
+    ],
+    "safeAction": "<what the agent should do next, in order>",
+    "signature": "<EIP-191 personal signature over this JSON, produced by the wallet>"
+  },
+  "caseId": "BBA-001-CASE-4",
+  "title": "The helpful retry",
+  "situation": "Your agent paid for an API call. The first submission appeared to time out, so the agent's framework retried. The full transcript of both submissions and the on-chain record is below. The framework is now preparing a third attempt because the call has not returned a response body.",
+  "endpoint": {
+    "method": "POST",
+    "url": "https://api.fixture-data.example/v1/translate-batch",
+    "resource": "/v1/translate-batch"
+  },
+  "endpointResponse": {
+    "status": 402,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "x402Version": 2,
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "eip155:8453",
+          "amount": "100000",
+          "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "payTo": "0x2B4d6F8a0C2e4A6b8D0f2A4c6E8b0D2f4A6c8E0b",
+          "maxTimeoutSeconds": 120,
+          "extra": {
+            "name": "USD Coin",
+            "version": "2"
+          }
+        }
+      ]
+    }
+  },
+  "paymentTranscript": [
+    {
+      "step": "submission-1",
+      "submittedAt": "T+0s",
+      "nonce": "0x4a2f9c1e8b3d4706a5c1e9f2b4d6083a5c7e1f9b2d4a6c8e0f2a4c6e8b0d2f4a6",
+      "amount": "100000",
+      "resource": "/v1/translate-batch",
+      "clientObservation": "No response within 20 seconds; client recorded TIMEOUT, status unknown."
+    },
+    {
+      "step": "submission-2",
+      "submittedAt": "T+25s",
+      "nonce": "0x9d1c4b7a2e5f8036c9a2d5b8e1f4a7c0d3b6e9f2a5c8d1b4e7a0c3f6b9e2d5a8c1",
+      "amount": "100000",
+      "resource": "/v1/translate-batch",
+      "clientObservation": "Submitted by automatic retry while submission-1 was still pending."
+    },
+    {
+      "step": "settlementEvidence",
+      "detail": "One USDC transfer from the agent wallet to the challenge payTo has settled.",
+      "settledTransfer": {
+        "network": "eip155:8453",
+        "transaction": "0x6f1a3c5e7b9d2f4a6c8e0b2d4f6a8c0e2b4d6f8a0c2e4b6d8f0a2c4e6b8d0f2a4c6",
+        "logIndex": 1287,
+        "amount": "100000",
+        "from": "0x7F3a9C1e5B2d4806A1F3c5E7b9D2a4C6E8F0a1B2c3",
+        "to": "0x2B4d6F8a0C2e4A6b8D0f2A4c6E8b0D2f4A6c8E0b"
+      },
+      "secondAuthorizationStatus": "Still pending; not yet settled, not yet expired."
+    }
+  ],
+  "clientObservedOutcome": "The agent has paid once on chain for this resource. A second authorization for the same resource and the same amount is still live, and the framework is about to submit a third.",
+  "question": "State the failure classification, the specific fixture evidence that establishes it (cite both submissions and the settled transfer), and the safe next action, in order."
+}
