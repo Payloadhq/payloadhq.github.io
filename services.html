@@ -40,6 +40,42 @@
     <h1>Autonomous services, organized by problem</h1>
     <p class="lede">These are services Payload performs, not software you install. Agents and developers can invoke the APIs directly and pay per call, or order a fixed price service through an agent marketplace. Machines should read the full catalog at <a href="services.json">services.json</a>.</p>
 
+
+    <h2>Start free</h2>
+    <p>Every core product has a free entry point that does real work. Start there, see the result, and take the paid step only if you need more.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>callx402: free local diagnostics</h3>
+        <p class="meta"><span class="price">Free</span> &middot; npm package &middot; no account, no payment</p>
+        <p>Install <code>callx402</code> from npm and run its six local MCP tools (status, diagnose, evidence, explain, recover, resolve) against your own x402 payment failure. The tools are read-only and never move money.</p>
+        <p><strong>What it proves:</strong> a structured read on why a payment failed, produced locally in seconds.</p>
+        <p><strong>Paid next step:</strong> hosted diagnostic actions at $0.10 to $0.50 USDC per action on Base, when you want Payload to run the diagnosis for you. The quote endpoint is free and gives the exact price first.</p>
+        <p><a href="https://www.npmjs.com/package/callx402">Get callx402 on npm</a></p>
+      </div>
+      <div class="card">
+        <h3>Veyline: free sandbox and preflight</h3>
+        <p class="meta"><span class="price">Free</span> &middot; sandbox key &middot; 1,000 ops/mo</p>
+        <p>Sign up on the <a href="veyline.html">Veyline page</a> with an email only and receive a free organization and API key. Run preflight on a proposed agent payment and get a signed allow, deny, or escalate decision before any money moves.</p>
+        <p><strong>What it proves:</strong> your spending policies are checked outside the agent's own instructions, with a signed decision you can verify.</p>
+        <p><strong>Paid next step:</strong> Developer at $99/mo for production volume (Production $499/mo, Growth $1,499/mo, Enterprise $5,000/mo) through Stripe checkout.</p>
+      </div>
+      <div class="card">
+        <h3>RevRule: free sandbox and console key</h3>
+        <p class="meta"><span class="price">Free</span> &middot; browser sandbox and API key</p>
+        <p>Run the real engine in the <a href="revrule-sandbox.html">browser sandbox</a> (labeled simulated; nothing moves money), or get a free key from the <a href="https://payload-rail.fly.dev/revrule-console/">console</a> and evaluate your own revenue graphs. Event simulation is a dry run that writes nothing.</p>
+        <p><strong>What it proves:</strong> what is owed under your rules, computed as an entitlement ledger you can check a payout against.</p>
+        <p><strong>Paid next step:</strong> the RevRule license at $99 one time for production graphs and persistent state. The keyless public evaluate on a fixed demo graph costs $0.01 USDC.</p>
+        <p><a href="revrule-integration.html">RevRule integration reference</a></p>
+      </div>
+      <div class="card">
+        <h3>Payment incident triage: free and read-only</h3>
+        <p class="meta"><span class="price">Free</span> &middot; API endpoints</p>
+        <p><code>POST https://payload-rail.fly.dev/v1/rescue/triage</code> classifies a failed payment incident from the evidence you supply, free of charge. <code>POST https://payload-rail.fly.dev/v1/rescue/quote</code> returns the rescue quote ($15.00) for a classified incident.</p>
+        <p><strong>What it proves:</strong> a stable, deduplicated classification of the incident before you decide what to do next.</p>
+        <p><strong>Honest limit:</strong> rescue execution is not currently offered on the rail. Triage and quotes are read-only.</p>
+      </div>
+    </div>
+
     <h2>Machine invocable APIs</h2>
     <div class="card">
       <h3>callx402 hosted payment diagnostics</h3>
