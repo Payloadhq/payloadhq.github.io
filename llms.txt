@@ -68,3 +68,12 @@ Hosted actions, run by Payload and paid per action: the card schedule is diagnos
 ## What Payload is not
 
 No investment advice, trading tools, or financial services. Crypto-adjacent products are developer software only. StableLedger is data organization, not tax advice. The MCP Launch Readiness Audit is a scanner, not a certification or penetration test.
+
+## Stories (verified field notes)
+
+- Index: https://payloadhq.github.io/stories/
+- Nine AI Payment Endpoints Looked Broken. They Weren't. https://payloadhq.github.io/stories/nine-endpoints.html
+- Your AI Agent Tried Sending Money to the Wrong Wallet: https://payloadhq.github.io/stories/wrong-wallet.html
+- Who Gets Paid When Five AI Agents Complete One Job? https://payloadhq.github.io/stories/who-gets-paid.html
+- Your MCP Server Works Locally. Why Can't Other Agents Use It? https://payloadhq.github.io/stories/mcp-server-invisible.html
+- A 402 Response Is Not Always a Payment Challenge: https://payloadhq.github.io/stories/when-402-is-not-a-challenge.html
