@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Gets Paid When Five AI Agents Complete One Job? | Payload Stories</title>
+<meta name="description" content="Why revenue obligations need evidence, with a clearly labeled Payload operated payout validation.">
+<link rel="canonical" href="https://payloadhq.github.io/stories/who-gets-paid.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Who Gets Paid When Five AI Agents Complete One Job?">
+<meta property="og:description" content="Why revenue obligations need evidence, with a clearly labeled Payload operated payout validation.">
+<meta property="og:url" content="https://payloadhq.github.io/stories/who-gets-paid.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+<a class="brand" href="../index.html" aria-label="Payload home"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>Payload</a>
+<nav class="site" aria-label="Primary"><a href="../index.html">Home</a><a href="../products.html">Products</a><a href="index.html" aria-current="page">Stories</a><a href="../services.html">Services</a><a href="../docs.html">Docs &amp; GitHub</a><a href="../agents.html">Agents</a></nav>
+</div></header>
+<main id="main"><div class="wrap">
+<h1>Who Gets Paid When Five AI Agents Complete One Job?</h1>
+<p><strong>Story type: illustrative revenue scenario supported by a documented Payload operated validation.</strong></p>
+<p>Imagine five agents contributing to one paid job. One gathers sources, one analyzes them, one drafts the result, one checks quality, and one delivers the final package. The customer pays once. The business question arrives immediately: how much does each participant earn, and what evidence proves the payout matched the obligation?</p>
+<p>A percentage typed into a spreadsheet is only the beginning. The obligation may include a platform fee, a recoupment rule, a minimum, a cap, or a different split for a later event. When the payout arrives, someone still has to answer a harder question: did this transfer discharge the entitlement that was actually created?</p>
+<h2>The problem</h2>
+<p>Payment records show that money moved. They do not always show why it moved, which rule created the obligation, or whether the amount was the amount owed.</p>
+<p>That gap becomes expensive to manage as work becomes more automated. Operators can reconcile by hand for a while, but manual review slows delivery and leaves room for inconsistent decisions. A payout can be real and still be wrong for the recorded obligation.</p>
+<h2>What Payload demonstrated</h2>
+<p>Payload completed a controlled validation on Base mainnet and published the evidence in the x402 Foundation discussion for issue 3758.</p>
+<p>This was Payload operated validation. It was not a customer payout, and both wallets were operated by Payload.</p>
+<p>The sequence was deliberate:</p>
+<ol><li>RevRule recorded an economic event in the graph <code>x402-3758-validation-v2</code>.</li><li>The engine issued entitlement sequence 1 under the rule <code>full-to-treasury</code>.</li><li>A $0.01 USDC payout followed on Base mainnet.</li><li>The payout evidence linked the transaction to the entitlement with transaction hash <code>0x693287f1c83f4037ea7366d9fab259e76cc069aa4a533bbfc15788cd010e2f11</code>, block 52569480, and log index 456.</li><li>Verification returned <code>chainValid: true</code> and <code>entitlementChainValid: true</code>.</li></ol>
+<p>The demonstration used one participant rule, not five agents. Its purpose was to prove the linkage pattern: entitlement first, payout second, verification against the original obligation.</p>
+<h2>Why the order matters</h2>
+<p>If the payout comes first and the explanation is assembled later, the record depends on reconstruction. If the entitlement exists first, the payout can be checked against a specific graph, event, rule, participant, instruction, sequence, and entitlement hash.</p>
+<p>That does not make every business rule simple. It does make the evidence trail clearer.</p>
+<h2>Try the free version</h2>
+<p>The RevRule browser sandbox runs the real engine in the browser and is labeled simulated. You can model a multi participant split, run an event, and inspect the resulting obligations without moving money.</p>
+<p>Free resources:</p>
+<ul><li>RevRule sandbox: <a href="https://payloadhq.github.io/revrule-sandbox.html">https://payloadhq.github.io/revrule-sandbox.html</a></li><li>Free console key: <a href="https://payload-rail.fly.dev/revrule-console/">https://payload-rail.fly.dev/revrule-console/</a></li><li>Integration reference: <a href="https://payloadhq.github.io/revrule-integration.html">https://payloadhq.github.io/revrule-integration.html</a></li></ul>
+<h2>The paid next step</h2>
+<p>RevRule by Payload is available for $99 for production use through the existing product page at <a href="https://payloadhq.github.io/revrule.html.">https://payloadhq.github.io/revrule.html.</a></p>
+<p>RevRule establishes programmable revenue obligations and verifies payouts against genuine entitlements. It does not hold, transfer, distribute, or execute payments. Your existing payment process still moves the money. RevRule supplies the obligation and evidence layer around it.</p>
+<p><strong>Provenance:</strong> Payload operated real money mainnet validation, recorded October 13, 2026. No customer funds were involved.</p>
+<p><a href="index.html">All Payload stories</a></p>
+</div></main>
+<footer class="site"><div class="wrap"><span>Payload, small software that earns its keep.</span><span>Support: <a href="mailto:kyler.simmons.partners@gmail.com">kyler.simmons.partners@gmail.com</a></span></div></footer>
+</body></html>
