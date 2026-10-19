@@ -158,12 +158,12 @@
       "name": "RevRule entitlement and payout verification",
       "payment_methods": [
         "USDC on Base via x402 (public evaluate)",
-        "Whop or Gumroad checkout (license)"
+        "Whop or Gumroad checkout (license)", "Stripe checkout (managed plans)"
       ],
       "price": {
         "amount_usd": 0.01,
         "currency": "USDC",
-        "note": "Own-graph evaluation is free with a self-serve console key. The RevRule license is $99 one time via Whop or Gumroad.",
+        "note": "Own-graph evaluation is free with a self-serve console key. The RevRule license is $99 one time via Whop or Gumroad. Managed monthly plans (Starter $29/month, Professional $79/month, Business $199/month) are available via Stripe checkout on the product page at https://payloadhq.github.io/revrule.html",
         "unit": "public evaluate call on the demo graph"
       },
       "problems_solved": [
