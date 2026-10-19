@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contractual Waterfall Calculation: Fees, Expenses, Recoupment, and Participation in Order | Payload</title>
+<meta name="description" content="A revenue waterfall pays out in a strict order: distribution fee, expenses, recoupment, then participation splits. Why the order changes everyone's money, with a worked synthetic cascade example.">
+<link rel="canonical" href="https://payloadhq.github.io/contractual-waterfall-calculation.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Contractual Waterfall Calculation">
+<meta property="og:description" content="In a waterfall, sequence is arithmetic. The same percentages in a different order pay different people. How to compute it defensibly.">
+<meta property="og:url" content="https://payloadhq.github.io/contractual-waterfall-calculation.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<style>
+.rr-hero{text-align:center;padding:56px 0 40px}
+.rr-hero h1{font-size:clamp(28px,4.6vw,44px);line-height:1.18;margin:0 0 16px;letter-spacing:-0.5px}
+.rr-hero h1 .accent{color:#1d4ed8}
+.rr-sub{font-size:clamp(16px,2.4vw,19px);color:#334155;max-width:700px;margin:0 auto 24px}
+.rr-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;background:#1d4ed8;color:#fff;font-weight:600;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:16px}
+.btn:hover{background:#1e40af;color:#fff}
+.btn-ghost{background:#fff;color:#1d4ed8;border:2px solid #1d4ed8}
+.btn-ghost:hover{background:#eff6ff;color:#1d4ed8}
+.rr-section{padding:44px 0;border-top:1px solid #e5e7eb}
+.rr-section h2{font-size:clamp(23px,3.4vw,30px);margin:0 0 8px;letter-spacing:-0.3px}
+.rr-kicker{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1d4ed8;margin:0 0 12px}
+.rr-body{color:#334155;font-size:16px;max-width:720px;margin:0 0 16px;line-height:1.65}
+.rr-table{width:100%;max-width:760px;margin:20px auto;border-collapse:collapse;font-size:14px;text-align:left}
+.rr-table th{padding:10px;border-bottom:2px solid #1d4ed8}
+.rr-table td{padding:10px;border-bottom:1px solid #e2e8f0}
+.rr-demo{border:1px solid #bfdbfe;background:#eff6ff;border-radius:12px;padding:22px;max-width:820px;margin:24px auto}
+.rr-demo h3{margin:0 0 6px}
+.rr-demo p{color:#334155;font-size:15px;line-height:1.6}
+.rr-note{font-size:13px;color:#64748b;max-width:760px;margin:16px auto 0}
+.rr-faq{max-width:760px;margin:0 auto}
+.rr-faq h3{font-size:17px;margin:22px 0 6px}
+.rr-faq p{color:#475569;font-size:15px;line-height:1.6;margin:0}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Contractual Waterfall Calculation: Fees, Expenses, Recoupment, and Participation in Order","description":"Why the order of a revenue waterfall changes the outcome, and a worked synthetic cascade from the webtoon industry.","author":{"@type":"Organization","name":"Payload"},"publisher":{"@type":"Organization","name":"Payload"},"mainEntityOfPage":"https://payloadhq.github.io/contractual-waterfall-calculation.html"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a revenue waterfall in a contract?","acceptedAnswer":{"@type":"Answer","text":"A waterfall is an ordered sequence of deductions and splits applied to revenue. A typical film or content waterfall takes the distributor or platform share first, then fees, then recoupable expenses and advances, and only then divides what remains among the participation holders. Each step is computed on the remainder of the step before it."}},
+{"@type":"Question","name":"Why does the order of a waterfall matter so much?","acceptedAnswer":{"@type":"Answer","text":"Because most steps are percentages of a remainder, not of the gross. Moving a fee before or after an expense changes the base every later step is computed on. Two statements can cite the same percentages and pay different amounts purely because the sequence differs, which is why participation disputes so often come down to order rather than rates."}},
+{"@type":"Question","name":"How should a waterfall be documented so participants can verify it?","acceptedAnswer":{"@type":"Answer","text":"As an explicit ordered rule set, with each step named, its base defined (gross, or the remainder after a named step), and its rate fixed, plus a per-event ledger that shows the input, each step's amount, and the remainder passed down. If a participant cannot recompute one event from the published rules, the documentation is not finished."}}
+]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+
+    <section class="rr-hero">
+      <p class="rr-kicker">RevRule by Payload, problem guide</p>
+      <h1>In a waterfall, <span class="accent">sequence is arithmetic.</span></h1>
+      <p class="rr-sub">Distribution fee, expenses, recoupment, participation: each step takes its cut of what the previous step left. The same percentages in a different order pay different people, which is why waterfall disputes are usually about order, not rates.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="revrule-sandbox.html">Try the free sandbox</a>
+        <a class="btn btn-ghost" href="revrule.html">RevRule overview and pricing</a>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">The structure</p>
+      <h2>Every waterfall step needs three definitions</h2>
+      <p class="rr-body">A waterfall step that says only "30 percent" is under-specified. To compute it the same way twice, a step needs its rate, its base (the gross, or the remainder after a named earlier step), and its position in the sequence. Film distribution deals, content platform settlements, franchise royalty structures, and joint venture agreements all share this shape, and most statement disputes trace back to one of the three being ambiguous in the contract or improvised in the spreadsheet.</p>
+      <p class="rr-body">Recoupment sits inside the waterfall as a stateful step: an advance or minimum guarantee is recovered from a named participant's share, event by event, until it clears, and that participant's position in the sequence determines how fast it clears. <a href="royalty-recoupment-calculation.html">Recoupment mechanics in detail</a>.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Worked example</p>
+      <h2>A 200-won episode, five steps down the cascade</h2>
+      <div class="rr-demo">
+        <h3>Synthetic demonstration, fictional figures</h3>
+        <p>This cascade is a published synthetic fixture modeled on documented webtoon industry practice and run on the RevRule engine. One episode sells for 200 won. The app store takes 30 percent of gross (60). The platform takes 50 percent of the 140 remainder (70). The content provider takes 35 percent of the remaining 70 (24.50). The creator pool is what is left: 45.50, split writer 60 percent (27.30), artist 30 percent (13.65), assistant 10 percent (4.55). After the 4.9 percent withholding presentation used in that industry, the three creators net 43 won combined, the figure creators in that market actually talk about. Across a 60-episode run the engine ledger matched the hand calculation exactly at every step, hash chain valid. A second fixture graph recouped a minimum guarantee advance out of the provider's share across 40 episodes until it cleared. Synthetic data; not a customer result.</p>
+      </div>
+      <table class="rr-table">
+        <tr><th>Step</th><th>Base</th><th>Amount (won)</th></tr>
+        <tr><td>Episode price (gross)</td><td>Sale</td><td>200.00</td></tr>
+        <tr><td>App store fee, 30%</td><td>Gross</td><td>60.00</td></tr>
+        <tr><td>Platform share, 50%</td><td>Remainder 140</td><td>70.00</td></tr>
+        <tr><td>Content provider, 35%</td><td>Remainder 70</td><td>24.50</td></tr>
+        <tr><td>Creator pool</td><td>Remainder</td><td>45.50</td></tr>
+        <tr><td>Writer 60% / artist 30% / assistant 10%</td><td>Creator pool</td><td>27.30 / 13.65 / 4.55</td></tr>
+      </table>
+      <p class="rr-body">Run the same percentages in a different order and the creators' 45.50 moves. That is the whole argument for writing the waterfall down as an ordered rule set instead of a paragraph of percentages.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">How RevRule handles it</p>
+      <h2>The waterfall is the rule set</h2>
+      <p class="rr-body">A RevRule Revenue Graph is an ordered set of entitlement rules: each step names its base and rate, recoupment steps carry their balances as engine state, and effective-dated versions handle amendments without rewriting settled history. Every revenue event flows through the same sequence, and the hash-chained ledger records the input, each step's output, and the remainder passed down, queryable by event, participant, or entry type and returnable in full as JSON. A participant with the rule set and one event can recompute the event. That is the verification standard a participation statement should meet.</p>
+      <p class="rr-body">Simulate a waterfall change before it governs a live run; simulation is a dry run with zero side effects. RevRule does not hold funds, execute payments, or administer statutory rights. It computes contractual entitlements for money already collected, under the rules you define.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="https://payload-rail.fly.dev/revrule-console/">Get a free API key</a>
+        <a class="btn btn-ghost" href="revrule-integration.html">Integration reference</a>
+        <a class="btn" href="revrule.html">Buy for $99 or start a managed plan</a>
+      </div>
+      <p class="rr-note">Pricing: $99 one-time perpetual license (uncapped operations, unlimited Revenue Graphs, 1 API key), or managed plans at $29, $79, and $199 per month with higher operation, graph, and key allowances. Evaluation accounts are limited to 1,000 operations per month and 3 Revenue Graphs. Seven-day refunds. Support by email, best effort.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Questions</p>
+      <h2>Waterfalls, answered plainly</h2>
+      <div class="rr-faq">
+        <h3>What is a revenue waterfall in a contract?</h3>
+        <p>A waterfall is an ordered sequence of deductions and splits applied to revenue. A typical film or content waterfall takes the distributor or platform share first, then fees, then recoupable expenses and advances, and only then divides what remains among the participation holders. Each step is computed on the remainder of the step before it.</p>
+        <h3>Why does the order of a waterfall matter so much?</h3>
+        <p>Because most steps are percentages of a remainder, not of the gross. Moving a fee before or after an expense changes the base every later step is computed on. Two statements can cite the same percentages and pay different amounts purely because the sequence differs, which is why participation disputes so often come down to order rather than rates.</p>
+        <h3>How should a waterfall be documented so participants can verify it?</h3>
+        <p>As an explicit ordered rule set, with each step named, its base defined (gross, or the remainder after a named step), and its rate fixed, plus a per-event ledger that shows the input, each step's amount, and the remainder passed down. If a participant cannot recompute one event from the published rules, the documentation is not finished.</p>
+      </div>
+      <p class="rr-note">Related guides: <a href="royalty-recoupment-calculation.html">royalty recoupment calculation</a>, <a href="renegotiated-royalty-split.html">a renegotiated split applied late</a>, <a href="royalty-reconciliation-spreadsheet-risks.html">revenue-share reconciliation in a spreadsheet</a>, <a href="creator-commission-split-calculation.html">creator commission splits</a>.</p>
+    </section>
+
+  </div>
+</main>
+</body>
+</html>
