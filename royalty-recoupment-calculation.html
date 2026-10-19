@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Royalty Recoupment Calculation: Advances, Recoup Rates, and Post-Recoupment Rates | Payload</title>
+<meta name="description" content="How royalty recoupment actually computes: the advance balance, the recoup rate, the moment the balance clears, and the rate that applies after. With a worked synthetic example and a rules engine that tracks the balance for you.">
+<link rel="canonical" href="https://payloadhq.github.io/royalty-recoupment-calculation.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Royalty Recoupment Calculation: Advances, Recoup Rates, and Post-Recoupment Rates">
+<meta property="og:description" content="The recoupment balance is state, not a note in a spreadsheet tab. How it computes, where manual tracking breaks, and a worked example.">
+<meta property="og:url" content="https://payloadhq.github.io/royalty-recoupment-calculation.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<style>
+.rr-hero{text-align:center;padding:56px 0 40px}
+.rr-hero h1{font-size:clamp(28px,4.6vw,44px);line-height:1.18;margin:0 0 16px;letter-spacing:-0.5px}
+.rr-hero h1 .accent{color:#1d4ed8}
+.rr-sub{font-size:clamp(16px,2.4vw,19px);color:#334155;max-width:700px;margin:0 auto 24px}
+.rr-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;background:#1d4ed8;color:#fff;font-weight:600;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:16px}
+.btn:hover{background:#1e40af;color:#fff}
+.btn-ghost{background:#fff;color:#1d4ed8;border:2px solid #1d4ed8}
+.btn-ghost:hover{background:#eff6ff;color:#1d4ed8}
+.rr-section{padding:44px 0;border-top:1px solid #e5e7eb}
+.rr-section h2{font-size:clamp(23px,3.4vw,30px);margin:0 0 8px;letter-spacing:-0.3px}
+.rr-kicker{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1d4ed8;margin:0 0 12px}
+.rr-lede{color:#475569;font-size:17px;max-width:720px;margin:0 0 20px}
+.rr-body{color:#334155;font-size:16px;max-width:720px;margin:0 0 16px;line-height:1.65}
+.rr-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.rr-card{border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff}
+.rr-card h3{margin:0 0 8px;font-size:17px}
+.rr-card p{margin:0;color:#475569;font-size:15px}
+.rr-table{width:100%;max-width:760px;margin:20px auto;border-collapse:collapse;font-size:14px;text-align:left}
+.rr-table th{padding:10px;border-bottom:2px solid #1d4ed8}
+.rr-table td{padding:10px;border-bottom:1px solid #e2e8f0}
+.rr-demo{border:1px solid #bfdbfe;background:#eff6ff;border-radius:12px;padding:22px;max-width:820px;margin:24px auto}
+.rr-demo h3{margin:0 0 6px}
+.rr-demo p{color:#334155;font-size:15px;line-height:1.6}
+.rr-note{font-size:13px;color:#64748b;max-width:760px;margin:16px auto 0}
+.rr-faq{max-width:760px;margin:0 auto}
+.rr-faq h3{font-size:17px;margin:22px 0 6px}
+.rr-faq p{color:#475569;font-size:15px;line-height:1.6;margin:0}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Royalty Recoupment Calculation: Advances, Recoup Rates, and Post-Recoupment Rates","description":"How royalty recoupment computes, where manual balance tracking breaks, and a worked synthetic example.","author":{"@type":"Organization","name":"Payload"},"publisher":{"@type":"Organization","name":"Payload"},"mainEntityOfPage":"https://payloadhq.github.io/royalty-recoupment-calculation.html"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is royalty recoupment?","acceptedAnswer":{"@type":"Answer","text":"Recoupment is the recovery of an advance or recoupable cost out of a participant's future earnings. Until the balance clears, some or all of what that participant would earn is applied against the advance instead of being paid out. After it clears, the participant earns at the rate the contract sets for the post-recoupment period."}},
+{"@type":"Question","name":"What is a recoup rate?","acceptedAnswer":{"@type":"Answer","text":"The recoup rate is the share of a participant's earnings applied against the outstanding advance. At a 100 percent recoup rate, every cent the participant earns reduces the balance until it reaches zero. At 50 percent, half reduces the balance and half is currently payable."}},
+{"@type":"Question","name":"What goes wrong when recoupment is tracked in a spreadsheet?","acceptedAnswer":{"@type":"Answer","text":"The balance is state that changes with every revenue event. In a spreadsheet it usually lives in a side tab that someone must remember to update, per participant and per agreement. The common failures are a balance that never gets updated after a busy period, a participant kept at the recoupment rate after the balance cleared, and no record of which events were applied against which advance."}}
+]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+
+    <section class="rr-hero">
+      <p class="rr-kicker">RevRule by Payload, problem guide</p>
+      <h1>Royalty recoupment is a balance, <span class="accent">not a note in a tab.</span></h1>
+      <p class="rr-sub">An advance is paid once. Recouping it correctly takes every revenue event after that, in order, against the right balance, at the right rate, with a record of each step. Here is how the calculation actually works and where manual tracking breaks.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="revrule-sandbox.html">Try the free sandbox</a>
+        <a class="btn btn-ghost" href="revrule.html">RevRule overview and pricing</a>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">The calculation</p>
+      <h2>Four numbers decide every recoupment run</h2>
+      <p class="rr-body">A recoupment calculation looks simple on the contract page and gets complicated in the ledger. Four values drive it:</p>
+      <div class="rr-cards">
+        <div class="rr-card"><h3>The advance balance</h3><p>The amount still owed back: the original advance plus any recoupable costs added later, minus everything already recouped. It changes with every event, so last quarter's figure is stale the moment new revenue lands.</p></div>
+        <div class="rr-card"><h3>The recoup rate</h3><p>The share of the participant's earnings applied against the balance. At 100 percent, the participant earns nothing payable until the advance clears. At 50 percent, half is applied and half is payable now.</p></div>
+        <div class="rr-card"><h3>The clearing point</h3><p>The exact event at which the balance reaches zero. Earnings before it are recoupment; earnings after it belong to the participant at the post-recoupment rate. Splitting one event across that line is where hand calculations go wrong.</p></div>
+        <div class="rr-card"><h3>The post-recoupment rate</h3><p>Many deals pay a different rate once the advance is earned back, for example a producer moving from recoupment to a 5 percent royalty. Applying the old treatment one period too long quietly underpays the participant.</p></div>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Worked example</p>
+      <h2>A producer advance, computed event by event</h2>
+      <div class="rr-demo">
+        <h3>Synthetic demonstration, fictional figures</h3>
+        <p>This example comes from a published synthetic fixture run on the RevRule engine: a fictional 12-artist label, 40 tracks, 5,000 synthetic statement lines. Two producer advances were configured as recoupment balances, $300.00 on one track and $450.00 on another, each at a 100 percent recoup rate against that track's producer pool. The engine applied earnings against each balance in event order, recorded the cumulative recouped amount in the ledger for every line, and moved each producer to the 5 percent post rate only after the balance cleared. Producer totals for the quarter landed between $2,782.99 and $3,063.09, combining recouped amounts and post-rate earnings. All 40 graph ledgers passed hash-chain verification, and an independent re-implementation of the rule math reproduced every participant total exactly. Synthetic data; not a customer result.</p>
+      </div>
+      <p class="rr-body">The point of the example is not the totals. It is that the balance was never typed in by a person after setup. It was engine state, updated by the same events that produced the earnings, with the cumulative position written into the ledger reason for each line. When the producer asks "how much of my advance is left," the answer is a query, not a reconstruction.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">How RevRule handles it</p>
+      <h2>Recoupment as a rule, not a reminder</h2>
+      <p class="rr-body">RevRule is a revenue-rules engine. You define the deal once as a Revenue Graph: participants, shares, and the recoupment terms, including the recoup rate and the rate that applies after the advance clears. Revenue events are recorded as money arrives from your distributor or administrator. RevRule computes each event under the rules in force, applies earnings against outstanding balances in order, and writes every computation to a hash-chained ledger that can be queried by event, participant, or entry type and returned in full as JSON.</p>
+      <p class="rr-body">Before a live run, simulate it. Simulation is a dry run with zero side effects, so a quarter can be previewed and the recoupment positions checked before anything is final. RevRule does not hold funds, execute payments, or collect royalties. It is the contractual accounting layer for money already collected, downstream of your distributor.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="https://payload-rail.fly.dev/revrule-console/">Get a free API key</a>
+        <a class="btn btn-ghost" href="revrule-for-music-labels.html">RevRule for music labels</a>
+        <a class="btn" href="revrule.html">Buy for $99 or start a managed plan</a>
+      </div>
+      <p class="rr-note">Pricing: $99 one-time perpetual license (uncapped operations, unlimited Revenue Graphs, 1 API key), or managed plans at $29, $79, and $199 per month with higher operation, graph, and key allowances. Evaluation accounts are limited to 1,000 operations per month and 3 Revenue Graphs. Seven-day refunds. Support by email, best effort.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Questions</p>
+      <h2>Recoupment, answered plainly</h2>
+      <div class="rr-faq">
+        <h3>What is royalty recoupment?</h3>
+        <p>Recoupment is the recovery of an advance or recoupable cost out of a participant's future earnings. Until the balance clears, some or all of what that participant would earn is applied against the advance instead of being paid out. After it clears, the participant earns at the rate the contract sets for the post-recoupment period.</p>
+        <h3>What is a recoup rate?</h3>
+        <p>The recoup rate is the share of a participant's earnings applied against the outstanding advance. At a 100 percent recoup rate, every cent the participant earns reduces the balance until it reaches zero. At 50 percent, half reduces the balance and half is currently payable.</p>
+        <h3>What goes wrong when recoupment is tracked in a spreadsheet?</h3>
+        <p>The balance is state that changes with every revenue event. In a spreadsheet it usually lives in a side tab that someone must remember to update, per participant and per agreement. The common failures are a balance that never gets updated after a busy period, a participant kept at the recoupment rate after the balance cleared, and no record of which events were applied against which advance.</p>
+      </div>
+      <p class="rr-note">Related guides: <a href="renegotiated-royalty-split.html">a renegotiated split applied late</a>, <a href="royalty-reconciliation-spreadsheet-risks.html">revenue-share reconciliation in a spreadsheet</a>, <a href="contractual-waterfall-calculation.html">contractual waterfall calculation</a>, <a href="creator-commission-split-calculation.html">creator commission splits</a>.</p>
+    </section>
+
+  </div>
+</main>
+</body>
+</html>
