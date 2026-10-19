@@ -31,13 +31,27 @@
       "sandbox_url": "https://payloadhq.github.io/revrule-sandbox.html",
       "open_source": "https://github.com/Payloadhq/payload-flow",
       "price_usd": 99,
-      "license_type": "one-time purchase for production; free sandbox for evaluation",
+      "license_type": "one-time purchase for production; free sandbox for evaluation; managed monthly plans also available on the product page",
       "platforms": [
         "Hosted API",
         "Node.js",
         "Browser"
       ],
       "inputs": "Economic events via REST API",
+      "version": "1.0.0"
+    },
+    {
+      "name": "RevRule Managed Plans",
+      "category": "Programmable economic infrastructure",
+      "purpose": "Managed hosted RevRule plans, billed monthly. Starter, Professional, and Business tiers with monthly operations allowances, Revenue Graph and API key allowances, and email support. The $99 one-time perpetual license remains available and is never reduced by choosing or cancelling a managed plan.",
+      "url": "https://payloadhq.github.io/revrule.html",
+      "api_base_url": "https://payload-rail.fly.dev",
+      "type": "subscription",
+      "plans": [
+        {"name": "Starter", "price_usd_per_month": 29, "ops_per_month": 10000, "graphs": 10, "api_keys": 1},
+        {"name": "Professional", "price_usd_per_month": 79, "ops_per_month": 100000, "graphs": 50, "api_keys": 3},
+        {"name": "Business", "price_usd_per_month": 199, "ops_per_month": 1000000, "graphs": "unlimited", "api_keys": 10}
+      ],
       "version": "1.0.0"
     },
     {
