@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Renegotiated Royalty Split Applied Late: What a Mid-Period Change Does to a Quarter | Payload</title>
+<meta name="description" content="A split renegotiated mid-period has to apply from its effective date, not from whenever the spreadsheet gets updated. A worked synthetic example shows a $414.11 error from applying a new split one month late.">
+<link rel="canonical" href="https://payloadhq.github.io/renegotiated-royalty-split.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Renegotiated Royalty Split Applied Late">
+<meta property="og:description" content="Effective dates are the whole problem. What happens when a renegotiated split reaches the spreadsheet one period late, in dollars.">
+<meta property="og:url" content="https://payloadhq.github.io/renegotiated-royalty-split.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<style>
+.rr-hero{text-align:center;padding:56px 0 40px}
+.rr-hero h1{font-size:clamp(28px,4.6vw,44px);line-height:1.18;margin:0 0 16px;letter-spacing:-0.5px}
+.rr-hero h1 .accent{color:#1d4ed8}
+.rr-sub{font-size:clamp(16px,2.4vw,19px);color:#334155;max-width:700px;margin:0 auto 24px}
+.rr-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;background:#1d4ed8;color:#fff;font-weight:600;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:16px}
+.btn:hover{background:#1e40af;color:#fff}
+.btn-ghost{background:#fff;color:#1d4ed8;border:2px solid #1d4ed8}
+.btn-ghost:hover{background:#eff6ff;color:#1d4ed8}
+.rr-section{padding:44px 0;border-top:1px solid #e5e7eb}
+.rr-section h2{font-size:clamp(23px,3.4vw,30px);margin:0 0 8px;letter-spacing:-0.3px}
+.rr-kicker{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1d4ed8;margin:0 0 12px}
+.rr-body{color:#334155;font-size:16px;max-width:720px;margin:0 0 16px;line-height:1.65}
+.rr-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.rr-card{border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff}
+.rr-card h3{margin:0 0 8px;font-size:17px}
+.rr-card p{margin:0;color:#475569;font-size:15px}
+.rr-demo{border:1px solid #bfdbfe;background:#eff6ff;border-radius:12px;padding:22px;max-width:820px;margin:24px auto}
+.rr-demo h3{margin:0 0 6px}
+.rr-demo p{color:#334155;font-size:15px;line-height:1.6}
+.rr-note{font-size:13px;color:#64748b;max-width:760px;margin:16px auto 0}
+.rr-faq{max-width:760px;margin:0 auto}
+.rr-faq h3{font-size:17px;margin:22px 0 6px}
+.rr-faq p{color:#475569;font-size:15px;line-height:1.6;margin:0}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Renegotiated Royalty Split Applied Late: What a Mid-Period Change Does to a Quarter","description":"A split renegotiated mid-period has to apply from its effective date. A worked synthetic example quantifies the error when it is applied one month late.","author":{"@type":"Organization","name":"Payload"},"publisher":{"@type":"Organization","name":"Payload"},"mainEntityOfPage":"https://payloadhq.github.io/renegotiated-royalty-split.html"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"When a royalty split is renegotiated mid-period, which rate applies to earlier revenue?","acceptedAnswer":{"@type":"Answer","text":"The rate in force on the date of each revenue event. Events before the effective date compute under the old split; events on or after it compute under the new one. Applying the new split to the whole period overpays the renegotiated party, and applying it late underpays them. Both are breaches of the amended deal, just in different directions."}},
+{"@type":"Question","name":"How big can the error be if a new split is applied one period late?","acceptedAnswer":{"@type":"Answer","text":"In our published synthetic fixture (a fictional 12-artist label, one artist's share moving from 50 percent to 60 percent effective mid-August), applying the new split one month late misdirected $414.11 in just the 17 days between the effective date and month end, on four tracks. The figure scales with the size of the change and the revenue in the gap."}},
+{"@type":"Question","name":"How do you keep split changes straight across a catalog?","acceptedAnswer":{"@type":"Answer","text":"Store the split as a versioned rule with an effective date instead of overwriting the old number. Then every event is computed under the rule in force on its own date, the ledger records which rule version produced each line, and a later renegotiation never rewrites history that was already settled."}}
+]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+
+    <section class="rr-hero">
+      <p class="rr-kicker">RevRule by Payload, problem guide</p>
+      <h1>The deal changed on August 15. <span class="accent">The spreadsheet found out in September.</span></h1>
+      <p class="rr-sub">Renegotiations take effect on a date, not at the next convenient quarter-end. When the new split reaches the royalty sheet one period late, someone is underpaid for every day in the gap, and the correction is a manual restatement nobody wants to sign.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="revrule-sandbox.html">Try the free sandbox</a>
+        <a class="btn btn-ghost" href="revrule.html">RevRule overview and pricing</a>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">The failure modes</p>
+      <h2>Three ways a mid-period change goes wrong</h2>
+      <div class="rr-cards">
+        <div class="rr-card"><h3>Applied late</h3><p>The new split is keyed in from the next period. Revenue between the effective date and the update is computed at the old rate. The renegotiated party is underpaid, and the difference is rarely volunteered.</p></div>
+        <div class="rr-card"><h3>Applied to the whole period</h3><p>The new split overwrites the old one for the full quarter, including weeks before the amendment existed. Now the other side is short, and a previously correct statement has to be withdrawn.</p></div>
+        <div class="rr-card"><h3>Applied with no record</h3><p>The number in the sheet changes and the old value is gone. Months later, nobody can show which rate produced a given line, so a routine artist question becomes a forensic exercise.</p></div>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Worked example</p>
+      <h2>One renegotiation, 17 days, $414.11</h2>
+      <div class="rr-demo">
+        <h3>Synthetic demonstration, fictional figures</h3>
+        <p>In a published synthetic fixture run on the RevRule engine (a fictional 12-artist label, 40 tracks, 5,000 statement lines, $219,518.20 in synthetic quarterly gross), one artist's share on four tracks was renegotiated from 50 percent to 60 percent, effective 2026-08-15, inside the quarter. The engine held both versions of the rule with their effective dates: events before August 15 computed at 50 percent, events on or after at 60 percent, and the ledger records which rule version produced each line. A parallel spreadsheet model that applied the new split one monthly period late, from September 1, misdirected <strong>$414.11</strong> to the label instead of the artist, in the 17 days from August 15 to August 31 alone, on just those four tracks. Synthetic data; not a customer result.</p>
+      </div>
+      <p class="rr-body">Notice what the error is made of. It is not carelessness and it is not a large percentage. It is a ten-point change, a seventeen-day gap, and four tracks. Catalogs run hundreds of tracks, and renegotiations, option pickups, and rate escalators happen every year. Each one opens the same gap between the date the deal changed and the date the spreadsheet changed.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">How RevRule handles it</p>
+      <h2>Splits are versioned rules with effective dates</h2>
+      <p class="rr-body">In RevRule, a split is not a cell that gets overwritten. It is a rule in a Revenue Graph, and an amendment adds a new version with its own effective date. Every revenue event is computed under the version in force on the event's date, and the hash-chained ledger records the rule version behind every line, queryable by event, participant, or entry type and returnable in full as JSON. A renegotiation next year cannot rewrite a quarter that already settled, and the question "which rate applied on August 20" has a one-line answer.</p>
+      <p class="rr-body">Simulate before you commit a change: simulation is a dry run with zero side effects, so the effect of a new split can be previewed against real events before it governs a live run. RevRule does not hold funds, execute payments, or collect royalties; it computes what is owed under your rules for money already collected.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="https://payload-rail.fly.dev/revrule-console/">Get a free API key</a>
+        <a class="btn btn-ghost" href="revrule-for-music-labels.html">RevRule for music labels</a>
+        <a class="btn" href="revrule.html">Buy for $99 or start a managed plan</a>
+      </div>
+      <p class="rr-note">Pricing: $99 one-time perpetual license (uncapped operations, unlimited Revenue Graphs, 1 API key), or managed plans at $29, $79, and $199 per month with higher operation, graph, and key allowances. Evaluation accounts are limited to 1,000 operations per month and 3 Revenue Graphs. Seven-day refunds. Support by email, best effort.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Questions</p>
+      <h2>Split changes, answered plainly</h2>
+      <div class="rr-faq">
+        <h3>When a royalty split is renegotiated mid-period, which rate applies to earlier revenue?</h3>
+        <p>The rate in force on the date of each revenue event. Events before the effective date compute under the old split; events on or after it compute under the new one. Applying the new split to the whole period overpays the renegotiated party, and applying it late underpays them. Both are breaches of the amended deal, just in different directions.</p>
+        <h3>How big can the error be if a new split is applied one period late?</h3>
+        <p>In our published synthetic fixture (a fictional 12-artist label, one artist's share moving from 50 percent to 60 percent effective mid-August), applying the new split one month late misdirected $414.11 in just the 17 days between the effective date and month end, on four tracks. The figure scales with the size of the change and the revenue in the gap.</p>
+        <h3>How do you keep split changes straight across a catalog?</h3>
+        <p>Store the split as a versioned rule with an effective date instead of overwriting the old number. Then every event is computed under the rule in force on its own date, the ledger records which rule version produced each line, and a later renegotiation never rewrites history that was already settled.</p>
+      </div>
+      <p class="rr-note">Related guides: <a href="royalty-recoupment-calculation.html">royalty recoupment calculation</a>, <a href="royalty-reconciliation-spreadsheet-risks.html">revenue-share reconciliation in a spreadsheet</a>, <a href="contractual-waterfall-calculation.html">contractual waterfall calculation</a>, <a href="creator-commission-split-calculation.html">creator commission splits</a>.</p>
+    </section>
+
+  </div>
+</main>
+</body>
+</html>
