@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creator Commission Splits: Brand Fees, Agency Cuts, Manager Shares, and Usage Windows | Payload</title>
+<meta name="description" content="How a brand fee becomes creator pay: agency commission, co-management shares, manager percentages, production cost recoupment, and paid usage windows. A worked synthetic example and the case for a ledger both sides can check.">
+<link rel="canonical" href="https://payloadhq.github.io/creator-commission-split-calculation.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Creator Commission Splits, Computed Openly">
+<meta property="og:description" content="The brand paid one number. The creator received another. The distance between them is a chain of splits that should be computable by both sides.">
+<meta property="og:url" content="https://payloadhq.github.io/creator-commission-split-calculation.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<style>
+.rr-hero{text-align:center;padding:56px 0 40px}
+.rr-hero h1{font-size:clamp(28px,4.6vw,44px);line-height:1.18;margin:0 0 16px;letter-spacing:-0.5px}
+.rr-hero h1 .accent{color:#1d4ed8}
+.rr-sub{font-size:clamp(16px,2.4vw,19px);color:#334155;max-width:700px;margin:0 auto 24px}
+.rr-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;background:#1d4ed8;color:#fff;font-weight:600;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:16px}
+.btn:hover{background:#1e40af;color:#fff}
+.btn-ghost{background:#fff;color:#1d4ed8;border:2px solid #1d4ed8}
+.btn-ghost:hover{background:#eff6ff;color:#1d4ed8}
+.rr-section{padding:44px 0;border-top:1px solid #e5e7eb}
+.rr-section h2{font-size:clamp(23px,3.4vw,30px);margin:0 0 8px;letter-spacing:-0.3px}
+.rr-kicker{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1d4ed8;margin:0 0 12px}
+.rr-body{color:#334155;font-size:16px;max-width:720px;margin:0 0 16px;line-height:1.65}
+.rr-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.rr-card{border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff}
+.rr-card h3{margin:0 0 8px;font-size:17px}
+.rr-card p{margin:0;color:#475569;font-size:15px}
+.rr-table{width:100%;max-width:760px;margin:20px auto;border-collapse:collapse;font-size:14px;text-align:left}
+.rr-table th{padding:10px;border-bottom:2px solid #1d4ed8}
+.rr-table td{padding:10px;border-bottom:1px solid #e2e8f0}
+.rr-demo{border:1px solid #bfdbfe;background:#eff6ff;border-radius:12px;padding:22px;max-width:820px;margin:24px auto}
+.rr-demo h3{margin:0 0 6px}
+.rr-demo p{color:#334155;font-size:15px;line-height:1.6}
+.rr-note{font-size:13px;color:#64748b;max-width:760px;margin:16px auto 0}
+.rr-faq{max-width:760px;margin:0 auto}
+.rr-faq h3{font-size:17px;margin:22px 0 6px}
+.rr-faq p{color:#475569;font-size:15px;line-height:1.6;margin:0}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Creator Commission Splits: Brand Fees, Agency Cuts, Manager Shares, and Usage Windows","description":"How a brand fee becomes creator pay, and why a shared verifiable ledger ends most split disputes before they start.","author":{"@type":"Organization","name":"Payload"},"publisher":{"@type":"Organization","name":"Payload"},"mainEntityOfPage":"https://payloadhq.github.io/creator-commission-split-calculation.html"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How is a creator commission split usually calculated?","acceptedAnswer":{"@type":"Answer","text":"Start from the gross brand fee. The agency takes its commission percentage first. What remains is the talent share, from which a manager's percentage (often defined as a share of the talent share, not of the gross), co-management splits, and any recoupable production costs are taken. Each percentage needs a defined base, or the same contract produces different numbers in different hands."}},
+{"@type":"Question","name":"What is a usage window in a creator deal?","acceptedAnswer":{"@type":"Answer","text":"A usage window is a time-boxed right for the brand to keep using the creator's content in paid media, for example 90 days. It is an entitlement with a start and an end date, priced separately from the base fee in many deals. When it is tracked in email threads instead of the accounting, brands keep running content after expiry and creators cannot prove when the window closed."}},
+{"@type":"Question","name":"Why do creator payment disputes get so public?","acceptedAnswer":{"@type":"Answer","text":"Because usually only one side can produce numbers. The agency holds the contract, the brand confirmation, and the computation; the creator holds a screenshot of what arrived. A shared ledger, where the creator can check a campaign's split against the full record rather than a sample the agency chose to show, removes the asymmetry that turns a question into a public dispute."}}
+]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+
+    <section class="rr-hero">
+      <p class="rr-kicker">RevRule by Payload, problem guide</p>
+      <h1>The brand paid one number. <span class="accent">The creator received another.</span></h1>
+      <p class="rr-sub">Between the brand fee and the creator's payout sits a chain of splits: agency commission, a manager's share, sometimes two managements, recoupable production costs, and a usage window with an expiry date. Every link should be computable by both sides. Usually only one side can compute it.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="revrule-sandbox.html">Try the free sandbox</a>
+        <a class="btn btn-ghost" href="revrule.html">RevRule overview and pricing</a>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">The chain</p>
+      <h2>Four splits and a clock</h2>
+      <div class="rr-cards">
+        <div class="rr-card"><h3>Agency commission</h3><p>A percentage of the gross brand fee, commonly around 20 percent. Simple, until a campaign spans several creators at different rates and the commission is computed per campaign in one sheet and per creator in another.</p></div>
+        <div class="rr-card"><h3>Manager share</h3><p>Often defined as a percentage of the talent share, not of the gross. That one phrase, "of the talent share," is worth real money and is the first thing lost when the deal lives in chat messages.</p></div>
+        <div class="rr-card"><h3>Co-management splits</h3><p>Exclusive talent is increasingly co-managed by two agencies or an agency and a network. The fee has to divide between the managements before it reaches the creator, under terms neither side can later re-derive.</p></div>
+        <div class="rr-card"><h3>Usage windows</h3><p>Paid usage is a dated entitlement: the brand may run the content for a set window, then the right expires. Tracked in email, windows quietly overrun. Computed as a dated rule, the expiry is a fact both sides can see.</p></div>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Worked example</p>
+      <h2>One campaign fee, followed to the creators</h2>
+      <div class="rr-demo">
+        <h3>Synthetic worked example, fictional figures</h3>
+        <p>This is the fixture design from our published agency experiment: one fictional campaign with a brand fee of 1,000,000 pesos. The agency commission is 20 percent of gross: 200,000. The talent share is the remaining 800,000. The manager takes 10 percent of the talent share: 80,000. The two talents divide the remaining 720,000 at their individual contracted rates, less a production-cost recoupment configured against the campaign. The deal also carries a 90-day paid usage window, recorded as a dated entitlement that expires on a specific date rather than when someone remembers it. Every figure above can be checked by hand from the stated rules, which is the standard the full ledger is held to. Fictional figures; not a customer result.</p>
+      </div>
+      <table class="rr-table">
+        <tr><th>Step</th><th>Base</th><th>Amount</th></tr>
+        <tr><td>Brand fee (gross)</td><td>Campaign</td><td>1,000,000</td></tr>
+        <tr><td>Agency commission, 20%</td><td>Gross</td><td>200,000</td></tr>
+        <tr><td>Talent share</td><td>Remainder</td><td>800,000</td></tr>
+        <tr><td>Manager, 10% of talent share</td><td>Talent share</td><td>80,000</td></tr>
+        <tr><td>Two talents at contracted rates</td><td>Remainder</td><td>720,000</td></tr>
+      </table>
+      <p class="rr-body">The dispute pattern in this industry is rarely theft. It is two parties computing the same contract on different bases, plus a sample of the ledger shown to settle an argument, chosen by the side that holds the ledger. A sample proves nothing about the entries that were left out. A full, hash-chained record does: any party's figure can be checked against the whole ledger, so cherry-picking stops working.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">How RevRule handles it</p>
+      <h2>One rule set per campaign, checkable by every party</h2>
+      <p class="rr-body">RevRule models a campaign as a Revenue Graph: the brand fee as an event, the agency commission, manager share, co-management split, and recoupment as ordered rules with defined bases, and the usage window as a dated entitlement. Each computation lands in a hash-chained ledger, queryable by event, participant, or entry type and returnable in full as JSON. The agency keeps its existing payment process; RevRule supplies the shared arithmetic and the evidence.</p>
+      <p class="rr-body">For an agency, that is a sales asset as much as an accounting one: "our splits are computed by rules you can verify" is a claim competitors running spreadsheets cannot match. RevRule does not hold funds, execute payments, or take a percentage of campaign money. It is licensed software: $99 one-time, or a managed plan, regardless of the volume it computes.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="https://payload-rail.fly.dev/revrule-console/">Get a free API key</a>
+        <a class="btn btn-ghost" href="revrule.html">RevRule overview</a>
+        <a class="btn" href="revrule.html">Buy for $99 or start a managed plan</a>
+      </div>
+      <p class="rr-note">Pricing: $99 one-time perpetual license (uncapped operations, unlimited Revenue Graphs, 1 API key), or managed plans at $29, $79, and $199 per month with higher operation, graph, and key allowances. Evaluation accounts are limited to 1,000 operations per month and 3 Revenue Graphs. Seven-day refunds. Support by email, best effort.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Questions</p>
+      <h2>Commission splits, answered plainly</h2>
+      <div class="rr-faq">
+        <h3>How is a creator commission split usually calculated?</h3>
+        <p>Start from the gross brand fee. The agency takes its commission percentage first. What remains is the talent share, from which a manager's percentage (often defined as a share of the talent share, not of the gross), co-management splits, and any recoupable production costs are taken. Each percentage needs a defined base, or the same contract produces different numbers in different hands.</p>
+        <h3>What is a usage window in a creator deal?</h3>
+        <p>A usage window is a time-boxed right for the brand to keep using the creator's content in paid media, for example 90 days. It is an entitlement with a start and an end date, priced separately from the base fee in many deals. When it is tracked in email threads instead of the accounting, brands keep running content after expiry and creators cannot prove when the window closed.</p>
+        <h3>Why do creator payment disputes get so public?</h3>
+        <p>Because usually only one side can produce numbers. The agency holds the contract, the brand confirmation, and the computation; the creator holds a screenshot of what arrived. A shared ledger, where the creator can check a campaign's split against the full record rather than a sample the agency chose to show, removes the asymmetry that turns a question into a public dispute.</p>
+      </div>
+      <p class="rr-note">Related guides: <a href="royalty-reconciliation-spreadsheet-risks.html">revenue-share reconciliation in a spreadsheet</a>, <a href="contractual-waterfall-calculation.html">contractual waterfall calculation</a>, <a href="royalty-recoupment-calculation.html">royalty recoupment calculation</a>, <a href="renegotiated-royalty-split.html">a renegotiated split applied late</a>.</p>
+    </section>
+
+  </div>
+</main>
+</body>
+</html>
