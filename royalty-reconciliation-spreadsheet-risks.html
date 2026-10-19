@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revenue-Share Reconciliation in a Spreadsheet: Where the Errors Hide | Payload</title>
+<meta name="description" content="Royalty and revenue-share reconciliation in spreadsheets fails in predictable places: overwritten split rates, side-tab recoupment balances, wrong-column formulas, and no audit trail. What to check, and when to move the calculation into a rules engine.">
+<link rel="canonical" href="https://payloadhq.github.io/royalty-reconciliation-spreadsheet-risks.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Revenue-Share Reconciliation in a Spreadsheet: Where the Errors Hide">
+<meta property="og:description" content="The spreadsheet is not the villain. Unversioned rules, manual balances, and a missing audit trail are. A field guide to the failure modes.">
+<meta property="og:url" content="https://payloadhq.github.io/royalty-reconciliation-spreadsheet-risks.html">
+<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css">
+<style>
+.rr-hero{text-align:center;padding:56px 0 40px}
+.rr-hero h1{font-size:clamp(28px,4.6vw,44px);line-height:1.18;margin:0 0 16px;letter-spacing:-0.5px}
+.rr-hero h1 .accent{color:#1d4ed8}
+.rr-sub{font-size:clamp(16px,2.4vw,19px);color:#334155;max-width:700px;margin:0 auto 24px}
+.rr-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;background:#1d4ed8;color:#fff;font-weight:600;padding:12px 28px;border-radius:8px;text-decoration:none;font-size:16px}
+.btn:hover{background:#1e40af;color:#fff}
+.btn-ghost{background:#fff;color:#1d4ed8;border:2px solid #1d4ed8}
+.btn-ghost:hover{background:#eff6ff;color:#1d4ed8}
+.rr-section{padding:44px 0;border-top:1px solid #e5e7eb}
+.rr-section h2{font-size:clamp(23px,3.4vw,30px);margin:0 0 8px;letter-spacing:-0.3px}
+.rr-kicker{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1d4ed8;margin:0 0 12px}
+.rr-body{color:#334155;font-size:16px;max-width:720px;margin:0 0 16px;line-height:1.65}
+.rr-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.rr-card{border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#fff}
+.rr-card h3{margin:0 0 8px;font-size:17px}
+.rr-card p{margin:0;color:#475569;font-size:15px}
+.rr-demo{border:1px solid #bfdbfe;background:#eff6ff;border-radius:12px;padding:22px;max-width:820px;margin:24px auto}
+.rr-demo h3{margin:0 0 6px}
+.rr-demo p{color:#334155;font-size:15px;line-height:1.6}
+.rr-note{font-size:13px;color:#64748b;max-width:760px;margin:16px auto 0}
+.rr-faq{max-width:760px;margin:0 auto}
+.rr-faq h3{font-size:17px;margin:22px 0 6px}
+.rr-faq p{color:#475569;font-size:15px;line-height:1.6;margin:0}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Revenue-Share Reconciliation in a Spreadsheet: Where the Errors Hide","description":"The predictable failure modes of spreadsheet royalty reconciliation and the checks that catch them.","author":{"@type":"Organization","name":"Payload"},"publisher":{"@type":"Organization","name":"Payload"},"mainEntityOfPage":"https://payloadhq.github.io/royalty-reconciliation-spreadsheet-risks.html"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What are the most common spreadsheet royalty errors?","acceptedAnswer":{"@type":"Answer","text":"The recurring ones: a renegotiated split applied from the wrong date because the old rate was overwritten; a recoupment balance in a side tab that was not updated; a formula copied across a row that points at the wrong participant's column; a territory or format included at the wrong rate; and rounding handled inconsistently between the summary and the detail. None of them announce themselves, because the totals still add up."}},
+{"@type":"Question","name":"Why do spreadsheet royalty errors survive checking?","acceptedAnswer":{"@type":"Answer","text":"Because reconciliation usually checks that the outputs sum to the input, and split errors conserve the total. The money all goes somewhere; it just goes to the wrong participant. Catching that requires recomputing individual lines from the deal terms, which is exactly the step manual processes skip under time pressure."}},
+{"@type":"Question","name":"When should royalty accounting move out of a spreadsheet?","acceptedAnswer":{"@type":"Answer","text":"When any of these become normal: multiple participants per item with different splits, mid-period deal changes, recoupment balances across periods, more than one revenue source feeding the same participants, or a participant asking how a specific line was computed. Those are rule and state problems, and they are what a rules engine is for."}}
+]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Payload home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
+      Payload
+    </a>
+    <nav class="site" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="utilities/robots-txt-checker.html">Free utilities</a>
+      <a href="docs.html">Docs &amp; GitHub</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+
+    <section class="rr-hero">
+      <p class="rr-kicker">RevRule by Payload, problem guide</p>
+      <h1>The totals add up. <span class="accent">The money still went to the wrong people.</span></h1>
+      <p class="rr-sub">Spreadsheet reconciliation checks that outputs sum to inputs. Split errors pass that check perfectly, because the money all goes somewhere. Here are the failure modes that actually cost labels, publishers, distributors, and agencies money and trust.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="revrule-sandbox.html">Try the free sandbox</a>
+        <a class="btn btn-ghost" href="revrule.html">RevRule overview and pricing</a>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">The failure modes</p>
+      <h2>Five places spreadsheet reconciliation breaks</h2>
+      <div class="rr-cards">
+        <div class="rr-card"><h3>Overwritten rates</h3><p>A renegotiated split replaces the old number in the cell. History is gone, and everything already computed under the old rate is now unverifiable. <a href="renegotiated-royalty-split.html">The $414.11 version of this error</a>.</p></div>
+        <div class="rr-card"><h3>Side-tab balances</h3><p>Recoupment lives in a separate tab updated from memory. One busy month and the balance, the clearing point, and the post-recoupment rate all drift. <a href="royalty-recoupment-calculation.html">How recoupment should compute</a>.</p></div>
+        <div class="rr-card"><h3>Wrong-column formulas</h3><p>A formula copied across a row points at a neighboring participant's rate. The row total is still right. Three artists are underpaid and two are overpaid until someone recomputes a line by hand.</p></div>
+        <div class="rr-card"><h3>Source mixing</h3><p>Distributor, direct, licensing, and sync income land in different sheets with different rates and cadences. Consolidation day is copy-and-paste day, and each paste is a chance to apply the wrong deal to the wrong revenue.</p></div>
+        <div class="rr-card"><h3>No audit trail</h3><p>The output is a number per participant with no record of the events, rules, or intermediate steps behind it. The first detailed question from a participant turns into a reconstruction project.</p></div>
+        <div class="rr-card"><h3>One-person dependency</h3><p>The sheet encodes one person's memory of every deal. When that person is away, the quarter waits. When they leave, the knowledge leaves with them.</p></div>
+      </div>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">The check that catches it</p>
+      <h2>Recompute lines, not totals</h2>
+      <div class="rr-demo">
+        <h3>Synthetic demonstration, fictional figures</h3>
+        <p>In a published synthetic fixture run on the RevRule engine, a fictional label quarter (40 tracks, 5,000 statement lines, $219,518.20 synthetic gross) produced 21,000 entitlement entries in a hash-chained ledger. A random sample of 25 entries was recomputed independently: 25 of 25 matched the recorded amount, and every sampled entry carried its event id, rule id, participant id, and a written reason. A separate re-implementation of the rule math reproduced every participant total on every graph with a maximum difference of zero. That is the standard a reconciliation should be held to: any line, recomputed from the deal terms, matches. Synthetic data; not a customer result.</p>
+      </div>
+      <p class="rr-body">You can apply the same test to a spreadsheet today: pick ten paid lines at random and recompute them from the signed deal terms, by hand, without looking at the sheet's formulas. If all ten match, your process is healthier than most. If any line cannot be recomputed because the rate history or the balance history is missing, the process has the audit-trail failure, even if the numbers happen to be right this quarter.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">How RevRule handles it</p>
+      <h2>Rules and state, kept by the engine</h2>
+      <p class="rr-body">RevRule replaces the spreadsheet's memory with defined rules. Each deal is a Revenue Graph: participants, splits, recoupment terms, and effective-dated rule versions. Revenue events are recorded as money arrives, each event is computed under the rules in force on its date, balances are engine state rather than side tabs, and every computation lands in a hash-chained ledger that can be queried by event, participant, or entry type and returned in full as JSON for your own systems.</p>
+      <p class="rr-body">Simulation previews a run with zero side effects before it counts. RevRule does not hold funds, execute payments, or collect royalties. It establishes what is owed under your rules and keeps the evidence, alongside whatever payment process you already use.</p>
+      <div class="rr-ctas">
+        <a class="btn" href="https://payload-rail.fly.dev/revrule-console/">Get a free API key</a>
+        <a class="btn btn-ghost" href="revrule-integration.html">Integration reference</a>
+        <a class="btn" href="revrule.html">Buy for $99 or start a managed plan</a>
+      </div>
+      <p class="rr-note">Pricing: $99 one-time perpetual license (uncapped operations, unlimited Revenue Graphs, 1 API key), or managed plans at $29, $79, and $199 per month with higher operation, graph, and key allowances. Evaluation accounts are limited to 1,000 operations per month and 3 Revenue Graphs. Seven-day refunds. Support by email, best effort.</p>
+    </section>
+
+    <section class="rr-section">
+      <p class="rr-kicker">Questions</p>
+      <h2>Reconciliation, answered plainly</h2>
+      <div class="rr-faq">
+        <h3>What are the most common spreadsheet royalty errors?</h3>
+        <p>The recurring ones: a renegotiated split applied from the wrong date because the old rate was overwritten; a recoupment balance in a side tab that was not updated; a formula copied across a row that points at the wrong participant's column; a territory or format included at the wrong rate; and rounding handled inconsistently between the summary and the detail. None of them announce themselves, because the totals still add up.</p>
+        <h3>Why do spreadsheet royalty errors survive checking?</h3>
+        <p>Because reconciliation usually checks that the outputs sum to the input, and split errors conserve the total. The money all goes somewhere; it just goes to the wrong participant. Catching that requires recomputing individual lines from the deal terms, which is exactly the step manual processes skip under time pressure.</p>
+        <h3>When should royalty accounting move out of a spreadsheet?</h3>
+        <p>When any of these become normal: multiple participants per item with different splits, mid-period deal changes, recoupment balances across periods, more than one revenue source feeding the same participants, or a participant asking how a specific line was computed. Those are rule and state problems, and they are what a rules engine is for.</p>
+      </div>
+      <p class="rr-note">Related guides: <a href="royalty-recoupment-calculation.html">royalty recoupment calculation</a>, <a href="renegotiated-royalty-split.html">a renegotiated split applied late</a>, <a href="contractual-waterfall-calculation.html">contractual waterfall calculation</a>, <a href="creator-commission-split-calculation.html">creator commission splits</a>.</p>
+    </section>
+
+  </div>
+</main>
+</body>
+</html>
