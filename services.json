@@ -158,12 +158,12 @@
       "name": "RevRule entitlement and payout verification",
       "payment_methods": [
         "USDC on Base via x402 (public evaluate)",
-        "Whop or Gumroad checkout (license)", "Stripe checkout (managed plans)"
+        "Stripe checkout (license)", "Stripe checkout (managed plans)"
       ],
       "price": {
         "amount_usd": 0.01,
         "currency": "USDC",
-        "note": "Own-graph evaluation is free with a self-serve console key. The RevRule license is $99 one time via Whop or Gumroad. Managed monthly plans (Starter $29/month, Professional $79/month, Business $199/month) are available via Stripe checkout on the product page at https://payloadhq.github.io/revrule.html",
+        "note": "Own-graph evaluation is free with a self-serve console key. The RevRule license is $99 one time via Stripe. Managed monthly plans (Starter $29/month, Professional $79/month, Business $199/month) are available via Stripe checkout on the product page at https://payloadhq.github.io/revrule.html",
         "unit": "public evaluate call on the demo graph"
       },
       "problems_solved": [
@@ -176,7 +176,7 @@
       "free_entry": {
         "experience": "Browser sandbox running the real engine (labeled simulated; nothing moves money), plus a free self-serve console key for a caller's own graphs. Event simulation is a dry run that writes nothing.",
         "proves": "Entitlements computed from the caller's own rules, ready to check real payouts against.",
-        "paid_next_step": "RevRule license for production graphs and persistent production state, via Whop or Gumroad.",
+        "paid_next_step": "RevRule license for production graphs and persistent production state, via Stripe.",
         "paid_price": "$99 one time; the keyless public evaluate on the fixed demo graph is $0.01 USDC"
       }
     },
