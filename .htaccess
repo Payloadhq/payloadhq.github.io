@@ -1,0 +1,17 @@
+# Payload production rules (payloadhq.dev, cPanel hosting)
+# Force HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# www to apex
+RewriteCond %{HTTP_HOST} ^www\.payloadhq\.dev$ [NC]
+RewriteRule ^(.*)$ https://payloadhq.dev/$1 [L,R=301]
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+ErrorDocument 404 /404.html
