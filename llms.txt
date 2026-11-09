@@ -109,3 +109,15 @@ A public board of payment, fulfillment, reconciliation, and automation mysteries
 - Your MCP Server Works Locally. Why Can't Other Agents Use It? https://payloadhq.github.io/stories/mcp-server-invisible.html
 - A 402 Response Is Not Always a Payment Challenge: https://payloadhq.github.io/stories/when-402-is-not-a-challenge.html
 - Paid in Full. Nothing Arrived. https://payloadhq.github.io/stories/dead-letter.html
+
+## Software catalog
+
+- Catalog: https://payloadhq.github.io/software.html
+- Veyline Developer Primer: https://payloadhq.github.io/products/x402-paid-api-starter-kit.html
+- MCP Monetization Engine: https://payloadhq.github.io/products/mcp-monetization-kit.html
+- x402 + MCP Bundle: https://payloadhq.github.io/products/x402-mcp-bundle.html
+- MCP Launch Readiness Audit: https://payloadhq.github.io/products/mcp-launch-readiness-audit.html
+- AI Search Readiness Audit: https://payloadhq.github.io/products/ai-search-readiness-audit.html
+- CRM Dedup System: https://payloadhq.github.io/products/crm-dedup-system.html
+- n8n Reliability Guard: https://payloadhq.github.io/products/n8n-agent-reliability-kit.html
+- StableLedger: https://payloadhq.github.io/products/stableledger.html

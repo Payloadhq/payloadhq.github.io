@@ -1,201 +1,306 @@
 {
-  "brand": "Payload",
-  "license_note": "One purchase covers one user. 7-day refund available if the product is materially not as described or cannot be made functional after reasonable support. Change-of-mind refunds are not available after download or access.",
-  "license_type": "one-time purchase, single-seat perpetual",
-  "products": [
+ "brand": "Payload",
+ "license_note": "One purchase covers one user. 7-day refund available if the product is materially not as described or cannot be made functional after reasonable support. Change-of-mind refunds are not available after download or access.",
+ "license_type": "one-time purchase, single-seat perpetual",
+ "products": [
+  {
+   "name": "Veyline by Payload",
+   "category": "Protected economic-control infrastructure",
+   "purpose": "Veyline is the flagship protected economic-control and autonomous-commerce infrastructure: the production layer for x402 + MCP. It wraps every economic operation in verification \u2014 intent checked, payment verified on-chain, settlement classified with certainty, execution exactly once, failures recovered safely, outcome proven and recorded as tamper-evident evidence. callx402 by Payload \u2014 powered by Veyline is the outward-facing action/response layer.",
+   "url": "https://payloadhq.github.io/veyline.html",
+   "api_base_url": "https://payload-rail.fly.dev",
+   "try_url": "https://payloadhq.github.io/veyline.html#pricing",
+   "sandbox_url": "",
+   "open_source": "",
+   "price_usd": 99,
+   "license_type": "metered monthly subscription; free sandbox tier (1,000 ops/mo); Developer $99, Production $499, Growth $1,499, Enterprise $5,000+ custom",
+   "platforms": [
+    "Hosted API",
+    "callx402 CLI"
+   ],
+   "inputs": "Economic operations via REST API or callx402",
+   "version": "1.0.0",
+   "slug": "veyline",
+   "catalog_category": "agent-payments",
+   "availability": "Available"
+  },
+  {
+   "name": "RevRule",
+   "category": "Programmable economic infrastructure",
+   "purpose": "RevRule is a programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money. Create persistent rules for royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees, and API/x402 revenue. Your payment rail moves the money. RevRule determines the economics.",
+   "url": "https://payloadhq.github.io/products.html#revrule",
+   "api_base_url": "https://payload-rail.fly.dev",
+   "try_url": "https://payloadhq.github.io/flow-try.html",
+   "sandbox_url": "https://payloadhq.github.io/revrule-sandbox.html",
+   "open_source": "https://github.com/Payloadhq/payload-flow",
+   "price_usd": 99,
+   "license_type": "one-time purchase for production; free sandbox for evaluation; managed monthly plans also available on the product page",
+   "platforms": [
+    "Hosted API",
+    "Node.js",
+    "Browser"
+   ],
+   "inputs": "Economic events via REST API",
+   "version": "1.0.0",
+   "slug": "revrule",
+   "catalog_category": "revenue-rules",
+   "availability": "Available"
+  },
+  {
+   "name": "RevRule Managed Plans",
+   "category": "Programmable economic infrastructure",
+   "purpose": "Managed hosted RevRule plans, billed monthly. Starter, Professional, and Business tiers with monthly operations allowances, Revenue Graph and API key allowances, and email support. The $99 one-time perpetual license remains available and is never reduced by choosing or cancelling a managed plan.",
+   "url": "https://payloadhq.github.io/revrule.html",
+   "api_base_url": "https://payload-rail.fly.dev",
+   "type": "subscription",
+   "plans": [
     {
-      "name": "Veyline by Payload",
-      "category": "Protected economic-control infrastructure",
-      "purpose": "Veyline is the flagship protected economic-control and autonomous-commerce infrastructure: the production layer for x402 + MCP. It wraps every economic operation in verification \u2014 intent checked, payment verified on-chain, settlement classified with certainty, execution exactly once, failures recovered safely, outcome proven and recorded as tamper-evident evidence. callx402 by Payload \u2014 powered by Veyline is the outward-facing action/response layer.",
-      "url": "https://payloadhq.github.io/veyline.html",
-      "api_base_url": "https://payload-rail.fly.dev",
-      "try_url": "https://payloadhq.github.io/veyline.html#pricing",
-      "sandbox_url": "",
-      "open_source": "",
-      "price_usd": 99,
-      "license_type": "metered monthly subscription; free sandbox tier (1,000 ops/mo); Developer $99, Production $499, Growth $1,499, Enterprise $5,000+ custom",
-      "platforms": [
-        "Hosted API",
-        "callx402 CLI"
-      ],
-      "inputs": "Economic operations via REST API or callx402",
-      "version": "1.0.0"
+     "name": "Starter",
+     "price_usd_per_month": 29,
+     "ops_per_month": 10000,
+     "graphs": 10,
+     "api_keys": 1
     },
     {
-      "name": "RevRule",
-      "category": "Programmable economic infrastructure",
-      "purpose": "RevRule is a programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money. Create persistent rules for royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees, and API/x402 revenue. Your payment rail moves the money. RevRule determines the economics.",
-      "url": "https://payloadhq.github.io/products.html#revrule",
-      "api_base_url": "https://payload-rail.fly.dev",
-      "try_url": "https://payloadhq.github.io/flow-try.html",
-      "sandbox_url": "https://payloadhq.github.io/revrule-sandbox.html",
-      "open_source": "https://github.com/Payloadhq/payload-flow",
-      "price_usd": 99,
-      "license_type": "one-time purchase for production; free sandbox for evaluation; managed monthly plans also available on the product page",
-      "platforms": [
-        "Hosted API",
-        "Node.js",
-        "Browser"
-      ],
-      "inputs": "Economic events via REST API",
-      "version": "1.0.0"
+     "name": "Professional",
+     "price_usd_per_month": 79,
+     "ops_per_month": 100000,
+     "graphs": 50,
+     "api_keys": 3
     },
     {
-      "name": "RevRule Managed Plans",
-      "category": "Programmable economic infrastructure",
-      "purpose": "Managed hosted RevRule plans, billed monthly. Starter, Professional, and Business tiers with monthly operations allowances, Revenue Graph and API key allowances, and email support. The $99 one-time perpetual license remains available and is never reduced by choosing or cancelling a managed plan.",
-      "url": "https://payloadhq.github.io/revrule.html",
-      "api_base_url": "https://payload-rail.fly.dev",
-      "type": "subscription",
-      "plans": [
-        {"name": "Starter", "price_usd_per_month": 29, "ops_per_month": 10000, "graphs": 10, "api_keys": 1},
-        {"name": "Professional", "price_usd_per_month": 79, "ops_per_month": 100000, "graphs": 50, "api_keys": 3},
-        {"name": "Business", "price_usd_per_month": 199, "ops_per_month": 1000000, "graphs": "unlimited", "api_keys": 10}
-      ],
-      "version": "1.0.0"
-    },
-    {
-      "category": "API monetization",
-      "checkout_url": "https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit",
-      "documentation_url": "https://payloadhq.github.io/docs.html",
-      "inputs": "HTTP API routes in an Express application",
-      "name": "Veyline Developer Primer",
-      "platforms": [
-        "Node.js 18+"
-      ],
-      "price_usd": 79,
-      "purpose": "Express middleware that charges AI agents per API call in USDC using the x402 payment flow: HTTP 402 challenges, payment verification, and an append-only usage ledger. Non-custodial.",
-      "url": "https://payloadhq.github.io/products.html#x402",
-      "version": "1.0.1",
-      "license_type": "one-time purchase, single-seat perpetual"
-    },
-    {
-      "category": "MCP monetization",
-      "checkout_url": "https://payloadtools.gumroad.com/l/mcp-monetization-kit",
-      "documentation_url": "https://payloadhq.github.io/docs.html",
-      "inputs": "MCP tool calls via the official @modelcontextprotocol/sdk Server",
-      "name": "MCP Monetization Engine",
-      "platforms": [
-        "Node.js 18+"
-      ],
-      "price_usd": 69,
-      "purpose": "Per-tool-call payments for MCP servers: paid tool registry, free quotas, machine-readable payment requirements, usage ledger, and an adapter for the official MCP SDK.",
-      "url": "https://payloadhq.github.io/products.html#mcp-monetization",
-      "version": "1.0.1",
-      "license_type": "one-time purchase, single-seat perpetual",
-      "keywords": [
-        "mcp monetization kit",
-        "mcp kit",
-        "charge per tool call",
-        "mcp payments"
-      ]
-    },
-    {
-      "category": "Recordkeeping",
-      "checkout_url": "https://payloadtools.gumroad.com/l/stableledger-tax-csv",
-      "documentation_url": "https://payloadhq.github.io/docs.html",
-      "inputs": "Exchange CSV exports (tested against Kraken-format files)",
-      "name": "StableLedger",
-      "platforms": [
-        "Python 3"
-      ],
-      "price_usd": 49,
-      "purpose": "Offline, zero-dependency Python CLI that organizes stablecoin transaction CSV exports into clean realized profit/loss records with fees. Data-organization software; not tax advice.",
-      "url": "https://payloadhq.github.io/products.html#stableledger",
-      "version": "1.0.0",
-      "license_type": "one-time purchase, single-seat perpetual"
-    },
-    {
-      "category": "API monetization",
-      "checkout_url": "https://payloadtools.gumroad.com/l/x402-mcp-bundle",
-      "documentation_url": "https://payloadhq.github.io/docs.html",
-      "inputs": "HTTP API routes (Express) and MCP tool calls (official MCP SDK)",
-      "name": "x402 + MCP Bundle",
-      "platforms": [
-        "Node.js 18+"
-      ],
-      "price_usd": 119,
-      "purpose": "The Veyline Developer Primer and the MCP Monetization Engine together at a bundle price: charge per API call and per MCP tool call from one purchase.",
-      "url": "https://payloadhq.github.io/products.html#bundle",
-      "version": "1.0.0",
-      "license_type": "one-time purchase, single-seat perpetual"
-    },
-    {
-      "category": "AI search readiness",
-      "checkout_url": "https://payloadtools.gumroad.com/l/ai-search-readiness-audit",
-      "documentation_url": "https://payloadhq.github.io/docs.html",
-      "inputs": "Any web page viewed in Chrome",
-      "name": "AI Search Readiness Audit",
-      "platforms": [
-        "Chrome (Manifest V3)"
-      ],
-      "price_usd": 59,
-      "purpose": "Chrome extension (Manifest V3) that audits the page you are viewing for AI-search readiness: raw-HTML coverage, AI Overviews eligibility, AI-crawler robots.txt matrix, and dead schema detection. 100% client-side.",
-      "url": "https://payloadhq.github.io/products.html#ai-search",
-      "version": "1.0.1",
-      "license_type": "one-time purchase, single-seat perpetual"
-    },
-    {
-      "category": "Data cleanup",
-      "checkout_url": "https://payloadtools.gumroad.com/l/crm-dedup-migration-kit",
-      "documentation_url": "https://payloadhq.github.io/docs.html",
-      "inputs": "CRM CSV exports",
-      "name": "CRM Dedup System",
-      "platforms": [
-        "Linux (single-file binary)",
-        "local web UI",
-        "CLI"
-      ],
-      "price_usd": 149,
-      "purpose": "Fully offline deduplication and normalization for CRM exports before migration: fuzzy matching with confidence tiers, union-find clustering, dry-run merge plans, import-ready CSV export, and machine-readable change logs.",
-      "url": "https://payloadhq.github.io/products.html#crm",
-      "version": "1.0.1",
-      "license_type": "one-time purchase, single-seat perpetual",
-      "keywords": [
-        "crm dedup kit",
-        "crm cleanup kit",
-        "dedup migration kit",
-        "crm dedup & migration cleanup kit"
-      ]
-    },
-    {
-      "category": "AI agent reliability",
-      "checkout_url": "https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit",
-      "documentation_url": "https://payloadhq.github.io/docs.html",
-      "inputs": "n8n workflows; the eval harness tests a JavaScript model of your agent written from the documented shape",
-      "name": "n8n Reliability Guard",
-      "platforms": [
-        "n8n",
-        "Node.js 18+ (eval harness)"
-      ],
-      "price_usd": 99,
-      "purpose": "Production-readiness system for n8n AI agents: 10 importable workflow templates covering documented agent failure classes, a Node.js failure-simulation eval harness with readiness scoring, and a 37-page production playbook.",
-      "url": "https://payloadhq.github.io/products.html#n8n",
-      "version": "1.0.1",
-      "license_type": "one-time purchase, single-seat perpetual",
-      "keywords": [
-        "n8n reliability kit",
-        "n8n production ai agent reliability kit",
-        "n8n agent kit",
-        "ai agent reliability kit"
-      ]
-    },
-    {
-      "category": "MCP security",
-      "checkout_url": "https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit",
-      "documentation_url": "https://payloadhq.github.io/docs.html",
-      "inputs": "MCP server source code and configuration",
-      "name": "MCP Launch Readiness Audit",
-      "platforms": [
-        "Python 3"
-      ],
-      "price_usd": 79,
-      "purpose": "Launch-readiness audit system for MCP servers: a zero-dependency CLI scanner with 48 detection rules (tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, missing auth/hardening), a concrete remediation for every finding, hardened templates, a stress-test harness, a CI workflow, and a branded audit report. An audit, not a certification.",
-      "url": "https://payloadhq.github.io/products.html#mcp-audit",
-      "version": "1.0.2",
-      "license_type": "one-time purchase, single-seat perpetual"
+     "name": "Business",
+     "price_usd_per_month": 199,
+     "ops_per_month": 1000000,
+     "graphs": "unlimited",
+     "api_keys": 10
     }
-  ],
-  "site": "https://payloadhq.github.io/",
-  "updated": "2026-10-04"
+   ],
+   "version": "1.0.0"
+  },
+  {
+   "category": "API monetization",
+   "checkout_url": "https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit",
+   "documentation_url": "https://payloadhq.github.io/docs.html",
+   "inputs": "HTTP API routes in an Express application",
+   "name": "Veyline Developer Primer",
+   "platforms": [
+    "Node.js 18+"
+   ],
+   "price_usd": 79,
+   "purpose": "Express middleware that charges AI agents per API call in USDC using the x402 payment flow: HTTP 402 challenges, payment verification, and an append-only usage ledger. Non-custodial.",
+   "url": "https://payloadhq.github.io/products.html#x402",
+   "version": "1.0.1",
+   "license_type": "one-time purchase, single-seat perpetual",
+   "slug": "x402-paid-api-starter-kit",
+   "page_url": "https://payloadhq.github.io/products/x402-paid-api-starter-kit.html",
+   "catalog_category": "agent-payments",
+   "store_links": {
+    "gumroad": "https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit",
+    "whop": "https://whop.com/payload-f126/products/x402-paid-api-starter-kit-charge-ai-agents-per-api-call-in-usdc/"
+   },
+   "availability": "Available"
+  },
+  {
+   "category": "MCP monetization",
+   "checkout_url": "https://payloadtools.gumroad.com/l/mcp-monetization-kit",
+   "documentation_url": "https://payloadhq.github.io/docs.html",
+   "inputs": "MCP tool calls via the official @modelcontextprotocol/sdk Server",
+   "name": "MCP Monetization Engine",
+   "platforms": [
+    "Node.js 18+"
+   ],
+   "price_usd": 69,
+   "purpose": "Per-tool-call payments for MCP servers: paid tool registry, free quotas, machine-readable payment requirements, usage ledger, and an adapter for the official MCP SDK.",
+   "url": "https://payloadhq.github.io/products.html#mcp-monetization",
+   "version": "1.0.1",
+   "license_type": "one-time purchase, single-seat perpetual",
+   "keywords": [
+    "mcp monetization kit",
+    "mcp kit",
+    "charge per tool call",
+    "mcp payments"
+   ],
+   "slug": "mcp-monetization-kit",
+   "page_url": "https://payloadhq.github.io/products/mcp-monetization-kit.html",
+   "catalog_category": "agent-payments",
+   "store_links": {
+    "gumroad": "https://payloadtools.gumroad.com/l/mcp-monetization-kit",
+    "whop": "https://whop.com/payload-f126/products/mcp-monetization-kit-charge-per-tool-call-on-your-mcp-server/"
+   },
+   "availability": "Available"
+  },
+  {
+   "category": "Recordkeeping",
+   "checkout_url": "https://payloadtools.gumroad.com/l/stableledger-tax-csv",
+   "documentation_url": "https://payloadhq.github.io/docs.html",
+   "inputs": "Exchange CSV exports (tested against Kraken-format files)",
+   "name": "StableLedger",
+   "platforms": [
+    "Python 3"
+   ],
+   "price_usd": 49,
+   "purpose": "Offline, zero-dependency Python CLI that organizes stablecoin transaction CSV exports into clean realized profit/loss records with fees. Data-organization software; not tax advice.",
+   "url": "https://payloadhq.github.io/products.html#stableledger",
+   "version": "1.0.0",
+   "license_type": "one-time purchase, single-seat perpetual",
+   "slug": "stableledger",
+   "page_url": "https://payloadhq.github.io/products/stableledger.html",
+   "catalog_category": "finance-records",
+   "store_links": {
+    "gumroad": "https://payloadtools.gumroad.com/l/stableledger-tax-csv",
+    "whop": "https://whop.com/payload-f126/products/stableledger-stablecoin-tax-csv-normalizer-for-freelancers-small-business/"
+   },
+   "availability": "Available"
+  },
+  {
+   "category": "API monetization",
+   "checkout_url": "https://payloadtools.gumroad.com/l/x402-mcp-bundle",
+   "documentation_url": "https://payloadhq.github.io/docs.html",
+   "inputs": "HTTP API routes (Express) and MCP tool calls (official MCP SDK)",
+   "name": "x402 + MCP Bundle",
+   "platforms": [
+    "Node.js 18+"
+   ],
+   "price_usd": 119,
+   "purpose": "The Veyline Developer Primer and the MCP Monetization Engine together at a bundle price: charge per API call and per MCP tool call from one purchase.",
+   "url": "https://payloadhq.github.io/products.html#bundle",
+   "version": "1.0.0",
+   "license_type": "one-time purchase, single-seat perpetual",
+   "slug": "x402-mcp-bundle",
+   "page_url": "https://payloadhq.github.io/products/x402-mcp-bundle.html",
+   "catalog_category": "agent-payments",
+   "store_links": {
+    "gumroad": "https://payloadtools.gumroad.com/l/x402-mcp-bundle",
+    "whop": "https://whop.com/payload-f126/products/x402-mcp-monetization-kit-bundle/"
+   },
+   "availability": "Available"
+  },
+  {
+   "category": "AI search readiness",
+   "checkout_url": "https://payloadtools.gumroad.com/l/ai-search-readiness-audit",
+   "documentation_url": "https://payloadhq.github.io/docs.html",
+   "inputs": "Any web page viewed in Chrome",
+   "name": "AI Search Readiness Audit",
+   "platforms": [
+    "Chrome (Manifest V3)"
+   ],
+   "price_usd": 59,
+   "purpose": "Chrome extension (Manifest V3) that audits the page you are viewing for AI-search readiness: raw-HTML coverage, AI Overviews eligibility, AI-crawler robots.txt matrix, and dead schema detection. 100% client-side.",
+   "url": "https://payloadhq.github.io/products.html#ai-search",
+   "version": "1.0.1",
+   "license_type": "one-time purchase, single-seat perpetual",
+   "slug": "ai-search-readiness-audit",
+   "page_url": "https://payloadhq.github.io/products/ai-search-readiness-audit.html",
+   "catalog_category": "ai-search",
+   "store_links": {
+    "gumroad": "https://payloadtools.gumroad.com/l/ai-search-readiness-audit",
+    "whop": "https://whop.com/payload-f126/products/ai-search-readiness-audit-chrome-extension/"
+   },
+   "availability": "Available"
+  },
+  {
+   "category": "Data cleanup",
+   "checkout_url": "https://payloadtools.gumroad.com/l/crm-dedup-migration-kit",
+   "documentation_url": "https://payloadhq.github.io/docs.html",
+   "inputs": "CRM CSV exports",
+   "name": "CRM Dedup System",
+   "platforms": [
+    "Linux (single-file binary)",
+    "local web UI",
+    "CLI"
+   ],
+   "price_usd": 149,
+   "purpose": "Fully offline deduplication and normalization for CRM exports before migration: fuzzy matching with confidence tiers, union-find clustering, dry-run merge plans, import-ready CSV export, and machine-readable change logs.",
+   "url": "https://payloadhq.github.io/products.html#crm",
+   "version": "1.0.1",
+   "license_type": "one-time purchase, single-seat perpetual",
+   "keywords": [
+    "crm dedup kit",
+    "crm cleanup kit",
+    "dedup migration kit",
+    "crm dedup & migration cleanup kit"
+   ],
+   "slug": "crm-dedup-system",
+   "page_url": "https://payloadhq.github.io/products/crm-dedup-system.html",
+   "catalog_category": "data-cleanup",
+   "store_links": {
+    "gumroad": "https://payloadtools.gumroad.com/l/crm-dedup-migration-kit",
+    "whop": "https://whop.com/payload-f126/products/crm-dedup-migration-cleanup-kit/"
+   },
+   "availability": "Available"
+  },
+  {
+   "category": "AI agent reliability",
+   "checkout_url": "https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit",
+   "documentation_url": "https://payloadhq.github.io/docs.html",
+   "inputs": "n8n workflows; the eval harness tests a JavaScript model of your agent written from the documented shape",
+   "name": "n8n Reliability Guard",
+   "platforms": [
+    "n8n",
+    "Node.js 18+ (eval harness)"
+   ],
+   "price_usd": 99,
+   "purpose": "Production-readiness system for n8n AI agents: 10 importable workflow templates covering documented agent failure classes, a Node.js failure-simulation eval harness with readiness scoring, and a 37-page production playbook.",
+   "url": "https://payloadhq.github.io/products.html#n8n",
+   "version": "1.0.1",
+   "license_type": "one-time purchase, single-seat perpetual",
+   "keywords": [
+    "n8n reliability kit",
+    "n8n production ai agent reliability kit",
+    "n8n agent kit",
+    "ai agent reliability kit"
+   ],
+   "slug": "n8n-agent-reliability-kit",
+   "page_url": "https://payloadhq.github.io/products/n8n-agent-reliability-kit.html",
+   "catalog_category": "automation-reliability",
+   "store_links": {
+    "gumroad": "https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit",
+    "whop": "https://whop.com/payload-f126/products/n8n-production-ai-agent-reliability-kit-guardrails-evals-readiness-scoring/"
+   },
+   "availability": "Available"
+  },
+  {
+   "category": "MCP security",
+   "checkout_url": "https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit",
+   "documentation_url": "https://payloadhq.github.io/docs.html",
+   "inputs": "MCP server source code and configuration",
+   "name": "MCP Launch Readiness Audit",
+   "platforms": [
+    "Python 3"
+   ],
+   "price_usd": 79,
+   "purpose": "Launch-readiness audit system for MCP servers: a zero-dependency CLI scanner with 48 detection rules (tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, missing auth/hardening), a concrete remediation for every finding, hardened templates, a stress-test harness, a CI workflow, and a branded audit report. An audit, not a certification.",
+   "url": "https://payloadhq.github.io/products.html#mcp-audit",
+   "version": "1.0.2",
+   "license_type": "one-time purchase, single-seat perpetual",
+   "slug": "mcp-launch-readiness-audit",
+   "page_url": "https://payloadhq.github.io/products/mcp-launch-readiness-audit.html",
+   "catalog_category": "mcp-security",
+   "store_links": {
+    "gumroad": "https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit",
+    "whop": "https://whop.com/payload-f126/products/mcp-launch-readiness-audit-scan-fix-prove-your-mcp-server-is-ready-to-ship/"
+   },
+   "availability": "Available"
+  },
+  {
+   "name": "callx402",
+   "slug": "callx402",
+   "category": "x402 payment diagnostics",
+   "catalog_category": "agent-payments",
+   "purpose": "Diagnostics for failed x402 payments: a free local npm package with 13 diagnostic actions, and hosted paid actions on the Payload rail that classify failures and explain what to do next. Diagnostics only; it does not recover, hold, or settle funds, and hosted compatibility with standard x402 clients is not claimed.",
+   "url": "https://payloadhq.github.io/callx402.html",
+   "page_url": "https://payloadhq.github.io/callx402.html",
+   "api_base_url": "https://payload-rail.fly.dev",
+   "platforms": [
+    "npm CLI",
+    "Hosted API"
+   ],
+   "availability": "Available",
+   "version": "1.0.5"
+  }
+ ],
+ "site": "https://payloadhq.github.io/",
+ "updated": "2026-10-04",
+ "catalog_url": "https://payloadhq.github.io/software.html"
 }
