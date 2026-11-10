@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revenue Split Calculator for APIs, Marketplaces, and Platforms | Payload</title>
+<meta name="description" content="Work out a revenue split before you build payout code: platform fees, percentage, fixed, and per-use shares, caps, and advance recoupment, with a shareable result. Free, runs in your browser.">
+<link rel="canonical" href="https://payloadhq.dev/utilities/revenue-split-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Revenue Split Calculator for APIs, Marketplaces, and Platforms | Payload">
+<meta property="og:description" content="Work out a revenue split before you build payout code: platform fees, percentage, fixed, and per-use shares, caps, and advance recoupment, with a shareable result. Free, runs in your browser.">
+<meta property="og:url" content="https://payloadhq.dev/utilities/revenue-split-calculator.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Revenue Split Calculator", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (browser)", "url": "https://payloadhq.dev/utilities/revenue-split-calculator.html", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@id": "https://payloadhq.dev/#organization"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How does the calculation order work?", "acceptedAnswer": {"@type": "Answer", "text": "The platform fee comes off gross revenue first. Percentage shares are then calculated on what remains (the pool); fixed and per-use shares are amounts against the same pool. Caps limit a party's share, with any excess moving to the remainder. Recoupment is applied last: the chosen percentage of the source party's share is redirected to the recouping party until the balance is recovered."}}, {"@type": "Question", "name": "How is rounding handled?", "acceptedAnswer": {"@type": "Answer", "text": "Each party's amount is rounded to cents, half-up. Any residual cent difference from rounding is assigned to the remainder party, so the outputs always sum to the gross revenue entered."}}, {"@type": "Question", "name": "What does revenue at full recoupment mean?", "acceptedAnswer": {"@type": "Answer", "text": "The gross revenue at which the recoupable balance reaches zero if every period looks like the one you modelled: this period's redirected amount divided into the balance, scaled by this period's gross. It is a linear projection, not a forecast."}}, {"@type": "Question", "name": "Can this run my actual payouts?", "acceptedAnswer": {"@type": "Answer", "text": "No. The calculator models one period with static rules. Running the same rules on live payment events, with an entitlement record and payout verification, is what RevRule does; the free sandbox below takes these exact presets."}}]}</script>
+<style>.calc{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:22px}.calc label{display:block;font-size:.86rem;color:var(--mut);margin:0 0 5px}.calc input,.calc select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit}.calc .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:14px}.party{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.party h3{margin:0 0 10px;font-size:1rem}.presets{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.calc-out{margin-top:20px}.calc-out table{width:100%}.share-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}</style><link rel="stylesheet" href="../style.437a76d8d1.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="../software.html">Software</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head"><div class="wrap">
+  <p class="kicker">Free utility · RevRule</p>
+  <h1>Revenue split calculator</h1>
+  <p class="lede">Model a revenue split for an API, a marketplace, or a platform before you build the payout code: platform fee first, then percentage, fixed, and per-use shares, caps, and advance recoupment. Everything runs in your browser; the result is a link you can share.</p>
+  <div class="presets">
+    <button class="btn btn-ghost" type="button" data-preset="api">Preset: API revenue share</button>
+    <button class="btn btn-ghost" type="button" data-preset="market">Preset: marketplace commission + referral</button>
+    <button class="btn btn-ghost" type="button" data-preset="recoup">Preset: royalty with advance recoupment</button>
+  </div>
+  <div class="calc" id="calc">
+    <div class="row">
+      <div><label>Gross revenue (one period)</label><input type="number" id="gross" min="0" step="any" value="10000"></div>
+      <div><label>Platform fee % (off the top)</label><input type="number" id="fee" min="0" max="100" step="any" value="0"></div>
+      <div><label>Remainder goes to</label><select id="remainder"></select></div>
+    </div>
+    <div id="parties">
+<div class="party" data-party>
+  <h3>Party <span data-pnum></span></h3>
+  <div class="row">
+    <div><label>Name</label><input type="text" data-f="name" placeholder="Party name"></div>
+    <div><label>Share type</label><select data-f="type">
+      <option value="pct">% of pool</option><option value="fixed">Fixed amount</option>
+      <option value="peruse">Per use</option></select></div>
+    <div><label>Share value</label><input type="number" data-f="value" min="0" step="any" value="0"></div>
+    <div><label>Units (per use only)</label><input type="number" data-f="units" min="0" step="any" value="0"></div>
+    <div><label>Cap (optional)</label><input type="number" data-f="cap" min="0" step="any" placeholder="No cap"></div>
+  </div>
+</div>
+<div class="party" data-party>
+  <h3>Party <span data-pnum></span></h3>
+  <div class="row">
+    <div><label>Name</label><input type="text" data-f="name" placeholder="Party name"></div>
+    <div><label>Share type</label><select data-f="type">
+      <option value="pct">% of pool</option><option value="fixed">Fixed amount</option>
+      <option value="peruse">Per use</option></select></div>
+    <div><label>Share value</label><input type="number" data-f="value" min="0" step="any" value="0"></div>
+    <div><label>Units (per use only)</label><input type="number" data-f="units" min="0" step="any" value="0"></div>
+    <div><label>Cap (optional)</label><input type="number" data-f="cap" min="0" step="any" placeholder="No cap"></div>
+  </div>
+</div>
+<div class="party" data-party>
+  <h3>Party <span data-pnum></span></h3>
+  <div class="row">
+    <div><label>Name</label><input type="text" data-f="name" placeholder="Party name"></div>
+    <div><label>Share type</label><select data-f="type">
+      <option value="pct">% of pool</option><option value="fixed">Fixed amount</option>
+      <option value="peruse">Per use</option></select></div>
+    <div><label>Share value</label><input type="number" data-f="value" min="0" step="any" value="0"></div>
+    <div><label>Units (per use only)</label><input type="number" data-f="units" min="0" step="any" value="0"></div>
+    <div><label>Cap (optional)</label><input type="number" data-f="cap" min="0" step="any" placeholder="No cap"></div>
+  </div>
+</div></div>
+    <div class="party">
+      <h3>Recoupment (optional)</h3>
+      <div class="row">
+        <div><label>Source party (whose share is redirected)</label><select id="rc-src"></select></div>
+        <div><label>Recouping party</label><select id="rc-dst"></select></div>
+        <div><label>Recoupable balance</label><input type="number" id="rc-bal" min="0" step="any" value="0"></div>
+        <div><label>% of source share redirected</label><input type="number" id="rc-rate" min="0" max="100" step="any" value="100"></div>
+      </div>
+    </div>
+    <div class="calc-out" id="out" aria-live="polite"></div>
+    <div class="share-row">
+      <button class="btn btn-primary" type="button" id="share">Copy shareable link</button>
+      <span id="share-note" class="lk-none"></span>
+    </div>
+  </div>
+  <p style="margin-top:14px">Calculation order and rounding are documented in the questions below. Amounts are in the currency you think in; the calculator is currency-neutral.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>Run these exact rules on live events</h2>
+  <p>A calculator models one period. RevRule runs the same rules on every real payment event, keeps the entitlement record for each party, and verifies that payouts match what was owed. It never holds or moves funds.</p></div>
+  <div class="grid grid-2">
+    <div class="card"><h3>Free: the RevRule sandbox</h3>
+    <p>Load one of this page's presets in the sandbox and run it against sample events, with a free console key: 1,000 operations a month, no card.</p>
+    <p><a href="../revrule-sandbox.html?utm_source=split-calculator&amp;utm_medium=utility">Open the RevRule sandbox →</a></p></div>
+    <div class="card"><h3>RevRule itself</h3>
+    <p>The production rules engine: $99 perpetual license, or managed plans from $29/month.</p>
+    <p><a href="../revrule.html?utm_source=split-calculator&amp;utm_medium=utility">RevRule →</a></p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>Questions</h2></div>
+  <div class="faq">
+<div class="faq-item"><h3>How does the calculation order work?</h3><p>The platform fee comes off gross revenue first. Percentage shares are then calculated on what remains (the pool); fixed and per-use shares are amounts against the same pool. Caps limit a party's share, with any excess moving to the remainder. Recoupment is applied last: the chosen percentage of the source party's share is redirected to the recouping party until the balance is recovered.</p></div>
+<div class="faq-item"><h3>How is rounding handled?</h3><p>Each party's amount is rounded to cents, half-up. Any residual cent difference from rounding is assigned to the remainder party, so the outputs always sum to the gross revenue entered.</p></div>
+<div class="faq-item"><h3>What does revenue at full recoupment mean?</h3><p>The gross revenue at which the recoupable balance reaches zero if every period looks like the one you modelled: this period's redirected amount divided into the balance, scaled by this period's gross. It is a linear projection, not a forecast.</p></div>
+<div class="faq-item"><h3>Can this run my actual payouts?</h3><p>No. The calculator models one period with static rules. Running the same rules on live payment events, with an entitlement record and payout verification, is what RevRule does; the free sandbox below takes these exact presets.</p></div>
+  </div>
+</div></section>
+</main>
+
+
+<script>
+const $ = s => document.querySelector(s);
+const partiesEl = document.getElementById('parties');
+const partyEls = () => Array.from(partiesEl.querySelectorAll('[data-party]'));
+function money(n) { return n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+function round2(n) { return Math.round((n + Number.EPSILON) * 100) / 100; }
+
+function refreshPartySelectors() {
+  const names = partyEls().map((el, i) => {
+    const v = el.querySelector('[data-f=name]').value.trim();
+    return v || ('Party ' + (i + 1));
+  });
+  const fill = (sel, allowNone) => {
+    const cur = sel.value;
+    sel.innerHTML = (allowNone ? '<option value="-1">Unallocated</option>' : '') +
+      names.map((n, i) => '<option value="' + i + '">' + n + '</option>').join('');
+    if (cur !== '' && Number(cur) < names.length) sel.value = cur;
+  };
+  fill($('#remainder'), true); fill($('#rc-src'), false); fill($('#rc-dst'), false);
+  partyEls().forEach((el, i) => el.querySelector('[data-pnum]').textContent = i + 1);
+}
+
+function readState() {
+  return {
+    gross: parseFloat($('#gross').value) || 0,
+    fee: parseFloat($('#fee').value) || 0,
+    remainder: parseInt($('#remainder').value, 10),
+    rcSrc: parseInt($('#rc-src').value, 10), rcDst: parseInt($('#rc-dst').value, 10),
+    rcBal: parseFloat($('#rc-bal').value) || 0, rcRate: parseFloat($('#rc-rate').value) || 0,
+    parties: partyEls().map(el => ({
+      name: el.querySelector('[data-f=name]').value.trim(),
+      type: el.querySelector('[data-f=type]').value,
+      value: parseFloat(el.querySelector('[data-f=value]').value) || 0,
+      units: parseFloat(el.querySelector('[data-f=units]').value) || 0,
+      cap: el.querySelector('[data-f=cap]').value === '' ? null : parseFloat(el.querySelector('[data-f=cap]').value)
+    }))
+  };
+}
+
+function compute(st) {
+  const feeAmt = round2(st.gross * st.fee / 100);
+  const pool = round2(st.gross - feeAmt);
+  let alloc = st.parties.map(p => {
+    let a = p.type === 'pct' ? pool * p.value / 100 : p.type === 'fixed' ? p.value : p.value * p.units;
+    a = round2(a);
+    if (p.cap !== null && a > p.cap) a = p.cap;
+    return a;
+  });
+  let rest = round2(pool - alloc.reduce((x, y) => x + y, 0));
+  let unalloc = 0;
+  if (rest > 0) {
+    if (st.remainder >= 0 && st.parties[st.remainder]) {
+      let add = rest;
+      const p = st.parties[st.remainder];
+      if (p.cap !== null && alloc[st.remainder] + add > p.cap) { add = Math.max(0, p.cap - alloc[st.remainder]); unalloc = rest - add; }
+      alloc[st.remainder] = round2(alloc[st.remainder] + add);
+    } else { unalloc = rest; }
+  }
+  let redirected = 0;
+  if (st.rcBal > 0 && st.rcSrc >= 0 && st.rcDst >= 0 && st.rcSrc !== st.rcDst && alloc[st.rcSrc] !== undefined) {
+    redirected = Math.min(round2(alloc[st.rcSrc] * st.rcRate / 100), st.rcBal);
+    alloc[st.rcSrc] = round2(alloc[st.rcSrc] - redirected);
+    alloc[st.rcDst] = round2(alloc[st.rcDst] + redirected);
+  }
+  const balAfter = round2(st.rcBal - redirected);
+  let grossAtRecoup = null;
+  if (st.rcBal > 0 && redirected > 0 && st.gross > 0) grossAtRecoup = round2(st.gross * st.rcBal / redirected);
+  return { feeAmt, pool, alloc, unalloc, redirected, balAfter, grossAtRecoup,
+           total: round2(feeAmt + alloc.reduce((x, y) => x + y, 0) + unalloc) };
+}
+
+function render() {
+  refreshPartySelectors();
+  const st = readState();
+  const r = compute(st);
+  const rows = st.parties.map((p, i) => {
+    const name = p.name || ('Party ' + (i + 1));
+    const eff = st.gross > 0 ? (r.alloc[i] / st.gross * 100).toFixed(2) : '0.00';
+    return '<tr><td>' + name + '</td><td>' + money(r.alloc[i]) + '</td><td>' + eff + '%</td></tr>';
+  }).join('');
+  let html = '<div class="table-scroll"><table><thead><tr><th>Party</th><th>Amount</th><th>Effective % of gross</th></tr></thead><tbody>';
+  html += '<tr><td>Platform fee</td><td>' + money(r.feeAmt) + '</td><td>' + (st.gross > 0 ? (r.feeAmt / st.gross * 100).toFixed(2) : '0.00') + '%</td></tr>';
+  html += rows;
+  if (r.unalloc > 0) html += '<tr><td>Unallocated remainder</td><td>' + money(r.unalloc) + '</td><td></td></tr>';
+  html += '</tbody></table></div>';
+  if (st.rcBal > 0) {
+    html += '<p style="margin-top:12px">Recoupment this period: <strong>' + money(r.redirected) + '</strong> redirected. Balance after this period: <strong>' + money(r.balAfter) + '</strong>.';
+    if (r.grossAtRecoup !== null) html += ' At this structure, the balance is fully recouped at gross revenue of <strong>' + money(r.grossAtRecoup) + '</strong> (linear projection).';
+    html += '</p>';
+  }
+  document.getElementById('out').innerHTML = html;
+  const params = new URLSearchParams();
+  params.set('g', st.gross); params.set('f', st.fee); params.set('r', st.remainder);
+  params.set('rb', st.rcBal); params.set('rr', st.rcRate); params.set('rs', st.rcSrc); params.set('rd', st.rcDst);
+  st.parties.forEach((p, i) => { params.set('p' + i, [p.name, p.type, p.value, p.units, p.cap === null ? '' : p.cap].join('|')); });
+  history.replaceState(null, '', '?' + params.toString());
+}
+
+const PRESETS = {
+  api: { gross: 10000, fee: 0, remainder: -1, rcBal: 0, parties: [
+    ['Platform owner', 'pct', 70, 0, ''], ['API provider', 'pct', 20, 0, ''], ['Referral partner', 'pct', 10, 0, '']] },
+  market: { gross: 25000, fee: 12, remainder: 0, rcBal: 0, parties: [
+    ['Marketplace operator', 'pct', 0, 0, ''], ['Seller', 'pct', 80, 0, ''], ['Referral partner', 'pct', 5, 0, '']] },
+  recoup: { gross: 5000, fee: 15, remainder: 1, rcBal: 20000, rcRate: 100, rcSrc: 0, rcDst: 1, parties: [
+    ['Creator', 'pct', 50, 0, ''], ['Label / funder', 'pct', 50, 0, ''], ['Featured collaborator', 'pct', 0, 0, '']] }
+};
+function applyPreset(key) {
+  const pr = PRESETS[key]; if (!pr) return;
+  $('#gross').value = pr.gross; $('#fee').value = pr.fee;
+  $('#rc-bal').value = pr.rcBal || 0; $('#rc-rate').value = pr.rcRate || 100;
+  partyEls().forEach((el, i) => {
+    const v = pr.parties[i] || ['', 'pct', 0, 0, ''];
+    el.querySelector('[data-f=name]').value = v[0];
+    el.querySelector('[data-f=type]').value = v[1];
+    el.querySelector('[data-f=value]').value = v[2];
+    el.querySelector('[data-f=units]').value = v[3];
+    el.querySelector('[data-f=cap]').value = v[4];
+  });
+  refreshPartySelectors();
+  $('#remainder').value = String(pr.remainder);
+  if (pr.rcSrc !== undefined) { $('#rc-src').value = String(pr.rcSrc); $('#rc-dst').value = String(pr.rcDst); }
+  render();
+}
+document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => applyPreset(b.dataset.preset)));
+
+function loadFromURL() {
+  const q = new URLSearchParams(location.search);
+  if (!q.has('g')) { applyPreset('api'); return; }
+  $('#gross').value = q.get('g'); $('#fee').value = q.get('f') || 0;
+  $('#rc-bal').value = q.get('rb') || 0; $('#rc-rate').value = q.get('rr') || 100;
+  partyEls().forEach((el, i) => {
+    const raw = q.get('p' + i); if (!raw) return;
+    const v = raw.split('|');
+    el.querySelector('[data-f=name]').value = v[0] || '';
+    el.querySelector('[data-f=type]').value = v[1] || 'pct';
+    el.querySelector('[data-f=value]').value = v[2] || 0;
+    el.querySelector('[data-f=units]').value = v[3] || 0;
+    el.querySelector('[data-f=cap]').value = v[4] || '';
+  });
+  refreshPartySelectors();
+  $('#remainder').value = q.get('r') || '-1';
+  if (q.get('rs') !== null) $('#rc-src').value = q.get('rs');
+  if (q.get('rd') !== null) $('#rc-dst').value = q.get('rd');
+  render();
+}
+document.getElementById('calc').addEventListener('input', render);
+document.getElementById('calc').addEventListener('change', render);
+$('#share').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(location.href); $('#share-note').textContent = 'Link copied. It encodes exactly the inputs above.'; }
+  catch (e) { $('#share-note').textContent = 'Copy the URL from the address bar; it encodes exactly the inputs above.'; }
+});
+loadFromURL();
+</script>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Payload develops innovative software and applications that simplify operations, solve practical challenges, and help businesses and individuals work more efficiently.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../about.html">About Payload</a>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.ee7c843dce.js"></script>
+</body></html>

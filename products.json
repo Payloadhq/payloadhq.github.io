@@ -6,7 +6,7 @@
     {
       "name": "Veyline by Payload",
       "category": "Protected economic-control infrastructure",
-      "purpose": "Veyline is protected economic-control and autonomous-commerce infrastructure: the production layer for x402 + MCP. It wraps every economic operation in verification — intent checked, payment verified on-chain, settlement classified with certainty, execution exactly once, failures recovered safely, outcome proven and recorded as tamper-evident evidence.",
+      "purpose": "Veyline is protected economic-control and autonomous-commerce infrastructure: the production layer for x402 + MCP. It wraps every economic operation in verification \u2014 intent checked, payment verified on-chain, settlement classified with certainty, execution exactly once, failures recovered safely, outcome proven and recorded as tamper-evident evidence.",
       "url": "https://payloadhq.dev/veyline.html",
       "api_base_url": "https://payload-rail.fly.dev",
       "try_url": "https://payloadhq.dev/veyline.html#pricing",
@@ -264,7 +264,7 @@
       "slug": "callx402",
       "category": "x402 payment diagnostics",
       "catalog_category": "agent-payments",
-      "purpose": "Diagnostics for failed x402 payments: a free local npm package with 13 diagnostic actions, and hosted paid actions on the Payload rail that classify failures and explain what to do next. Diagnostics only; it does not recover, hold, or settle funds, and hosted compatibility with standard x402 clients is not claimed.",
+      "purpose": "Diagnostics for failed x402 payments: a free local npm package with six MCP diagnostic tools, and hosted paid actions on the Payload rail that classify failures and explain what to do next. Diagnostics only; it does not recover, hold, or settle funds, and hosted compatibility with standard x402 clients is not claimed.",
       "url": "https://payloadhq.dev/callx402.html",
       "page_url": "https://payloadhq.dev/callx402.html",
       "api_base_url": "https://payload-rail.fly.dev",
@@ -277,6 +277,6 @@
     }
   ],
   "site": "https://payloadhq.dev/",
-  "updated": "2026-10-04",
+  "updated": "2026-11-10",
   "catalog_url": "https://payloadhq.dev/software.html"
 }

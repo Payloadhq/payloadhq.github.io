@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>x402 Error Code Lookup: Meaning, Layer, and Safe Next Step | Payload</title>
+<meta name="description" content="Look up any x402 facilitator error code: what it means, which layer failed, the safe next step, and whether retrying can double-charge you. Covers the CDP EVM exact, Permit2, Solana, and settlement code families. Free, runs in your browser.">
+<link rel="canonical" href="https://payloadhq.dev/utilities/x402-error-lookup.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="x402 Error Code Lookup: Meaning, Layer, and Safe Next Step | Payload">
+<meta property="og:description" content="Look up any x402 facilitator error code: what it means, which layer failed, the safe next step, and whether retrying can double-charge you. Covers the CDP EVM exact, Permit2, Solana, and settlement code families. Free, runs in your browser.">
+<meta property="og:url" content="https://payloadhq.dev/utilities/x402-error-lookup.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "x402 Error Code Lookup", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (browser)", "url": "https://payloadhq.dev/utilities/x402-error-lookup.html", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@id": "https://payloadhq.dev/#organization"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Where do I find my error code?", "acceptedAnswer": {"@type": "Answer", "text": "In the facilitator's JSON response: invalidReason when verification fails, errorReason when settlement fails. Paste the whole response into the lookup above and it will find the code in it."}}, {"@type": "Question", "name": "Is it safe to retry a failed x402 payment?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the code, which is what the retry verdict in each result is for. Authorization and requirements failures are safe to retry after the named fix. Settlement failures are different: the payment may already have landed, so confirm the transaction onchain before paying again."}}, {"@type": "Question", "name": "Why does my code start with invalid_exact_evm_permit2?", "acceptedAnswer": {"@type": "Answer", "text": "Your token settles through Permit2 instead of EIP-3009. Permit2 has a parallel code family, and one member matters most: invalid_exact_evm_permit2_payload_allowance_required means the one-time Permit2 approval has not been granted yet, so submit that approval transaction first."}}, {"@type": "Question", "name": "What if my code is not listed?", "acceptedAnswer": {"@type": "Answer", "text": "Some families are covered as patterns rather than individual codes: Solana exact transaction variants, batch-settlement codes, and Solana upto codes. If your code matches none of the patterns, capture the full exchange and treat it like unknown_error: report it with the network, scheme, and error field included."}}]}</script>
+<style>.lk-form{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px}.lk-form input[type=text]{flex:2 1 320px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit}.lk-form select{flex:1 1 260px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit}.lk-card{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:22px;margin-top:16px}.lk-card h3{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.02rem;overflow-wrap:anywhere;margin:0 0 8px}.lk-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.lk-chip{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.82rem;color:var(--mut)}.lk-retry{font-weight:700}.retry-fix{color:#3d9e6d}.retry-confirm{color:#c96f4a}.retry-no{color:#c0453e}.lk-card p{margin:0 0 10px}.lk-card p:last-child{margin-bottom:0}.lk-none{color:var(--mut)}td code{overflow-wrap:anywhere}</style><link rel="stylesheet" href="../style.437a76d8d1.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="../software.html">Software</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head"><div class="wrap">
+  <p class="kicker">Free utility · callx402</p>
+  <h1>x402 error code lookup</h1>
+  <p class="lede">Paste the error code from your facilitator's response, or paste the whole response, and get what the code means, which layer failed, the safe next step, and whether retrying is safe. Everything runs in your browser; nothing is uploaded.</p>
+  <form class="lk-form" id="lk-form">
+    <input type="text" id="lk-input" placeholder="Paste an error code or a full response body" aria-label="Error code or response">
+    <select id="lk-select" aria-label="Choose an error code"><option value="">Or choose a code…</option>
+<option value="insufficient_funds">insufficient_funds</option>
+<option value="invalid_payload">invalid_payload</option>
+<option value="invalid_scheme">invalid_scheme</option>
+<option value="invalid_network">invalid_network</option>
+<option value="invalid_amount">invalid_amount</option>
+<option value="amount_too_low">amount_too_low</option>
+<option value="self_send_not_allowed">self_send_not_allowed</option>
+<option value="kyt_risk_detected">kyt_risk_detected</option>
+<option value="request_blocked_by_location">request_blocked_by_location</option>
+<option value="permit2_disabled">permit2_disabled</option>
+<option value="preflight_validation_failed">preflight_validation_failed</option>
+<option value="invalid_bazaar_extension">invalid_bazaar_extension</option>
+<option value="unsupported_payload_type">unsupported_payload_type</option>
+<option value="unknown_error">unknown_error</option>
+<option value="invalid_exact_evm_payload_signature">invalid_exact_evm_payload_signature</option>
+<option value="invalid_exact_evm_payload_authorization_value">invalid_exact_evm_payload_authorization_value</option>
+<option value="invalid_exact_evm_payload_authorization_valid_before">invalid_exact_evm_payload_authorization_valid_before</option>
+<option value="invalid_exact_evm_payload_authorization_valid_after">invalid_exact_evm_payload_authorization_valid_after</option>
+<option value="invalid_exact_evm_payload_undeployed_smart_wallet">invalid_exact_evm_payload_undeployed_smart_wallet</option>
+<option value="smart_wallet_deployment_failed">smart_wallet_deployment_failed</option>
+<option value="invalid_exact_evm_permit2_payload_signature">invalid_exact_evm_permit2_payload_signature</option>
+<option value="invalid_exact_evm_permit2_payload_amount">invalid_exact_evm_permit2_payload_amount</option>
+<option value="invalid_exact_evm_permit2_payload_deadline">invalid_exact_evm_permit2_payload_deadline</option>
+<option value="invalid_exact_evm_permit2_payload_recipient">invalid_exact_evm_permit2_payload_recipient</option>
+<option value="invalid_exact_evm_permit2_payload_spender">invalid_exact_evm_permit2_payload_spender</option>
+<option value="invalid_exact_evm_permit2_payload_valid_after">invalid_exact_evm_permit2_payload_valid_after</option>
+<option value="invalid_exact_evm_permit2_payload_allowance_required">invalid_exact_evm_permit2_payload_allowance_required</option>
+<option value="invalid_exact_svm_payload_transaction_simulation_failed">invalid_exact_svm_payload_transaction_simulation_failed</option>
+<option value="invalid_exact_svm_payload_transaction_sender_ata_not_found">invalid_exact_svm_payload_transaction_sender_ata_not_found</option>
+<option value="invalid_exact_svm_payload_transaction_amount_mismatch">invalid_exact_svm_payload_transaction_amount_mismatch</option>
+<option value="settle_exact_failed_onchain">settle_exact_failed_onchain</option>
+<option value="settle_exact_node_failure">settle_exact_node_failure</option>
+<option value="settle_exact_svm_transaction_confirmation_timed_out">settle_exact_svm_transaction_confirmation_timed_out</option>
+<option value="settle_exact_svm_block_height_exceeded">settle_exact_svm_block_height_exceeded</option>
+<option value="invalid_exact_evm_verification_failed">invalid_exact_evm_verification_failed</option>
+    </select>
+  </form>
+  <p class="lk-none">Codes checked against the facilitator reference on November 10, 2026. Meanings follow the Coinbase Developer Platform x402 troubleshooting reference, checked November 10, 2026. Layer, next step, and retry guidance are Payload's.</p>
+  <div id="lk-result" aria-live="polite"></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>When the code is not the whole story</h2>
+  <p>A single failed payment is a lookup. A captured exchange, with headers, requirements, and the settlement state checked, is a diagnosis.</p></div>
+  <div class="grid grid-2">
+    <div class="card"><h3>Free: callx402 on your machine</h3>
+    <p>Six MCP tools that classify a captured x402 exchange layer by layer and say what to do next. Runs locally; nothing leaves your machine.</p>
+    <p><code>npx callx402</code></p>
+    <p><a href="https://www.npmjs.com/package/callx402?utm_source=error-lookup&amp;utm_medium=utility">callx402 on npm →</a></p></div>
+    <div class="card"><h3>Hosted: diagnosis inside the incident</h3>
+    <p>The same classification as a hosted action: explain an error for $0.50 by card or $0.025 in USDC, or a full diagnosis for $2 by card or $0.10 in USDC.</p>
+    <p><a href="../callx402.html?utm_source=error-lookup&amp;utm_medium=utility">callx402 hosted actions →</a></p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>The full code reference</h2>
+  <p>Every code the CDP Facilitator returns in practice, with the layer that produced it and the safe next step. The <a href="../guides/x402-troubleshooting.html">x402 troubleshooting guide</a> explains the four-layer model behind the classifications.</p></div>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Code</th><th>Layer</th><th>What it means</th><th>Safe next step</th></tr></thead>
+    <tbody>
+<tr class="lk-group"><td colspan="4"><strong>Any payment</strong></td></tr>
+<tr id="insufficient_funds"><td><code>insufficient_funds</code></td><td>Facilitator verification</td><td>The payer's balance is below the amount required.</td><td>Fund the payer with the token the route asks for, on the network the route accepts, then sign a fresh payment.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_payload"><td><code>invalid_payload</code></td><td>Facilitator verification</td><td>The payload is malformed, fails validation, or reuses a spent authorization. It is the catch-all: a reused authorization nonce, a failed onchain simulation, and a recipient that does not match the route all arrive as this code.</td><td>Capture the full request and response. Check for a reused nonce first, then the recipient against the route, then simulate the transfer.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_scheme"><td><code>invalid_scheme</code></td><td>Payment requirements</td><td>The payload's scheme is not one the route accepts.</td><td>Read the route's accepts list and pay with one of the schemes it names (for example exact instead of upto).<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_network"><td><code>invalid_network</code></td><td>Payment requirements</td><td>The network in the payload is not one the route accepts.</td><td>Align the CAIP-2 network identifier on both sides (eip155:8453 is Base mainnet; eip155:84532 is Base Sepolia). Testnet and mainnet identifiers are not interchangeable.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_amount"><td><code>invalid_amount</code></td><td>Client and authorization</td><td>The amount could not be parsed, or is not a positive value.</td><td>Send the amount exactly as the payment requirements state it, in atomic units where the scheme requires them, as a positive value.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="amount_too_low"><td><code>amount_too_low</code></td><td>Facilitator policy</td><td>The payment is below the minimum amount the facilitator will settle.</td><td>Raise the payment to at least the amount the route requires. Splitting one payment into smaller ones will keep failing.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="self_send_not_allowed"><td><code>self_send_not_allowed</code></td><td>Client and authorization</td><td>The payer and the recipient are the same address.</td><td>Use distinct payer and recipient addresses. A route cannot pay itself through the facilitator.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="kyt_risk_detected"><td><code>kyt_risk_detected</code></td><td>Facilitator policy</td><td>The payer or the recipient was declined by compliance screening (HTTP 403).</td><td>Do not retry. Identify which side was screened out and resolve it through the facilitator's compliance process; a different counterparty address may be required.<br><em>Do not retry.</em></td></tr>
+<tr id="request_blocked_by_location"><td><code>request_blocked_by_location</code></td><td>Facilitator policy</td><td>The request came from a jurisdiction the facilitator does not serve (HTTP 403).</td><td>Route the payment through a facilitator and jurisdiction that can serve the request. Retrying from the same location changes nothing.<br><em>Do not retry.</em></td></tr>
+<tr id="permit2_disabled"><td><code>permit2_disabled</code></td><td>Payment requirements</td><td>The payment needs Permit2, which is not enabled for that token or network.</td><td>Use a token and network where Permit2 is enabled, or a payment path that does not need it (for example an EIP-3009 token).<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="preflight_validation_failed"><td><code>preflight_validation_failed</code></td><td>Facilitator verification</td><td>A check that runs before the scheme sees the payment failed.</td><td>Validate the request shape against the facilitator's requirements first: protocol version fields, headers, and payload structure. The failure is in the envelope, not the payment itself.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_bazaar_extension"><td><code>invalid_bazaar_extension</code></td><td>Payment requirements</td><td>The Bazaar discovery metadata on the 402 response is malformed.</td><td>Fix the seller's discovery metadata on the 402 response. This is a listing problem; the payment mechanics may be fine.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="unsupported_payload_type"><td><code>unsupported_payload_type</code></td><td>Payment requirements</td><td>The payload type is not one the facilitator handles.</td><td>Check the protocol version on both sides. The common cause is the v1 X-PAYMENT header sent to a v2 endpoint that expects PAYMENT-SIGNATURE, or the reverse.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="unknown_error"><td><code>unknown_error</code></td><td>Facilitator verification</td><td>The failure could not be classified (HTTP 500). The facilitator asks for these to be reported.</td><td>Capture the full exchange (network, scheme, the error field, any transaction reference) and report it. One retry with a fresh authorization is reasonable; a repeat is a report, not a loop.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr class="lk-group"><td colspan="4"><strong>EVM exact</strong></td></tr>
+<tr id="invalid_exact_evm_payload_signature"><td><code>invalid_exact_evm_payload_signature</code></td><td>Client and authorization</td><td>The signature does not recover to the payer address.</td><td>Re-sign with the payer's key and check the signing domain: chain ID, verifying contract, and the exact typed-data fields.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_payload_authorization_value"><td><code>invalid_exact_evm_payload_authorization_value</code></td><td>Client and authorization</td><td>The amount does not exactly match the amount required.</td><td>Copy the amount from the payment requirements exactly, in atomic units. Exact-scheme payments do not round.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_payload_authorization_valid_before"><td><code>invalid_exact_evm_payload_authorization_valid_before</code></td><td>Client and authorization</td><td>The authorization expired before settlement.</td><td>Give the authorization a longer validity window, and check for clock skew and slow settlement between signing and submission.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_payload_authorization_valid_after"><td><code>invalid_exact_evm_payload_authorization_valid_after</code></td><td>Client and authorization</td><td>The authorization is not valid yet.</td><td>Check the signing clock, then wait until the valid-after time passes before submitting.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_payload_undeployed_smart_wallet"><td><code>invalid_exact_evm_payload_undeployed_smart_wallet</code></td><td>Client and authorization</td><td>The payer is a counterfactual smart wallet with no deployment data.</td><td>Deploy the wallet first, or include the deployment data the facilitator needs to verify the signature.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="smart_wallet_deployment_failed"><td><code>smart_wallet_deployment_failed</code></td><td>Settlement</td><td>Deploying the payer's smart wallet during settlement failed.</td><td>Check the wallet factory and deployment funding, and confirm whether any part of the payment landed before trying again.<br><em>Confirm onchain first.</em></td></tr>
+<tr class="lk-group"><td colspan="4"><strong>Permit2</strong></td></tr>
+<tr id="invalid_exact_evm_permit2_payload_signature"><td><code>invalid_exact_evm_permit2_payload_signature</code></td><td>Client and authorization</td><td>The Permit2 signature does not verify for the payer.</td><td>Re-sign the Permit2 permitted-witness data with the payer's key, checking the domain and witness fields.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_permit2_payload_amount"><td><code>invalid_exact_evm_permit2_payload_amount</code></td><td>Client and authorization</td><td>The permitted amount does not match the amount required.</td><td>Set the permitted amount exactly to the amount in the payment requirements.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_permit2_payload_deadline"><td><code>invalid_exact_evm_permit2_payload_deadline</code></td><td>Client and authorization</td><td>The Permit2 deadline has passed.</td><td>Sign again with a deadline far enough in the future to cover settlement time.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_permit2_payload_recipient"><td><code>invalid_exact_evm_permit2_payload_recipient</code></td><td>Client and authorization</td><td>The recipient in the Permit2 data does not match the route's recipient.</td><td>Set the witness recipient to the payTo address in the payment requirements.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_permit2_payload_spender"><td><code>invalid_exact_evm_permit2_payload_spender</code></td><td>Client and authorization</td><td>The spender in the Permit2 data is not the contract the facilitator expects.</td><td>Use the spender named in the payment requirements (the x402 Permit2 proxy), not the token or the facilitator address.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_permit2_payload_valid_after"><td><code>invalid_exact_evm_permit2_payload_valid_after</code></td><td>Client and authorization</td><td>The Permit2 authorization is not valid yet.</td><td>Check the signing clock, then wait until the valid-after time passes.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_permit2_payload_allowance_required"><td><code>invalid_exact_evm_permit2_payload_allowance_required</code></td><td>Client and authorization</td><td>The one-time Permit2 approval has not been granted yet. This is the Permit2 code to know: the payment cannot proceed until the allowance exists.</td><td>Submit the Permit2 allowance approval transaction from the payer first and let it confirm, then sign the payment.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr class="lk-group"><td colspan="4"><strong>Solana exact</strong></td></tr>
+<tr id="invalid_exact_svm_payload_transaction_simulation_failed"><td><code>invalid_exact_svm_payload_transaction_simulation_failed</code></td><td>Client and authorization</td><td>The Solana payment transaction failed simulation.</td><td>Rebuild the transaction and simulate it locally; the failing instruction or account is named in the simulation logs.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_svm_payload_transaction_sender_ata_not_found"><td><code>invalid_exact_svm_payload_transaction_sender_ata_not_found</code></td><td>Client and authorization</td><td>The payer has no associated token account for the asset being paid.</td><td>Create and fund the payer's associated token account for that mint, then rebuild the payment transaction.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_svm_payload_transaction_amount_mismatch"><td><code>invalid_exact_svm_payload_transaction_amount_mismatch</code></td><td>Client and authorization</td><td>The transaction amount does not match the amount required.</td><td>Set the transfer amount exactly to the requirement, in the token's smallest units.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr class="lk-group"><td colspan="4"><strong>Settlement</strong></td></tr>
+<tr id="settle_exact_failed_onchain"><td><code>settle_exact_failed_onchain</code></td><td>Settlement</td><td>The settlement transaction was submitted and reverted.</td><td>Read the transaction receipt to find the revert reason; the payment did not land. Fix the cause before paying again, and keep the receipt as evidence of what happened.<br><em>Confirm onchain first.</em></td></tr>
+<tr id="settle_exact_node_failure"><td><code>settle_exact_node_failure</code></td><td>Settlement</td><td>The facilitator could not reach the network to submit or confirm.</td><td>Check whether a settlement transaction exists before doing anything else; a submission may already be in flight. Then wait for the network or facilitator to recover.<br><em>Confirm onchain first.</em></td></tr>
+<tr id="settle_exact_svm_transaction_confirmation_timed_out"><td><code>settle_exact_svm_transaction_confirmation_timed_out</code></td><td>Settlement</td><td>The Solana transaction was submitted but did not confirm in time.</td><td>Look the signature up on a Solana explorer. It may still confirm; do not pay again until its status is final.<br><em>Confirm onchain first.</em></td></tr>
+<tr id="settle_exact_svm_block_height_exceeded"><td><code>settle_exact_svm_block_height_exceeded</code></td><td>Settlement</td><td>The Solana transaction expired before confirmation, so it cannot land.</td><td>Rebuild the payment with a fresh blockhash and submit again. The expired transaction is dead, so a fresh one cannot double-pay.<br><em>Safe to retry after the fix.</em></td></tr>
+<tr id="invalid_exact_evm_verification_failed"><td><code>invalid_exact_evm_verification_failed</code></td><td>Settlement</td><td>Verification, rerun at settlement time, no longer passes: something changed between the verify call and settlement, such as an expired or consumed authorization.</td><td>Confirm no payment landed, then start a fresh payment with a new authorization rather than resubmitting the old one.<br><em>Confirm onchain first.</em></td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>Code families covered as patterns</h2></div>
+  <div class="grid grid-3">
+<div class="card"><h3><code>invalid_exact_svm_payload_transaction_</code></h3><p>About twenty variants share this prefix; the suffix names the specific instruction or account at fault. Treat the suffix as the diagnosis: rebuild the transaction correcting the named element, and simulate locally before resubmitting.</p></div>
+<div class="card"><h3><code>invalid_batch_settlement_evm_</code></h3><p>The batch-settlement scheme defines its own family under this prefix. The suffix names the failing element of the batch; the verify-then-settle checks in this table apply the same way.</p></div>
+<div class="card"><h3><code>invalid_upto_svm_ / settle_upto_svm_</code></h3><p>The upto scheme on Solana defines invalid_upto_svm_ codes for payment requirements, payload, channel, and settlement failures, plus settle_upto_svm_ codes for onchain and confirmation failures. Settlement-prefixed codes follow the same rule as the other settle_ codes: confirm the transaction before paying again.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>Questions</h2></div>
+  <div class="faq">
+<div class="faq-item"><h3>Where do I find my error code?</h3><p>In the facilitator's JSON response: invalidReason when verification fails, errorReason when settlement fails. Paste the whole response into the lookup above and it will find the code in it.</p></div>
+<div class="faq-item"><h3>Is it safe to retry a failed x402 payment?</h3><p>It depends on the code, which is what the retry verdict in each result is for. Authorization and requirements failures are safe to retry after the named fix. Settlement failures are different: the payment may already have landed, so confirm the transaction onchain before paying again.</p></div>
+<div class="faq-item"><h3>Why does my code start with invalid_exact_evm_permit2?</h3><p>Your token settles through Permit2 instead of EIP-3009. Permit2 has a parallel code family, and one member matters most: invalid_exact_evm_permit2_payload_allowance_required means the one-time Permit2 approval has not been granted yet, so submit that approval transaction first.</p></div>
+<div class="faq-item"><h3>What if my code is not listed?</h3><p>Some families are covered as patterns rather than individual codes: Solana exact transaction variants, batch-settlement codes, and Solana upto codes. If your code matches none of the patterns, capture the full exchange and treat it like unknown_error: report it with the network, scheme, and error field included.</p></div>
+  </div>
+</div></section>
+</main>
+<script>
+const CODES = [{"code": "insufficient_funds", "family": "Any payment", "layer": "Facilitator verification", "meaning": "The payer's balance is below the amount required.", "step": "Fund the payer with the token the route asks for, on the network the route accepts, then sign a fresh payment.", "retry": "fix"}, {"code": "invalid_payload", "family": "Any payment", "layer": "Facilitator verification", "meaning": "The payload is malformed, fails validation, or reuses a spent authorization. It is the catch-all: a reused authorization nonce, a failed onchain simulation, and a recipient that does not match the route all arrive as this code.", "step": "Capture the full request and response. Check for a reused nonce first, then the recipient against the route, then simulate the transfer.", "retry": "fix"}, {"code": "invalid_scheme", "family": "Any payment", "layer": "Payment requirements", "meaning": "The payload's scheme is not one the route accepts.", "step": "Read the route's accepts list and pay with one of the schemes it names (for example exact instead of upto).", "retry": "fix"}, {"code": "invalid_network", "family": "Any payment", "layer": "Payment requirements", "meaning": "The network in the payload is not one the route accepts.", "step": "Align the CAIP-2 network identifier on both sides (eip155:8453 is Base mainnet; eip155:84532 is Base Sepolia). Testnet and mainnet identifiers are not interchangeable.", "retry": "fix"}, {"code": "invalid_amount", "family": "Any payment", "layer": "Client and authorization", "meaning": "The amount could not be parsed, or is not a positive value.", "step": "Send the amount exactly as the payment requirements state it, in atomic units where the scheme requires them, as a positive value.", "retry": "fix"}, {"code": "amount_too_low", "family": "Any payment", "layer": "Facilitator policy", "meaning": "The payment is below the minimum amount the facilitator will settle.", "step": "Raise the payment to at least the amount the route requires. Splitting one payment into smaller ones will keep failing.", "retry": "fix"}, {"code": "self_send_not_allowed", "family": "Any payment", "layer": "Client and authorization", "meaning": "The payer and the recipient are the same address.", "step": "Use distinct payer and recipient addresses. A route cannot pay itself through the facilitator.", "retry": "fix"}, {"code": "kyt_risk_detected", "family": "Any payment", "layer": "Facilitator policy", "meaning": "The payer or the recipient was declined by compliance screening (HTTP 403).", "step": "Do not retry. Identify which side was screened out and resolve it through the facilitator's compliance process; a different counterparty address may be required.", "retry": "no"}, {"code": "request_blocked_by_location", "family": "Any payment", "layer": "Facilitator policy", "meaning": "The request came from a jurisdiction the facilitator does not serve (HTTP 403).", "step": "Route the payment through a facilitator and jurisdiction that can serve the request. Retrying from the same location changes nothing.", "retry": "no"}, {"code": "permit2_disabled", "family": "Any payment", "layer": "Payment requirements", "meaning": "The payment needs Permit2, which is not enabled for that token or network.", "step": "Use a token and network where Permit2 is enabled, or a payment path that does not need it (for example an EIP-3009 token).", "retry": "fix"}, {"code": "preflight_validation_failed", "family": "Any payment", "layer": "Facilitator verification", "meaning": "A check that runs before the scheme sees the payment failed.", "step": "Validate the request shape against the facilitator's requirements first: protocol version fields, headers, and payload structure. The failure is in the envelope, not the payment itself.", "retry": "fix"}, {"code": "invalid_bazaar_extension", "family": "Any payment", "layer": "Payment requirements", "meaning": "The Bazaar discovery metadata on the 402 response is malformed.", "step": "Fix the seller's discovery metadata on the 402 response. This is a listing problem; the payment mechanics may be fine.", "retry": "fix"}, {"code": "unsupported_payload_type", "family": "Any payment", "layer": "Payment requirements", "meaning": "The payload type is not one the facilitator handles.", "step": "Check the protocol version on both sides. The common cause is the v1 X-PAYMENT header sent to a v2 endpoint that expects PAYMENT-SIGNATURE, or the reverse.", "retry": "fix"}, {"code": "unknown_error", "family": "Any payment", "layer": "Facilitator verification", "meaning": "The failure could not be classified (HTTP 500). The facilitator asks for these to be reported.", "step": "Capture the full exchange (network, scheme, the error field, any transaction reference) and report it. One retry with a fresh authorization is reasonable; a repeat is a report, not a loop.", "retry": "fix"}, {"code": "invalid_exact_evm_payload_signature", "family": "EVM exact", "layer": "Client and authorization", "meaning": "The signature does not recover to the payer address.", "step": "Re-sign with the payer's key and check the signing domain: chain ID, verifying contract, and the exact typed-data fields.", "retry": "fix"}, {"code": "invalid_exact_evm_payload_authorization_value", "family": "EVM exact", "layer": "Client and authorization", "meaning": "The amount does not exactly match the amount required.", "step": "Copy the amount from the payment requirements exactly, in atomic units. Exact-scheme payments do not round.", "retry": "fix"}, {"code": "invalid_exact_evm_payload_authorization_valid_before", "family": "EVM exact", "layer": "Client and authorization", "meaning": "The authorization expired before settlement.", "step": "Give the authorization a longer validity window, and check for clock skew and slow settlement between signing and submission.", "retry": "fix"}, {"code": "invalid_exact_evm_payload_authorization_valid_after", "family": "EVM exact", "layer": "Client and authorization", "meaning": "The authorization is not valid yet.", "step": "Check the signing clock, then wait until the valid-after time passes before submitting.", "retry": "fix"}, {"code": "invalid_exact_evm_payload_undeployed_smart_wallet", "family": "EVM exact", "layer": "Client and authorization", "meaning": "The payer is a counterfactual smart wallet with no deployment data.", "step": "Deploy the wallet first, or include the deployment data the facilitator needs to verify the signature.", "retry": "fix"}, {"code": "smart_wallet_deployment_failed", "family": "EVM exact", "layer": "Settlement", "meaning": "Deploying the payer's smart wallet during settlement failed.", "step": "Check the wallet factory and deployment funding, and confirm whether any part of the payment landed before trying again.", "retry": "confirm"}, {"code": "invalid_exact_evm_permit2_payload_signature", "family": "Permit2", "layer": "Client and authorization", "meaning": "The Permit2 signature does not verify for the payer.", "step": "Re-sign the Permit2 permitted-witness data with the payer's key, checking the domain and witness fields.", "retry": "fix"}, {"code": "invalid_exact_evm_permit2_payload_amount", "family": "Permit2", "layer": "Client and authorization", "meaning": "The permitted amount does not match the amount required.", "step": "Set the permitted amount exactly to the amount in the payment requirements.", "retry": "fix"}, {"code": "invalid_exact_evm_permit2_payload_deadline", "family": "Permit2", "layer": "Client and authorization", "meaning": "The Permit2 deadline has passed.", "step": "Sign again with a deadline far enough in the future to cover settlement time.", "retry": "fix"}, {"code": "invalid_exact_evm_permit2_payload_recipient", "family": "Permit2", "layer": "Client and authorization", "meaning": "The recipient in the Permit2 data does not match the route's recipient.", "step": "Set the witness recipient to the payTo address in the payment requirements.", "retry": "fix"}, {"code": "invalid_exact_evm_permit2_payload_spender", "family": "Permit2", "layer": "Client and authorization", "meaning": "The spender in the Permit2 data is not the contract the facilitator expects.", "step": "Use the spender named in the payment requirements (the x402 Permit2 proxy), not the token or the facilitator address.", "retry": "fix"}, {"code": "invalid_exact_evm_permit2_payload_valid_after", "family": "Permit2", "layer": "Client and authorization", "meaning": "The Permit2 authorization is not valid yet.", "step": "Check the signing clock, then wait until the valid-after time passes.", "retry": "fix"}, {"code": "invalid_exact_evm_permit2_payload_allowance_required", "family": "Permit2", "layer": "Client and authorization", "meaning": "The one-time Permit2 approval has not been granted yet. This is the Permit2 code to know: the payment cannot proceed until the allowance exists.", "step": "Submit the Permit2 allowance approval transaction from the payer first and let it confirm, then sign the payment.", "retry": "fix"}, {"code": "invalid_exact_svm_payload_transaction_simulation_failed", "family": "Solana exact", "layer": "Client and authorization", "meaning": "The Solana payment transaction failed simulation.", "step": "Rebuild the transaction and simulate it locally; the failing instruction or account is named in the simulation logs.", "retry": "fix"}, {"code": "invalid_exact_svm_payload_transaction_sender_ata_not_found", "family": "Solana exact", "layer": "Client and authorization", "meaning": "The payer has no associated token account for the asset being paid.", "step": "Create and fund the payer's associated token account for that mint, then rebuild the payment transaction.", "retry": "fix"}, {"code": "invalid_exact_svm_payload_transaction_amount_mismatch", "family": "Solana exact", "layer": "Client and authorization", "meaning": "The transaction amount does not match the amount required.", "step": "Set the transfer amount exactly to the requirement, in the token's smallest units.", "retry": "fix"}, {"code": "settle_exact_failed_onchain", "family": "Settlement", "layer": "Settlement", "meaning": "The settlement transaction was submitted and reverted.", "step": "Read the transaction receipt to find the revert reason; the payment did not land. Fix the cause before paying again, and keep the receipt as evidence of what happened.", "retry": "confirm"}, {"code": "settle_exact_node_failure", "family": "Settlement", "layer": "Settlement", "meaning": "The facilitator could not reach the network to submit or confirm.", "step": "Check whether a settlement transaction exists before doing anything else; a submission may already be in flight. Then wait for the network or facilitator to recover.", "retry": "confirm"}, {"code": "settle_exact_svm_transaction_confirmation_timed_out", "family": "Settlement", "layer": "Settlement", "meaning": "The Solana transaction was submitted but did not confirm in time.", "step": "Look the signature up on a Solana explorer. It may still confirm; do not pay again until its status is final.", "retry": "confirm"}, {"code": "settle_exact_svm_block_height_exceeded", "family": "Settlement", "layer": "Settlement", "meaning": "The Solana transaction expired before confirmation, so it cannot land.", "step": "Rebuild the payment with a fresh blockhash and submit again. The expired transaction is dead, so a fresh one cannot double-pay.", "retry": "fix"}, {"code": "invalid_exact_evm_verification_failed", "family": "Settlement", "layer": "Settlement", "meaning": "Verification, rerun at settlement time, no longer passes: something changed between the verify call and settlement, such as an expired or consumed authorization.", "step": "Confirm no payment landed, then start a fresh payment with a new authorization rather than resubmitting the old one.", "retry": "confirm"}];
+const RETRY = {"fix": "Safe to retry after the fix", "confirm": "Confirm onchain first", "no": "Do not retry"};
+const byCode = {};
+CODES.forEach(c => byCode[c.code] = c);
+const result = document.getElementById('lk-result');
+function render(c) {
+  const cls = 'retry-' + c.retry;
+  result.innerHTML = '<div class="lk-card"><h3>' + c.code + '</h3>' +
+    '<div class="lk-meta"><span class="lk-chip">' + c.family + '</span>' +
+    '<span class="lk-chip">Layer: ' + c.layer + '</span>' +
+    '<span class="lk-chip lk-retry ' + cls + '">' + RETRY[c.retry] + '</span></div>' +
+    '<p><strong>What it means.</strong> ' + c.meaning + '</p>' +
+    '<p><strong>Safe next step.</strong> ' + c.step + '</p></div>';
+  history.replaceState(null, '', '#' + c.code);
+}
+function find(text) {
+  text = (text || '').trim().toLowerCase();
+  if (!text) return;
+  if (byCode[text]) return render(byCode[text]);
+  const hit = CODES.find(c => text.includes(c.code));
+  if (hit) return render(hit);
+  const partial = CODES.filter(c => c.code.includes(text.replace(/\s+/g, '_')));
+  if (partial.length) return render(partial[0]);
+  result.innerHTML = '<div class="lk-card"><p class="lk-none">No exact match. Check the code families below the reference table: Solana transaction variants, batch-settlement codes, and Solana upto codes are covered as patterns.</p></div>';
+}
+document.getElementById('lk-form').addEventListener('submit', e => e.preventDefault());
+document.getElementById('lk-input').addEventListener('input', e => find(e.target.value));
+document.getElementById('lk-select').addEventListener('change', e => { if (e.target.value) render(byCode[e.target.value]); });
+if (location.hash) { const c = byCode[location.hash.slice(1)]; if (c) render(c); }
+</script>
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Payload develops innovative software and applications that simplify operations, solve practical challenges, and help businesses and individuals work more efficiently.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../about.html">About Payload</a>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.ee7c843dce.js"></script>
+</body></html>

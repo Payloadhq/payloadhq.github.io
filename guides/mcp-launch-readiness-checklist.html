@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP Server Launch Readiness Checklist: All 48 Checks | Payload</title>
+<meta name="description" content="The 48 checks the MCP Launch Readiness Audit runs, published as a checklist: tool poisoning, hardcoded credentials, exposure, over-privileged tools, SSRF, and auth. Includes a free browser mini-scan that runs 12 of the checks on a pasted configuration.">
+<link rel="canonical" href="https://payloadhq.dev/guides/mcp-launch-readiness-checklist.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="MCP Server Launch Readiness Checklist: All 48 Checks | Payload">
+<meta property="og:description" content="The 48 checks the MCP Launch Readiness Audit runs, published as a checklist: tool poisoning, hardcoded credentials, exposure, over-privileged tools, SSRF, and auth. Includes a free browser mini-scan that runs 12 of the checks on a pasted configuration.">
+<meta property="og:url" content="https://payloadhq.dev/guides/mcp-launch-readiness-checklist.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "MCP Server Launch Readiness Checklist: All 48 Checks", "url": "https://payloadhq.dev/guides/mcp-launch-readiness-checklist.html", "publisher": {"@id": "https://payloadhq.dev/#organization"}, "datePublished": "2026-11-10", "dateModified": "2026-11-10"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the mini-scan the full audit?", "acceptedAnswer": {"@type": "Answer", "text": "No, and it says so on the results. The mini-scan runs 12 of the 48 checks, the ones that can be evaluated honestly from a pasted tool list or configuration in a browser. The other 36 checks, including every credential, exposure, SSRF, and authentication rule, need your source code, which is what the audit scans locally."}}, {"@type": "Question", "name": "Does the mini-scan upload my configuration?", "acceptedAnswer": {"@type": "Answer", "text": "No. It runs entirely in this page, in your browser. That is also the audit's model: the scanner is a local CLI and your code never leaves your machine."}}, {"@type": "Question", "name": "Why publish all 48 checks?", "acceptedAnswer": {"@type": "Answer", "text": "The checks are the standard, and a standard you cannot read is hard to trust. What the audit sells is the automation: running all 48 against a real codebase, the evidence for each finding, a remediation for every one, hardened templates, and a regression suite so the findings stay fixed."}}]}</script>
+<style>.scan-box{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:22px}.scan-box textarea{width:100%;min-height:150px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:.86rem}.finding{border-top:1px solid var(--line);padding:12px 0}.finding h4{margin:0 0 4px;font-size:.98rem}.sev{border-radius:999px;padding:2px 9px;font-size:.76rem;font-weight:700;border:1px solid var(--line)}.sev-HIGH{color:#c0453e}.sev-MEDIUM{color:#c96f4a}.sev-LOW{color:var(--mut)}.rule-id{font-family:ui-monospace,Menlo,monospace;color:var(--mut);font-size:.84rem}</style><link rel="stylesheet" href="../style.437a76d8d1.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="../software.html">Software</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head"><div class="wrap">
+  <p class="kicker">Guide · MCP Launch Readiness Audit</p>
+  <h1>MCP server launch readiness checklist</h1>
+  <p class="lede">All 48 checks the <a href="../products/mcp-launch-readiness-audit.html">MCP Launch Readiness Audit</a> runs before an MCP server ships, published in full: what each check looks for, and the fix when it fires. Start with the free mini-scan below: it runs 12 of the 48 checks on a pasted tool list or configuration, in your browser.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>Mini-scan: 12 of the 48 checks, in your browser</h2>
+  <p>Paste a tools list (the JSON your server returns for tools/list), a server.json, or your tool definitions. Nothing is uploaded. The scan covers the description and tool-structure checks: TP-001, TP-002, TP-004, TP-005, TP-008, TP-009, TP-012, TP-013, PV-001, PV-005, PV-006, PV-007. The other 36 checks need your source code; the results say so too.</p></div>
+  <div class="scan-box">
+    <textarea id="scan-input" placeholder="Paste your tools JSON or configuration here"></textarea>
+    <p style="margin-top:12px"><button class="btn btn-primary" type="button" id="scan-run">Run the 12 checks</button></p>
+    <div id="scan-out" aria-live="polite"></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>From checklist to audit</h2>
+  <p>The full audit runs all 48 checks against your source code locally, and every finding comes with its evidence and a concrete remediation. <a href="../products/mcp-launch-sample-report.pdf">Read a sample audit report (PDF)</a> to see the format.</p></div>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="../products/mcp-launch-readiness-audit.html?utm_source=mcp-checklist&amp;utm_medium=guide">Get the full audit — $79</a>
+    <a class="btn btn-ghost" href="mcp-prompt-injection-test.html">Testing for prompt injection by hand</a>
+  </div>
+</div></section>
+
+<section><div class="wrap"><div class="sec-head"><h2>Tool poisoning <span class="rule-id">(14 checks)</span></h2></div><div class="finding"><h4><span class="rule-id">TP-001</span> <span class="sev sev-HIGH">HIGH</span> Instruction override phrase in tool description <span class="rule-id">(in the mini-scan)</span></h4><p>Rewrite the description as a pure capability statement. Move all behavioral instructions into your own agent's system prompt, which you control.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-002</span> <span class="sev sev-HIGH">HIGH</span> Identity hijack / role reassignment in tool description <span class="rule-id">(in the mini-scan)</span></h4><p>Remove role-playing language. A tool description must describe what the tool does, never who the assistant is.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-003</span> <span class="sev sev-HIGH">HIGH</span> Jailbreak phrase in tool description</h4><p>Remove jailbreak language immediately. Treat any third-party tool manifest containing these phrases as untrusted input.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-004</span> <span class="sev sev-HIGH">HIGH</span> Data exfiltration instruction in tool description <span class="rule-id">(in the mini-scan)</span></h4><p>Remove any instruction that moves data off the user's machine. Tools should return data to the agent; the agent decides what leaves the session.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-005</span> <span class="sev sev-HIGH">HIGH</span> Conceal-from-user directive in tool description <span class="rule-id">(in the mini-scan)</span></h4><p>Delete secrecy directives. Legitimate tools never instruct the agent to hide behavior from the user.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-006</span> <span class="sev sev-MEDIUM">MEDIUM</span> Safety override instruction in tool description</h4><p>Remove language that weakens the agent's safety behavior. Tool descriptions are untrusted third-party text and must not set policy.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-007</span> <span class="sev sev-MEDIUM">MEDIUM</span> Hidden instruction tags in tool description</h4><p>Strip pseudo-system tags. Agents may parse these as privileged instructions; they do not belong in tool metadata.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-008</span> <span class="sev sev-MEDIUM">MEDIUM</span> Invisible / steganographic characters in tool description <span class="rule-id">(in the mini-scan)</span></h4><p>Remove zero-width and bidi-override characters. They are a known technique for hiding instructions from human reviewers.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-009</span> <span class="sev sev-MEDIUM">MEDIUM</span> Encoded payload (base64/hex blob) in tool description <span class="rule-id">(in the mini-scan)</span></h4><p>Decode and inspect any opaque blob before shipping. Encoded content in a description is a smuggling vector.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-010</span> <span class="sev sev-LOW">LOW</span> Imperative control language in tool description</h4><p>Prefer neutral capability language ('Returns X given Y') over commands addressed to the agent ('You must...').</p></div>
+<div class="finding"><h4><span class="rule-id">TP-011</span> <span class="sev sev-MEDIUM">MEDIUM</span> Credential-harvesting phrasing in tool description</h4><p>Tools must never ask the agent to collect secrets. Remove the phrasing or move credential handling into your own controlled auth flow.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-012</span> <span class="sev sev-MEDIUM">MEDIUM</span> External URL embedded in tool description <span class="rule-id">(in the mini-scan)</span></h4><p>Audit every outbound URL in tool metadata. If the URL is not essential documentation, remove it; never let a tool description direct the agent to an unvetted endpoint.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-013</span> <span class="sev sev-LOW">LOW</span> Overlong tool description (instruction-smuggling risk) <span class="rule-id">(in the mini-scan)</span></h4><p>Keep descriptions under ~800 characters. Long descriptions are where smuggled instructions hide; split detail into docs.</p></div>
+<div class="finding"><h4><span class="rule-id">TP-014</span> <span class="sev sev-MEDIUM">MEDIUM</span> Read-then-exfiltrate pattern in tool description</h4><p>Break the read-then-send chain: tools should return data to the agent and never combine local reads with network sends in one instruction.</p></div></div></section>
+<section><div class="wrap"><div class="sec-head"><h2>Hardcoded credentials <span class="rule-id">(11 checks)</span></h2></div><div class="finding"><h4><span class="rule-id">CR-001</span> <span class="sev sev-HIGH">HIGH</span> AWS access key ID in source</h4><p>Revoke the key, move it to an environment variable or secret manager, and rotate anything it touched.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-002</span> <span class="sev sev-HIGH">HIGH</span> Probable AWS secret key assignment in source</h4><p>Revoke and move to a secret manager. Never commit secrets next to the code that uses them.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-003</span> <span class="sev sev-HIGH">HIGH</span> GitHub token in source</h4><p>Revoke the token immediately and reissue via environment variables.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-004</span> <span class="sev sev-HIGH">HIGH</span> OpenAI API key in source</h4><p>Revoke the key in the provider dashboard and move it to env config.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-005</span> <span class="sev sev-HIGH">HIGH</span> Anthropic API key in source</h4><p>Revoke the key in the provider dashboard and move it to env config.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-006</span> <span class="sev sev-HIGH">HIGH</span> Stripe secret key in source</h4><p>Roll the key in the Stripe dashboard. Publishable keys are fine in source; secret keys never are.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-007</span> <span class="sev sev-MEDIUM">MEDIUM</span> Hardcoded password assignment in source</h4><p>Move to environment variables or a secret manager. If this shipped, rotate the credential.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-008</span> <span class="sev sev-MEDIUM">MEDIUM</span> Private key material in source</h4><p>Remove the key block from source control history and rotate the keypair. Keys live in a secret manager, not in repos.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-009</span> <span class="sev sev-MEDIUM">MEDIUM</span> Database URL with embedded credentials in source</h4><p>Split credentials out of the connection string into env vars or a secret manager.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-010</span> <span class="sev sev-MEDIUM">MEDIUM</span> JWT embedded in source</h4><p>Tokens are runtime data. Issue them at deploy time and pass via env, never commit them.</p></div>
+<div class="finding"><h4><span class="rule-id">CR-011</span> <span class="sev sev-LOW">LOW</span> Hardcoded bearer token in source</h4><p>Move static tokens to environment configuration.</p></div></div></section>
+<section><div class="wrap"><div class="sec-head"><h2>Server exposure <span class="rule-id">(7 checks)</span></h2></div><div class="finding"><h4><span class="rule-id">EX-001</span> <span class="sev sev-HIGH">HIGH</span> Server binds all network interfaces (0.0.0.0)</h4><p>Bind to 127.0.0.1 for local servers. If remote access is needed, put authentication in front and bind behind a reverse proxy.</p></div>
+<div class="finding"><h4><span class="rule-id">EX-002</span> <span class="sev sev-MEDIUM">MEDIUM</span> Debug mode enabled in server source</h4><p>Debug mode leaks stack traces and enables reloader backdoors. Gate it behind an env var that defaults to off in production.</p></div>
+<div class="finding"><h4><span class="rule-id">EX-003</span> <span class="sev sev-MEDIUM">MEDIUM</span> CORS allows any origin</h4><p>Restrict CORS to the exact origins of your clients. Wildcard CORS on an authenticated API lets any site ride the session.</p></div>
+<div class="finding"><h4><span class="rule-id">EX-004</span> <span class="sev sev-MEDIUM">MEDIUM</span> Stack traces returned to clients</h4><p>Log full tracebacks server-side; return a generic error id to clients. Tracebacks leak paths, versions, and internals.</p></div>
+<div class="finding"><h4><span class="rule-id">EX-005</span> <span class="sev sev-HIGH">HIGH</span> Network transport with no authentication mechanism</h4><p>Any MCP server reachable over a network must authenticate every caller. Add OAuth 2.1 / bearer-token auth before exposing the transport — see templates/python and templates/typescript.</p></div>
+<div class="finding"><h4><span class="rule-id">EX-006</span> <span class="sev sev-MEDIUM">MEDIUM</span> Cloud metadata endpoint referenced (SSRF target)</h4><p>Block 169.254.169.254 and metadata.google.internal in any URL handling. These endpoints yield cloud IAM credentials.</p></div>
+<div class="finding"><h4><span class="rule-id">EX-007</span> <span class="sev sev-LOW">LOW</span> Sensitive route path exposed</h4><p>Remove or protect /admin, /debug, and /.env routes. They are probed within minutes of exposure.</p></div></div></section>
+<section><div class="wrap"><div class="sec-head"><h2>Over-privileged tools <span class="rule-id">(8 checks)</span></h2></div><div class="finding"><h4><span class="rule-id">PV-001</span> <span class="sev sev-HIGH">HIGH</span> Dangerously powerful tool name <span class="rule-id">(in the mini-scan)</span></h4><p>Rename or remove. Tools named like shell primitives invite the agent to treat your server as a remote shell.</p></div>
+<div class="finding"><h4><span class="rule-id">PV-002</span> <span class="sev sev-HIGH">HIGH</span> Raw SQL execution tool</h4><p>Replace with parameterized, allowlisted queries. A raw SQL tool is full database access behind one prompt injection.</p></div>
+<div class="finding"><h4><span class="rule-id">PV-003</span> <span class="sev sev-MEDIUM">MEDIUM</span> Filesystem write/delete tool</h4><p>Scope file tools to an allowlisted directory, require per-call confirmation for deletes, and audit every write.</p></div>
+<div class="finding"><h4><span class="rule-id">PV-004</span> <span class="sev sev-MEDIUM">MEDIUM</span> Network fetch tool with no URL allowlist</h4><p>Add a domain allowlist and block private/metadata IPs, or any prompt injection becomes SSRF.</p></div>
+<div class="finding"><h4><span class="rule-id">PV-005</span> <span class="sev sev-MEDIUM">MEDIUM</span> Wildcard tool name <span class="rule-id">(in the mini-scan)</span></h4><p>Give every tool an explicit, narrowly-scoped name. Wildcards make audit logs and scopes meaningless.</p></div>
+<div class="finding"><h4><span class="rule-id">PV-006</span> <span class="sev sev-MEDIUM">MEDIUM</span> Tool without input schema <span class="rule-id">(in the mini-scan)</span></h4><p>Define an inputSchema for every tool. Missing schemas disable client-side validation and hide the tool's true surface.</p></div>
+<div class="finding"><h4><span class="rule-id">PV-007</span> <span class="sev sev-LOW">LOW</span> Overly broad input schema (additionalProperties: true) <span class="rule-id">(in the mini-scan)</span></h4><p>Enumerate allowed properties explicitly. Open schemas let callers smuggle unexpected fields into your handler.</p></div>
+<div class="finding"><h4><span class="rule-id">PV-008</span> <span class="sev sev-MEDIUM">MEDIUM</span> Sensitive path referenced in tool definition</h4><p>Tools must not reference credential paths. If a tool needs config, pass values via env, not paths to secret files.</p></div></div></section>
+<section><div class="wrap"><div class="sec-head"><h2>SSRF <span class="rule-id">(2 checks)</span></h2></div><div class="finding"><h4><span class="rule-id">SS-001</span> <span class="sev sev-HIGH">HIGH</span> URL parameter with no SSRF protection</h4><p>Validate URLs against an allowlist, block private/loopback/link-local ranges and metadata endpoints, and disable redirect-following or revalidate after each hop.</p></div>
+<div class="finding"><h4><span class="rule-id">SS-002</span> <span class="sev sev-MEDIUM">MEDIUM</span> Redirect-following fetch without revalidation</h4><p>Revalidate the final URL after every redirect against the same allowlist; attackers launder SSRF through open redirects.</p></div></div></section>
+<section><div class="wrap"><div class="sec-head"><h2>Authentication and hardening <span class="rule-id">(6 checks)</span></h2></div><div class="finding"><h4><span class="rule-id">AU-001</span> <span class="sev sev-HIGH">HIGH</span> No authentication mechanism found</h4><p>Add caller authentication (OAuth 2.1 bearer tokens in the templates). MCP servers ship without auth by design — yours must not.</p></div>
+<div class="finding"><h4><span class="rule-id">AU-002</span> <span class="sev sev-MEDIUM">MEDIUM</span> No per-tool authorization scopes</h4><p>Issue tokens with per-tool scopes and enforce them on every call, so a compromised token cannot reach every tool.</p></div>
+<div class="finding"><h4><span class="rule-id">AU-003</span> <span class="sev sev-MEDIUM">MEDIUM</span> No rate limiting</h4><p>Add per-tenant rate limits (see templates). Unbounded tools are a cost and abuse vector once agents call them in loops.</p></div>
+<div class="finding"><h4><span class="rule-id">AU-004</span> <span class="sev sev-LOW">LOW</span> No audit logging</h4><p>Log every tool call with timestamp, tenant, tool, and outcome. Without an audit trail you cannot reconstruct an incident.</p></div>
+<div class="finding"><h4><span class="rule-id">AU-005</span> <span class="sev sev-MEDIUM">MEDIUM</span> No input validation</h4><p>Validate and sanitize every argument server-side (types, lengths, formats). Client-side schemas are advisory only.</p></div>
+<div class="finding"><h4><span class="rule-id">AU-006</span> <span class="sev sev-LOW">LOW</span> No tenant isolation</h4><p>If you serve multiple users, isolate state per tenant and enforce it on every call — never trust a tenant id from the client alone.</p></div></div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>Questions</h2></div>
+  <div class="faq">
+<div class="faq-item"><h3>Is the mini-scan the full audit?</h3><p>No, and it says so on the results. The mini-scan runs 12 of the 48 checks, the ones that can be evaluated honestly from a pasted tool list or configuration in a browser. The other 36 checks, including every credential, exposure, SSRF, and authentication rule, need your source code, which is what the audit scans locally.</p></div>
+<div class="faq-item"><h3>Does the mini-scan upload my configuration?</h3><p>No. It runs entirely in this page, in your browser. That is also the audit's model: the scanner is a local CLI and your code never leaves your machine.</p></div>
+<div class="faq-item"><h3>Why publish all 48 checks?</h3><p>The checks are the standard, and a standard you cannot read is hard to trust. What the audit sells is the automation: running all 48 against a real codebase, the evidence for each finding, a remediation for every one, hardened templates, and a regression suite so the findings stay fixed.</p></div>
+  </div>
+</div></section>
+</main>
+<script>
+const PATTERN_RULES = [{"id": "TP-001", "severity": "HIGH", "title": "Instruction override phrase in tool description", "hint": "Rewrite the description as a pure capability statement. Move all behavioral instructions into your own agent's system prompt, which you control.", "patterns": ["ignore\\s+(all\\s+)?(previous|prior|earlier)\\s+instructions", "disregard\\s+(all\\s+)?(your\\s+)?(safety\\s+|previous\\s+|prior\\s+|system\\s+)?(guidelines|instructions|directives|policies)", "forget\\s+(your|all)\\s+(previous\\s+)?instructions", "override\\s+(your|the|previous|system)\\s+(instructions|directives|prompt)", "(new|updated|replacement)\\s+instructions?:", "system\\s+override"]}, {"id": "TP-002", "severity": "HIGH", "title": "Identity hijack / role reassignment in tool description", "hint": "Remove role-playing language. A tool description must describe what the tool does, never who the assistant is.", "patterns": ["you\\s+are\\s+now\\s+a", "your\\s+new\\s+role\\s+is", "pretend\\s+(you\\s+are|to\\s+be)", "roleplay\\s+as", "from\\s+now\\s+on,?\\s+you\\s+are"]}, {"id": "TP-004", "severity": "HIGH", "title": "Data exfiltration instruction in tool description", "hint": "Remove any instruction that moves data off the user's machine. Tools should return data to the agent; the agent decides what leaves the session.", "patterns": ["\\b(post|send|upload|transmit|exfiltrate)\\b.{0,60}https?://", "send\\s+.{0,40}\\s+to\\s+https?://", "\\bphone\\s+home\\b", "beacon\\s+.{0,30}\\s+to\\s+", "curl\\s+https?://"]}, {"id": "TP-005", "severity": "HIGH", "title": "Conceal-from-user directive in tool description", "hint": "Delete secrecy directives. Legitimate tools never instruct the agent to hide behavior from the user.", "patterns": ["do\\s+not\\s+(tell|inform|mention|reveal|show|disclose).{0,40}(user|human)", "hide\\s+.{0,30}\\s+from\\s+(the\\s+)?user", "keep\\s+this\\s+(hidden|secret|confidential)", "\\bsecretly\\b"]}, {"id": "TP-008", "severity": "MEDIUM", "title": "Invisible / steganographic characters in tool description", "hint": "Remove zero-width and bidi-override characters. They are a known technique for hiding instructions from human reviewers.", "patterns": ["[\\u200b-\\u200f\\u202a-\\u202e\\ufeff]"]}, {"id": "TP-009", "severity": "MEDIUM", "title": "Encoded payload (base64/hex blob) in tool description", "hint": "Decode and inspect any opaque blob before shipping. Encoded content in a description is a smuggling vector.", "patterns": ["[A-Za-z0-9+/]{60,}={0,2}", "(?:[0-9a-f]{2}){32,}"]}, {"id": "TP-012", "severity": "MEDIUM", "title": "External URL embedded in tool description", "hint": "Audit every outbound URL in tool metadata. If the URL is not essential documentation, remove it; never let a tool description direct the agent to an unvetted endpoint.", "patterns": ["https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"]}];
+const META = {"TP-001": {"severity": "HIGH", "title": "Instruction override phrase in tool description", "hint": "Rewrite the description as a pure capability statement. Move all behavioral instructions into your own agent's system prompt, which you control."}, "TP-002": {"severity": "HIGH", "title": "Identity hijack / role reassignment in tool description", "hint": "Remove role-playing language. A tool description must describe what the tool does, never who the assistant is."}, "TP-004": {"severity": "HIGH", "title": "Data exfiltration instruction in tool description", "hint": "Remove any instruction that moves data off the user's machine. Tools should return data to the agent; the agent decides what leaves the session."}, "TP-005": {"severity": "HIGH", "title": "Conceal-from-user directive in tool description", "hint": "Delete secrecy directives. Legitimate tools never instruct the agent to hide behavior from the user."}, "TP-008": {"severity": "MEDIUM", "title": "Invisible / steganographic characters in tool description", "hint": "Remove zero-width and bidi-override characters. They are a known technique for hiding instructions from human reviewers."}, "TP-009": {"severity": "MEDIUM", "title": "Encoded payload (base64/hex blob) in tool description", "hint": "Decode and inspect any opaque blob before shipping. Encoded content in a description is a smuggling vector."}, "TP-012": {"severity": "MEDIUM", "title": "External URL embedded in tool description", "hint": "Audit every outbound URL in tool metadata. If the URL is not essential documentation, remove it; never let a tool description direct the agent to an unvetted endpoint."}, "TP-013": {"severity": "LOW", "title": "Overlong tool description (instruction-smuggling risk)", "hint": "Keep descriptions under ~800 characters. Long descriptions are where smuggled instructions hide; split detail into docs."}, "PV-001": {"severity": "HIGH", "title": "Dangerously powerful tool name", "hint": "Rename or remove. Tools named like shell primitives invite the agent to treat your server as a remote shell."}, "PV-005": {"severity": "MEDIUM", "title": "Wildcard tool name", "hint": "Give every tool an explicit, narrowly-scoped name. Wildcards make audit logs and scopes meaningless."}, "PV-006": {"severity": "MEDIUM", "title": "Tool without input schema", "hint": "Define an inputSchema for every tool. Missing schemas disable client-side validation and hide the tool's true surface."}, "PV-007": {"severity": "LOW", "title": "Overly broad input schema (additionalProperties: true)", "hint": "Enumerate allowed properties explicitly. Open schemas let callers smuggle unexpected fields into your handler."}};
+const DANGEROUS = ["exec", "shell", "eval", "system_cmd", "run_command", "run_shell", "execute_command", "delete_all", "drop_", "truncate", "rm_rf", "format_disk", "shutdown", "reboot", "chmod_all"];
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+function runScan() {
+  const raw = document.getElementById('scan-input').value;
+  const out = document.getElementById('scan-out');
+  if (!raw.trim()) { out.innerHTML = '<p style="margin-top:14px">Paste a tools list or configuration first.</p>'; return; }
+  let tools = null;
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) tools = parsed;
+    else if (parsed && Array.isArray(parsed.tools)) tools = parsed.tools;
+    else if (parsed && typeof parsed === 'object' && parsed.name) tools = [parsed];
+  } catch (e) { tools = null; }
+  const findings = [];
+  const add = (id, where) => {
+    if (!findings.some(f => f.id === id && f.where === where)) {
+      const m = META[id]; findings.push({id, where, severity: m.severity, title: m.title, hint: m.hint});
+    }
+  };
+  const descTargets = [];
+  if (tools) {
+    tools.forEach(t => {
+      const name = String(t.name || '').toLowerCase();
+      const desc = typeof t.description === 'string' ? t.description : '';
+      const label = 'tool "' + (t.name || '?') + '"';
+      if (DANGEROUS.some(d => name.includes(d))) add('PV-001', label);
+      if (name.includes('*') || name === 'any' || name === 'all') add('PV-005', label);
+      const schema = t.inputSchema || t.input_schema || {};
+      const props = (schema && typeof schema === 'object') ? schema.properties : null;
+      if (!props || !Object.keys(props).length) add('PV-006', label);
+      else if (schema.additionalProperties === true) add('PV-007', label);
+      if (desc.length > 800) add('TP-013', label);
+      if (desc) descTargets.push([desc, label]);
+    });
+  } else {
+    descTargets.push([raw, 'pasted text']);
+  }
+  PATTERN_RULES.forEach(rule => {
+    descTargets.forEach(([text, label]) => {
+      const hit = rule.patterns.some(p => { try { return new RegExp(p, 'i').test(text); } catch (e) { return false; } });
+      if (hit) add(rule.id, label);
+    });
+  });
+  const order = {HIGH: 0, MEDIUM: 1, LOW: 2};
+  findings.sort((a, b) => order[a.severity] - order[b.severity]);
+  let html = '';
+  if (findings.length) {
+    html = '<p style="margin-top:16px"><strong>' + findings.length + ' finding' + (findings.length > 1 ? 's' : '') + '</strong> from the 12 mini-scan checks:</p>' +
+      findings.map(f => '<div class="finding"><h4><span class="rule-id">' + f.id + '</span> <span class="sev sev-' + f.severity + '">' + f.severity + '</span> ' + esc(f.title) + ' <span class="rule-id">(' + esc(f.where) + ')</span></h4><p>' + esc(f.hint) + '</p></div>').join('');
+  } else {
+    html = '<p style="margin-top:16px"><strong>No findings from these 12 checks.</strong> That covers tool descriptions and tool structure only. The other 36 checks (credentials in source, server exposure, SSRF, authentication and hardening) were not run; they need the full audit against your source code.</p>';
+  }
+  html += '<p style="margin-top:14px">The full audit runs all 48 checks and writes the remediation report. <a href="../products/mcp-launch-readiness-audit.html?utm_source=mcp-checklist&amp;utm_medium=guide">MCP Launch Readiness Audit — $79</a></p>';
+  out.innerHTML = html;
+}
+document.getElementById('scan-run').addEventListener('click', runScan);
+</script>
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Payload develops innovative software and applications that simplify operations, solve practical challenges, and help businesses and individuals work more efficiently.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../about.html">About Payload</a>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.ee7c843dce.js"></script>
+</body></html>
