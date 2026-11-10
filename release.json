@@ -1,10 +1,10 @@
 {
   "product": "Payload website (payloadhq.dev)",
-  "release": "v12",
-  "commit": "9fe4fa2c0a38162c9852a7092399ab9b3bf8a996",
+  "release": "v13",
+  "commit": "b292943b134a286d99a1d13d1fff35f2836c4849",
   "source_repo": "Payloadhq/payloadhq.github.io",
   "manifest": "MANIFEST.sha256",
-  "manifest_sha256": "18457aed4f25b53abf9fb140e84b61130a3aab1b9d74f16d64bb420ad859dea5",
+  "manifest_sha256": "9190f89caa20c1980c502cb570f44695c0f95b747a1cd0f53be13d842b914fd3",
   "manifest_excludes": "release.json",
   "built": "2026-11-10",
   "verify": "GET https://payloadhq.dev/release.json and compare commit + manifest_sha256; any file's SHA-256 must match MANIFEST.sha256 at that commit."
