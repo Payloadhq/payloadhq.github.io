@@ -1,7 +1,7 @@
 {
   "product": "Payload website (payloadhq.dev)",
-  "release": "v14",
-  "commit": "7b1cd136a4dafa73bc4e36ffe56d233722de49f0",
+  "release": "v15",
+  "commit": "a861c31879448c7e1105aee43e9f6481f37b6bc5",
   "source_repo": "Payloadhq/payloadhq.github.io",
   "manifest": "MANIFEST.sha256",
   "manifest_sha256": "621f31092f0396a3bac9468a508ad1d0680b80e6452c49b1fd3c0bc1a11aca6e",
