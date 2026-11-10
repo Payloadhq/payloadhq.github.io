@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="callx402: Diagnostics for Failed x402 Payments | Payload">
 <meta name="twitter:description" content="When an x402 payment fails, callx402 tells you why: invalid payloads, bad signatures, nonce reuse, verify versus settle mismatches, and what to fix next.">
-<link rel="stylesheet" href="style.99803b3a86.css">
+<link rel="stylesheet" href="style.437a76d8d1.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"callx402 by Payload","applicationCategory":"DeveloperApplication","operatingSystem":"Cross-platform","url":"https://payloadhq.dev/callx402.html","brand":{"@type":"Brand","name":"Payload"},"description":"A diagnostic toolkit for x402 payments. Free local tools on npm and pay per action hosted diagnostic actions that return structured evidence and explanations when an x402 payment fails."}
 </script>
@@ -173,6 +173,7 @@ table.cmp tr:last-child td{border-bottom:none}
   .pnav .prod small{display:none}
   section.blk{padding:40px 0}
 }
+@media(max-width:680px){ .pnav .wrap{flex-wrap:wrap;row-gap:2px} .pnav nav{order:3;width:100%;margin-left:0;padding-bottom:2px} .pnav .prod{font-size:17px} }
 </style>
 <script type="application/ld+json">
 {
@@ -377,7 +378,13 @@ table.cmp tr:last-child td{border-bottom:none}
       </div>
     </section>
 
-    <section class="final">
+    <section class="blk" id="error-guide">
+  <div class="wrap">
+    <h2>Working through a failure by hand?</h2>
+    <p>The <a href="guides/x402-troubleshooting.html">x402 payment errors guide</a> maps each facilitator error code to its cause and its safe next step, explains the v1/v2 payment header mismatch, and covers the case where the payment settled but the resource still returns 402.</p>
+  </div>
+</section>
+<section class="final">
       <h2>A failed payment is a question.<br>callx402 is how you answer it.</h2>
       <div class="ctas">
         <a class="pbtn pbtn-lime" href="https://www.npmjs.com/package/callx402">Get the free npm package</a>
@@ -396,7 +403,7 @@ table.cmp tr:last-child td{border-bottom:none}
       <img class="mark" src="assets/payload-logo.png" alt="" width="40" height="40">
       <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
-        <p>Practical software that simplifies complex work, improves everyday operations, and solves real-world problems.</p>
+        <p>Payload develops innovative software and applications that simplify operations, solve practical challenges, and help businesses and individuals work more efficiently.</p>
         <p><a href="products.json">Machine-readable catalog (JSON)</a></p>
       </div>
       <div>
@@ -424,6 +431,7 @@ table.cmp tr:last-child td{border-bottom:none}
       <div>
         <h4>Company</h4>
         <nav>
+          <a href="about.html">About Payload</a>
           <a href="questions.html">Questions</a>
           <a href="comparisons.html">Comparisons</a>
           <a href="fit.html">When Payload fits</a>
@@ -445,6 +453,6 @@ table.cmp tr:last-child td{border-bottom:none}
     </div>
   </div>
 </footer>
-<script src="assets/site.da5616d426.js" defer></script>
+<script src="assets/site.ee7c843dce.js" defer></script>
 </body>
 </html>

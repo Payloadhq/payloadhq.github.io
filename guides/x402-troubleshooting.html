@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>x402 Payment Errors: Causes, Checks, and Fixes | Payload</title>
+<meta name="description" content="Why an x402 payment failed: facilitator error codes, the v1/v2 payment header mismatch, and the checks to run before you pay again.">
+<link rel="canonical" href="https://payloadhq.dev/guides/x402-troubleshooting.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="x402 Payment Errors: Causes, Checks, and Fixes | Payload">
+<meta property="og:description" content="Why an x402 payment failed: facilitator error codes, the v1/v2 payment header mismatch, and the checks to run before you pay again.">
+<meta property="og:url" content="https://payloadhq.dev/guides/x402-troubleshooting.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../style.437a76d8d1.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "x402 payment errors: causes, checks, and fixes",
+  "url": "https://payloadhq.dev/guides/x402-troubleshooting.html",
+  "author": {"@id": "https://payloadhq.dev/#organization"},
+  "publisher": {"@id": "https://payloadhq.dev/#organization"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://payloadhq.dev/"},
+    {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://payloadhq.dev/guides/"},
+    {"@type": "ListItem", "position": 3, "name": "x402 payment errors", "item": "https://payloadhq.dev/guides/x402-troubleshooting.html"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "My payment went through but the API still returns 402. Why?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Settlement and delivery are two different events. If the retry raced the settlement, or the payment proof was attached to a stale challenge, the server answers 402 again even though the money moved. Confirm the settlement on-chain or with the facilitator before paying a second time, and check for a v1/v2 payment header mismatch."}},
+    {"@type": "Question", "name": "Is it safe to retry a failed x402 payment?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Retrying the request is always safe. Sending a second payment is not, until the first payment's settlement status is known. Most double payments in x402 flows come from paying again while the first settlement was still in flight."}},
+    {"@type": "Question", "name": "What is the difference between the X-PAYMENT and PAYMENT-SIGNATURE headers?",
+     "acceptedAnswer": {"@type": "Answer", "text": "X-PAYMENT is the x402 v1 header; PAYMENT-SIGNATURE is the v2 header. A v1 client paying a v2 server (or the reverse) produces a payment the other side never reads, so the retry still returns 402 and it looks as if the payment vanished."}},
+    {"@type": "Question", "name": "Which x402 error codes come from the facilitator?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Codes such as invalid_payload, preflight_validation_failed, settle_exact_failed_onchain, and kyt_risk_detected are issued during facilitator verification and settlement. Challenge-layer problems usually appear as a fresh 402 with a new payment challenge instead of an error code."}}
+  ]
+}
+</script>
+<link rel="icon" type="image/png" href="../assets/payload-logo.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#0B0E12">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.remove('js')},2500);</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="../software.html">Software</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap">
+    <p class="meta"><a href="index.html">&larr; All guides</a></p>
+    <h1>x402 payment errors: causes, checks, and fixes</h1>
+    <p class="lede">An x402 payment can fail at four different layers: the challenge the server issued, the wallet that tried to pay, the facilitator that verified and settled it, or the settlement itself. Each layer leaves different evidence. This guide maps the errors you will actually see to the layer that produced them, and gives the safe next step for each.</p>
+
+    <h2>Start with the layer, not the error</h2>
+    <ol>
+      <li><strong>Challenge.</strong> The server&rsquo;s 402 response defines what it will accept: amount, asset, network, scheme, recipient. Most &ldquo;payment&rdquo; bugs are really challenge mismatches: a stale challenge, the wrong network, an amount that changed.</li>
+      <li><strong>Wallet and signing.</strong> The client builds and signs the payment payload. Wrong fields, an expired allowance, or an invalid signature fail here, before any money moves.</li>
+      <li><strong>Facilitator verify and settle.</strong> The facilitator checks the payload against the challenge and submits settlement. Its error codes, below, are the most precise evidence in the whole flow.</li>
+      <li><strong>Settlement.</strong> The on-chain transaction itself. Settlement can succeed while delivery fails, and can still be in flight while a retry is already asking again.</li>
+    </ol>
+
+    <h2>Facilitator error codes</h2>
+    <p>These codes come back from facilitator verification and settlement. Treat the exact response body as evidence: capture it before you change anything.</p>
+    <table>
+      <thead><tr><th>Code</th><th>What it means</th><th>Safe next step</th></tr></thead>
+      <tbody>
+      <tr><td><code>insufficient_funds</code></td><td>The paying wallet does not hold enough of the asset, or of the gas token, on the required network.</td><td>Check the wallet balance on the exact network named in the challenge. Fund it, or pay a resource priced within the balance. Do not retry unchanged.</td></tr>
+      <tr><td><code>invalid_payload</code></td><td>The payment payload does not match what the server asked for: wrong fields, wrong encoding, or a payload built for a different challenge.</td><td>Rebuild the payload from the current challenge response, never from a cached one.</td></tr>
+      <tr><td><code>invalid_network</code></td><td>The payment was attempted on a network the server does not accept for this resource.</td><td>Pay on the network named in the challenge. Similar names are different networks: base and base-sepolia settle in different places.</td></tr>
+      <tr><td><code>invalid_scheme</code></td><td>The payment scheme, for example &ldquo;exact&rdquo;, is not one the server supports for this resource.</td><td>Use a scheme listed in the challenge&rsquo;s accepts array.</td></tr>
+      <tr><td><code>amount_too_low</code></td><td>The amount offered is below the price the server requires.</td><td>Pay the amount stated in the challenge. Prices can differ per resource and change over time.</td></tr>
+      <tr><td><code>kyt_risk_detected</code></td><td>The facilitator&rsquo;s risk screening rejected the transaction.</td><td>This is a compliance stop, not a bug. Do not retry with variations. Use a different funding source, or take it up with the facilitator.</td></tr>
+      <tr><td><code>preflight_validation_failed</code></td><td>The facilitator&rsquo;s pre-settlement checks failed: allowances, signatures, or payload consistency.</td><td>Re-check token allowances and signature validity, rebuild the payload from a fresh challenge, and retry once.</td></tr>
+      <tr><td><code>settle_exact_failed_onchain</code></td><td>Verification passed, but the on-chain settlement transaction failed.</td><td>Confirm the settlement status on-chain before paying again. A second payment sent without that confirmation is how double payments happen.</td></tr>
+      </tbody>
+    </table>
+    <p>An unrecognized code is still evidence. Read it as a payload problem first: rebuild from a fresh challenge, confirm the network and scheme, and only then suspect the server.</p>
+
+    <h2>The v1 / v2 header mismatch</h2>
+    <p>x402 version 1 clients send the payment in the <code>X-PAYMENT</code> header. Version 2 uses <code>PAYMENT-SIGNATURE</code>, with <code>PAYMENT-REQUIRED</code> and <code>PAYMENT-RESPONSE</code> on the other side of the exchange. A v1 client paying a v2 server, or the reverse, produces a payment the other side never reads. The retry still returns 402, the money may even settle, and it looks as if the payment vanished. Before debugging anything else, confirm which header your client sends and which header the server reads.</p>
+
+    <h2>Paid, but still blocked</h2>
+    <p>A settled payment and a delivered resource are two different events. If the retry raced the settlement, or the proof was attached to a stale challenge, the server answers 402 again. The rule that prevents almost every double payment in this flow: <strong>confirm settlement before paying twice.</strong> Payload&rsquo;s engineering notes walk through a real case in detail: <a href="https://dev.to/payload-tools/paid-and-blocked-why-your-agent-still-gets-a-402-after-paying-42b3">Paid and blocked: why your agent still gets a 402 after paying</a>.</p>
+
+    <h2>Diagnose it with callx402</h2>
+    <p><a href="../callx402.html">callx402</a> is Payload&rsquo;s diagnostics tool for exactly this work. Its six tools split the job by layer: <code>x402_status</code> checks the state of an endpoint or payment, <code>x402_diagnose</code> produces a structured diagnosis from a captured exchange, <code>x402_evidence</code> assembles the proof, <code>x402_explain</code> explains a captured error in plain language, and <code>x402_recover</code> and <code>x402_resolve</code> guide the fix. The local version is free: <code>npx callx402</code>.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="../callx402.html">Open callx402</a>
+      <a class="btn btn-ghost" href="x402-402-payments.html">How x402 payments work</a>
+    </div>
+
+    <h2>Questions</h2>
+    <div class="card">
+      <h3>My payment went through but the API still returns 402. Why?</h3>
+      <p>Settlement and delivery are two different events. If the retry raced the settlement, or the payment proof was attached to a stale challenge, the server answers 402 again even though the money moved. Confirm the settlement on-chain or with the facilitator before paying a second time, and check for a v1/v2 payment header mismatch.</p>
+    </div>
+    <div class="card">
+      <h3>Is it safe to retry a failed x402 payment?</h3>
+      <p>Retrying the request is always safe. Sending a second payment is not, until the first payment&rsquo;s settlement status is known. Most double payments in x402 flows come from paying again while the first settlement was still in flight.</p>
+    </div>
+    <div class="card">
+      <h3>What is the difference between the X-PAYMENT and PAYMENT-SIGNATURE headers?</h3>
+      <p><code>X-PAYMENT</code> is the x402 v1 header; <code>PAYMENT-SIGNATURE</code> is the v2 header. A v1 client paying a v2 server (or the reverse) produces a payment the other side never reads, so the retry still returns 402 and it looks as if the payment vanished.</p>
+    </div>
+    <div class="card">
+      <h3>Which x402 error codes come from the facilitator?</h3>
+      <p>Codes such as <code>invalid_payload</code>, <code>preflight_validation_failed</code>, <code>settle_exact_failed_onchain</code>, and <code>kyt_risk_detected</code> are issued during facilitator verification and settlement. Challenge-layer problems usually appear as a fresh 402 with a new payment challenge instead of an error code.</p>
+    </div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Payload develops innovative software and applications that simplify operations, solve practical challenges, and help businesses and individuals work more efficiently.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../about.html">About Payload</a>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.ee7c843dce.js" defer></script>
+</body>
+</html>
