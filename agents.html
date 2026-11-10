@@ -58,7 +58,7 @@
       <li><strong>Discover</strong> — read <a href="agents.json">agents.json</a>.</li>
       <li><strong>Determine your problem</strong> — match it to a commercial path below, then to the exact action.</li>
       <li><strong>Check price and entitlement</strong> — each product lists exactly what purchase grants; each callx402 action lists its fee model.</li>
-      <li><strong>Obtain access</strong> — per-action fee for a callx402 action (see live schedule below); Stripe checkout (card) or wallet-signed USDC order (crypto) for a Veyline subscription; one-time purchase on Whop/Gumroad for kits.</li>
+      <li><strong>Obtain access</strong> — per-action fee for a callx402 action (see live schedule below); Stripe checkout (card) or wallet-signed USDC order (crypto) for a Veyline subscription; one-time purchase with direct Stripe checkout on the product page for kits.</li>
       <li><strong>Invoke</strong> — the callx402 action, MCP tool, or Veyline API.</li>
       <li><strong>Recover safely</strong> — use the failure classes below. Never blind-retry a paid operation.</li>
     </ol>
@@ -145,7 +145,7 @@
     </div>
 
     <h2>Other live products</h2>
-    <p>All one-time purchase, single-seat perpetual license, on <a href="https://whop.com/payload-f126/?utm_source=payload-portal&utm_medium=web&utm_content=agents">Whop</a> or <a href="https://payloadtools.gumroad.com/?utm_source=payload-portal&utm_medium=web&utm_content=agents">Gumroad</a>:</p>
+    <p>All one-time purchase, single-seat perpetual license, with direct Stripe checkout on each product page:</p>
     <ul>
       <li><strong>RevRule</strong> — $99. Revenue-rule engine (separate product).</li>
       <li><strong>Veyline Developer Primer</strong> — $79. Onboarding product for agent-generated codebases.</li>
@@ -167,7 +167,7 @@
       <h3>Veyline — crypto (USDC on Base)</h3>
       <p>Secure order flow only: <code>POST /v1/purchases/orders</code> to create an order, then <code>POST /v1/purchases/redeem</code> with wallet-signed <code>{order_id, tx_hash, signature}</code>. The rail verifies the transfer on-chain before executing. The bare-txHash endpoint is permanently disabled (410) — never submit a bare transaction hash as payment proof.</p>
       <h3>Tools and audits</h3>
-      <p>One-time purchase on <a href="https://whop.com/payload-f126/?utm_source=payload-portal&utm_medium=web&utm_content=agents">Whop</a> or <a href="https://payloadtools.gumroad.com/?utm_source=payload-portal&utm_medium=web&utm_content=agents">Gumroad</a>. Download link delivered at purchase.</p>
+      <p>One-time purchase with direct Stripe checkout on the product page. A download key is issued at purchase.</p>
     </div>
 
     <h2>Authentication</h2>
@@ -207,7 +207,7 @@
         <li><strong>Veyline operations</strong> — active Veyline subscription (any tier). Continuous/automatic/at-scale protection. Capability availability is identical across tiers.</li>
         <li><strong>callx402 on-demand actions</strong> — per-action fee per invocation. No subscription, no entitlement — pay per action.</li>
         <li><strong>callx402 diagnostics / MCP tools</strong> — no entitlement required; free, read-only, tier-agnostic.</li>
-        <li><strong>One-time products</strong> — purchase receipt from Whop or Gumroad.</li>
+        <li><strong>One-time products</strong> — download key issued at purchase (Stripe checkout), or a marketplace receipt for an earlier purchase.</li>
         <li><strong>RevRule</strong> — never a mandatory dependency of a Veyline transaction.</li>
       </ul>
     </div>

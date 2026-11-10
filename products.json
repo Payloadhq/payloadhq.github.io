@@ -80,7 +80,7 @@
     },
     {
       "category": "API monetization",
-      "checkout_url": "https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit",
+      "checkout_url": "https://payloadhq.dev/products/x402-paid-api-starter-kit.html",
       "documentation_url": "https://payloadhq.dev/docs.html",
       "inputs": "HTTP API routes in an Express application",
       "name": "Veyline Developer Primer",
@@ -95,15 +95,12 @@
       "slug": "x402-paid-api-starter-kit",
       "page_url": "https://payloadhq.dev/products/x402-paid-api-starter-kit.html",
       "catalog_category": "agent-payments",
-      "store_links": {
-        "gumroad": "https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit",
-        "whop": "https://whop.com/payload-f126/products/x402-paid-api-starter-kit-charge-ai-agents-per-api-call-in-usdc/"
-      },
-      "availability": "Available"
+      "availability": "Available",
+      "checkout_provider": "stripe"
     },
     {
       "category": "MCP monetization",
-      "checkout_url": "https://payloadtools.gumroad.com/l/mcp-monetization-kit",
+      "checkout_url": "https://payloadhq.dev/products/mcp-monetization-kit.html",
       "documentation_url": "https://payloadhq.dev/docs.html",
       "inputs": "MCP tool calls via the official @modelcontextprotocol/sdk Server",
       "name": "MCP Monetization Engine",
@@ -124,15 +121,12 @@
       "slug": "mcp-monetization-kit",
       "page_url": "https://payloadhq.dev/products/mcp-monetization-kit.html",
       "catalog_category": "agent-payments",
-      "store_links": {
-        "gumroad": "https://payloadtools.gumroad.com/l/mcp-monetization-kit",
-        "whop": "https://whop.com/payload-f126/products/mcp-monetization-kit-charge-per-tool-call-on-your-mcp-server/"
-      },
-      "availability": "Available"
+      "availability": "Available",
+      "checkout_provider": "stripe"
     },
     {
       "category": "Recordkeeping",
-      "checkout_url": "https://payloadtools.gumroad.com/l/stableledger-tax-csv",
+      "checkout_url": "https://payloadhq.dev/products/stableledger.html",
       "documentation_url": "https://payloadhq.dev/docs.html",
       "inputs": "Exchange CSV exports (tested against Kraken-format files)",
       "name": "StableLedger",
@@ -147,15 +141,12 @@
       "slug": "stableledger",
       "page_url": "https://payloadhq.dev/products/stableledger.html",
       "catalog_category": "finance-records",
-      "store_links": {
-        "gumroad": "https://payloadtools.gumroad.com/l/stableledger-tax-csv",
-        "whop": "https://whop.com/payload-f126/products/stableledger-stablecoin-tax-csv-normalizer-for-freelancers-small-business/"
-      },
-      "availability": "Available"
+      "availability": "Available",
+      "checkout_provider": "stripe"
     },
     {
       "category": "API monetization",
-      "checkout_url": "https://payloadtools.gumroad.com/l/x402-mcp-bundle",
+      "checkout_url": "https://payloadhq.dev/products/x402-mcp-bundle.html",
       "documentation_url": "https://payloadhq.dev/docs.html",
       "inputs": "HTTP API routes (Express) and MCP tool calls (official MCP SDK)",
       "name": "x402 + MCP Bundle",
@@ -170,15 +161,12 @@
       "slug": "x402-mcp-bundle",
       "page_url": "https://payloadhq.dev/products/x402-mcp-bundle.html",
       "catalog_category": "agent-payments",
-      "store_links": {
-        "gumroad": "https://payloadtools.gumroad.com/l/x402-mcp-bundle",
-        "whop": "https://whop.com/payload-f126/products/x402-mcp-monetization-kit-bundle/"
-      },
-      "availability": "Available"
+      "availability": "Available",
+      "checkout_provider": "stripe"
     },
     {
       "category": "AI search readiness",
-      "checkout_url": "https://payloadtools.gumroad.com/l/ai-search-readiness-audit",
+      "checkout_url": "https://payloadhq.dev/products/ai-search-readiness-audit.html",
       "documentation_url": "https://payloadhq.dev/docs.html",
       "inputs": "Any web page viewed in Chrome",
       "name": "AI Search Readiness Audit",
@@ -193,15 +181,12 @@
       "slug": "ai-search-readiness-audit",
       "page_url": "https://payloadhq.dev/products/ai-search-readiness-audit.html",
       "catalog_category": "ai-search",
-      "store_links": {
-        "gumroad": "https://payloadtools.gumroad.com/l/ai-search-readiness-audit",
-        "whop": "https://whop.com/payload-f126/products/ai-search-readiness-audit-chrome-extension/"
-      },
-      "availability": "Available"
+      "availability": "Available",
+      "checkout_provider": "stripe"
     },
     {
       "category": "Data cleanup",
-      "checkout_url": "https://payloadtools.gumroad.com/l/crm-dedup-migration-kit",
+      "checkout_url": "https://payloadhq.dev/products/crm-dedup-system.html",
       "documentation_url": "https://payloadhq.dev/docs.html",
       "inputs": "CRM CSV exports",
       "name": "CRM Dedup System",
@@ -224,15 +209,12 @@
       "slug": "crm-dedup-system",
       "page_url": "https://payloadhq.dev/products/crm-dedup-system.html",
       "catalog_category": "data-cleanup",
-      "store_links": {
-        "gumroad": "https://payloadtools.gumroad.com/l/crm-dedup-migration-kit",
-        "whop": "https://whop.com/payload-f126/products/crm-dedup-migration-cleanup-kit/"
-      },
-      "availability": "Available"
+      "availability": "Available",
+      "checkout_provider": "stripe"
     },
     {
       "category": "AI agent reliability",
-      "checkout_url": "https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit",
+      "checkout_url": "https://payloadhq.dev/products/n8n-agent-reliability-kit.html",
       "documentation_url": "https://payloadhq.dev/docs.html",
       "inputs": "n8n workflows; the eval harness tests a JavaScript model of your agent written from the documented shape",
       "name": "n8n Reliability Guard",
@@ -254,15 +236,12 @@
       "slug": "n8n-agent-reliability-kit",
       "page_url": "https://payloadhq.dev/products/n8n-agent-reliability-kit.html",
       "catalog_category": "automation-reliability",
-      "store_links": {
-        "gumroad": "https://payloadtools.gumroad.com/l/n8n-agent-reliability-kit",
-        "whop": "https://whop.com/payload-f126/products/n8n-production-ai-agent-reliability-kit-guardrails-evals-readiness-scoring/"
-      },
-      "availability": "Available"
+      "availability": "Available",
+      "checkout_provider": "stripe"
     },
     {
       "category": "MCP security",
-      "checkout_url": "https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit",
+      "checkout_url": "https://payloadhq.dev/products/mcp-launch-readiness-audit.html",
       "documentation_url": "https://payloadhq.dev/docs.html",
       "inputs": "MCP server source code and configuration",
       "name": "MCP Launch Readiness Audit",
@@ -277,11 +256,8 @@
       "slug": "mcp-launch-readiness-audit",
       "page_url": "https://payloadhq.dev/products/mcp-launch-readiness-audit.html",
       "catalog_category": "mcp-security",
-      "store_links": {
-        "gumroad": "https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit",
-        "whop": "https://whop.com/payload-f126/products/mcp-launch-readiness-audit-scan-fix-prove-your-mcp-server-is-ready-to-ship/"
-      },
-      "availability": "Available"
+      "availability": "Available",
+      "checkout_provider": "stripe"
     },
     {
       "name": "callx402",

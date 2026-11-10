@@ -118,11 +118,74 @@ X-Payment: chain=base, asset=USDC
         <aside class="buy-panel">
           <p class="bp-price">$79 <span>USD</span></p>
           <p class="bp-terms">One-time purchase, single-seat perpetual license. 7-day refund if the product is materially not as described or cannot be made functional after reasonable support.</p>
-          <a class="btn btn-primary" href="https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit" rel="noopener">Buy on Gumroad — $79</a>
-          <a class="btn btn-ghost" href="https://whop.com/payload-f126/products/x402-paid-api-starter-kit-charge-ai-agents-per-api-call-in-usdc/" rel="noopener">Buy on Whop — $79</a>
-          <p class="bp-note">Both storefronts sell the same product under the same license. Choose whichever checkout you prefer.</p>
+          <button type="button" class="btn btn-primary" data-dl-buy data-slug="x402-paid-api-starter-kit">Buy now — $79</button>
+          <p class="bp-note">Secure checkout by Stripe. The price is final: taxes are included where applicable and nothing is added at checkout. After payment, your confirmation page shows your download key once. Keep it safe.</p>
+          <p class="bp-note" data-dl-error style="display:none;color:#B3261E" role="alert"></p>
+          <details class="bp-download">
+            <summary>Already purchased? Download with your key</summary>
+            <p class="bp-note">Paste the download key from your confirmation page:</p>
+            <input type="text" data-dl-key placeholder="Download key" autocomplete="off" spellcheck="false" style="width:100%;margin:6px 0">
+            <button type="button" class="btn btn-ghost" data-dl-get data-slug="x402-paid-api-starter-kit">Download</button>
+            <p class="bp-note" data-dl-get-error style="display:none;color:#B3261E" role="alert"></p>
+          </details>
           <p class="bp-note">Questions first? <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a> answers by email.</p>
         </aside>
+        
+<script>
+(function () {
+  var RAIL = 'https://payload-rail.fly.dev';
+  var buy = document.querySelector('[data-dl-buy]');
+  if (buy) buy.addEventListener('click', async function () {
+    var err = document.querySelector('[data-dl-error]');
+    var orig = buy.textContent;
+    buy.disabled = true; buy.textContent = 'Opening checkout...';
+    try {
+      var res = await fetch(RAIL + '/v1/stripe/downloads/checkout', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: buy.getAttribute('data-slug') })
+      });
+      var data = await res.json().catch(function () { return null; });
+      if (res.ok && data && data.checkout_url) { window.location.href = data.checkout_url; return; }
+      throw new Error('bad response');
+    } catch (e) {
+      buy.disabled = false; buy.textContent = orig;
+      if (err) { err.style.display = 'block'; err.textContent = 'Sorry, checkout could not be opened. Please try again, or contact Support below.'; }
+    }
+  });
+  var get = document.querySelector('[data-dl-get]');
+  if (get) get.addEventListener('click', async function () {
+    var keyEl = document.querySelector('[data-dl-key]');
+    var gerr = document.querySelector('[data-dl-get-error]');
+    function fail(msg) { if (gerr) { gerr.style.display = 'block'; gerr.textContent = msg; } }
+    var key = (keyEl && keyEl.value || '').trim();
+    if (!key) { fail('Enter your download key first.'); return; }
+    var orig = get.textContent;
+    get.disabled = true; get.textContent = 'Preparing...';
+    try {
+      var slug = get.getAttribute('data-slug');
+      var res = await fetch(RAIL + '/v1/stripe/downloads/file/' + encodeURIComponent(slug), {
+        headers: { 'Authorization': 'Bearer ' + key }
+      });
+      if (!res.ok) {
+        var d = await res.json().catch(function () { return null; });
+        throw new Error((d && d.error && d.error.message) || ('Download failed (' + res.status + ').'));
+      }
+      var blob = await res.blob();
+      var name = slug + '.zip';
+      var cd = res.headers.get('Content-Disposition') || '';
+      var m = /filename="?([^"]+)"?/.exec(cd);
+      if (m) name = m[1];
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      if (gerr) gerr.style.display = 'none';
+    } catch (e) { fail(e.message || 'Download failed. Check the key and try again.'); }
+    get.disabled = false; get.textContent = orig;
+  });
+})();
+</script>
+
       </div>
     </div>
   </section>
