@@ -4,40 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Veyline: Spending Policy and Approval for AI Agents</title>
-<link rel="canonical" href="https://payloadhq.github.io/veyline.html">
-<link rel="alternate" hreflang="en" href="https://payloadhq.github.io/veyline.html">
-<link rel="alternate" hreflang="es" href="https://payloadhq.github.io/es.html">
-<link rel="alternate" hreflang="pt" href="https://payloadhq.github.io/pt.html">
+<link rel="canonical" href="https://payloadhq.dev/veyline.html">
+<link rel="alternate" hreflang="en" href="https://payloadhq.dev/veyline.html">
+<link rel="alternate" hreflang="es" href="https://payloadhq.dev/es.html">
+<link rel="alternate" hreflang="pt" href="https://payloadhq.dev/pt.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
 <meta property="og:title" content="Veyline: Spending Policy and Approval for AI Agents">
 <meta property="og:description" content="Veyline is the non-custodial policy layer for AI agent payments: caps, counterparty rules and approval thresholds, enforced before money moves.">
-<meta property="og:url" content="https://payloadhq.github.io/veyline.html">
-<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta property="og:url" content="https://payloadhq.dev/veyline.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Veyline: Spending Policy and Approval for AI Agents">
 <meta name="twitter:description" content="Veyline is the non-custodial policy layer for AI agent payments: caps, counterparty rules and approval thresholds, enforced before money moves.">
 
 <meta name="description" content="Veyline is the non-custodial policy layer for AI agent payments: caps, counterparty rules and approval thresholds, enforced before money moves.">
 <style>
+  @font-face { font-family: "Inter"; src: url("assets/fonts/inter-var.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: "Archivo"; src: url("assets/fonts/archivo-var.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+  h1, h2, h3, .brand { font-family: "Archivo", "Inter", -apple-system, "Segoe UI", sans-serif; }
   :root {
-    --bg: #0a0a0b;
-    --bg-2: #101012;
-    --bg-3: #161618;
-    --lime: #c8f31d;
+    --bg: #0B0E12;
+    --bg-2: #0E1218;
+    --bg-3: #171B20;
+    --lime: #b8f53d;
     --lime-dim: #9cc214;
-    --text: #ececef;
-    --text-dim: #9a9aa0;
-    --border: #232326;
-    --line: #232326;
-    --card: #111113;
+    --text: #F5F5F1;
+    --text-dim: #9BA1A8;
+    --border: #262C35;
+    --line: #262C35;
+    --card: #171B20;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
@@ -185,16 +188,16 @@
   "name": "Veyline by Payload",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web",
-  "url": "https://payloadhq.github.io/veyline.html",
+  "url": "https://payloadhq.dev/veyline.html",
   "description": "Veyline is the non-custodial policy layer for AI agent payments: caps, counterparty rules and approval thresholds, enforced before money moves.",
   "publisher": {
     "@type": "Organization",
     "name": "Payload",
-    "url": "https://payloadhq.github.io/"
+    "url": "https://payloadhq.dev/"
   },
   "offers": {
     "@type": "Offer",
-    "url": "https://payloadhq.github.io/veyline.html",
+    "url": "https://payloadhq.dev/veyline.html",
     "priceCurrency": "USD"
   }
 }
@@ -208,29 +211,33 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://payloadhq.github.io/"
+      "item": "https://payloadhq.dev/"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Products",
-      "item": "https://payloadhq.github.io/products.html"
+      "item": "https://payloadhq.dev/products.html"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Veyline",
-      "item": "https://payloadhq.github.io/veyline.html"
+      "item": "https://payloadhq.dev/veyline.html"
     }
   ]
 }
 </script>
+<link rel="icon" type="image/png" href="assets/payload-logo.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0B0E12">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.remove('js')},2500);</script>
 </head>
 <body>
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <div class="brand"><span class="lime">■</span> VEYLINE<small>BY PAYLOAD</small></div>
+    <div class="brand"><svg width="21" height="21" viewBox="0 0 64 64" aria-hidden="true" style="vertical-align:-4px"><path d="M32 5 L55.7 18.7 V45.3 L32 59 L8.3 45.3 V18.7 Z" fill="none" stroke="#B8F53D" stroke-width="5" stroke-linejoin="miter"/><path fill="#B8F53D" fill-rule="evenodd" d="M21 17h13.5a11 11 0 0 1 0 22H29v10h-8V17zm8 7.5V32h5.5a3.75 3.75 0 0 0 0-7.5H29z"/></svg> VEYLINE<small>BY PAYLOAD</small></div>
     <a class="nav-cta" href="#purchase">Get API Access</a>
   </div>
 </header>
@@ -238,6 +245,7 @@
 <!-- 1. HERO -->
 <section class="hero">
   <div class="wrap">
+    <img src="assets/logos/veyline.jpg" alt="Veyline logo" width="92" height="92" style="display:block;width:92px;height:92px;border-radius:18px;margin-bottom:30px">
     <div class="hero-tag"><span class="lime">●</span> &nbsp;x402 live now</div>
     <h1>VEYLINE <span class="lime">BY PAYLOAD</span></h1>
     <p class="lede" style="font-size:21px; color:var(--text); font-weight:600;">The production layer for x402 + MCP.</p>
@@ -467,7 +475,7 @@ curl https://payload-rail.fly.dev/v1/veyline/status \
 <span class="c"># Read your current monthly operation quota</span>
 curl https://payload-rail.fly.dev/v1/veyline/usage \
   -H <span class="s">"Authorization: Bearer YOUR_VEYLINE_API_KEY"</span></pre>
-    <p class="note">These are actual hosted endpoints. The status and usage calls require an active Veyline key with read permission. Paid callx402 actions require explicit approval and their designated payment authorization. See the <a href="https://payloadhq.github.io/docs.html#veyline" style="color:var(--lime);">Veyline quickstart</a>.</p>
+    <p class="note">These are actual hosted endpoints. The status and usage calls require an active Veyline key with read permission. Paid callx402 actions require explicit approval and their designated payment authorization. See the <a href="https://payloadhq.dev/docs.html#veyline" style="color:var(--lime);">Veyline quickstart</a>.</p>
   </div>
 </section>
 
@@ -584,7 +592,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
         <p>Set your policies and spend limits. Your agents operate autonomously inside them — every operation verified, settled, and evidenced against your plan's included operations.</p>
       </div>
     </div>
-    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base, or Stripe isn't available in your country? That path is open for <strong>any plan</strong>, not just Enterprise: use the <a href="#pricing" id="crypto-contact-link" style="color:var(--lime);">contact form</a> and we'll arrange a crypto checkout for your tier. By subscribing you agree to our <a href="https://payloadhq.github.io/terms.html" style="color:var(--lime);">Terms of Service</a> and <a href="https://payloadhq.github.io/privacy.html" style="color:var(--lime);">Privacy Policy</a>.</p>
+    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base, or Stripe isn't available in your country? That path is open for <strong>any plan</strong>, not just Enterprise: use the <a href="#pricing" id="crypto-contact-link" style="color:var(--lime);">contact form</a> and we'll arrange a crypto checkout for your tier. By subscribing you agree to our <a href="https://payloadhq.dev/terms.html" style="color:var(--lime);">Terms of Service</a> and <a href="https://payloadhq.dev/privacy.html" style="color:var(--lime);">Privacy Policy</a>.</p>
     <div class="cta-row" style="margin-top:24px;">
       <a class="btn btn-primary" href="#pricing">Choose Your Plan</a>
     </div>
@@ -641,10 +649,10 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
   <div class="wrap foot-inner">
     <p>© 2026 Payload. Veyline by Payload.</p>
     <div class="foot-links">
-      <a href="https://payloadhq.github.io/docs.html">Docs</a>
-      <a href="https://payloadhq.github.io/products.html">Products</a>
-      <a href="https://payloadhq.github.io/terms.html">Terms</a>
-      <a href="https://payloadhq.github.io/privacy.html">Privacy</a>
+      <a href="https://payloadhq.dev/docs.html">Docs</a>
+      <a href="https://payloadhq.dev/products.html">Products</a>
+      <a href="https://payloadhq.dev/terms.html">Terms</a>
+      <a href="https://payloadhq.dev/privacy.html">Privacy</a>
       <a href="mailto:contact@payloadhq.dev">Support</a>
       <a href="https://discord.gg/Bu9TkvmBxn">Discord</a>
       <a href="#purchase">Get API Access</a>
@@ -722,7 +730,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
             'Your API key (shown once — copy it now):<br>' +
             '<code id="sandbox-key" style="display:block;word-break:break-all;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0;font-size:12px;"></code>' +
             '<button type="button" id="sandbox-copy" class="btn btn-ghost" style="width:100%;">Copy Key</button>' +
-            '<p style="margin-top:8px;opacity:0.8;">1,000 ops/month. <a href="https://payloadhq.github.io/docs.html#veyline" style="color:var(--lime);">Read the docs</a> to make your first call.</p>';
+            '<p style="margin-top:8px;opacity:0.8;">1,000 ops/month. <a href="https://payloadhq.dev/docs.html#veyline" style="color:var(--lime);">Read the docs</a> to make your first call.</p>';
           document.getElementById('sandbox-key').textContent = data.api_key;
           document.getElementById('sandbox-copy').addEventListener('click', function () {
             navigator.clipboard.writeText(data.api_key).then(function () {
@@ -815,5 +823,6 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
 })();
 </script>
 
+<script src="assets/site.js" defer></script>
 </body>
 </html>

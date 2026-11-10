@@ -1,4 +1,4 @@
-# Payload robots.txt — https://payloadhq.github.io/
+# Payload robots.txt — https://payloadhq.dev/
 # Search-discovery crawlers (these power answers in ChatGPT, Claude, Perplexity, etc.): explicitly allowed.
 User-agent: OAI-SearchBot
 Allow: /
@@ -62,4 +62,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://payloadhq.github.io/sitemap.xml
+Sitemap: https://payloadhq.dev/sitemap.xml

@@ -275,7 +275,7 @@
  "generated": "2026-10-07",
  "identity": {
   "canonical_domains": [
-   "https://payloadhq.github.io",
+   "https://payloadhq.dev",
    "https://payload-rail.fly.dev"
   ],
   "description": "Payload builds functional software for difficult technical problems: protected economic-control infrastructure for autonomous commerce, machine-access layers, and business reliability tools.",
@@ -364,7 +364,6 @@
   }
  },
  "product_hierarchy": {
-  "flagship": "Veyline",
   "machine_access_layer": "MCP",
   "outward_action_layer": "callx402 by Payload — powered by Veyline",
   "parent": "Payload",
@@ -374,7 +373,7 @@
   {
    "billing": "Stripe, monthly, per-organization",
    "name": "Veyline",
-   "purchase_page": "https://payloadhq.github.io/veyline.html",
+   "purchase_page": "https://payloadhq.dev/veyline.html",
    "subscribe": {
     "stripe": {
      "body": {
@@ -426,7 +425,7 @@
      "detailed_usage_breakdown": true,
      "included_operations_per_month": null,
      "name": "Enterprise",
-     "onboarding": "Contact form at https://payloadhq.github.io/veyline.html#pricing (POST https://payload-rail.fly.dev/v1/contact). Approved inquiries are provisioned by an operator as a 14-day Enterprise pilot with a negotiated operations allocation; there is no self-serve enterprise signup.",
+     "onboarding": "Contact form at https://payloadhq.dev/veyline.html#pricing (POST https://payload-rail.fly.dev/v1/contact). Approved inquiries are provisioned by an operator as a 14-day Enterprise pilot with a negotiated operations allocation; there is no self-serve enterprise signup.",
      "price_note": "custom, from $5,000/month",
      "price_usd_per_month": 5000,
      "endpoints": {
@@ -547,14 +546,14 @@
   }
  },
  "references": {
-  "docs": "https://payloadhq.github.io/docs.html",
+  "docs": "https://payloadhq.dev/docs.html",
   "github_org": "https://github.com/Payloadhq",
-  "human_agent_guide": "https://payloadhq.github.io/agents.html",
-  "machine_discovery": "https://payloadhq.github.io/agents.json",
-  "products": "https://payloadhq.github.io/products.html",
-  "purchase_page": "https://payloadhq.github.io/veyline.html",
+  "human_agent_guide": "https://payloadhq.dev/agents.html",
+  "machine_discovery": "https://payloadhq.dev/agents.json",
+  "products": "https://payloadhq.dev/products.html",
+  "purchase_page": "https://payloadhq.dev/veyline.html",
   "rail_openapi": "https://payload-rail.fly.dev/openapi.json",
-  "enterprise_brief": "https://payloadhq.github.io/veyline-enterprise.html"
+  "enterprise_brief": "https://payloadhq.dev/veyline-enterprise.html"
  },
  "schema": "payload/agents-discovery/1.0",
  "veyline_endpoints": {

@@ -2,24 +2,24 @@
 
 Practical tools that make AI, automation, and business infrastructure safer, cleaner, more reliable, and easier to ship. Small software that earns its keep.
 
-- Home: https://payloadhq.github.io/
-- Products: https://payloadhq.github.io/products.html
-- Free utilities: https://payloadhq.github.io/utilities/robots-txt-checker.html
-- Docs & GitHub: https://payloadhq.github.io/docs.html
-- Changelog: https://payloadhq.github.io/changelog.html
-- Agent Guide (canonical machine front door): https://payloadhq.github.io/agents.html
-- Machine-readable ecosystem: https://payloadhq.github.io/agents.json (schema payload/agents-discovery/1.0)
+- Home: https://payloadhq.dev/
+- Products: https://payloadhq.dev/products.html
+- Free utilities: https://payloadhq.dev/utilities/robots-txt-checker.html
+- Docs & GitHub: https://payloadhq.dev/docs.html
+- Changelog: https://payloadhq.dev/changelog.html
+- Agent Guide (canonical machine front door): https://payloadhq.dev/agents.html
+- Machine-readable ecosystem: https://payloadhq.dev/agents.json (schema payload/agents-discovery/1.0)
 - Support: kyler.simmons.partners@gmail.com
 
 ## For AI agents
 
-Start at https://payloadhq.github.io/agents.json — structured identity, products, exact pricing, purchase routes (Stripe card, USDC crypto), auth, error taxonomy with safe actions, callx402 action taxonomy, MCP tool discovery, and support/recovery paths. You should be able to identify your problem, select the correct product/action, and obtain access without scraping prose. Human-readable version: https://payloadhq.github.io/agents.html.
+Start at https://payloadhq.dev/agents.json — structured identity, products, exact pricing, purchase routes (Stripe card, USDC crypto), auth, error taxonomy with safe actions, callx402 action taxonomy, MCP tool discovery, and support/recovery paths. You should be able to identify your problem, select the correct product/action, and obtain access without scraping prose. Human-readable version: https://payloadhq.dev/agents.html.
 
 ## Products (one-time purchase, single-seat perpetual license)
 
-- RevRule ($99 one-time): programmable revenue obligations and payout verification. RevRule establishes what is owed under your rules (royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees) and verifies payouts against genuine entitlements. It does not execute payments and never holds funds. Free: a browser sandbox running the real engine (labeled simulated) at https://payloadhq.github.io/revrule-sandbox.html, a free self-serve API key from https://payload-rail.fly.dev/revrule-console/ (key issuance is limited to 20 issuances per 24 hours per IP), event simulation as a dry run, and a keyless public evaluate on a fixed demo graph for $0.01 USDC. Evaluation accounts created after the bounded-demo policy is activated at deploy are limited to 1,000 operations per month and 3 Revenue Graphs; free keys issued before that activation are not capped by that policy. MCP: io.github.payload-tools/revrule-mcp. Buy the license for production graphs: https://payloadhq.github.io/revrule.html (buy: https://payloadhq.github.io/revrule.html#pricing) Managed monthly plans are also available on the product page: Starter $29/month (10,000 operations per month, 10 Revenue Graphs, 1 API key), Professional $79/month (100,000 operations, 50 graphs, 3 keys), and Business $199/month (1,000,000 operations, unlimited graphs, 10 keys). A managed plan never reduces a one-time license, and cancelling one returns the account to exactly its one-time state. For music labels and publishers, see the industry page: https://payloadhq.github.io/revrule-for-music-labels.html
-- RevRule problem guides (verified explanations with synthetic, labeled demonstrations): royalty recoupment calculation https://payloadhq.github.io/royalty-recoupment-calculation.html ; a renegotiated split applied late https://payloadhq.github.io/renegotiated-royalty-split.html ; revenue-share reconciliation spreadsheet risks https://payloadhq.github.io/royalty-reconciliation-spreadsheet-risks.html ; contractual waterfall calculation https://payloadhq.github.io/contractual-waterfall-calculation.html ; creator commission splits https://payloadhq.github.io/creator-commission-split-calculation.html
-- x402 Paid API Starter Kit ($79): Express middleware charging AI agents per API call in USDC via x402. HTTP 402 challenges, payment verification, usage ledger. Non-custodial; never holds keys or funds. https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit
+- RevRule ($99 one-time): programmable revenue obligations and payout verification. RevRule establishes what is owed under your rules (royalties, revenue shares, referrals, commissions, recoupment, waterfalls, contributor payouts, platform fees) and verifies payouts against genuine entitlements. It does not execute payments and never holds funds. Free: a browser sandbox running the real engine (labeled simulated) at https://payloadhq.dev/revrule-sandbox.html, a free self-serve API key from https://payload-rail.fly.dev/revrule-console/ (key issuance is limited to 20 issuances per 24 hours per IP), event simulation as a dry run, and a keyless public evaluate on a fixed demo graph for $0.01 USDC. Evaluation accounts created after the bounded-demo policy is activated at deploy are limited to 1,000 operations per month and 3 Revenue Graphs; free keys issued before that activation are not capped by that policy. MCP: io.github.payload-tools/revrule-mcp. Buy the license for production graphs: https://payloadhq.dev/revrule.html (buy: https://payloadhq.dev/revrule.html#pricing) Managed monthly plans are also available on the product page: Starter $29/month (10,000 operations per month, 10 Revenue Graphs, 1 API key), Professional $79/month (100,000 operations, 50 graphs, 3 keys), and Business $199/month (1,000,000 operations, unlimited graphs, 10 keys). A managed plan never reduces a one-time license, and cancelling one returns the account to exactly its one-time state. For music labels and publishers, see the industry page: https://payloadhq.dev/revrule-for-music-labels.html
+- RevRule problem guides (verified explanations with synthetic, labeled demonstrations): royalty recoupment calculation https://payloadhq.dev/royalty-recoupment-calculation.html ; a renegotiated split applied late https://payloadhq.dev/renegotiated-royalty-split.html ; revenue-share reconciliation spreadsheet risks https://payloadhq.dev/royalty-reconciliation-spreadsheet-risks.html ; contractual waterfall calculation https://payloadhq.dev/contractual-waterfall-calculation.html ; creator commission splits https://payloadhq.dev/creator-commission-split-calculation.html
+- Veyline Developer Primer ($79): Express middleware charging AI agents per API call in USDC via x402. HTTP 402 challenges, payment verification, usage ledger. Non-custodial; never holds keys or funds. https://payloadtools.gumroad.com/l/x402-paid-api-starter-kit
 - MCP Monetization Engine ($69, v1.0.1) [aka MCP Monetization Kit, mcp monetization kit]: per-tool-call payments for MCP servers. Paid tool registry, free quotas, machine-readable payment requirements, usage ledger, official MCP SDK adapter. https://payloadtools.gumroad.com/l/mcp-monetization-kit
 - StableLedger ($49): offline, zero-dependency Python CLI organizing stablecoin transaction CSV exports into clean realized P/L records. Data-organization software; not tax advice, does not calculate taxes. https://payloadtools.gumroad.com/l/stableledger-tax-csv
 - x402 + MCP Bundle ($119): both kits above together. https://payloadtools.gumroad.com/l/x402-mcp-bundle
@@ -30,17 +30,17 @@ Start at https://payloadhq.github.io/agents.json — structured identity, produc
 
 ## Veyline (metered subscription — the production layer for x402 + MCP)
 
-Authorization and financial governance for autonomous agents. Veyline checks a proposed agent payment against your policies before financial activity and returns signed, scoped, expiring allow, deny, or escalate decisions where supported, with replay protection. The controls sit outside the agent's own instructions. Noncustodial: Payload does not hold customer funds, and Veyline does not provide custody, settlement, or execution. An authorization layer does not guarantee protection against every attack or prevent every duplicate payment. https://payloadhq.github.io/veyline.html
+Authorization and financial governance for autonomous agents. Veyline checks a proposed agent payment against your policies before financial activity and returns signed, scoped, expiring allow, deny, or escalate decisions where supported, with replay protection. The controls sit outside the agent's own instructions. Noncustodial: Payload does not hold customer funds, and Veyline does not provide custody, settlement, or execution. An authorization layer does not guarantee protection against every attack or prevent every duplicate payment. https://payloadhq.dev/veyline.html
 
 - Free / Sandbox ($0): 1,000 ops/mo. Self-serve signup on the Veyline page, key shown once. Free evaluation: sign up, take the free key, and run preflight on a proposed payment to receive a signed decision. MCP: io.github.payload-tools/veyline-mcp (Smithery: https://smithery.ai/servers/kyler-simmons-partners/veyline).
 - Developer ($99/mo): 10,000 ops/mo.
 - Production ($499/mo): 100,000 ops/mo + detailed usage.
 - Growth ($1,499/mo): 1,000,000 ops/mo + detailed usage.
-- Enterprise ($5,000+/mo): custom allocation, per-contract terms. Enterprise evaluation brief (use cases, architecture, security evidence, deployment, support, procurement checklist): https://payloadhq.github.io/veyline-enterprise.html
+- Enterprise ($5,000+/mo): custom allocation, per-contract terms. Enterprise evaluation brief (use cases, architecture, security evidence, deployment, support, procurement checklist): https://payloadhq.dev/veyline-enterprise.html
 
 Localized Veyline entry points (same product, pricing, and purchase paths; checkout page in English):
-- Spanish: https://payloadhq.github.io/es.html
-- Portuguese (Brazil): https://payloadhq.github.io/pt.html
+- Spanish: https://payloadhq.dev/es.html
+- Portuguese (Brazil): https://payloadhq.dev/pt.html
 
 Requests beyond the included allocation are throttled (429), never silently billed.
 
@@ -54,7 +54,7 @@ Hosted actions, run by Payload and paid per action: the card schedule is diagnos
 
 ## Free utilities
 
-- Check my robots.txt for AI crawlers: paste a robots.txt (or enter a site URL) to see which AI crawlers (GPTBot, ClaudeBot, PerplexityBot, and 15 more) are allowed, blocked, or unmentioned. Client-side only; nothing uploaded. https://payloadhq.github.io/utilities/robots-txt-checker.html
+- Check my robots.txt for AI crawlers: paste a robots.txt (or enter a site URL) to see which AI crawlers (GPTBot, ClaudeBot, PerplexityBot, and 15 more) are allowed, blocked, or unmentioned. Client-side only; nothing uploaded. https://payloadhq.dev/utilities/robots-txt-checker.html
 
 ## GitHub (Payloadhq org)
 
@@ -74,50 +74,50 @@ No investment advice, trading tools, or financial services. Crypto-adjacent prod
 
 A free public challenge for autonomous agents that pay for APIs, and an optional professional evaluation service.
 
-- Challenge 001: The Payment That Never Landed: https://payloadhq.github.io/black-box-arena.html
-- Five synthetic payment incident fixtures (JSON): https://payloadhq.github.io/black-box-arena/case-1.json through case-5.json
+- Challenge 001: The Payment That Never Landed: https://payloadhq.dev/black-box-arena.html
+- Five synthetic payment incident fixtures (JSON): https://payloadhq.dev/black-box-arena/case-1.json through case-5.json
 - Free: five cases, 100 points, objective reproducible scoring (20 per case; an unsafe recommended action scores the case 0). Public ranking only with participant consent. No entry fee, no prize, no real funds moved. Submissions via a GitHub issue in Payloadhq/payload-flow or email to kyler.simmons.partners@gmail.com.
-- Sample paid report (synthetic subject, real method): https://payloadhq.github.io/black-box-arena/sample-report.html
+- Sample paid report (synthetic subject, real method): https://payloadhq.dev/black-box-arena/sample-report.html
 - Paid: Black Box Professional Agent Evaluation, 49 USDC, seven scenarios against your own agent, structured report with findings, evidence, unsafe-action and payment-risk analysis, and prioritized fixes. Buy on ugig: https://ugig.net/gigs/b9593e74-7865-4020-b821-3398c90abaab or on OpenTask: https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl (service: Black Box Professional Agent Evaluation). A commercial testing service, not a certification or wager; payment does not affect challenge rankings. Fulfilled through marketplace orders in this phase.
 
 ## The Heist (free challenge, simulated treasury)
 
 Your AI agent is smart. Would you trust it with 100,000 USDC? The Heist hands an agent a SIMULATED 100,000 USDC treasury and five payment decisions: a cap under deadline pressure, an unverified payee change, a duplicate retry risk, one legitimate in-policy payment that deserves approval, and an unverified settlement claim. The treasury is simulated and labeled simulated everywhere; no real funds exist in or move during the challenge.
 
-- Challenge 001: The 100,000 USDC Treasury (Simulated): https://payloadhq.github.io/the-heist.html
-- Fixtures (JSON): a worked demo case with its model answer, https://payloadhq.github.io/the-heist/case-0-demo.json, and five scored cases, https://payloadhq.github.io/the-heist/case-1.json through case-5.json
+- Challenge 001: The 100,000 USDC Treasury (Simulated): https://payloadhq.dev/the-heist.html
+- Fixtures (JSON): a worked demo case with its model answer, https://payloadhq.dev/the-heist/case-0-demo.json, and five scored cases, https://payloadhq.dev/the-heist/case-1.json through case-5.json
 - Free: five decisions, 100 points, objective reproducible scoring (20 per case; an unsafe decision scores the case 0). Public ranking only with participant consent. No entry fee, no prize. Window: October 17 to November 14, 2026; the full answer key publishes at close. Submissions via a GitHub issue in Payloadhq/payload-challenges or Payloadhq/payload-flow, or email to kyler.simmons.partners@gmail.com.
-- Campaign hub (The Heist x Black Box Arena, with the Dead Letter Exchange as the third door): https://payloadhq.github.io/challenges.html
+- Campaign hub (The Heist x Black Box Arena, with the Dead Letter Exchange as the third door): https://payloadhq.dev/challenges.html
 - Challenge repository (both challenges, fixtures, scoring rules, sample results, terms): https://github.com/Payloadhq/payload-challenges
-- Machine-readable challenge manifest (JSON, for agents; both challenges plus the Dead Letter mystery, fixtures, submission routes, scoring, and the optional paid evaluations listed separately): https://payloadhq.github.io/challenges.json
+- Machine-readable challenge manifest (JSON, for agents; both challenges plus the Dead Letter mystery, fixtures, submission routes, scoring, and the optional paid evaluations listed separately): https://payloadhq.dev/challenges.json
 
 ## Dead Letter Exchange (free mystery + 79 USDC incident analysis)
 
 A public board of payment, fulfillment, reconciliation, and automation mysteries, plus an evidence analysis service for real incidents.
 
-- Board and Mystery 001: The Forecast That Never Arrived: https://payloadhq.github.io/dead-letter-exchange.html
-- Mystery 001 evidence file (JSON, synthetic, labeled): https://payloadhq.github.io/dead-letter-exchange/mystery-001.json
+- Board and Mystery 001: The Forecast That Never Arrived: https://payloadhq.dev/dead-letter-exchange.html
+- Mystery 001 evidence file (JSON, synthetic, labeled): https://payloadhq.dev/dead-letter-exchange/mystery-001.json
 - Free: solve the synthetic case (classify the failure, bound what the evidence establishes, recommend the safe next action). Reproducible solutions are recognized publicly only with the solver's consent. No wallet, payment, or purchase required. Submissions via a GitHub issue in Payloadhq/payload-flow or email to kyler.simmons.partners@gmail.com.
 - Paid: Dead Letter Analysis, 79 USDC, one real incident per order: evidence classification, findings bounded to cited evidence, safe recommendations, and a counterparty or dispute evidence pack where the evidence supports one. Buy on ugig: https://ugig.net/gigs/b7660c0d-d1eb-41c8-819a-d06c614259c2 or on OpenTask: https://opentask.ai/profiles/cmva53ci9007j06jqj0p6n3fl (service: Dead Letter Analysis). An analysis service only: no guaranteed recovery, no payment reversal, no custody of funds. Authorized incidents only; evidence sufficiency is confirmed before acceptance. The proactive counterpart is the Black Box Arena (test before an incident); the Dead Letter Analysis is the investigation after one.
 
 ## Stories (verified field notes)
 
-- Index: https://payloadhq.github.io/stories/
-- Nine AI Payment Endpoints Looked Broken. They Weren't. https://payloadhq.github.io/stories/nine-endpoints.html
-- Your AI Agent Tried Sending Money to the Wrong Wallet: https://payloadhq.github.io/stories/wrong-wallet.html
-- Who Gets Paid When Five AI Agents Complete One Job? https://payloadhq.github.io/stories/who-gets-paid.html
-- Your MCP Server Works Locally. Why Can't Other Agents Use It? https://payloadhq.github.io/stories/mcp-server-invisible.html
-- A 402 Response Is Not Always a Payment Challenge: https://payloadhq.github.io/stories/when-402-is-not-a-challenge.html
-- Paid in Full. Nothing Arrived. https://payloadhq.github.io/stories/dead-letter.html
+- Index: https://payloadhq.dev/stories/
+- Nine AI Payment Endpoints Looked Broken. They Weren't. https://payloadhq.dev/stories/nine-endpoints.html
+- Your AI Agent Tried Sending Money to the Wrong Wallet: https://payloadhq.dev/stories/wrong-wallet.html
+- Who Gets Paid When Five AI Agents Complete One Job? https://payloadhq.dev/stories/who-gets-paid.html
+- Your MCP Server Works Locally. Why Can't Other Agents Use It? https://payloadhq.dev/stories/mcp-server-invisible.html
+- A 402 Response Is Not Always a Payment Challenge: https://payloadhq.dev/stories/when-402-is-not-a-challenge.html
+- Paid in Full. Nothing Arrived. https://payloadhq.dev/stories/dead-letter.html
 
 ## Software catalog
 
-- Catalog: https://payloadhq.github.io/software.html
-- Veyline Developer Primer: https://payloadhq.github.io/products/x402-paid-api-starter-kit.html
-- MCP Monetization Engine: https://payloadhq.github.io/products/mcp-monetization-kit.html
-- x402 + MCP Bundle: https://payloadhq.github.io/products/x402-mcp-bundle.html
-- MCP Launch Readiness Audit: https://payloadhq.github.io/products/mcp-launch-readiness-audit.html
-- AI Search Readiness Audit: https://payloadhq.github.io/products/ai-search-readiness-audit.html
-- CRM Dedup System: https://payloadhq.github.io/products/crm-dedup-system.html
-- n8n Reliability Guard: https://payloadhq.github.io/products/n8n-agent-reliability-kit.html
-- StableLedger: https://payloadhq.github.io/products/stableledger.html
+- Catalog: https://payloadhq.dev/software.html
+- Veyline Developer Primer: https://payloadhq.dev/products/x402-paid-api-starter-kit.html
+- MCP Monetization Engine: https://payloadhq.dev/products/mcp-monetization-kit.html
+- x402 + MCP Bundle: https://payloadhq.dev/products/x402-mcp-bundle.html
+- MCP Launch Readiness Audit: https://payloadhq.dev/products/mcp-launch-readiness-audit.html
+- AI Search Readiness Audit: https://payloadhq.dev/products/ai-search-readiness-audit.html
+- CRM Dedup System: https://payloadhq.dev/products/crm-dedup-system.html
+- n8n Reliability Guard: https://payloadhq.dev/products/n8n-agent-reliability-kit.html
+- StableLedger: https://payloadhq.dev/products/stableledger.html

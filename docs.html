@@ -5,34 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Payload Docs: Agent Payments, Policy and x402 Guides</title>
 <meta name="description" content="Developer documentation and guides for Payload: spending policy for AI agents, revenue entitlement rules, and step by step x402 payment debugging.">
-<link rel="canonical" href="https://payloadhq.github.io/docs.html">
+<link rel="canonical" href="https://payloadhq.dev/docs.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
 <meta property="og:title" content="Payload Docs: Agent Payments, Policy and x402 Guides">
 <meta property="og:description" content="Developer documentation and guides for Payload: spending policy for AI agents, revenue entitlement rules, and step by step x402 payment debugging.">
-<meta property="og:url" content="https://payloadhq.github.io/docs.html">
-<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta property="og:url" content="https://payloadhq.dev/docs.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Payload Docs: Agent Payments, Policy and x402 Guides">
 <meta name="twitter:description" content="Developer documentation and guides for Payload: spending policy for AI agents, revenue entitlement rules, and step by step x402 payment debugging.">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="assets/payload-logo.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0B0E12">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.remove('js')},2500);</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
-  <div class="wrap">
+  <div class="wrap nav-row">
     <a class="brand" href="index.html" aria-label="Payload home">
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
-      Payload
+      <img class="mark" src="assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
-    <nav class="site" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
+    <nav class="main" aria-label="Primary">
       <a href="software.html">Software</a>
-      <a href="utilities/robots-txt-checker.html">Free utilities</a>
-      <a href="docs.html" aria-current="page">Docs &amp; GitHub</a>
-      <a href="agents.html">Agents</a>
-      <a href="changelog.html">Changelog</a>
+      <a href="categories/index.html">Categories</a>
+      <a href="guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="software.html">Explore Software</a>
     </nav>
   </div>
 </header>
@@ -54,7 +55,7 @@
     </div>
     <div class="card">
       <h3><a href="https://github.com/Payloadhq/n8n-reliability-free-samples">n8n-reliability-free-samples</a></h3>
-      <p>Two production n8n workflows from the Reliability Kit (failure-alert dispatcher, HTTP timeout circuit breaker), import-ready with zero credentials required.</p>
+      <p>Two production n8n workflows from the n8n Reliability Guard (failure-alert dispatcher, HTTP timeout circuit breaker), import-ready with zero credentials required.</p>
       <span class="tag">MIT</span> <span class="tag">n8n</span>
     </div>
     <div class="card">
@@ -89,11 +90,11 @@
       <h2 id="veyline">Veyline quickstart</h2>
       <p>Start free, get an API key, and make your first calls. The free Sandbox tier includes 1,000 operations per month and the full safety foundation.</p>
       <ol>
-        <li><strong>Start your free sandbox.</strong> In the <a href="https://payloadhq.github.io/veyline.html#pricing">Veyline pricing section</a>, enter your email and click Start Free. Your API key is shown once &mdash; copy it immediately; it cannot be recovered later.</li>
+        <li><strong>Start your free sandbox.</strong> In the <a href="https://payloadhq.dev/veyline.html#pricing">Veyline pricing section</a>, enter your email and click Start Free. Your API key is shown once &mdash; copy it immediately; it cannot be recovered later.</li>
         <li><strong>Check your account.</strong> <code>curl -H "Authorization: Bearer YOUR_KEY" https://payload-rail.fly.dev/v1/veyline/status</code> returns your org, tier, and status. <code>.../v1/veyline/usage</code> shows operations used against your included allocation.</li>
         <li><strong>Run a hosted action on your subscription.</strong> <code>curl -X POST -H "Authorization: Bearer YOUR_KEY" -H "Content-Type: application/json" -d '{"intent":"purchase","target":"api.example.com/data","max_spend_usdc":"0.05"}' https://payload-rail.fly.dev/v1/callx402/actions/preflight</code> authorizes a preflight check metered to your subscription and returns an invocation id; the action itself executes in your callx402 runtime. List all actions with <code>GET https://payload-rail.fly.dev/v1/callx402/actions</code>.</li>
       </ol>
-      <p>Every call sends your key as <code>Authorization: Bearer &lt;key&gt;</code>. Keys are product-bound to Veyline. The full machine-readable API reference is in <a href="https://payloadhq.github.io/agents.json">agents.json</a>.</p>
+      <p>Every call sends your key as <code>Authorization: Bearer &lt;key&gt;</code>. Keys are product-bound to Veyline. The full machine-readable API reference is in <a href="https://payloadhq.dev/agents.json">agents.json</a>.</p>
       <h2>Privacy policies</h2>
     <p>Public privacy policies for Payload products: <a href="https://github.com/Payloadhq/privacy">github.com/Payloadhq/privacy</a>.</p>
     <ul>
@@ -106,10 +107,61 @@
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>Payload — small software that earns its keep.</span>
-    <span><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></span>
-    <span>Support: <a href="mailto:contact@payloadhq.dev">contact@payloadhq.dev</a></span>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Payload home">
+      <img class="mark" src="assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Practical software that simplifies complex work, improves everyday operations, and solves real-world problems.</p>
+        <p><a href="products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="software.html">Software catalog</a>
+          <a href="callx402.html">callx402</a>
+          <a href="revrule.html">RevRule</a>
+          <a href="veyline.html">Veyline</a>
+          <a href="products.html">All products</a>
+          <a href="services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="docs.html">Docs &amp; GitHub</a>
+          <a href="guides/index.html">Guides</a>
+          <a href="stories/index.html">Stories</a>
+          <a href="benchmark.html">Benchmark</a>
+          <a href="changelog.html">Changelog</a>
+          <a href="utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="questions.html">Questions</a>
+          <a href="comparisons.html">Comparisons</a>
+          <a href="fit.html">When Payload fits</a>
+          <a href="affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="terms.html">Terms</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
   </div>
 </footer>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

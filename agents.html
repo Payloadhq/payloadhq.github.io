@@ -5,45 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agent Guide — Payload</title>
 <meta name="description" content="Canonical machine front door into Payload: identity, products, pricing, purchase routes, auth, error taxonomy, and recovery paths — for autonomous agents. Machine-readable: /agents.json.">
-<link rel="canonical" href="https://payloadhq.github.io/agents.html">
+<link rel="canonical" href="https://payloadhq.dev/agents.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
 <meta property="og:title" content="Agent Guide — Payload">
 <meta property="og:description" content="Canonical machine front door into Payload: identity, products, pricing, purchase routes, auth, error taxonomy, and recovery paths. Machine-readable: /agents.json.">
-<meta property="og:url" content="https://payloadhq.github.io/agents.html">
+<meta property="og:url" content="https://payloadhq.dev/agents.html">
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Payload Agent Guide",
-  "url": "https://payloadhq.github.io/agents.html",
+  "url": "https://payloadhq.dev/agents.html",
   "description": "Canonical machine front door into the Payload ecosystem: products, pricing, purchase routes, auth, error taxonomy, and recovery paths for autonomous agents.",
   "about": {
     "@type": "Organization",
     "name": "Payload",
-    "url": "https://payloadhq.github.io/",
+    "url": "https://payloadhq.dev/",
     "sameAs": ["https://github.com/Payloadhq", "https://whop.com/payload-f126/", "https://payloadtools.gumroad.com/"]
   }
 }
 </script>
+<link rel="icon" type="image/png" href="assets/payload-logo.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0B0E12">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.remove('js')},2500);</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
-  <div class="wrap">
+  <div class="wrap nav-row">
     <a class="brand" href="index.html" aria-label="Payload home">
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
-      Payload
+      <img class="mark" src="assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
-    <nav class="site" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
+    <nav class="main" aria-label="Primary">
       <a href="software.html">Software</a>
-      <a href="utilities/robots-txt-checker.html">Free utilities</a>
-      <a href="docs.html">Docs &amp; GitHub</a>
-      <a href="agents.html" aria-current="page">Agents</a>
-      <a href="changelog.html">Changelog</a>
+      <a href="categories/index.html">Categories</a>
+      <a href="guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="software.html">Explore Software</a>
     </nav>
   </div>
 </header>
@@ -76,7 +77,7 @@
     <h2>Identity</h2>
     <div class="card">
       <p><strong>Payload</strong> builds protected economic-control infrastructure for autonomous commerce, machine-access layers, and business reliability tools.</p>
-      <p>Canonical domains: <a href="https://payloadhq.github.io/">payloadhq.github.io</a> (site) · <a href="https://payload-rail.fly.dev/">payload-rail.fly.dev</a> (API rail). Hierarchy: <strong>Payload</strong> (parent) → <strong>Veyline</strong> (flagship) → <strong>callx402 by Payload — powered by Veyline</strong> (action layer) → <strong>MCP</strong> (machine-access layer). RevRule is a separate product, never a mandatory dependency of a Veyline transaction.</p>
+      <p>Canonical domains: <a href="https://payloadhq.dev/">payloadhq.github.io</a> (site) · <a href="https://payload-rail.fly.dev/">payload-rail.fly.dev</a> (API rail). Structure: <strong>Payload</strong> is the parent company. Its products, among them <strong>Veyline</strong>, <strong>callx402 by Payload</strong>, and <strong>RevRule</strong>, are separate products; no product is a mandatory dependency of another unless its own documentation says so.</p>
     </div>
 
     <h2>Veyline — subscription tiers (exact, current)</h2>
@@ -165,7 +166,7 @@
       <p><code>POST https://payload-rail.fly.dev/v1/stripe/checkout</code> with JSON <code>{"tier": "developer|production|growth|enterprise"}</code>. No auth required — a fresh organization is provisioned server-side. Follow the returned Checkout URL. After successful payment, the success page shows your API key <strong>exactly once</strong> — copy it then. Entitlements are created only by the Stripe-verified webhook; an unpaid session yields no entitlement and no key.</p>
       <h3>Veyline — crypto (USDC on Base)</h3>
       <p>Secure order flow only: <code>POST /v1/purchases/orders</code> to create an order, then <code>POST /v1/purchases/redeem</code> with wallet-signed <code>{order_id, tx_hash, signature}</code>. The rail verifies the transfer on-chain before executing. The bare-txHash endpoint is permanently disabled (410) — never submit a bare transaction hash as payment proof.</p>
-      <h3>Kits and audits</h3>
+      <h3>Tools and audits</h3>
       <p>One-time purchase on <a href="https://whop.com/payload-f126/?utm_source=payload-portal&utm_medium=web&utm_content=agents">Whop</a> or <a href="https://payloadtools.gumroad.com/?utm_source=payload-portal&utm_medium=web&utm_content=agents">Gumroad</a>. Download link delivered at purchase.</p>
     </div>
 
@@ -222,8 +223,61 @@
 </main>
 <footer class="site">
   <div class="wrap">
-    <p><a href="index.html">Payload</a> · <a href="products.html">Products</a> · <a href="agents.json">agents.json</a> · <a href="llms.txt">llms.txt</a> · <a href="docs.html">Docs</a></p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Payload home">
+      <img class="mark" src="assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Practical software that simplifies complex work, improves everyday operations, and solves real-world problems.</p>
+        <p><a href="products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="software.html">Software catalog</a>
+          <a href="callx402.html">callx402</a>
+          <a href="revrule.html">RevRule</a>
+          <a href="veyline.html">Veyline</a>
+          <a href="products.html">All products</a>
+          <a href="services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="docs.html">Docs &amp; GitHub</a>
+          <a href="guides/index.html">Guides</a>
+          <a href="stories/index.html">Stories</a>
+          <a href="benchmark.html">Benchmark</a>
+          <a href="changelog.html">Changelog</a>
+          <a href="utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="questions.html">Questions</a>
+          <a href="comparisons.html">Comparisons</a>
+          <a href="fit.html">When Payload fits</a>
+          <a href="affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="terms.html">Terms</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
   </div>
 </footer>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

@@ -6,13 +6,13 @@
 <title>StableLedger — stablecoin CSV profit loss records | Payload</title>
 <meta name="description" content="Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included. Exchange CSV exports are inconsistent and fee handling is scattered across rows, so building a clean record of stablecoin activity by hand i">
 <meta name="keywords" content="stablecoin CSV profit loss records, organize crypto exchange CSV exports, stablecoin recordkeeping tool">
-<link rel="canonical" href="https://payloadhq.github.io/products/stableledger.html">
+<link rel="canonical" href="https://payloadhq.dev/products/stableledger.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
 <meta property="og:title" content="StableLedger — Payload">
 <meta property="og:description" content="Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included.">
-<meta property="og:url" content="https://payloadhq.github.io/products/stableledger.html">
-<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta property="og:url" content="https://payloadhq.dev/products/stableledger.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="StableLedger — Payload">
 <meta name="twitter:description" content="Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included.">
@@ -22,7 +22,7 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "StableLedger",
-  "url": "https://payloadhq.github.io/products/stableledger.html",
+  "url": "https://payloadhq.dev/products/stableledger.html",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Python 3",
   "softwareVersion": "1.0.0",
@@ -32,92 +32,218 @@
     "price": "49",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock",
-    "url": "https://payloadhq.github.io/products/stableledger.html"
+    "url": "https://payloadhq.dev/products/stableledger.html"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Payload",
-    "url": "https://payloadhq.github.io/"
+    "url": "https://payloadhq.dev/"
   }
 }
 </script>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is StableLedger tax advice?", "acceptedAnswer": {"@type": "Answer", "text": "No. It is data-organization software that prepares clean records. It does not calculate your tax liability or replace a tax professional."}},{"@type": "Question", "name": "Which exchanges are supported?", "acceptedAnswer": {"@type": "Answer", "text": "It is tested against Kraken-format CSV exports. Other formats with the same columns may work but are not verified."}}]}
 </script>
+<link rel="icon" type="image/png" href="../assets/payload-logo.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#0B0E12">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.remove('js')},2500);</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Payload",
+      "item": "https://payloadhq.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Software catalog",
+      "item": "https://payloadhq.dev/software.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Finance Recordkeeping",
+      "item": "https://payloadhq.dev/categories/finance-records.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "StableLedger (Stablecoin Tax CSV Normalizer)",
+      "item": "https://payloadhq.dev/products/stableledger.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
-  <div class="wrap">
+  <div class="wrap nav-row">
     <a class="brand" href="../index.html" aria-label="Payload home">
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
-      Payload
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
-    <nav>
-      <a href="../products.html">Products</a>
+    <nav class="main" aria-label="Primary">
       <a href="../software.html">Software</a>
-      <a href="../stories/index.html">Stories</a>
-      <a href="../guides/index.html">Guides</a>
-      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
     </nav>
   </div>
 </header>
 <main id="main">
-  <div class="wrap">
-    <p><a href="../software.html">Software catalog</a> · <a href="../software.html#finance-records">Finance Recordkeeping</a></p>
-    <h1>StableLedger</h1>
-    <p class="lede">Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included.</p>
-
-    <h2>The problem it solves</h2>
-    <p>Exchange CSV exports are inconsistent and fee handling is scattered across rows, so building a clean record of stablecoin activity by hand is slow and error-prone.</p>
-
-    <h2>Who it is for</h2>
-    <p>Freelancers and small businesses organizing stablecoin transaction records.</p>
-
-    <h2>What it does</h2>
-    <ul>
-      <li>Zero-dependency Python CLI: runs offline, nothing uploaded</li>
-      <li>Organizes stablecoin transaction CSV exports into clean realized profit/loss records with fees accounted for</li>
-      <li>Tested against Kraken-format export files</li>
-      <li>Data-organization software: it prepares records; it is not tax advice and does not file anything</li>
-    </ul>
-
-    <h2>Platforms and inputs</h2>
-    <p><strong>Platforms:</strong> Python 3</p>
-    <p><strong>Works with:</strong> Exchange CSV exports (tested against Kraken-format files)</p>
-    <p><strong>Version:</strong> 1.0.0</p>
-
-    <h2>Pricing and license</h2>
-    <p><strong>$49 USD.</strong> One-time purchase, single-seat perpetual license. 7-day refund if the product is materially not as described or cannot be made functional after reasonable support.</p>
-    <p>
-      <a class="btn" href="https://payloadtools.gumroad.com/l/stableledger-tax-csv?utm_source=payload-portal&utm_medium=web&utm_content=stableledger">Buy on Gumroad — $49</a>
-      <a class="btn" href="https://whop.com/payload-f126/products/stableledger-stablecoin-tax-csv-normalizer-for-freelancers-small-business/?utm_source=payload-portal&utm_medium=web&utm_content=stableledger">Buy on Whop — $49</a>
-    </p>
-    <p>Both storefronts sell the same product under the same license. Choose whichever checkout you prefer.</p>
-
-    <h2>Documentation and support</h2>
-    <p>Every purchase includes the product documentation. Support is by email at <a href="mailto:contact@payloadhq.dev">contact@payloadhq.dev</a>. Product terms are in the <a href="../terms.html">Terms</a> and the <a href="../products.json">machine-readable catalog</a>.</p>
-
-    <h2>Questions</h2>
-    <h3>Is StableLedger tax advice?</h3>
-    <p>No. It is data-organization software that prepares clean records. It does not calculate your tax liability or replace a tax professional.</p>
-    <h3>Which exchanges are supported?</h3>
-    <p>It is tested against Kraken-format CSV exports. Other formats with the same columns may work but are not verified.</p>
-
-    <h2>Related products</h2>
-    <div class="grid">
-      <div class="card"><h3><a href="crm-dedup-system.html">CRM Dedup System</a></h3><p>Fully offline deduplication and normalization for CRM exports, before a migration makes duplicates permanent.</p><p><strong>$149</strong> · Data Cleanup & Migration</p></div>
-      <div class="card"><h3><a href="ai-search-readiness-audit.html">AI Search Readiness Audit</a></h3><p>Audit any page for AI-search readiness, right in Chrome: coverage, eligibility, crawler access, and dead schema.</p><p><strong>$59</strong> · AI Search & Discoverability</p></div>
-      <div class="card"><h3><a href="n8n-agent-reliability-kit.html">n8n Reliability Guard</a></h3><p>Production-readiness for n8n AI agents: guardrail templates, a failure-simulation eval harness, and a readiness score.</p><p><strong>$99</strong> · Automation & Agent Reliability</p></div>
+  <section class="prod-hero">
+    <div class="wrap prod-grid">
+      <div>
+        <p class="crumbs"><a href="../software.html">Software catalog</a> · <a href="../categories/finance-records.html">Finance Recordkeeping</a></p>
+        <p class="label" style="margin-top:26px">Finance Recordkeeping</p>
+        <h1>StableLedger</h1>
+        <p class="lede">Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included.</p>
+        <div class="specimen light" aria-label="Example of the product's verified behavior"><pre>SAMPLE OUTPUT — FORMAT
+date · source · side              per trade
+realized P&amp;L               fees included
+export                 clean CSV records</pre></div>
+        <p class="runs-on">Runs on: Python 3 · Version 1.0.0</p>
+      </div>
+      <div>
+        <div class="prod-visual"><img class="" src="../assets/logos/stableledger.jpg" alt="StableLedger logo" loading="lazy"></div>
+        <aside class="buy-panel">
+          <p class="bp-price">$49 <span>USD</span></p>
+          <p class="bp-terms">One-time purchase, single-seat perpetual license. 7-day refund if the product is materially not as described or cannot be made functional after reasonable support.</p>
+          <a class="btn btn-primary" href="https://payloadtools.gumroad.com/l/stableledger-tax-csv" rel="noopener">Buy on Gumroad — $49</a>
+          <a class="btn btn-ghost" href="https://whop.com/payload-f126/products/stableledger-stablecoin-tax-csv-normalizer-for-freelancers-small-business/" rel="noopener">Buy on Whop — $49</a>
+          <p class="bp-note">Both storefronts sell the same product under the same license. Choose whichever checkout you prefer.</p>
+          <p class="bp-note">Questions first? <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a> answers by email.</p>
+        </aside>
+      </div>
     </div>
-  </div>
+  </section>
+  <section class="prod-body band-paper">
+    <div class="wrap">
+      <div class="cols">
+        <div><p class="label">The problem</p><h2>Why this exists</h2><p>Exchange CSV exports are inconsistent and fee handling is scattered across rows, so building a clean record of stablecoin activity by hand is slow and error-prone.</p></div>
+        <div><p class="label">Who it is for</p><h2>Built for</h2><p>Freelancers and small businesses organizing stablecoin transaction records.</p></div>
+      </div>
+      <div style="margin-top:64px">
+        <p class="label">Capabilities</p>
+        <h2 style="margin-bottom:10px">What it does</h2>
+        <div class="cap-row"><span class="n">01</span><p>Zero-dependency Python CLI: runs offline, nothing uploaded</p></div><div class="cap-row"><span class="n">02</span><p>Organizes stablecoin transaction CSV exports into clean realized profit/loss records with fees accounted for</p></div><div class="cap-row"><span class="n">03</span><p>Tested against Kraken-format export files</p></div><div class="cap-row"><span class="n">04</span><p>Data-organization software: it prepares records; it is not tax advice and does not file anything</p></div>
+      </div>
+      <div class="cols" style="margin-top:64px">
+        <div>
+          <p class="label">Platforms &amp; inputs</p>
+          <table class="spec-table">
+            <tr><th>Platforms</th><td>Python 3</td></tr>
+            <tr><th>Works with</th><td>Exchange CSV exports (tested against Kraken-format files)</td></tr>
+            <tr><th>Version</th><td>1.0.0</td></tr>
+            <tr><th>License</th><td>Single-seat perpetual, one-time purchase</td></tr>
+          </table>
+        </div>
+        <div>
+          <p class="label">Documentation &amp; support</p>
+          <p>Every purchase includes the product documentation. Support is by email: <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>. Product terms are in the <a href="../terms.html">Terms</a> and the <a href="../products.json">machine-readable catalog</a>.</p>
+          <p class="label" style="margin-top:34px">Questions</p>
+          <details class="faq"><summary>Is StableLedger tax advice?</summary><p>No. It is data-organization software that prepares clean records. It does not calculate your tax liability or replace a tax professional.</p></details><details class="faq"><summary>Which exchanges are supported?</summary><p>It is tested against Kraken-format CSV exports. Other formats with the same columns may work but are not verified.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap on-dark">
+      <p class="kicker">Keep exploring</p>
+      <h2 style="font-size:34px;margin-bottom:26px">Related products</h2>
+      <div class="grid grid-3"><article class="pcard" data-cat="data-cleanup" data-search="CRM Dedup System">
+      <div class="pvisual"><div class="type-cover"><span class="tc-cat">Data Cleanup &amp; Migration</span><span class="tc-name">CRM Dedup System</span><span class="tc-line">Fully offline deduplication and normalization for CRM exports, before a migration makes duplicates permanent.</span><span class="tc-rule" style="background:#22D3EE"></span></div></div>
+      <div class="body">
+        <p class="cat">Data Cleanup &amp; Migration · Linux (single-file binary)</p>
+        <h3>CRM Dedup System</h3>
+        <p class="vp">Fully offline deduplication and normalization for CRM exports, before a migration makes duplicates permanent.</p>
+        <div class="meta-row"><span class="price">$149<span>One-time purchase</span></span><a class="explore" href="../products/crm-dedup-system.html">Explore &rarr;</a></div>
+      </div>
+    </article><article class="pcard" data-cat="ai-search" data-search="AI Search Readiness Audit">
+      <div class="pvisual"><div class="type-cover"><span class="tc-cat">AI Search &amp; Discoverability</span><span class="tc-name">AI Search Readiness Audit</span><span class="tc-line">Audit any page for AI-search readiness, right in Chrome: coverage, eligibility, crawler access, and dead schema.</span><span class="tc-rule" style="background:#FB923C"></span></div></div>
+      <div class="body">
+        <p class="cat">AI Search &amp; Discoverability · Chrome (Manifest V3)</p>
+        <h3>AI Search Readiness Audit</h3>
+        <p class="vp">Audit any page for AI-search readiness, right in Chrome: coverage, eligibility, crawler access, and dead schema.</p>
+        <div class="meta-row"><span class="price">$59<span>One-time purchase</span></span><a class="explore" href="../products/ai-search-readiness-audit.html">Explore &rarr;</a></div>
+      </div>
+    </article><article class="pcard" data-cat="automation-reliability" data-search="n8n Reliability Guard">
+      <div class="pvisual"><div class="type-cover"><span class="tc-cat">Automation &amp; Agent Reliability</span><span class="tc-name">n8n Reliability Guard</span><span class="tc-line">Production-readiness for n8n AI agents: guardrail templates, a failure-simulation eval harness, and a readiness score.</span><span class="tc-rule" style="background:#818CF8"></span></div></div>
+      <div class="body">
+        <p class="cat">Automation &amp; Agent Reliability · n8n</p>
+        <h3>n8n Reliability Guard</h3>
+        <p class="vp">Production-readiness for n8n AI agents: guardrail templates, a failure-simulation eval harness, and a readiness score.</p>
+        <div class="meta-row"><span class="price">$99<span>One-time purchase</span></span><a class="explore" href="../products/n8n-agent-reliability-kit.html">Explore &rarr;</a></div>
+      </div>
+    </article></div>
+    </div>
+  </section>
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>Payload — small software that earns its keep.</span>
-    <span><a href="../software.html">Software catalog</a> · <a href="../products.html">Products</a> · <a href="../products.json">Machine-readable catalog (JSON)</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></span>
-    <span>Support: <a href="mailto:contact@payloadhq.dev">contact@payloadhq.dev</a></span>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Practical software that simplifies complex work, improves everyday operations, and solves real-world problems.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
   </div>
 </footer>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>

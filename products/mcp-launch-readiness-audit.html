@@ -6,13 +6,13 @@
 <title>MCP Launch Readiness Audit — MCP server security audit | Payload</title>
 <meta name="description" content="A 48-rule security and readiness scanner for MCP servers, with a fix for every finding. MCP servers ship with tool poisoning risks, hardcoded credentials, exposed endpoints, over-privileged tools, SSRF paths, and missing authent">
 <meta name="keywords" content="MCP server security audit, MCP server scanner, tool poisoning detection, MCP launch checklist">
-<link rel="canonical" href="https://payloadhq.github.io/products/mcp-launch-readiness-audit.html">
+<link rel="canonical" href="https://payloadhq.dev/products/mcp-launch-readiness-audit.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
 <meta property="og:title" content="MCP Launch Readiness Audit — Payload">
 <meta property="og:description" content="A 48-rule security and readiness scanner for MCP servers, with a fix for every finding.">
-<meta property="og:url" content="https://payloadhq.github.io/products/mcp-launch-readiness-audit.html">
-<meta property="og:image" content="https://payloadhq.github.io/logo.png">
+<meta property="og:url" content="https://payloadhq.dev/products/mcp-launch-readiness-audit.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MCP Launch Readiness Audit — Payload">
 <meta name="twitter:description" content="A 48-rule security and readiness scanner for MCP servers, with a fix for every finding.">
@@ -22,7 +22,7 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "MCP Launch Readiness Audit",
-  "url": "https://payloadhq.github.io/products/mcp-launch-readiness-audit.html",
+  "url": "https://payloadhq.dev/products/mcp-launch-readiness-audit.html",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Python 3",
   "softwareVersion": "1.0.2",
@@ -32,92 +32,218 @@
     "price": "79",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock",
-    "url": "https://payloadhq.github.io/products/mcp-launch-readiness-audit.html"
+    "url": "https://payloadhq.dev/products/mcp-launch-readiness-audit.html"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Payload",
-    "url": "https://payloadhq.github.io/"
+    "url": "https://payloadhq.dev/"
   }
 }
 </script>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this a certification?", "acceptedAnswer": {"@type": "Answer", "text": "No. It is an audit tool: it scans, reports findings with remediations, and you decide when the server is ready."}},{"@type": "Question", "name": "Does it send my code anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. The scanner is a zero-dependency CLI that runs locally on your source and configuration."}}]}
 </script>
+<link rel="icon" type="image/png" href="../assets/payload-logo.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#0B0E12">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.remove('js')},2500);</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Payload",
+      "item": "https://payloadhq.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Software catalog",
+      "item": "https://payloadhq.dev/software.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "MCP Security & Launch Readiness",
+      "item": "https://payloadhq.dev/categories/mcp-security.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "MCP Launch Readiness Audit",
+      "item": "https://payloadhq.dev/products/mcp-launch-readiness-audit.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
-  <div class="wrap">
+  <div class="wrap nav-row">
     <a class="brand" href="../index.html" aria-label="Payload home">
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="2" y="2" width="24" height="24" rx="5" fill="#1d4ed8"/><path d="M9 19V9h5.5a3.5 3.5 0 0 1 0 7H12v3H9zm3-5.5h2.3a1.2 1.2 0 0 0 0-2.4H12v2.4z" fill="#fff"/></svg>
-      Payload
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
-    <nav>
-      <a href="../products.html">Products</a>
+    <nav class="main" aria-label="Primary">
       <a href="../software.html">Software</a>
-      <a href="../stories/index.html">Stories</a>
-      <a href="../guides/index.html">Guides</a>
-      <a href="../docs.html">Docs &amp; GitHub</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
     </nav>
   </div>
 </header>
 <main id="main">
-  <div class="wrap">
-    <p><a href="../software.html">Software catalog</a> · <a href="../software.html#mcp-security">MCP Security & Launch Readiness</a></p>
-    <h1>MCP Launch Readiness Audit</h1>
-    <p class="lede">A 48-rule security and readiness scanner for MCP servers, with a fix for every finding.</p>
-
-    <h2>The problem it solves</h2>
-    <p>MCP servers ship with tool poisoning risks, hardcoded credentials, exposed endpoints, over-privileged tools, SSRF paths, and missing authentication, and most teams have no checklist that catches them before launch.</p>
-
-    <h2>Who it is for</h2>
-    <p>Teams about to publish or sell an MCP server.</p>
-
-    <h2>What it does</h2>
-    <ul>
-      <li>Zero-dependency CLI scanner with 48 detection rules: tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, missing auth and hardening</li>
-      <li>A concrete remediation for every finding, not just a warning</li>
-      <li>Hardened templates, a stress-test harness, a CI workflow, and a branded audit report</li>
-      <li>An audit, not a certification: it reports what it finds so you can fix and re-run</li>
-    </ul>
-
-    <h2>Platforms and inputs</h2>
-    <p><strong>Platforms:</strong> Python 3</p>
-    <p><strong>Works with:</strong> MCP server source code and configuration</p>
-    <p><strong>Version:</strong> 1.0.2</p>
-
-    <h2>Pricing and license</h2>
-    <p><strong>$79 USD.</strong> One-time purchase, single-seat perpetual license. 7-day refund if the product is materially not as described or cannot be made functional after reasonable support.</p>
-    <p>
-      <a class="btn" href="https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit?utm_source=payload-portal&utm_medium=web&utm_content=mcp-launch-readiness-audit">Buy on Gumroad — $79</a>
-      <a class="btn" href="https://whop.com/payload-f126/products/mcp-launch-readiness-audit-scan-fix-prove-your-mcp-server-is-ready-to-ship/?utm_source=payload-portal&utm_medium=web&utm_content=mcp-launch-readiness-audit">Buy on Whop — $79</a>
-    </p>
-    <p>Both storefronts sell the same product under the same license. Choose whichever checkout you prefer.</p>
-
-    <h2>Documentation and support</h2>
-    <p>Every purchase includes the product documentation. Support is by email at <a href="mailto:contact@payloadhq.dev">contact@payloadhq.dev</a>. Product terms are in the <a href="../terms.html">Terms</a> and the <a href="../products.json">machine-readable catalog</a>.</p>
-
-    <h2>Questions</h2>
-    <h3>Is this a certification?</h3>
-    <p>No. It is an audit tool: it scans, reports findings with remediations, and you decide when the server is ready.</p>
-    <h3>Does it send my code anywhere?</h3>
-    <p>No. The scanner is a zero-dependency CLI that runs locally on your source and configuration.</p>
-
-    <h2>Related products</h2>
-    <div class="grid">
-      <div class="card"><h3><a href="mcp-monetization-kit.html">MCP Monetization Engine</a></h3><p>Per-tool-call payments for MCP servers, with free quotas and a usage ledger.</p><p><strong>$69</strong> · Agent Payments & Commerce Infrastructure</p></div>
-      <div class="card"><h3><a href="x402-mcp-bundle.html">x402 + MCP Bundle</a></h3><p>The Veyline Developer Primer and the MCP Monetization Engine together, at a bundle price.</p><p><strong>$119</strong> · Agent Payments & Commerce Infrastructure</p></div>
-      <div class="card"><h3><a href="n8n-agent-reliability-kit.html">n8n Reliability Guard</a></h3><p>Production-readiness for n8n AI agents: guardrail templates, a failure-simulation eval harness, and a readiness score.</p><p><strong>$99</strong> · Automation & Agent Reliability</p></div>
+  <section class="prod-hero">
+    <div class="wrap prod-grid">
+      <div>
+        <p class="crumbs"><a href="../software.html">Software catalog</a> · <a href="../categories/mcp-security.html">MCP Security &amp; Launch Readiness</a></p>
+        <p class="label" style="margin-top:26px">MCP Security &amp; Launch Readiness</p>
+        <h1>MCP Launch Readiness Audit</h1>
+        <p class="lede">A 48-rule security and readiness scanner for MCP servers, with a fix for every finding.</p>
+        <div class="specimen light" aria-label="Example of the product's verified behavior"><pre>Rules in the scan            48
+Every finding          ships with a fix
+Runs                 locally, on your code
+Report           severity + remediation</pre></div>
+        <p class="runs-on">Runs on: Python 3 · Version 1.0.2</p>
+      </div>
+      <div>
+        <div class="prod-visual"><div class="type-cover"><span class="tc-cat">MCP Security &amp; Launch Readiness</span><span class="tc-name">MCP Launch Readiness Audit</span><span class="tc-line">A 48-rule security and readiness scanner for MCP servers, with a fix for every finding.</span><span class="tc-rule" style="background:#F471B5"></span></div></div>
+        <aside class="buy-panel">
+          <p class="bp-price">$79 <span>USD</span></p>
+          <p class="bp-terms">One-time purchase, single-seat perpetual license. 7-day refund if the product is materially not as described or cannot be made functional after reasonable support.</p>
+          <a class="btn btn-primary" href="https://payloadtools.gumroad.com/l/mcp-launch-readiness-audit" rel="noopener">Buy on Gumroad — $79</a>
+          <a class="btn btn-ghost" href="https://whop.com/payload-f126/products/mcp-launch-readiness-audit-scan-fix-prove-your-mcp-server-is-ready-to-ship/" rel="noopener">Buy on Whop — $79</a>
+          <p class="bp-note">Both storefronts sell the same product under the same license. Choose whichever checkout you prefer.</p>
+          <p class="bp-note">Questions first? <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a> answers by email.</p>
+        </aside>
+      </div>
     </div>
-  </div>
+  </section>
+  <section class="prod-body band-paper">
+    <div class="wrap">
+      <div class="cols">
+        <div><p class="label">The problem</p><h2>Why this exists</h2><p>MCP servers ship with tool poisoning risks, hardcoded credentials, exposed endpoints, over-privileged tools, SSRF paths, and missing authentication, and most teams have no checklist that catches them before launch.</p></div>
+        <div><p class="label">Who it is for</p><h2>Built for</h2><p>Teams about to publish or sell an MCP server.</p></div>
+      </div>
+      <div style="margin-top:64px">
+        <p class="label">Capabilities</p>
+        <h2 style="margin-bottom:10px">What it does</h2>
+        <div class="cap-row"><span class="n">01</span><p>Zero-dependency CLI scanner with 48 detection rules: tool poisoning, hardcoded credentials, server exposure, over-privileged tools, SSRF, missing auth and hardening</p></div><div class="cap-row"><span class="n">02</span><p>A concrete remediation for every finding, not just a warning</p></div><div class="cap-row"><span class="n">03</span><p>Hardened templates, a stress-test harness, a CI workflow, and a branded audit report</p></div><div class="cap-row"><span class="n">04</span><p>An audit, not a certification: it reports what it finds so you can fix and re-run</p></div>
+      </div>
+      <div class="cols" style="margin-top:64px">
+        <div>
+          <p class="label">Platforms &amp; inputs</p>
+          <table class="spec-table">
+            <tr><th>Platforms</th><td>Python 3</td></tr>
+            <tr><th>Works with</th><td>MCP server source code and configuration</td></tr>
+            <tr><th>Version</th><td>1.0.2</td></tr>
+            <tr><th>License</th><td>Single-seat perpetual, one-time purchase</td></tr>
+          </table>
+        </div>
+        <div>
+          <p class="label">Documentation &amp; support</p>
+          <p>Every purchase includes the product documentation. Support is by email: <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>. Product terms are in the <a href="../terms.html">Terms</a> and the <a href="../products.json">machine-readable catalog</a>.</p>
+          <p class="label" style="margin-top:34px">Questions</p>
+          <details class="faq"><summary>Is this a certification?</summary><p>No. It is an audit tool: it scans, reports findings with remediations, and you decide when the server is ready.</p></details><details class="faq"><summary>Does it send my code anywhere?</summary><p>No. The scanner is a zero-dependency CLI that runs locally on your source and configuration.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap on-dark">
+      <p class="kicker">Keep exploring</p>
+      <h2 style="font-size:34px;margin-bottom:26px">Related products</h2>
+      <div class="grid grid-3"><article class="pcard" data-cat="agent-payments" data-search="MCP Monetization Engine">
+      <div class="pvisual"><img class="" src="../assets/logos/mcp-monetization-kit.jpg" alt="MCP Monetization Engine logo" loading="lazy"></div>
+      <div class="body">
+        <p class="cat">Agent Payments &amp; Commerce Infrastructure · Node.js 18+</p>
+        <h3>MCP Monetization Engine</h3>
+        <p class="vp">Per-tool-call payments for MCP servers, with free quotas and a usage ledger.</p>
+        <div class="meta-row"><span class="price">$69<span>One-time purchase</span></span><a class="explore" href="../products/mcp-monetization-kit.html">Explore &rarr;</a></div>
+      </div>
+    </article><article class="pcard" data-cat="agent-payments" data-search="x402 + MCP Bundle">
+      <div class="pvisual"><div class="type-cover"><span class="tc-cat">Agent Payments &amp; Commerce Infrastructure</span><span class="tc-name">x402 + MCP Bundle</span><span class="tc-line">The Veyline Developer Primer and the MCP Monetization Engine together, at a bundle price.</span><span class="tc-rule" style="background:#34D399"></span></div></div>
+      <div class="body">
+        <p class="cat">Agent Payments &amp; Commerce Infrastructure · Node.js 18+</p>
+        <h3>x402 + MCP Bundle</h3>
+        <p class="vp">The Veyline Developer Primer and the MCP Monetization Engine together, at a bundle price.</p>
+        <div class="meta-row"><span class="price">$119<span>One-time purchase</span></span><a class="explore" href="../products/x402-mcp-bundle.html">Explore &rarr;</a></div>
+      </div>
+    </article><article class="pcard" data-cat="automation-reliability" data-search="n8n Reliability Guard">
+      <div class="pvisual"><div class="type-cover"><span class="tc-cat">Automation &amp; Agent Reliability</span><span class="tc-name">n8n Reliability Guard</span><span class="tc-line">Production-readiness for n8n AI agents: guardrail templates, a failure-simulation eval harness, and a readiness score.</span><span class="tc-rule" style="background:#818CF8"></span></div></div>
+      <div class="body">
+        <p class="cat">Automation &amp; Agent Reliability · n8n</p>
+        <h3>n8n Reliability Guard</h3>
+        <p class="vp">Production-readiness for n8n AI agents: guardrail templates, a failure-simulation eval harness, and a readiness score.</p>
+        <div class="meta-row"><span class="price">$99<span>One-time purchase</span></span><a class="explore" href="../products/n8n-agent-reliability-kit.html">Explore &rarr;</a></div>
+      </div>
+    </article></div>
+    </div>
+  </section>
 </main>
 <footer class="site">
   <div class="wrap">
-    <span>Payload — small software that earns its keep.</span>
-    <span><a href="../software.html">Software catalog</a> · <a href="../products.html">Products</a> · <a href="../products.json">Machine-readable catalog (JSON)</a> · <a href="../terms.html">Terms</a> · <a href="../privacy.html">Privacy</a></span>
-    <span>Support: <a href="mailto:contact@payloadhq.dev">contact@payloadhq.dev</a></span>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Practical software that simplifies complex work, improves everyday operations, and solves real-world problems.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
   </div>
 </footer>
+<script src="../assets/site.js" defer></script>
 </body>
 </html>

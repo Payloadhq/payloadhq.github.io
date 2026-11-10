@@ -19,6 +19,10 @@ textarea{font-family:monospace;font-size:12px}
 .warn{background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:12px;margin:12px 0;font-size:14px}
 .good{background:#ecfdf5;border:1px solid #10b981;border-radius:8px;padding:12px;margin:12px 0;font-size:14px}
 </style>
+<link rel="icon" type="image/png" href="assets/payload-logo.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0B0E12">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.remove('js')},2500);</script>
 </head>
 <body>
 <h1>Payload x402 — $0.01 Live Test Signer</h1>
@@ -227,5 +231,6 @@ $("copyTx").onclick = async () => {
   } catch(e){ $("copyInfo").innerHTML = '<span class="err">Copy failed — select the text manually.</span>'; }
 };
 </script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

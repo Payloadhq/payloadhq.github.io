@@ -2,12 +2,12 @@
   "catalog": "Payload autonomous services",
   "description": "Services that Payload performs and sells directly: machine invocable APIs paid per call, and fixed price technical services ordered through agent marketplaces. Search by the problem you need solved. Every price and limit below is stated as it operates today.",
   "provider": {
-    "catalog_json": "https://payloadhq.github.io/services.json",
+    "catalog_json": "https://payloadhq.dev/services.json",
     "contact_email": "kyler.simmons.partners@gmail.com",
     "github": "https://github.com/Payloadhq",
     "name": "Payload",
-    "services_page": "https://payloadhq.github.io/services.html",
-    "url": "https://payloadhq.github.io"
+    "services_page": "https://payloadhq.dev/services.html",
+    "url": "https://payloadhq.dev"
   },
   "services": [
     {
@@ -78,7 +78,7 @@
     {
       "capability": "Policy preflight for proposed agent payments: signed, scoped, expiring allow, deny, or escalate decisions, plus status and usage reporting. Delivered over the rail A2A endpoint and the veyline-mcp MCP server. Governance sits outside the agent's own instructions, and the design is noncustodial.",
       "evidence": [
-        "https://payloadhq.github.io/veyline.html"
+        "https://payloadhq.dev/veyline.html"
       ],
       "id": "veyline-preflight",
       "invocation": [
@@ -107,7 +107,7 @@
       "price": {
         "amount_usd": 0,
         "currency": "USD",
-        "note": "Paid plans run from $99 per month (Developer) to $5,000 per month (Enterprise) via Stripe checkout at https://payloadhq.github.io/veyline.html",
+        "note": "Paid plans run from $99 per month (Developer) to $5,000 per month (Enterprise) via Stripe checkout at https://payloadhq.dev/veyline.html",
         "unit": "preflight evaluation with a free rail key"
       },
       "problems_solved": [
@@ -120,13 +120,13 @@
       "free_entry": {
         "experience": "Free sandbox signup (email only) issues a free organization and API key with 1,000 operations per month. Preflight returns signed allow, deny, or escalate decisions on proposed agent payments.",
         "proves": "Spending policy is enforced outside the agent's own instructions, with a signed decision the caller can verify.",
-        "paid_next_step": "Veyline subscription through Stripe checkout at https://payloadhq.github.io/veyline.html.",
+        "paid_next_step": "Veyline subscription through Stripe checkout at https://payloadhq.dev/veyline.html.",
         "paid_price": "Developer $99/mo; Production $499/mo; Growth $1,499/mo; Enterprise $5,000/mo"
       }
     },
     {
       "capability": "Programmable revenue graphs that compute entitlements from economic events, keep an entitlement ledger, and record and verify on-chain Base USDC payout evidence against those entitlements. A keyless public evaluate endpoint runs the engine on a fixed demo graph for $0.01 USDC. A free self-serve console key runs a caller's own graphs, and event simulation is a true dry run that writes nothing.",
-      "docs_url": "https://payloadhq.github.io/revrule-integration.html",
+      "docs_url": "https://payloadhq.dev/revrule-integration.html",
       "evidence": [
         "https://github.com/x402-foundation/x402/issues/3758#issuecomment-6156473438"
       ],
@@ -151,7 +151,7 @@
         {
           "note": "In-browser sandbox running the real engine. Simulated; nothing moves money.",
           "type": "web",
-          "url": "https://payloadhq.github.io/revrule-sandbox.html"
+          "url": "https://payloadhq.dev/revrule-sandbox.html"
         }
       ],
       "limits": "RevRule does not execute payments and never holds funds. The keyless public evaluate endpoint evaluates a fixed demo graph, not the caller's own graph.",
@@ -163,7 +163,7 @@
       "price": {
         "amount_usd": 0.01,
         "currency": "USDC",
-        "note": "Own-graph evaluation is free with a self-serve console key. The RevRule license is $99 one time via Stripe. Managed monthly plans (Starter $29/month, Professional $79/month, Business $199/month) are available via Stripe checkout on the product page at https://payloadhq.github.io/revrule.html",
+        "note": "Own-graph evaluation is free with a self-serve console key. The RevRule license is $99 one time via Stripe. Managed monthly plans (Starter $29/month, Professional $79/month, Business $199/month) are available via Stripe checkout on the product page at https://payloadhq.dev/revrule.html",
         "unit": "public evaluate call on the demo graph"
       },
       "problems_solved": [
@@ -329,7 +329,7 @@
     {
       "capability": "A technical audit of a website's readiness for AI search: raw HTML coverage, AI Overviews eligibility, an AI crawler robots.txt matrix across the major AI crawlers, and a dead schema check. Delivered as a findings report. A public sample report is linked under evidence.",
       "evidence": [
-        "https://payloadhq.github.io/sample-ai-search-report.html",
+        "https://payloadhq.dev/sample-ai-search-report.html",
         "https://ugig.net/gigs/6da05477-5deb-4447-b50e-a46c2341c208"
       ],
       "id": "ai-search-readiness-audit",
@@ -501,8 +501,8 @@
     {
       "capability": "A structured professional evaluation of an autonomous agent's payment decision logic, run against seven technical scenarios drawn from documented x402 payment failure classes: malformed challenge, valid legacy format, verify passed settle failed, duplicate payment risk, unauthorized recipient, revenue allocation, and MCP interoperability. The deliverable is a written report: per-scenario findings with cited evidence, unsafe-action and payment-risk analysis, and prioritized fixes. A free public challenge version (Black Box Arena Challenge 001, five cases, 100 points, reproducible scoring) is open to everyone.",
       "evidence": [
-        "https://payloadhq.github.io/black-box-arena.html",
-        "https://payloadhq.github.io/black-box-arena/sample-report.html"
+        "https://payloadhq.dev/black-box-arena.html",
+        "https://payloadhq.dev/black-box-arena/sample-report.html"
       ],
       "id": "black-box-professional-evaluation",
       "invocation": [
@@ -520,7 +520,7 @@
         {
           "note": "Free Challenge 001 fixtures, participation instructions, scoring rubric, and the sample report.",
           "type": "web_page",
-          "url": "https://payloadhq.github.io/black-box-arena.html"
+          "url": "https://payloadhq.dev/black-box-arena.html"
         }
       ],
       "limits": "A commercial testing service, not a certification, wager, raffle, or cash-prize competition. Payment does not affect any challenge ranking or provide eligibility for prizes. In this phase purchases are fulfilled through marketplace orders (ugig or OpenTask); Payload's hosted callx402 endpoints do not process this 49 USDC order.",
@@ -544,9 +544,9 @@
     {
       "capability": "An independent evidence investigation of one real payment, fulfillment, reconciliation, or automation incident: an agent paid and the result never arrived, a settlement or fulfillment was never recorded, a revenue split does not reconcile, or an automation silently stopped. The deliverable is a written analysis: evidence classification (where in the chain the failure sits), findings stated only where a cited field or a reproducible check establishes them, the evidence boundaries (what the evidence does not establish), safe recommendations in priority order, and, where the evidence supports it, the evidence pack to take to a counterparty or a platform dispute. A free synthetic case (Dead Letter Exchange Mystery 001) demonstrates the method in public.",
       "evidence": [
-        "https://payloadhq.github.io/dead-letter-exchange.html",
-        "https://payloadhq.github.io/dead-letter-exchange/mystery-001.json",
-        "https://payloadhq.github.io/stories/dead-letter.html"
+        "https://payloadhq.dev/dead-letter-exchange.html",
+        "https://payloadhq.dev/dead-letter-exchange/mystery-001.json",
+        "https://payloadhq.dev/stories/dead-letter.html"
       ],
       "free_entry": {
         "experience": "Solve Mystery 001: The Forecast That Never Arrived, free: download the eight-step evidence transcript, classify the failure, bound what the evidence establishes, and recommend the safe next action. Reproducible solutions are recognized publicly with the solver's consent.",
@@ -570,7 +570,7 @@
         {
           "note": "The Dead Letter Exchange board: Mystery 001, the method, submission routes, and purchasing instructions.",
           "type": "web_page",
-          "url": "https://payloadhq.github.io/dead-letter-exchange.html"
+          "url": "https://payloadhq.dev/dead-letter-exchange.html"
         }
       ],
       "limits": "An analysis service only: no guaranteed recovery, no payment reversal, no dispute ruling, no custody of funds, not legal or financial advice. One incident per order. Authorized incidents only: the buyer must be a party to the incident or authorized by a party to share the evidence, and evidence sufficiency is confirmed before acceptance. If findings point to remediation, the buyer commissions and funds it separately through a marketplace. Purchases are fulfilled through marketplace orders (ugig or OpenTask); Payload's hosted endpoints do not process this order.",
@@ -595,6 +595,6 @@
   ],
   "updated": "2026-10-17",
   "version": "1.0",
-  "challenges_page": "https://payloadhq.github.io/challenges.html",
-  "challenge_manifest": "https://payloadhq.github.io/challenges.json"
+  "challenges_page": "https://payloadhq.dev/challenges.html",
+  "challenge_manifest": "https://payloadhq.dev/challenges.json"
 }
