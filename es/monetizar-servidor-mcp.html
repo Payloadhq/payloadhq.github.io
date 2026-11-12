@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monetiza tu servidor MCP: cobra por llamada de herramienta | Payload</title>
+<meta name="description" content="Cobra por llamada de herramienta en tu servidor MCP: registro de herramientas de pago, cuotas gratuitas, requisitos de pago legibles por máquina y libro de uso. Node.js, US$ 69, pago único.">
+<link rel="canonical" href="https://payloadhq.dev/es/monetizar-servidor-mcp.html">
+<link rel="alternate" hreflang="en" href="https://payloadhq.dev/products/mcp-monetization-kit.html">
+<link rel="alternate" hreflang="es" href="https://payloadhq.dev/es/monetizar-servidor-mcp.html">
+<link rel="alternate" hreflang="pt-BR" href="https://payloadhq.dev/pt-br/monetizar-servidor-mcp.html">
+<link rel="alternate" hreflang="x-default" href="https://payloadhq.dev/products/mcp-monetization-kit.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Monetiza tu servidor MCP: cobra por llamada de herramienta | Payload">
+<meta property="og:description" content="Cobra por llamada de herramienta en tu servidor MCP: registro de herramientas de pago, cuotas gratuitas, requisitos de pago legibles por máquina y libro de uso. Node.js, US$ 69, pago único.">
+<meta property="og:url" content="https://payloadhq.dev/es/monetizar-servidor-mcp.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "MCP Monetization Engine", "applicationCategory": "DeveloperApplication", "operatingSystem": "Node.js 18+", "url": "https://payloadhq.dev/es/monetizar-servidor-mcp.html", "offers": {"@type": "Offer", "price": "69", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://payloadhq.dev/es/monetizar-servidor-mcp.html"}, "publisher": {"@id": "https://payloadhq.dev/#organization"}, "inLanguage": "es"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿En qué entorno funciona?", "acceptedAnswer": {"@type": "Answer", "text": "Node.js 18 o superior, con el SDK oficial de MCP. El kit incluye un adaptador para el SDK, un registro de herramientas de pago, cuotas gratuitas por herramienta y el libro de uso."}}, {"@type": "Question", "name": "¿Cómo pagan los usuarios por las llamadas?", "acceptedAnswer": {"@type": "Answer", "text": "Mediante el protocolo x402: el servidor responde 402 con requisitos de pago legibles por máquina, el cliente paga en USDC y la llamada se libera tras la verificación. Tú defines el precio de cada herramienta y cuántas llamadas gratuitas tiene cada cliente al día."}}, {"@type": "Question", "name": "¿Cómo recibo el producto tras la compra?", "acceptedAnswer": {"@type": "Answer", "text": "El pago se procesa con Stripe. Al completar la compra, la página de confirmación muestra tu clave de descarga una sola vez; con ella descargas el kit en esta misma página. Guarda la clave."}}, {"@type": "Question", "name": "¿Y si el producto no me sirve?", "acceptedAnswer": {"@type": "Answer", "text": "Reembolso en un plazo de 7 días si el producto no es sustancialmente como se describe o no puede hacerse funcionar tras un soporte razonable."}}]}</script><link rel="stylesheet" href="../style.437a76d8d1.css">
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="../software.html">Software</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head"><div class="wrap">
+  <p class="kicker">Infraestructura de pagos para agentes · MCP</p>
+  <h1>Monetiza tu servidor MCP</h1>
+  <p class="lede">Cobra por llamada de herramienta en tu servidor MCP: registro de herramientas de pago, cuotas gratuitas y un libro de uso, con requisitos de pago legibles por máquina y adaptador para el SDK oficial de MCP.</p>
+  <p>¿Prefieres inglés? <a href="https://payloadhq.dev/products/mcp-monetization-kit.html">Read the English product page</a>. Prefere português? <a href="https://payloadhq.dev/pt-br/monetizar-servidor-mcp.html">Leia a página em português</a>.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="grid grid-2">
+    <div>
+      <h2>El problema</h2>
+      <p>Construiste un servidor MCP que resuelve un problema real, y hoy cualquiera puede llamar a tus mejores herramientas gratis. Cobrar por llamada parece sencillo hasta que aparece la lista de piezas: requisitos de pago que el cliente pueda leer, verificación antes de liberar la llamada, cuotas gratuitas por cliente y un registro confiable de quién llamó a qué. Construir esa capa desde cero lleva semanas que no van a tu producto.</p>
+      <h2>Cómo funciona</h2>
+      <p>Declaras el precio de cada herramienta en un registro. Cuando un cliente llama a una herramienta de pago más allá de la cuota gratuita, el servidor responde 402 con los requisitos de pago en un formato legible por máquina (el protocolo x402). El cliente paga, la llamada se verifica y se libera, y cada llamada queda anotada en el libro de uso.</p>
+      <div class="card"><h3>El registro, tal como lo configuras</h3>
+      <p><code>tools: { "deep_research": { price: "$0.05/call", quota: "3 free / day" }, "summarize": { price: "free" } }</code></p></div>
+      <h2>Qué incluye</h2>
+      <ul>
+        <li>Registro de herramientas de pago con precio por llamada.</li>
+        <li>Cuotas gratuitas por herramienta y por cliente.</li>
+        <li>Requisitos de pago legibles por máquina (x402).</li>
+        <li>Libro de uso de todas las llamadas.</li>
+        <li>Adaptador para el SDK oficial de MCP.</li>
+        <li>Node.js 18+, versión 1.0.1.</li>
+      </ul>
+    </div>
+    <aside class="buy-panel">
+      <div class="prod-visual"><img src="../assets/logos/mcp-monetization-kit.jpg" alt="Logotipo de MCP Monetization Engine" loading="lazy"></div>
+      <p class="bp-price">$69 <span>USD</span></p>
+      <p class="bp-terms">Precio en dólares estadounidenses (US$ 69), pago único, licencia perpetua de un puesto. Reembolso en un plazo de 7 días si el producto no es sustancialmente como se describe o no puede hacerse funcionar tras un soporte razonable.</p>
+      <button type="button" class="btn btn-primary" data-dl-buy data-slug="mcp-monetization-kit">Comprar ahora — US$ 69</button>
+      <p class="bp-note">Pago seguro con Stripe. El precio es final: impuestos incluidos donde corresponda y no se añade nada en el momento del pago. Tras pagar, la página de confirmación muestra tu clave de descarga una sola vez. Guárdala.</p>
+      <p class="bp-note" data-dl-error style="display:none;color:#B3261E" role="alert"></p>
+      <details class="bp-download">
+        <summary>¿Ya compraste? Descarga con tu clave</summary>
+        <p class="bp-note">Pega la clave de descarga de tu página de confirmación:</p>
+        <input type="text" data-dl-key placeholder="Clave de descarga" autocomplete="off" spellcheck="false" style="width:100%;margin:6px 0">
+        <button type="button" class="btn btn-ghost" data-dl-get data-slug="mcp-monetization-kit">Descargar</button>
+        <p class="bp-note" data-dl-get-error style="display:none;color:#B3261E" role="alert"></p>
+      </details>
+      <p class="bp-note">¿Dudas antes? El soporte responde por correo electrónico.</p>
+    </aside>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>Preguntas frecuentes</h2></div>
+  <div class="faq">
+<div class="faq-item"><h3>¿En qué entorno funciona?</h3><p>Node.js 18 o superior, con el SDK oficial de MCP. El kit incluye un adaptador para el SDK, un registro de herramientas de pago, cuotas gratuitas por herramienta y el libro de uso.</p></div>
+<div class="faq-item"><h3>¿Cómo pagan los usuarios por las llamadas?</h3><p>Mediante el protocolo x402: el servidor responde 402 con requisitos de pago legibles por máquina, el cliente paga en USDC y la llamada se libera tras la verificación. Tú defines el precio de cada herramienta y cuántas llamadas gratuitas tiene cada cliente al día.</p></div>
+<div class="faq-item"><h3>¿Cómo recibo el producto tras la compra?</h3><p>El pago se procesa con Stripe. Al completar la compra, la página de confirmación muestra tu clave de descarga una sola vez; con ella descargas el kit en esta misma página. Guarda la clave.</p></div>
+<div class="faq-item"><h3>¿Y si el producto no me sirve?</h3><p>Reembolso en un plazo de 7 días si el producto no es sustancialmente como se describe o no puede hacerse funcionar tras un soporte razonable.</p></div>
+  </div>
+</div></section>
+</main>
+<script>
+(function () {
+  var RAIL = 'https://payload-rail.fly.dev';
+  var buy = document.querySelector('[data-dl-buy]');
+  if (buy) buy.addEventListener('click', async function () {
+    var err = document.querySelector('[data-dl-error]');
+    var orig = buy.textContent;
+    buy.disabled = true; buy.textContent = 'Opening checkout...';
+    try {
+      var res = await fetch(RAIL + '/v1/stripe/downloads/checkout', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: buy.getAttribute('data-slug') })
+      });
+      var data = await res.json().catch(function () { return null; });
+      if (res.ok && data && data.checkout_url) { window.location.href = data.checkout_url; return; }
+      throw new Error('bad response');
+    } catch (e) {
+      buy.disabled = false; buy.textContent = orig;
+      if (err) { err.style.display = 'block'; err.textContent = 'Sorry, checkout could not be opened. Please try again, or contact Support below.'; }
+    }
+  });
+  var get = document.querySelector('[data-dl-get]');
+  if (get) get.addEventListener('click', async function () {
+    var keyEl = document.querySelector('[data-dl-key]');
+    var gerr = document.querySelector('[data-dl-get-error]');
+    function fail(msg) { if (gerr) { gerr.style.display = 'block'; gerr.textContent = msg; } }
+    var key = (keyEl && keyEl.value || '').trim();
+    if (!key) { fail('Enter your download key first.'); return; }
+    var orig = get.textContent;
+    get.disabled = true; get.textContent = 'Preparing...';
+    try {
+      var slug = get.getAttribute('data-slug');
+      var res = await fetch(RAIL + '/v1/stripe/downloads/file/' + encodeURIComponent(slug), {
+        headers: { 'Authorization': 'Bearer ' + key }
+      });
+      if (!res.ok) {
+        var d = await res.json().catch(function () { return null; });
+        throw new Error((d && d.error && d.error.message) || ('Download failed (' + res.status + ').'));
+      }
+      var blob = await res.blob();
+      var name = slug + '.zip';
+      var cd = res.headers.get('Content-Disposition') || '';
+      var m = /filename="?([^"]+)"?/.exec(cd);
+      if (m) name = m[1];
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      if (gerr) gerr.style.display = 'none';
+    } catch (e) { fail(e.message || 'Download failed. Check the key and try again.'); }
+    get.disabled = false; get.textContent = orig;
+  });
+})();
+</script>
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Payload develops innovative software and applications that simplify operations, solve practical challenges, and help businesses and individuals work more efficiently.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../about.html">About Payload</a>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../terms-of-sale.html">Terms of Sale</a>
+          <a href="../refund-policy.html">Refund Policy</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.ee7c843dce.js"></script>
+</body></html>

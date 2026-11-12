@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paid and Blocked: Why Your Agent Still Gets a 402 After Paying | Payload</title>
+<meta name="description" content="Your agent paid, the payment settled, and the retry still returns 402. The four failure modes behind paid-and-blocked, how to tell them apart, and the checklist to work before paying again.">
+<link rel="canonical" href="https://payloadhq.dev/guides/paid-and-blocked-x402.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="Paid and Blocked: Why Your Agent Still Gets a 402 After Paying | Payload">
+<meta property="og:description" content="Your agent paid, the payment settled, and the retry still returns 402. The four failure modes behind paid-and-blocked, how to tell them apart, and the checklist to work before paying again.">
+<meta property="og:url" content="https://payloadhq.dev/guides/paid-and-blocked-x402.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Paid and Blocked: Why Your Agent Still Gets a 402 After Paying", "url": "https://payloadhq.dev/guides/paid-and-blocked-x402.html", "publisher": {"@id": "https://payloadhq.dev/#organization"}, "datePublished": "2026-11-10", "dateModified": "2026-11-10"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why does my agent still get a 402 after paying?", "acceptedAnswer": {"@type": "Answer", "text": "The most common cause is a protocol version mismatch: the retry carried the payment proof in the header the server does not read (v1 X-PAYMENT against a v2 server expecting PAYMENT-SIGNATURE, or the reverse), so the server treats the retry as a first request and issues a fresh 402. The other causes are exactness failures at verification, a facilitator rejection, and settlement without delivery."}}, {"@type": "Question", "name": "Is it safe to pay again?", "acceptedAnswer": {"@type": "Answer", "text": "Not until the first payment's settlement status is known. If the first payment settled, paying again buys the same resource twice with no protocol-level refund path. Confirm settlement first; the checklist on this page is the order to work in."}}, {"@type": "Question", "name": "What evidence should I keep for a paid x402 call?", "acceptedAnswer": {"@type": "Answer", "text": "The payment requirements you were given, the payment payload you submitted, the settlement transaction, and the server's response to your paid request. Keep them from the first request, not after the first failure: a transaction hash alone proves a payment happened, not who paid it or what it was for."}}]}</script><link rel="stylesheet" href="../style.437a76d8d1.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="../software.html">Software</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head"><div class="wrap">
+  <p class="kicker">Guide · x402 diagnostics</p>
+  <h1>Paid and blocked: why your agent still gets a 402 after paying</h1>
+  <p class="lede">The x402 flow is three steps: the server answers 402 with machine-readable payment requirements, the agent pays, the server verifies and serves. This guide is for the day it breaks: the payment settles, and the retry comes back with a fresh 402.</p>
+  <p>Paid-and-blocked is worse than an ordinary error because of how the protocol is shaped. x402 is synchronous and terminal: there is no escrow, no result hash, and no on-chain refund path. A failed paid call has no built-in recourse, which makes diagnosis the only move you have. There are four failure modes. Here is how to tell them apart, and what fixes each one.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>1. The second 402: you paid in the wrong protocol version</h2>
+  <p><strong>Symptom.</strong> The payment verifies or settles, you retry with proof of payment attached, and the server returns 402 again as if you never paid.</p>
+  <p><strong>Likely cause.</strong> A header version mismatch. x402 v1 servers expect the payment proof in an <code>X-PAYMENT</code> header; v2 servers expect <code>PAYMENT-SIGNATURE</code>. Send the wrong one and the server does not reject your payment. It simply never sees it, so it does the only thing it can do: issue a new 402. From the server's side, your retry is indistinguishable from a first request.</p>
+  <p><strong>How to verify.</strong> Log the exact header your client sent on the retry, and decode the 402 response to see which protocol version the server's payment requirements declare. If the versions differ, you have found it. No amount of re-paying fixes a header the server is not reading.</p>
+  <p><strong>The fix.</strong> Send the header the server's version expects, and pin the protocol version on both sides of the integration. This failure is silent and repeatable, which makes it the most common cause of a 402 after paying, and the cheapest to fix once identified.</p>
+
+  <h2>2. Verification rejects a payment that looks right</h2>
+  <p><strong>Symptom.</strong> The server, or its facilitator, refuses the payment outright. No settlement, no resource, and an error that tells you less than you need.</p>
+  <p><strong>Likely causes.</strong> x402 verification is exact, in the literal sense. The amount must match the requirement exactly; overpaying or underpaying by the smallest unit fails verification, so a client that rounds or adds a buffer is wrong in a way that looks like generosity. The EIP-712 domain's chain ID must match the network in the payment requirements, or the signature is invalid for that requirement no matter how correct everything else is. A malformed signature fails, and so does a wallet that does not hold enough of the token. And a payment can be refused on compliance screening even when the cryptography and the balance are both fine.</p>
+  <p><strong>How to verify.</strong> Compare the amount in your payment payload against the requirement in base units, digit for digit. Check the chain ID in the signed domain against the network the 402 specified. Confirm the paying wallet's balance. If a facilitator verified the payment, read its actual response: a rejection carries a reason code, and the <a href="x402-troubleshooting.html">troubleshooting guide</a> maps each one to its layer and its safe next step.</p>
+  <p><strong>The fix.</strong> Match the requirement exactly: same amount in base units, same network, same asset. Treat "close enough" as a bug class in payment code, because the verifier does.</p>
+
+  <h2>3. The facilitator said no, or said nothing</h2>
+  <p><strong>Symptom.</strong> Your payment never reaches the server's verifier at all, or comes back rejected from the intermediary.</p>
+  <p><strong>Likely causes.</strong> Most x402 verification runs through a facilitator, and facilitators fail in their own ways: a rejection with a stated reason, facilitator downtime, or a deployment mismatch such as pointing a testnet facilitator at a mainnet requirement it does not support.</p>
+  <p><strong>How to verify.</strong> Capture the facilitator's raw response, not just your client's summary of it, and look up its reason code in the <a href="../utilities/x402-error-lookup.html">error code lookup</a>. Confirm the facilitator endpoint in your configuration actually serves the network named in the payment requirements.</p>
+  <p><strong>The fix.</strong> Act on the stated reason; it tells you which of the failure modes above you are actually in. And log facilitator responses permanently. A rejection you did not record is a failure you will have to reproduce from memory. One related trap for sellers: failed payments never settle, so they never appear in settlement data. If you only watch settled payments, rejected attempts are invisible to you, while buyers experience those invisible failures as "I paid and nothing happened."</p>
+
+  <h2>4. Payment settled, nothing delivered</h2>
+  <p><strong>Symptom.</strong> The payment is settled on-chain. The resource, the report, the data, the completed action, never arrives. There is no pending state to wait out.</p>
+  <p><strong>Likely cause.</strong> An ordering bug on the seller's side, documented in seller postmortems: the server settles the payment before doing the work, the work then fails, and the buyer is left with a settled payment and no output. Because x402 has no escrow and no on-chain refund path, the buyer's only remedy in the standard flow is the seller issuing a manual refund.</p>
+  <p><strong>How to verify.</strong> Assemble the evidence before you contact anyone: the payment requirements you were given, the payment payload you submitted, the settlement transaction, and the server's response to your paid request. You will notice the gap immediately. A transaction hash proves a payment happened. It does not prove who paid it, what it was for, or that you are the party entitled to the undelivered resource. Anyone can copy a hash out of a block explorer.</p>
+  <p><strong>What fixes it.</strong> Honesty first: no client-side tool can force a seller to deliver or refund, and nothing retrofits an escrow into a settled payment. What you can do is arrive with evidence instead of an anecdote, and, where a seller supports redemption, prove you are the payer with a signature, not a screenshot of a hash. That distinction is the entire recovery game in x402.</p>
+
+  <h2>The checklist</h2>
+  <p>When an agent reports paid-and-blocked, work this order before re-paying anything:</p>
+  <ol>
+    <li><strong>Which header did the retry carry</strong>, <code>X-PAYMENT</code> or <code>PAYMENT-SIGNATURE</code>, and which version does the server require?</li>
+    <li><strong>Does the amount match exactly</strong>, in base units, against the 402's requirement?</li>
+    <li><strong>Does the EIP-712 domain chain ID match</strong> the network in the requirements?</li>
+    <li><strong>What did the facilitator actually say?</strong> Is there a reason code on record?</li>
+    <li><strong>Did it settle?</strong> If yes and nothing arrived, stop retrying: gather the requirements, the payload, the transaction, and the response. You are in the evidence-and-redemption case now, not the retry case.</li>
+  </ol>
+  <p>Most paid-and-blocked incidents resolve at step 1 or 2. The rest are only solvable if you kept the evidence, so keep it from the first request, not after the first failure.</p>
+
+  <h2>Where callx402 fits</h2>
+  <p><a href="../callx402.html">callx402</a> is Payload's diagnostics tool for exactly this state. Its six tools (<code>x402_status</code>, <code>x402_diagnose</code>, <code>x402_evidence</code>, <code>x402_explain</code>, <code>x402_recover</code>, <code>x402_resolve</code>) are read-only by design: they never charge, execute, retry, or repay. They answer which failure this is, what the evidence shows, and what the recovery path is. The local package holds no keys, in any version, and has zero dependencies; hosted actions are available for agent workflows that would rather call than install. Where callx402 supports redemption, it requires EIP-191 wallet-signed payer authorization: you sign with the wallet that paid, and the signature, not a transaction hash, is the credential. A hash alone is rejected, deliberately, because a hash is public information and proves nothing about who is asking.</p>
+  <p>What callx402 does not do, stated plainly: it does not custody funds, execute trades, or move money on your behalf, and it cannot guarantee a recovery. If a seller settled and vanished, the protocol gives nobody a lever to reverse that. What it gives you is the diagnosis, the evidence assembled in one place, and a redemption path that verifies the right person is asking.</p>
+  <p class="lk-none">This guide is maintained here. It was first published on <a href="https://dev.to/payload-tools/paid-and-blocked-why-your-agent-still-gets-a-402-after-paying-42b3">dev.to</a> on October 13, 2026.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><h2>Questions</h2></div>
+  <div class="faq">
+<div class="faq-item"><h3>Why does my agent still get a 402 after paying?</h3><p>The most common cause is a protocol version mismatch: the retry carried the payment proof in the header the server does not read (v1 X-PAYMENT against a v2 server expecting PAYMENT-SIGNATURE, or the reverse), so the server treats the retry as a first request and issues a fresh 402. The other causes are exactness failures at verification, a facilitator rejection, and settlement without delivery.</p></div>
+<div class="faq-item"><h3>Is it safe to pay again?</h3><p>Not until the first payment's settlement status is known. If the first payment settled, paying again buys the same resource twice with no protocol-level refund path. Confirm settlement first; the checklist on this page is the order to work in.</p></div>
+<div class="faq-item"><h3>What evidence should I keep for a paid x402 call?</h3><p>The payment requirements you were given, the payment payload you submitted, the settlement transaction, and the server's response to your paid request. Keep them from the first request, not after the first failure: a transaction hash alone proves a payment happened, not who paid it or what it was for.</p></div>
+  </div>
+</div></section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Payload develops innovative software and applications that simplify operations, solve practical challenges, and help businesses and individuals work more efficiently.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../about.html">About Payload</a>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../terms-of-sale.html">Terms of Sale</a>
+          <a href="../refund-policy.html">Refund Policy</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.ee7c843dce.js"></script>
+</body></html>
