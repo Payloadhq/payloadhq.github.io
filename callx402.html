@@ -249,8 +249,11 @@ table.cmp tr:last-child td{border-bottom:none}
       <h1>Your x402 payment failed.<br><span class="u">callx402 finds out why.</span></h1>
       <p class="sub">When an x402 payment fails, the error rarely tells you which layer broke: the challenge, the wallet, the facilitator, or the settlement. callx402 is a diagnostic toolkit that investigates the failure and returns structured evidence, a plain language explanation, and the safest next step.</p>
       <p class="noncustody">callx402 diagnoses and explains. It does not hold funds, it does not execute payments for you, and it never promises that a failed payment can be recovered.</p>
+      <p class="sub">The callx402 application runs in your browser: hosted actions, your agents, and their spending controls in one workspace.</p>
       <div class="ctas">
         <a class="pbtn pbtn-lime" href="https://www.npmjs.com/package/callx402">Get the free npm package</a>
+        <a class="pbtn pbtn-blue" href="https://callx402.payloadhq.dev/">Launch Application</a>
+        <a class="pbtn pbtn-line" href="https://callx402.payloadhq.dev/">Sign In</a>
         <a class="pbtn pbtn-line" href="#pricing">See hosted actions</a>
         <a class="pbtn pbtn-line" href="https://smithery.ai/servers/kyler-simmons-partners/callx402">Find it on Smithery</a>
       </div>
@@ -309,7 +312,7 @@ table.cmp tr:last-child td{border-bottom:none}
     <section class="blk" id="pricing">
       <p class="kick">Pricing</p>
       <h2>Free locally. Pennies when hosted.</h2>
-      <p class="lede">The npm package and its local tools are free. Hosted actions are pay per use, with no subscription and no balance to top up. The quote endpoint is free and returns the exact price for any action before you pay anything.</p>
+      <p class="lede">The npm package and its local tools are free. Hosted actions are pay per use, with no balance to top up. The quote endpoint is free and returns the exact price for any action before you pay anything.</p>
 
       <div class="twoways">
         <div class="tw">
@@ -338,6 +341,7 @@ table.cmp tr:last-child td{border-bottom:none}
 
       <p class="terms">Hosted actions are charged via x402 at one twentieth of the card schedule above. More hosted actions, including failure_classification, settlement_interpretation, duplicate_payment_risk, resolve, and recover, are priced on the same schedule; ask the free quote endpoint (GET https://payload-rail.fly.dev/v1/callx402/quote) for the exact price of any action before you commit. Call an action unpaid (POST https://payload-rail.fly.dev/v1/callx402/actions/{action}) and it answers with its x402 challenge: the exact USDC amount and the payTo on Base.</p>
       <p class="terms">Honest limits: hosted purchases settle through Payload's signed redemption flow rather than a generic x402 facilitator, so facilitator only clients cannot complete a hosted purchase; the free local tools are the no payment alternative. No diagnosis covers every failure, and no result is a promise of recovery.</p>
+      <p class="terms">The workspace: the callx402 application gathers the hosted actions, your agents, wallet connection, and spending controls into one place in your browser. An optional Agent Workspace subscription at $9 per month adds an included monthly allowance of hosted actions. Pay per action stays on the schedule above, and job discovery is never gated on the subscription.</p>
       <p class="enterprise">Running x402 at volume, or wiring diagnostics into your own product? <a href="mailto:contact@payloadhq.dev?subject=callx402%20Inquiry">Contact us</a> and we will scope it with you.</p>
     </section>
 
@@ -388,6 +392,8 @@ table.cmp tr:last-child td{border-bottom:none}
       <h2>A failed payment is a question.<br>callx402 is how you answer it.</h2>
       <div class="ctas">
         <a class="pbtn pbtn-lime" href="https://www.npmjs.com/package/callx402">Get the free npm package</a>
+        <a class="pbtn pbtn-blue" href="https://callx402.payloadhq.dev/">Launch Application</a>
+        <a class="pbtn pbtn-line" href="https://callx402.payloadhq.dev/">Sign In</a>
         <a class="pbtn pbtn-line" href="#pricing">See hosted actions</a>
       </div>
       <p class="support">Support: <a href="mailto:contact@payloadhq.dev?subject=callx402%20Support%20Request">contact@payloadhq.dev</a></p>
