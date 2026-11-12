@@ -552,3 +552,9 @@ p code, li code, td code { overflow-wrap: anywhere; }
 .showcase-sec { padding: 76px 0 84px; border-top: 1px solid var(--line-soft); }
 .sc-cta { display: flex; align-items: center; gap: 18px; margin-top: 36px; flex-wrap: wrap; }
 .sc-cta p { color: var(--ink3); font-size: 14.5px; }
+/* ==== v19 UX remediation (2026-11-12): catalog card covers stop
+   repeating the card body text; product hero covers center their
+   content with an enlarged name ==== */
+.pvisual .type-cover .tc-line { display: none; }
+.prod-visual .type-cover { justify-content: center; }
+.prod-visual .type-cover .tc-name { font-size: clamp(30px, 3vw, 40px); }
