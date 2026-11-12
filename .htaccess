@@ -24,3 +24,6 @@ RewriteRule ^(.*)$ https://payloadhq.dev/$1 [L,R=301]
   ExpiresByType text/javascript "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
 </IfModule>
+
+# Branded not-found page (404.html is a system page: noindex, not in the sitemap)
+ErrorDocument 404 /404.html
