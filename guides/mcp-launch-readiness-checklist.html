@@ -14,17 +14,18 @@
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "MCP Server Launch Readiness Checklist: All 48 Checks", "url": "https://payloadhq.dev/guides/mcp-launch-readiness-checklist.html", "publisher": {"@id": "https://payloadhq.dev/#organization"}, "datePublished": "2026-11-10", "dateModified": "2026-11-10"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the mini-scan the full audit?", "acceptedAnswer": {"@type": "Answer", "text": "No, and it says so on the results. The mini-scan runs 12 of the 48 checks, the ones that can be evaluated honestly from a pasted tool list or configuration in a browser. The other 36 checks, including every credential, exposure, SSRF, and authentication rule, need your source code, which is what the audit scans locally."}}, {"@type": "Question", "name": "Does the mini-scan upload my configuration?", "acceptedAnswer": {"@type": "Answer", "text": "No. It runs entirely in this page, in your browser. That is also the audit's model: the scanner is a local CLI and your code never leaves your machine."}}, {"@type": "Question", "name": "Why publish all 48 checks?", "acceptedAnswer": {"@type": "Answer", "text": "The checks are the standard, and a standard you cannot read is hard to trust. What the audit sells is the automation: running all 48 against a real codebase, the evidence for each finding, a remediation for every one, hardened templates, and a regression suite so the findings stay fixed."}}]}</script>
-<style>.scan-box{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:22px}.scan-box textarea{width:100%;min-height:150px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:.86rem}.finding{border-top:1px solid var(--line);padding:12px 0}.finding h4{margin:0 0 4px;font-size:.98rem}.sev{border-radius:999px;padding:2px 9px;font-size:.76rem;font-weight:700;border:1px solid var(--line)}.sev-HIGH{color:#c0453e}.sev-MEDIUM{color:#c96f4a}.sev-LOW{color:var(--mut)}.rule-id{font-family:ui-monospace,Menlo,monospace;color:var(--mut);font-size:.84rem}</style><link rel="stylesheet" href="../style.1d1dff98af.css">
+<style>.scan-box{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:22px}.scan-box textarea{width:100%;min-height:150px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:.86rem}.finding{border-top:1px solid var(--line);padding:12px 0}.finding h4{margin:0 0 4px;font-size:.98rem}.sev{border-radius:999px;padding:2px 9px;font-size:.76rem;font-weight:700;border:1px solid var(--line)}.sev-HIGH{color:#c0453e}.sev-MEDIUM{color:#c96f4a}.sev-LOW{color:var(--mut)}.rule-id{font-family:ui-monospace,Menlo,monospace;color:var(--mut);font-size:.84rem}</style><link rel="stylesheet" href="../style.dcd326d4f2.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap nav-row">
-    <a class="brand" href="../index.html" aria-label="Payload home">
+    <a class="brand" href="https://payloadhq.dev/" aria-label="Payload home">
       <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
       <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
-    <nav class="main" aria-label="Primary">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>Menu</button>
+    <nav class="main" id="site-nav" aria-label="Primary">
       <a href="../software.html">Software</a>
       <a href="../categories/index.html">Categories</a>
       <a href="../guides/index.html">Resources</a>
@@ -180,7 +181,7 @@ document.getElementById('scan-run').addEventListener('click', runScan);
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="brand" href="../index.html" aria-label="Payload home">
+        <a class="brand" href="https://payloadhq.dev/" aria-label="Payload home">
       <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
       <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
@@ -236,5 +237,5 @@ document.getElementById('scan-run').addEventListener('click', runScan);
     </div>
   </div>
 </footer>
-<script src="../assets/site.ee7c843dce.js"></script>
+<script src="../assets/site.291aa3174d.js"></script>
 </body></html>

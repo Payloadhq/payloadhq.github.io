@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="callx402: Agentes de IA prontos para uso, Espaço de Trabalho do Agente e diagnóstico de pagamentos x402 | Payload">
 <meta name="twitter:description" content="Acesse recursos de agentes de IA prontos para uso, automatize tarefas, conecte sua carteira e explore oportunidades em um único espaço de trabalho simples. O callx402 torna a tecnologia avançada de agentes acessível, sem a complexidade de construir tudo por conta própria.">
-<link rel="stylesheet" href="../style.1d1dff98af.css">
+<link rel="stylesheet" href="../style.dcd326d4f2.css">
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "callx402 by Payload", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser", "url": "https://payloadhq.dev/pt-br/callx402.html", "brand": {"@type": "Brand", "name": "Payload"}, "description": "Acesse recursos de agentes de IA prontos para uso, automatize tarefas, conecte sua carteira e explore oportunidades em um único espaço de trabalho simples. O callx402 torna a tecnologia avançada de agentes acessível, sem a complexidade de construir tudo por conta própria.", "inLanguage": "pt-BR", "offers": [{"@type": "Offer", "name": "Assinatura do Espaço de Trabalho do Agente", "price": "9.00", "priceCurrency": "USD", "url": "https://callx402.payloadhq.dev/", "description": "A assinatura do Espaço de Trabalho do Agente por US$ 9 por mês: recursos de agentes prontos no seu navegador, conexão de carteira com controles de gasto, Find Work e uma cota mensal incluída de ações hospedadas.", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "9.00", "priceCurrency": "USD", "unitText": "MON", "referenceQuantity": {"@type": "QuantitativeValue", "value": "1", "unitCode": "MON"}}}, {"@type": "Offer", "name": "Ferramentas locais gratuitas", "price": "0", "priceCurrency": "USD", "url": "https://www.npmjs.com/package/callx402", "description": "O pacote npm e suas seis ferramentas locais de diagnóstico são gratuitos, só leem e não precisam de conta."}, {"@type": "AggregateOffer", "name": "Ações hospedadas, pagas por ação", "priceCurrency": "USD", "lowPrice": "0.025", "highPrice": "2.00", "offerCount": "4", "url": "https://payloadhq.dev/callx402.html#pricing", "description": "As ações de diagnóstico hospedadas são pagas por uso: a tabela de cartão vai de US$ 0,50 a US$ 2,00 por ação, e pagar em USDC na Base pelo x402 custa um vigésimo do preço de cartão. O endpoint gratuito de cotação devolve o preço exato de qualquer ação antes de você pagar."}]}
 </script>
@@ -28,7 +28,7 @@
   --bg0:#101216; --bg1:#181A20; --bg2:#20232B; --line:#2E323D;
   --ink1:#F2F4F7; --ink2:#C8CDD7; --ink3:#8A90A0;
   --lime:#B8F53D; --lime-dim:#7A9E2A; --ok:#3ED598; --danger:#F0524D;
-  --accent:#2E7CF6; --accent-link:#82B4FF; --amber:#F5B83D;
+  --accent:#B8F53D; --accent-link:#B8F53D; --amber:#F5B83D;
   --mono:ui-monospace,"SF Mono","JetBrains Mono","DejaVu Sans Mono",Menlo,Consolas,monospace;
 }
 body{background:var(--bg0);color:var(--ink2)}
@@ -44,7 +44,7 @@ nav.site a:hover{color:var(--ink1)}
 footer.site{background:#0C0E12;border-top:1px solid var(--line);color:var(--ink3)}
 footer.site a{color:var(--ink2)}
 main{padding:0 0 72px}
-.pnav{position:sticky;top:0;z-index:60;background:rgba(16,18,22,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.pnav{background:rgba(16,18,22,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .pnav .wrap{display:flex;align-items:center;gap:18px;padding-top:10px;padding-bottom:10px}
 .pnav .prod{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink1);font-weight:800;font-size:19px;letter-spacing:-0.02em;white-space:nowrap}
 .pnav .prod img{display:block;border-radius:7px}
@@ -56,8 +56,8 @@ main{padding:0 0 72px}
 .pbtn{display:inline-block;font-weight:700;font-size:16px;padding:12px 26px;border-radius:9px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;text-align:center}
 .pbtn-lime{background:var(--lime);color:#101216}
 .pbtn-lime:hover{background:#CBFF5E;color:#101216}
-.pbtn-blue{background:var(--accent);color:#0B1220}
-.pbtn-blue:hover{background:#4A8DF8;color:#0B1220}
+
+
 .pbtn-line{background:transparent;color:var(--ink1);border-color:var(--line)}
 .pbtn-line:hover{border-color:var(--ink3);color:var(--ink1)}
 .pbtn-sm{padding:8px 18px;font-size:14.5px}
@@ -109,7 +109,7 @@ section.blk h2{font-size:clamp(25px,3.6vw,34px);letter-spacing:-0.02em;color:var
 .ledger .hash{margin-top:14px;font-size:12px;color:var(--ink3);line-height:1.7;word-break:break-all}
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:960px;margin:34px auto 0}
 .vs{background:var(--bg1);border:1px solid var(--line);border-radius:14px;padding:24px}
-.vs.rev{border-color:var(--accent);box-shadow:0 6px 30px rgba(46,124,246,.14)}
+.vs.rev{border-color:var(--accent);box-shadow:0 6px 30px rgba(184,245,61,.14)}
 .vs h3{margin:0 0 6px;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
 .vs.rev h3{color:var(--accent-link)}
 .vs .simple{font-size:15px;color:var(--ink2);margin:12px 0;font-variant-numeric:tabular-nums;line-height:1.6}
@@ -127,7 +127,7 @@ section.blk h2{font-size:clamp(25px,3.6vw,34px);letter-spacing:-0.02em;color:var
 .twoways p{margin:0;color:var(--ink2);font-size:15px;line-height:1.6}
 .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
 .plan{background:var(--bg1);border:1px solid var(--line);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column}
-.plan.featured{border-color:var(--accent);box-shadow:0 8px 34px rgba(46,124,246,.16)}
+.plan.featured{border-color:var(--accent);box-shadow:0 8px 34px rgba(184,245,61,.16)}
 .plan .pname{font-weight:800;font-size:18px;color:var(--ink1);letter-spacing:-0.01em}
 .plan .ptag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-link);min-height:15px;margin-top:4px}
 .plan .price{font-family:var(--mono);font-size:40px;font-weight:700;color:var(--ink1);margin:14px 0 2px;line-height:1}
@@ -178,6 +178,7 @@ table.cmp tr:last-child td{border-bottom:none}
   section.blk{padding:40px 0}
 }
 @media(max-width:680px){ .pnav .wrap{flex-wrap:wrap;row-gap:2px} .pnav nav{order:3;width:100%;margin-left:0;padding-bottom:2px} .pnav .prod{font-size:17px} }
+.pnav nav a.pbtn-lime,.pnav nav a.pbtn-lime:hover{color:#101216}
 </style>
 <script type="application/ld+json">
 {
@@ -215,15 +216,15 @@ table.cmp tr:last-child td{border-bottom:none}
 <a class="skip" href="#main">Ir para o conteúdo</a>
 <header class="site">
   <div class="wrap nav-row">
-    <a class="brand" href="../index.html" aria-label="Payload home">
+    <a class="brand" href="https://payloadhq.dev/" aria-label="Payload home">
       <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
       <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
-    <nav class="main" aria-label="Primary">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>Menu</button>
+    <nav class="main" id="site-nav" aria-label="Primary">
       <a href="../software.html">Software</a>
       <a href="../categories/index.html">Categories</a>
       <a href="../guides/index.html">Resources</a>
-      <a href="https://apps.payloadhq.dev/">Sign In</a>
       <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
     </nav>
   </div>
@@ -259,12 +260,9 @@ table.cmp tr:last-child td{border-bottom:none}
       <p class="noncustody">A sua carteira continua sua: o callx402 não guarda custódia, nunca detém suas chaves ou seus fundos e nunca pede a sua frase de recuperação. Os agentes só gastam dentro dos limites que você define. Trabalhos e ganhos nunca são prometidos, e nenhum pagamento com falha é prometido como recuperável.</p>
       <p class="sub" style="font-size:15px">Prefere ler em inglês? <a href="https://payloadhq.dev/callx402.html">Read the English product page</a></p>
       <div class="ctas">
-        <a class="pbtn pbtn-blue" href="https://callx402.payloadhq.dev/">Espaço de Trabalho do Agente: US$ 9/mês</a>
         <a class="pbtn pbtn-lime" href="https://callx402.payloadhq.dev/">Abrir o aplicativo</a>
-        <a class="pbtn pbtn-line" href="https://apps.payloadhq.dev/register?product=callx402&return_to=https%3A%2F%2Fcallx402.payloadhq.dev%2F">Criar conta</a>
-        <a class="pbtn pbtn-line" href="https://callx402.payloadhq.dev/">Entrar</a>
+        <a class="pbtn pbtn-line" href="https://callx402.payloadhq.dev/">Espaço de Trabalho do Agente: US$ 9/mês</a>
         <a class="pbtn pbtn-line" href="#pricing">Ver preços</a>
-        <a class="pbtn pbtn-line" href="#docs">Para desenvolvedores</a>
       </div>
       <div class="chips" aria-label="O que o callx402 faz">
         <span class="chip">Agentes prontos</span>
@@ -319,6 +317,34 @@ table.cmp tr:last-child td{border-bottom:none}
       </div>
     </section>
 
+    <section class="blk" id="pricing">
+      <p class="kick">Preços</p>
+      <h2>Três custos separados. Nada se mistura.</h2>
+      <p class="lede">O callx402 tem três tipos de dinheiro, e eles nunca se misturam: uma assinatura opcional de US$ 9 por mês para o Espaço de Trabalho do Agente, taxas por ação para as ações hospedadas e a remuneração de trabalhos financiados de forma independente. Aqui está cada um, com clareza.</p>
+      <div class="cards">
+        <div class="card2"><span class="tag">US$ 9 / mês</span><h3>A assinatura do Espaço de Trabalho do Agente</h3><p>A assinatura cobre o Espaço de Trabalho do Agente: recursos prontos e os seus agentes em um único espaço no navegador, conexão de carteira com controles de gasto, além de uma cota mensal incluída de ações hospedadas. A busca por trabalhos e o acesso aos pagamentos de trabalhos não dependem dela, e as ferramentas locais gratuitas também não. Cobrada como assinatura; cancele quando quiser e o acesso vai até o fim do período pago.</p></div>
+        <div class="card2"><span class="tag">Pago por ação</span><h3>Ações hospedadas, preço por uso</h3><p>A Payload roda a ação e devolve evidência estruturada e uma explicação. Cada ação mostra o preço exato antes de você se comprometer: frações de dólar em USDC na Base, ou a tabela de cartão a vinte vezes o preço em USDC. A cota da assinatura cobre algumas ações por mês; além dela, vale a tabela abaixo, com ou sem assinatura. Sem saldo para recarregar.</p></div>
+        <div class="card2"><span class="tag">Financiado pelo trabalho</span><h3>Remuneração de trabalhos</h3><p>Quando um trabalho verificado paga, o dinheiro vem da pessoa ou empresa que financiou o trabalho e é pago à sua carteira depois que o serviço é verificado. Não é uma cobrança da Payload e não é uma promessa da Payload: a Payload não financia trabalhos, não garante que haverá trabalhos disponíveis e não define quanto cada trabalho paga.</p></div>
+      </div>
+      <div class="tblwrap">
+        <table class="cmp">
+          <thead>
+            <tr><th scope="col">Ação hospedada</th><th scope="col">O que ela devolve</th><th scope="col">Cartão</th><th scope="col">x402 (USDC na Base)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>diagnose</strong></td><td>Um diagnóstico estruturado de um pagamento x402 com falha</td><td>$2.00</td><td>$0.10</td></tr>
+            <tr><td><strong>preflight</strong></td><td>A verificação de um pagamento planejado antes de ele rodar</td><td>$1.00</td><td>$0.05</td></tr>
+            <tr><td><strong>verify_receipt</strong></td><td>A verificação de um recibo de pagamento contra a evidência dele</td><td>$1.00</td><td>$0.05</td></tr>
+            <tr><td><strong>explain_error</strong></td><td>A explicação em linguagem simples de um erro cru de pagamento</td><td>$0.50</td><td>$0.025</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="terms">As ações hospedadas são cobradas via x402 a um vigésimo da tabela de cartão acima. Outras ações hospedadas, incluindo failure_classification, settlement_interpretation, duplicate_payment_risk, resolve e recover, seguem a mesma tabela; peça ao endpoint gratuito de cotação (GET https://payload-rail.fly.dev/v1/callx402/quote) o preço exato de qualquer ação antes de se comprometer. Chame uma ação sem pagar (POST https://payload-rail.fly.dev/v1/callx402/actions/{action}) e ela responde com o desafio x402 dela: o valor exato em USDC e o payTo na Base.</p>
+      <p class="terms">Limites honestos: as compras hospedadas liquidam pelo fluxo de resgate assinado da Payload, e não por um facilitador x402 genérico, então clientes que só usam facilitador não conseguem concluir uma compra hospedada; as ferramentas locais gratuitas são a alternativa sem pagamento. Nenhum diagnóstico cobre todas as falhas, e nenhum resultado é uma promessa de recuperação.</p>
+      <p class="terms">Grátis localmente, sempre: o pacote npm e suas seis ferramentas locais não custam nada, não precisam de conta e só leem. A assinatura de US$ 9 por mês, as taxas por ação da tabela acima e a remuneração de trabalhos são três coisas separadas, e nenhuma delas é pré-requisito para outra.</p>
+      <p class="enterprise">Rodando x402 em volume, ou integrando diagnósticos ao seu próprio produto? <a href="mailto:contact@payloadhq.dev?subject=callx402%20Inquiry">Fale com a gente</a> e a gente dimensiona com você.</p>
+    </section>
+
     <section class="blk" id="how-it-works">
       <p class="kick">Como funciona</p>
       <h2>Comece grátis na sua máquina. Vá para o hospedado quando quiser que a gente rode.</h2>
@@ -356,34 +382,6 @@ table.cmp tr:last-child td{border-bottom:none}
         <div class="card2"><span class="tag">Verificação prévia</span><h3>Antes de lançar</h3><p>O preflight verifica um caminho de pagamento planejado antes de dinheiro real depender dele, para a primeira falha acontecer em teste, não em produção.</p></div>
         <div class="card2"><span class="tag">Pagamentos de agentes</span><h3>Seu agente travou numa parede</h3><p>Compradores autônomos falham em silêncio. O callx402 dá ao operador, humano ou agente, uma leitura estruturada do que travou o pagamento.</p></div>
       </div>
-    </section>
-
-    <section class="blk" id="pricing">
-      <p class="kick">Preços</p>
-      <h2>Três custos separados. Nada se mistura.</h2>
-      <p class="lede">O callx402 tem três tipos de dinheiro, e eles nunca se misturam: uma assinatura opcional de US$ 9 por mês para o Espaço de Trabalho do Agente, taxas por ação para as ações hospedadas e a remuneração de trabalhos financiados de forma independente. Aqui está cada um, com clareza.</p>
-      <div class="cards">
-        <div class="card2"><span class="tag">US$ 9 / mês</span><h3>A assinatura do Espaço de Trabalho do Agente</h3><p>A assinatura cobre o Espaço de Trabalho do Agente: recursos prontos e os seus agentes em um único espaço no navegador, conexão de carteira com controles de gasto, além de uma cota mensal incluída de ações hospedadas. A busca por trabalhos e o acesso aos pagamentos de trabalhos não dependem dela, e as ferramentas locais gratuitas também não. Cobrada como assinatura; cancele quando quiser e o acesso vai até o fim do período pago.</p></div>
-        <div class="card2"><span class="tag">Pago por ação</span><h3>Ações hospedadas, preço por uso</h3><p>A Payload roda a ação e devolve evidência estruturada e uma explicação. Cada ação mostra o preço exato antes de você se comprometer: frações de dólar em USDC na Base, ou a tabela de cartão a vinte vezes o preço em USDC. A cota da assinatura cobre algumas ações por mês; além dela, vale a tabela abaixo, com ou sem assinatura. Sem saldo para recarregar.</p></div>
-        <div class="card2"><span class="tag">Financiado pelo trabalho</span><h3>Remuneração de trabalhos</h3><p>Quando um trabalho verificado paga, o dinheiro vem da pessoa ou empresa que financiou o trabalho e é pago à sua carteira depois que o serviço é verificado. Não é uma cobrança da Payload e não é uma promessa da Payload: a Payload não financia trabalhos, não garante que haverá trabalhos disponíveis e não define quanto cada trabalho paga.</p></div>
-      </div>
-      <div class="tblwrap">
-        <table class="cmp">
-          <thead>
-            <tr><th scope="col">Ação hospedada</th><th scope="col">O que ela devolve</th><th scope="col">Cartão</th><th scope="col">x402 (USDC na Base)</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>diagnose</strong></td><td>Um diagnóstico estruturado de um pagamento x402 com falha</td><td>$2.00</td><td>$0.10</td></tr>
-            <tr><td><strong>preflight</strong></td><td>A verificação de um pagamento planejado antes de ele rodar</td><td>$1.00</td><td>$0.05</td></tr>
-            <tr><td><strong>verify_receipt</strong></td><td>A verificação de um recibo de pagamento contra a evidência dele</td><td>$1.00</td><td>$0.05</td></tr>
-            <tr><td><strong>explain_error</strong></td><td>A explicação em linguagem simples de um erro cru de pagamento</td><td>$0.50</td><td>$0.025</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="terms">As ações hospedadas são cobradas via x402 a um vigésimo da tabela de cartão acima. Outras ações hospedadas, incluindo failure_classification, settlement_interpretation, duplicate_payment_risk, resolve e recover, seguem a mesma tabela; peça ao endpoint gratuito de cotação (GET https://payload-rail.fly.dev/v1/callx402/quote) o preço exato de qualquer ação antes de se comprometer. Chame uma ação sem pagar (POST https://payload-rail.fly.dev/v1/callx402/actions/{action}) e ela responde com o desafio x402 dela: o valor exato em USDC e o payTo na Base.</p>
-      <p class="terms">Limites honestos: as compras hospedadas liquidam pelo fluxo de resgate assinado da Payload, e não por um facilitador x402 genérico, então clientes que só usam facilitador não conseguem concluir uma compra hospedada; as ferramentas locais gratuitas são a alternativa sem pagamento. Nenhum diagnóstico cobre todas as falhas, e nenhum resultado é uma promessa de recuperação.</p>
-      <p class="terms">Grátis localmente, sempre: o pacote npm e suas seis ferramentas locais não custam nada, não precisam de conta e só leem. A assinatura de US$ 9 por mês, as taxas por ação da tabela acima e a remuneração de trabalhos são três coisas separadas, e nenhuma delas é pré-requisito para outra.</p>
-      <p class="enterprise">Rodando x402 em volume, ou integrando diagnósticos ao seu próprio produto? <a href="mailto:contact@payloadhq.dev?subject=callx402%20Inquiry">Fale com a gente</a> e a gente dimensiona com você.</p>
     </section>
 
     <section class="blk" id="faq">
@@ -439,10 +437,8 @@ table.cmp tr:last-child td{border-bottom:none}
 <section class="final">
       <h2>Agentes poderosos. Tarefas reais.<br>Sem precisar programar.</h2>
       <div class="ctas">
-        <a class="pbtn pbtn-blue" href="https://callx402.payloadhq.dev/">Espaço de Trabalho do Agente: US$ 9/mês</a>
         <a class="pbtn pbtn-lime" href="https://callx402.payloadhq.dev/">Abrir o aplicativo</a>
-        <a class="pbtn pbtn-line" href="https://apps.payloadhq.dev/register?product=callx402&return_to=https%3A%2F%2Fcallx402.payloadhq.dev%2F">Criar conta</a>
-        <a class="pbtn pbtn-line" href="https://www.npmjs.com/package/callx402">Pegue o pacote npm gratuito</a>
+        <a class="pbtn pbtn-line" href="https://callx402.payloadhq.dev/">Espaço de Trabalho do Agente: US$ 9/mês</a>
       </div>
       <p class="support">Suporte: <a href="mailto:contact@payloadhq.dev?subject=callx402%20Support%20Request">contact@payloadhq.dev</a></p>
     </section>
@@ -453,7 +449,7 @@ table.cmp tr:last-child td{border-bottom:none}
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="brand" href="../index.html" aria-label="Payload home">
+        <a class="brand" href="https://payloadhq.dev/" aria-label="Payload home">
       <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
       <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
@@ -509,6 +505,6 @@ table.cmp tr:last-child td{border-bottom:none}
     </div>
   </div>
 </footer>
-<script src="../assets/site.ee7c843dce.js" defer></script>
+<script src="../assets/site.291aa3174d.js" defer></script>
 </body>
 </html>

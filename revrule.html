@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RevRule: Royalty and Revenue Entitlement Verification">
 <meta name="twitter:description" content="RevRule calculates who is owed what across splits, royalties and recoupment, and verifies payouts against it. RevRule never holds or moves money.">
-<link rel="stylesheet" href="style.1d1dff98af.css">
+<link rel="stylesheet" href="style.dcd326d4f2.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"RevRule by Payload","applicationCategory":"BusinessApplication","operatingSystem":"Web, API","url":"https://payloadhq.dev/revrule.html","brand":{"@type":"Brand","name":"Payload"},"description":"A programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money.","offers":[{"@type":"Offer","name":"RevRule One-Time License","price":"99","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"RevRule Managed Starter","price":"29","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"RevRule Managed Professional","price":"79","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"RevRule Managed Business","price":"199","priceCurrency":"USD","availability":"https://schema.org/InStock"}]}
 </script>
@@ -24,7 +24,7 @@
   --bg0:#101216; --bg1:#181A20; --bg2:#20232B; --line:#2E323D;
   --ink1:#F2F4F7; --ink2:#C8CDD7; --ink3:#8A90A0;
   --lime:#B8F53D; --lime-dim:#7A9E2A; --ok:#3ED598; --danger:#F0524D;
-  --accent:#2E7CF6; --accent-link:#82B4FF; --amber:#F5B83D;
+  --accent:#B8F53D; --accent-link:#B8F53D; --amber:#F5B83D;
   --mono:ui-monospace,"SF Mono","JetBrains Mono","DejaVu Sans Mono",Menlo,Consolas,monospace;
 }
 body{background:var(--bg0);color:var(--ink2)}
@@ -40,7 +40,7 @@ nav.site a:hover{color:var(--ink1)}
 footer.site{background:#0C0E12;border-top:1px solid var(--line);color:var(--ink3)}
 footer.site a{color:var(--ink2)}
 main{padding:0 0 72px}
-.pnav{position:sticky;top:0;z-index:60;background:rgba(16,18,22,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.pnav{background:rgba(16,18,22,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .pnav .wrap{display:flex;align-items:center;gap:18px;padding-top:10px;padding-bottom:10px}
 .pnav .prod{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink1);font-weight:800;font-size:19px;letter-spacing:-0.02em;white-space:nowrap}
 .pnav .prod img{display:block;border-radius:7px}
@@ -52,8 +52,8 @@ main{padding:0 0 72px}
 .pbtn{display:inline-block;font-weight:700;font-size:16px;padding:12px 26px;border-radius:9px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;text-align:center}
 .pbtn-lime{background:var(--lime);color:#101216}
 .pbtn-lime:hover{background:#CBFF5E;color:#101216}
-.pbtn-blue{background:var(--accent);color:#0B1220}
-.pbtn-blue:hover{background:#4A8DF8;color:#0B1220}
+
+
 .pbtn-line{background:transparent;color:var(--ink1);border-color:var(--line)}
 .pbtn-line:hover{border-color:var(--ink3);color:var(--ink1)}
 .pbtn-sm{padding:8px 18px;font-size:14.5px}
@@ -105,7 +105,7 @@ section.blk h2{font-size:clamp(25px,3.6vw,34px);letter-spacing:-0.02em;color:var
 .ledger .hash{margin-top:14px;font-size:12px;color:var(--ink3);line-height:1.7;word-break:break-all}
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:960px;margin:34px auto 0}
 .vs{background:var(--bg1);border:1px solid var(--line);border-radius:14px;padding:24px}
-.vs.rev{border-color:var(--accent);box-shadow:0 6px 30px rgba(46,124,246,.14)}
+.vs.rev{border-color:var(--accent);box-shadow:0 6px 30px rgba(184,245,61,.14)}
 .vs h3{margin:0 0 6px;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
 .vs.rev h3{color:var(--accent-link)}
 .vs .simple{font-size:15px;color:var(--ink2);margin:12px 0;font-variant-numeric:tabular-nums;line-height:1.6}
@@ -123,7 +123,7 @@ section.blk h2{font-size:clamp(25px,3.6vw,34px);letter-spacing:-0.02em;color:var
 .twoways p{margin:0;color:var(--ink2);font-size:15px;line-height:1.6}
 .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
 .plan{background:var(--bg1);border:1px solid var(--line);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column}
-.plan.featured{border-color:var(--accent);box-shadow:0 8px 34px rgba(46,124,246,.16)}
+.plan.featured{border-color:var(--accent);box-shadow:0 8px 34px rgba(184,245,61,.16)}
 .plan .pname{font-weight:800;font-size:18px;color:var(--ink1);letter-spacing:-0.01em}
 .plan .ptag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-link);min-height:15px;margin-top:4px}
 .plan .price{font-family:var(--mono);font-size:40px;font-weight:700;color:var(--ink1);margin:14px 0 2px;line-height:1}
@@ -173,6 +173,7 @@ table.cmp tr:last-child td{border-bottom:none}
   .pnav .prod small{display:none}
   section.blk{padding:40px 0}
 }
+.pnav nav a.pbtn-lime,.pnav nav a.pbtn-lime:hover{color:#101216}
 </style>
 <script type="application/ld+json">
 {
@@ -209,15 +210,15 @@ table.cmp tr:last-child td{border-bottom:none}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site">
   <div class="wrap nav-row">
-    <a class="brand" href="index.html" aria-label="Payload home">
+    <a class="brand" href="https://payloadhq.dev/" aria-label="Payload home">
       <img class="mark" src="assets/payload-logo.png" alt="" width="40" height="40">
       <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
-    <nav class="main" aria-label="Primary">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>Menu</button>
+    <nav class="main" id="site-nav" aria-label="Primary">
       <a href="software.html">Software</a>
       <a href="categories/index.html">Categories</a>
       <a href="guides/index.html">Resources</a>
-      <a href="https://apps.payloadhq.dev/">Sign In</a>
       <a class="btn btn-primary nav-cta" href="software.html">Explore Software</a>
     </nav>
   </div>
@@ -251,12 +252,8 @@ table.cmp tr:last-child td{border-bottom:none}
       <p class="noncustody">RevRule calculates entitlements and records the results. It never holds your funds and never executes payments. Your payment system still moves the money.</p>
       <p class="sub">The RevRule console runs in your browser: define Revenue Graphs, send revenue events, and read the auditable ledger there, with the API available for everything the console does.</p>
       <div class="ctas">
-        <a class="pbtn pbtn-lime" href="#pricing">View Plans</a>
-        <a class="pbtn pbtn-blue" href="https://revrule.payloadhq.dev/">Launch the Console</a>
-        <a class="pbtn pbtn-line" href="https://revrule.payloadhq.dev/">Sign In</a>
-        <a class="pbtn pbtn-line" href="https://apps.payloadhq.dev/register?product=revrule&return_to=https%3A%2F%2Frevrule.payloadhq.dev%2F">Create Account</a>
-        <a class="pbtn pbtn-line" href="revrule-sandbox.html">Try the free sandbox</a>
-        <a class="pbtn pbtn-line" href="https://payload-rail.fly.dev/revrule-console/">Get a free console key</a>
+        <a class="pbtn pbtn-lime" href="https://revrule.payloadhq.dev/">Launch Application</a>
+        <a class="pbtn pbtn-line" href="#pricing">View Plans</a>
       </div>
       <div class="chips" aria-label="What RevRule handles">
         <span class="chip">Royalties</span>
@@ -301,7 +298,7 @@ table.cmp tr:last-child td{border-bottom:none}
             <li>1 API key</li>
             <li>Email support, best effort</li>
           </ul>
-          <button type="button" class="pbtn pbtn-blue revrule-buy" data-tier="managed_starter">Start Starter, $29/month</button>
+          <button type="button" class="pbtn pbtn-line revrule-buy" data-tier="managed_starter">Start Starter, $29/month</button>
         </div>
         <div class="plan featured">
           <p class="pname">Professional</p>
@@ -316,7 +313,7 @@ table.cmp tr:last-child td{border-bottom:none}
             <li>3 API keys</li>
             <li>Email support, best effort</li>
           </ul>
-          <button type="button" class="pbtn pbtn-blue revrule-buy" data-tier="managed_professional">Start Professional, $79/month</button>
+          <button type="button" class="pbtn pbtn-line revrule-buy" data-tier="managed_professional">Start Professional, $79/month</button>
         </div>
         <div class="plan">
           <p class="pname">Business</p>
@@ -331,7 +328,7 @@ table.cmp tr:last-child td{border-bottom:none}
             <li>10 API keys</li>
             <li>Email support, best effort</li>
           </ul>
-          <button type="button" class="pbtn pbtn-blue revrule-buy" data-tier="managed_business">Start Business, $199/month</button>
+          <button type="button" class="pbtn pbtn-line revrule-buy" data-tier="managed_business">Start Business, $199/month</button>
         </div>
         <div class="plan">
           <p class="pname">One-Time License</p>
@@ -483,10 +480,8 @@ table.cmp tr:last-child td{border-bottom:none}
     <section class="final">
       <h2>Your payment rail moves money.<br>RevRule decides who earns.</h2>
       <div class="ctas">
-        <a class="pbtn pbtn-lime" href="#pricing">View Plans</a>
-        <a class="pbtn pbtn-blue" href="https://revrule.payloadhq.dev/">Launch the Console</a>
-        <a class="pbtn pbtn-line" href="https://revrule.payloadhq.dev/">Sign In</a>
-        <a class="pbtn pbtn-line" href="flow-try.html">Try RevRule free</a>
+        <a class="pbtn pbtn-lime" href="https://revrule.payloadhq.dev/">Launch Application</a>
+        <a class="pbtn pbtn-line" href="#pricing">View Plans</a>
         <button type="button" class="pbtn pbtn-line revrule-buy" data-tier="license">Buy the license, $99 one-time</button>
       </div>
       <p class="support">Support: <a href="mailto:contact@payloadhq.dev?subject=RevRule%20Support%20Request">contact@payloadhq.dev</a></p>
@@ -498,7 +493,7 @@ table.cmp tr:last-child td{border-bottom:none}
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="brand" href="index.html" aria-label="Payload home">
+        <a class="brand" href="https://payloadhq.dev/" aria-label="Payload home">
       <img class="mark" src="assets/payload-logo.png" alt="" width="40" height="40">
       <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
     </a>
@@ -557,7 +552,7 @@ table.cmp tr:last-child td{border-bottom:none}
 <script>
 (function(){
   var people = [
-    {id:'dev', name:'Developer', pct:60, color:'#2E7CF6'},
+    {id:'dev', name:'Developer', pct:60, color:'#B8F53D'},
     {id:'plat', name:'Platform', pct:20, color:'#B8F53D'},
     {id:'ref', name:'Referrer', pct:10, color:'#3ED598'},
     {id:'contrib', name:'Contributor', pct:10, color:'#F5B83D'}
@@ -647,6 +642,6 @@ table.cmp tr:last-child td{border-bottom:none}
   });
 })();
 </script>
-<script src="assets/site.ee7c843dce.js" defer></script>
+<script src="assets/site.291aa3174d.js" defer></script>
 </body>
 </html>

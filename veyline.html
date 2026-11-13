@@ -181,6 +181,7 @@
     .foot-inner { flex-direction: column; align-items: flex-start; }
     .foot-links a { margin-left: 0; margin-right: 20px; }
   }
+a.brand { text-decoration: none; color: inherit; }
 </style>
 <script type="application/ld+json">
 {
@@ -238,8 +239,8 @@
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <div class="brand"><img src="assets/payload-logo.png" width="21" height="21" alt="" style="vertical-align:-4px"> VEYLINE<small>BY PAYLOAD</small></div>
-    <div style="display:flex;align-items:center;gap:20px"><a href="https://veyline.payloadhq.dev/" style="color:var(--text);font-weight:600;font-size:14px;text-decoration:none">Sign In</a><a class="nav-cta" href="#purchase">Get API Access</a></div>
+    <a class="brand" href="https://payloadhq.dev/" aria-label="Payload home"><img src="assets/payload-logo.png" width="21" height="21" alt="" style="vertical-align:-4px"> VEYLINE<small>BY PAYLOAD</small></a>
+    <div style="display:flex;align-items:center;gap:20px"><a class="nav-cta" href="#purchase">Get API Access</a></div>
   </div>
 </header>
 
@@ -252,9 +253,8 @@
     <p class="lede" style="font-size:21px; color:var(--text); font-weight:600;">The production layer for x402 + MCP.</p>
     <p class="lede">Veyline is the economic control and assurance plane for autonomous commerce. It sits around the protocols your agents already use — x402, MCP, and more — and makes every economic operation safe, provable, and recoverable: intent checked, payment verified, settlement confirmed, execution exactly once, delivery proven, outcome recorded.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#purchase">Get API Access</a>
-      <a class="btn btn-ghost" href="https://veyline.payloadhq.dev/">Launch Application</a>
-      <a class="btn btn-ghost" href="https://apps.payloadhq.dev/register?product=veyline&return_to=https%3A%2F%2Fveyline.payloadhq.dev%2F">Create Account</a>
+      <a class="btn btn-primary" href="https://veyline.payloadhq.dev/">Launch Application</a>
+      <a class="btn btn-ghost" href="#purchase">Get API Access</a>
       <a class="btn btn-ghost" href="#how-it-works">How it works</a>
     </div>
   </div>
@@ -828,6 +828,6 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
 })();
 </script>
 
-<script src="assets/site.ee7c843dce.js" defer></script>
+<script src="assets/site.291aa3174d.js" defer></script>
 </body>
 </html>

@@ -47,3 +47,31 @@
   document.addEventListener("visibilitychange", function () { if (document.hidden) stop(); else play(); });
   play();
 })();
+
+/* Payload mobile navigation: the primary nav collapses behind the
+   menu button at narrow widths; links stay reachable without JS
+   (the stylesheet only hides the nav once this enhancement runs). */
+(function () {
+  var header = document.querySelector("header.site");
+  if (!header) return;
+  var toggle = header.querySelector(".nav-toggle");
+  var nav = header.querySelector("nav.main");
+  if (!toggle || !nav) return;
+  header.classList.add("nav-js");
+  function setOpen(open) {
+    header.classList.toggle("nav-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  toggle.addEventListener("click", function () {
+    setOpen(!header.classList.contains("nav-open"));
+  });
+  nav.addEventListener("click", function (e) {
+    if (e.target.closest("a")) setOpen(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && header.classList.contains("nav-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+})();
