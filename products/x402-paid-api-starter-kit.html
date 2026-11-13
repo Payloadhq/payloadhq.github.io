@@ -143,6 +143,19 @@ X-Payment: chain=base, asset=USDC
 <script>
 (function () {
   var RAIL = 'https://payload-rail.fly.dev';
+  function payloadWithAttribution(payload) {
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var a = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) {
+        var v = q.get(k);
+        if (v) { a[k] = v; }
+      });
+      if (document.referrer) { a.referrer = document.referrer; }
+      if (Object.keys(a).length) { payload.attribution = a; }
+    } catch (e) { /* attribution is best-effort; checkout proceeds without it */ }
+    return payload;
+  }
   var buy = document.querySelector('[data-dl-buy]');
   if (buy) buy.addEventListener('click', async function () {
     var err = document.querySelector('[data-dl-error]');
@@ -151,7 +164,7 @@ X-Payment: chain=base, asset=USDC
     try {
       var res = await fetch(RAIL + '/v1/stripe/downloads/checkout', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug: buy.getAttribute('data-slug') })
+        body: JSON.stringify(payloadWithAttribution({ slug: buy.getAttribute('data-slug') }))
       });
       var data = await res.json().catch(function () { return null; });
       if (res.ok && data && data.checkout_url) { window.location.href = data.checkout_url; return; }

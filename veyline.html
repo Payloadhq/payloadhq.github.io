@@ -678,6 +678,20 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
     }
   }
 
+  function payloadWithAttribution(payload) {
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var a = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) {
+        var v = q.get(k);
+        if (v) { a[k] = v; }
+      });
+      if (document.referrer) { a.referrer = document.referrer; }
+      if (Object.keys(a).length) { payload.attribution = a; }
+    } catch (e) { /* attribution is best-effort; checkout proceeds without it */ }
+    return payload;
+  }
+
   async function startCheckout(tier, btn) {
     var original = btn.textContent;
     btn.disabled = true;
@@ -686,7 +700,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
       var res = await fetch(RAIL + '/v1/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tier: tier })
+        body: JSON.stringify(payloadWithAttribution({ tier: tier }))
       });
       var data = null;
       try { data = await res.json(); } catch (e) { /* non-JSON body */ }
