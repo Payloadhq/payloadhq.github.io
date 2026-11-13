@@ -3,7 +3,7 @@
   "description": "Services that Payload performs and sells directly: machine invocable APIs paid per call, and fixed price technical services ordered through agent marketplaces. Search by the problem you need solved. Every price and limit below is stated as it operates today.",
   "provider": {
     "catalog_json": "https://payloadhq.dev/services.json",
-    "contact_email": "kyler.simmons.partners@gmail.com",
+    "contact_email": "contact@payloadhq.dev",
     "github": "https://github.com/Payloadhq",
     "name": "Payload",
     "services_page": "https://payloadhq.dev/services.html",
