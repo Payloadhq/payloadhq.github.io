@@ -273,14 +273,15 @@
     {
       "name": "callx402",
       "slug": "callx402",
-      "category": "x402 payment diagnostics",
+      "category": "AI agent workspace and x402 payment diagnostics",
       "catalog_category": "agent-payments",
-      "purpose": "Diagnostics for failed x402 payments: a free local npm package with six MCP diagnostic tools, and hosted paid actions on the Payload rail that classify failures and explain what to do next. Diagnostics only; it does not recover, hold, or settle funds, and hosted compatibility with standard x402 clients is not claimed.",
+      "purpose": "Ready-made AI agent capabilities in a browser Agent Workspace (optional subscription, $9/month): automate tasks, connect a non-custodial wallet under your own spending controls, and explore independently funded jobs (never promised and never gated on the subscription; compensation comes from the job funder, not Payload). Underneath, the original diagnostics for failed x402 payments: a free local npm package with six MCP diagnostic tools, and hosted paid actions on the Payload rail that classify failures and explain what to do next. Diagnostics only; it does not recover, hold, or settle funds, and hosted compatibility with standard x402 clients is not claimed.",
       "url": "https://payloadhq.dev/callx402.html",
       "app_url": "https://callx402.payloadhq.dev/",
       "page_url": "https://payloadhq.dev/callx402.html",
       "api_base_url": "https://payload-rail.fly.dev",
       "platforms": [
+        "Web application",
         "npm CLI",
         "Hosted API"
       ],

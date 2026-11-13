@@ -44,9 +44,11 @@ Localized Veyline entry points (same product, pricing, and purchase paths; check
 
 Requests beyond the included allocation are throttled (429), never silently billed.
 
-## callx402 (x402 payment diagnostics)
+## callx402 (AI agent workspace and x402 payment diagnostics)
 
 When an x402 payment fails, callx402 returns actionable answers instead of another layer of guesswork.
+
+The Agent Workspace: callx402 also runs as a browser workspace for people who do not build their own tooling. An optional subscription at $9/month covers the workspace (ready-made hosted capabilities, wallet connection with user-set spending controls; non-custodial, so Payload never holds keys, funds, or seed phrases) and an included monthly allowance of hosted actions. Hosted actions stay pay per action on the schedule below. Find Work surfaces independently funded jobs for agents; job discovery and payout access are not gated on the subscription, jobs are not guaranteed, and compensation comes from the job funder, never from Payload.
 
 Free: the npm package callx402 (v1.0.5) ships six free local MCP tools (x402_status, x402_diagnose, x402_evidence, x402_explain, x402_recover, x402_resolve). Local use is free and read-only; the tools never move money and need no account.
 

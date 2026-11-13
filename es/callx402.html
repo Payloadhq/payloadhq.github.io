@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>callx402: Agentes de IA listos para usar, Espacio de Trabajo del Agente y diagnóstico de pagos x402 | Payload</title>
+<meta name="description" content="Accede a capacidades de agentes de IA listas para usar, automatiza tareas, conecta tu billetera y explora oportunidades desde un único espacio de trabajo sencillo. callx402 hace accesible la tecnología avanzada de agentes, sin la complejidad de crearla por tu cuenta.">
+<link rel="canonical" href="https://payloadhq.dev/es/callx402.html">
+<link rel="alternate" hreflang="en" href="https://payloadhq.dev/callx402.html">
+<link rel="alternate" hreflang="pt-BR" href="https://payloadhq.dev/pt-br/callx402.html">
+<link rel="alternate" hreflang="es" href="https://payloadhq.dev/es/callx402.html">
+<link rel="alternate" hreflang="x-default" href="https://payloadhq.dev/callx402.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Payload">
+<meta property="og:title" content="callx402: Agentes de IA listos para usar, Espacio de Trabajo del Agente y diagnóstico de pagos x402 | Payload">
+<meta property="og:description" content="Accede a capacidades de agentes de IA listas para usar, automatiza tareas, conecta tu billetera y explora oportunidades desde un único espacio de trabajo sencillo. callx402 hace accesible la tecnología avanzada de agentes, sin la complejidad de crearla por tu cuenta.">
+<meta property="og:url" content="https://payloadhq.dev/es/callx402.html">
+<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="callx402: Agentes de IA listos para usar, Espacio de Trabajo del Agente y diagnóstico de pagos x402 | Payload">
+<meta name="twitter:description" content="Accede a capacidades de agentes de IA listas para usar, automatiza tareas, conecta tu billetera y explora oportunidades desde un único espacio de trabajo sencillo. callx402 hace accesible la tecnología avanzada de agentes, sin la complejidad de crearla por tu cuenta.">
+<link rel="stylesheet" href="../style.1d1dff98af.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "callx402 by Payload", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser", "url": "https://payloadhq.dev/es/callx402.html", "brand": {"@type": "Brand", "name": "Payload"}, "description": "Accede a capacidades de agentes de IA listas para usar, automatiza tareas, conecta tu billetera y explora oportunidades desde un único espacio de trabajo sencillo. callx402 hace accesible la tecnología avanzada de agentes, sin la complejidad de crearla por tu cuenta.", "inLanguage": "es", "offers": [{"@type": "Offer", "name": "Suscripción del Espacio de Trabajo del Agente", "price": "9.00", "priceCurrency": "USD", "url": "https://callx402.payloadhq.dev/", "description": "La suscripción del Espacio de Trabajo del Agente por $9 al mes: capacidades de agentes listas para usar en tu navegador, conexión de billetera con controles de gasto, Find Work y una cuota mensual incluida de acciones alojadas.", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "9.00", "priceCurrency": "USD", "unitText": "MON", "referenceQuantity": {"@type": "QuantitativeValue", "value": "1", "unitCode": "MON"}}}, {"@type": "Offer", "name": "Herramientas locales gratuitas", "price": "0", "priceCurrency": "USD", "url": "https://www.npmjs.com/package/callx402", "description": "El paquete npm y sus seis herramientas locales de diagnóstico son gratuitos, de solo lectura y no necesitan cuenta."}, {"@type": "AggregateOffer", "name": "Acciones alojadas, pago por acción", "priceCurrency": "USD", "lowPrice": "0.025", "highPrice": "2.00", "offerCount": "4", "url": "https://payloadhq.dev/callx402.html#pricing", "description": "Las acciones de diagnóstico alojadas son pago por uso: la tabla de tarjeta va de $0.50 a $2.00 por acción, y pagar en USDC en Base mediante x402 cuesta una vigésima parte del precio de tarjeta. El endpoint gratuito de cotización devuelve el precio exacto de cualquier acción antes de que pagues."}]}
+</script>
+<style>
+:root{
+  --bg0:#101216; --bg1:#181A20; --bg2:#20232B; --line:#2E323D;
+  --ink1:#F2F4F7; --ink2:#C8CDD7; --ink3:#8A90A0;
+  --lime:#B8F53D; --lime-dim:#7A9E2A; --ok:#3ED598; --danger:#F0524D;
+  --accent:#2E7CF6; --accent-link:#82B4FF; --amber:#F5B83D;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","DejaVu Sans Mono",Menlo,Consolas,monospace;
+}
+body{background:var(--bg0);color:var(--ink2)}
+.wrap{max-width:1120px}
+a{color:var(--accent-link)}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+header.site{background:#0C0E12;border-bottom:1px solid var(--line)}
+header.site .brand{color:var(--ink1)}
+header.site .brand img{display:block;border-radius:6px}
+nav.site a{color:var(--ink2)}
+nav.site a:hover{color:var(--ink1)}
+footer.site{background:#0C0E12;border-top:1px solid var(--line);color:var(--ink3)}
+footer.site a{color:var(--ink2)}
+main{padding:0 0 72px}
+.pnav{position:sticky;top:0;z-index:60;background:rgba(16,18,22,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.pnav .wrap{display:flex;align-items:center;gap:18px;padding-top:10px;padding-bottom:10px}
+.pnav .prod{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink1);font-weight:800;font-size:19px;letter-spacing:-0.02em;white-space:nowrap}
+.pnav .prod img{display:block;border-radius:7px}
+.pnav .prod small{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.18em;color:var(--ink3);display:block;line-height:1.2}
+.pnav nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.pnav nav::-webkit-scrollbar{display:none}
+.pnav nav a{color:var(--ink2);text-decoration:none;font-size:14.5px;font-weight:600;padding:8px 10px;border-radius:8px;white-space:nowrap}
+.pnav nav a:hover{color:var(--ink1);background:var(--bg2)}
+.pbtn{display:inline-block;font-weight:700;font-size:16px;padding:12px 26px;border-radius:9px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;text-align:center}
+.pbtn-lime{background:var(--lime);color:#101216}
+.pbtn-lime:hover{background:#CBFF5E;color:#101216}
+.pbtn-blue{background:var(--accent);color:#0B1220}
+.pbtn-blue:hover{background:#4A8DF8;color:#0B1220}
+.pbtn-line{background:transparent;color:var(--ink1);border-color:var(--line)}
+.pbtn-line:hover{border-color:var(--ink3);color:var(--ink1)}
+.pbtn-sm{padding:8px 18px;font-size:14.5px}
+.pbtn[disabled]{opacity:.6;cursor:wait}
+.hero{padding:64px 0 48px;text-align:center}
+.kick{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin:0 0 14px}
+.kick .pl{color:var(--lime)}
+.accent-rule{width:56px;height:4px;background:var(--accent);border-radius:2px;margin:0 auto 22px}
+.hero .accent-rule{margin-bottom:26px}
+.hero h1{font-size:clamp(32px,5.4vw,54px);line-height:1.12;letter-spacing:-0.02em;color:var(--ink1);margin:0 auto 18px;max-width:820px}
+.hero h1 .u{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:4px;text-underline-offset:6px}
+.hero .sub{font-size:clamp(16.5px,2.3vw,20px);color:var(--ink2);max-width:700px;margin:0 auto 14px;line-height:1.55}
+.hero .noncustody{font-size:15px;color:var(--ink3);max-width:640px;margin:0 auto 28px}
+.ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:30px 0 0}
+.chip{background:var(--bg1);border:1px solid var(--line);color:var(--ink2);font-size:13px;padding:6px 14px;border-radius:999px}
+.trustline{margin:26px auto 0;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--ink3);max-width:760px;line-height:1.9}
+section.blk{padding:52px 0;border-top:1px solid var(--line)}
+section.blk h2{font-size:clamp(25px,3.6vw,34px);letter-spacing:-0.02em;color:var(--ink1);margin:0 0 10px}
+.lede{color:var(--ink2);font-size:17px;max-width:700px;margin:0 0 30px;line-height:1.6}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0 0 34px}
+.step{background:var(--bg1);border:1px solid var(--line);border-radius:14px;padding:22px}
+.step .n{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--accent-link);text-transform:uppercase}
+.step h3{color:var(--ink1);margin:8px 0 8px;font-size:18px}
+.step p{margin:0;color:var(--ink2);font-size:15px;line-height:1.6}
+.demo{background:var(--bg1);border:1px solid var(--line);border-radius:16px;padding:28px;max-width:760px;margin:0 auto}
+.demo h3{color:var(--ink1);margin:0 0 4px;font-size:18px;font-family:var(--mono);letter-spacing:.04em}
+.demo .amt-label{color:var(--ink3);font-size:14px;margin:0 0 20px}
+.rr-sliders{display:grid;gap:14px}
+.rr-slider-row{display:grid;grid-template-columns:110px 1fr 90px;gap:12px;align-items:center}
+.rr-slider-row label{font-size:14px;font-weight:600;color:var(--ink2);text-align:right}
+.rr-slider-row output{font-size:15px;font-weight:700;color:var(--ink1);text-align:right;font-variant-numeric:tabular-nums}
+.rr-slider-row input[type=range]{width:100%;accent-color:var(--accent)}
+.rr-bars{margin-top:20px;display:grid;gap:8px}
+.rr-bar-row{display:grid;grid-template-columns:110px 1fr 90px;gap:12px;align-items:center;font-size:14px}
+.rr-bar-row .who{color:var(--ink2);text-align:right;font-weight:600}
+.rr-bar-track{background:var(--bg2);border-radius:6px;height:22px;overflow:hidden}
+.rr-bar-fill{height:100%;border-radius:6px;transition:width .2s}
+.rr-bar-row .val{color:var(--ink1);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.rr-next{margin-top:20px;padding:14px;border:1px dashed var(--line);border-radius:8px;text-align:center;color:var(--ink3);font-size:14px}
+.rr-next strong{color:var(--ink1)}
+.demo-note{margin-top:14px;font-size:13.5px;color:var(--ink3);text-align:center}
+.ledger{max-width:760px;margin:18px auto 0;background:#0C0E12;border:1px solid var(--line);border-radius:14px;padding:22px 24px;font-family:var(--mono)}
+.ledger h3{margin:0 0 4px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+.ledger .ev{color:var(--ink1);font-size:15px;margin:10px 0 12px}
+.ledger .row{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-top:1px solid var(--line);font-size:14.5px}
+.ledger .row .who{color:var(--ink2)}
+.ledger .row .amt{color:var(--ink1);font-weight:700}
+.ledger .hash{margin-top:14px;font-size:12px;color:var(--ink3);line-height:1.7;word-break:break-all}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:960px;margin:34px auto 0}
+.vs{background:var(--bg1);border:1px solid var(--line);border-radius:14px;padding:24px}
+.vs.rev{border-color:var(--accent);box-shadow:0 6px 30px rgba(46,124,246,.14)}
+.vs h3{margin:0 0 6px;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.vs.rev h3{color:var(--accent-link)}
+.vs .simple{font-size:15px;color:var(--ink2);margin:12px 0;font-variant-numeric:tabular-nums;line-height:1.6}
+.vs .rich{font-size:15px;color:var(--ink2);margin:10px 0;line-height:1.6}
+.vs .rich strong{color:var(--ink1)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card2{background:var(--bg1);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card2 .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-link);margin-bottom:10px}
+.card2 h3{color:var(--ink1);margin:0 0 8px;font-size:17.5px}
+.card2 p{margin:0;color:var(--ink2);font-size:15px;line-height:1.6}
+.card2 p a{font-weight:600}
+.twoways{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:960px;margin:0 auto 30px}
+.twoways .tw{background:var(--bg1);border:1px solid var(--line);border-radius:14px;padding:22px}
+.twoways h3{color:var(--ink1);margin:0 0 8px;font-size:17.5px}
+.twoways p{margin:0;color:var(--ink2);font-size:15px;line-height:1.6}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.plan{background:var(--bg1);border:1px solid var(--line);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column}
+.plan.featured{border-color:var(--accent);box-shadow:0 8px 34px rgba(46,124,246,.16)}
+.plan .pname{font-weight:800;font-size:18px;color:var(--ink1);letter-spacing:-0.01em}
+.plan .ptag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-link);min-height:15px;margin-top:4px}
+.plan .price{font-family:var(--mono);font-size:40px;font-weight:700;color:var(--ink1);margin:14px 0 2px;line-height:1}
+.plan .per{color:var(--ink3);font-size:14px;margin:0 0 16px}
+.plan ul{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:9px}
+.plan li{font-size:14.5px;color:var(--ink2);padding-left:22px;position:relative;line-height:1.5}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+.plan .pbtn{margin-top:auto;width:100%}
+.plan .fit{font-size:14px;color:var(--ink3);margin:0 0 14px;line-height:1.55}
+.tblwrap{overflow-x:auto;margin:34px auto 0;max-width:960px;border:1px solid var(--line);border-radius:14px}
+table.cmp{width:100%;border-collapse:collapse;font-size:14px;text-align:left;min-width:620px;background:var(--bg1)}
+table.cmp th,table.cmp td{padding:11px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+table.cmp thead th{color:var(--ink1);border-bottom:2px solid var(--accent);font-size:14.5px}
+table.cmp td strong{color:var(--ink1)}
+table.cmp tr:last-child td{border-bottom:none}
+.terms{max-width:820px;margin:26px auto 0;font-size:13.5px;color:var(--ink3);line-height:1.7}
+.enterprise{max-width:820px;margin:22px auto 0;background:var(--bg1);border:1px solid var(--line);border-radius:12px;padding:16px 20px;font-size:15px;color:var(--ink2);text-align:center}
+#revrule-checkout-error{max-width:820px;margin:14px auto 0;text-align:center}
+.faq{max-width:760px;margin:0 auto}
+.faq details{background:var(--bg1);border:1px solid var(--line);border-radius:10px;margin-bottom:10px;padding:0}
+.faq summary{padding:15px 18px;font-weight:600;cursor:pointer;font-size:16px;color:var(--ink1)}
+.faq details div{padding:0 18px 16px;color:var(--ink2);font-size:15px;line-height:1.65}
+.docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.docs-grid a{display:block;border:1px solid var(--line);border-radius:12px;padding:18px;text-decoration:none;background:var(--bg1)}
+.docs-grid a:hover{border-color:var(--accent)}
+.docs-grid strong{display:block;font-size:16px;color:var(--ink1);margin-bottom:4px}
+.docs-grid span{font-size:14px;color:var(--ink3);line-height:1.55;display:block}
+.guides{max-width:820px;margin:30px auto 0;background:var(--bg1);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.guides h3{color:var(--ink1);margin:0 0 8px;font-size:17px}
+.guides p{color:var(--ink2);font-size:15px;line-height:1.7;margin:0}
+.concepts{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.concept{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px;font-weight:600;color:var(--ink1);flex:1 1 200px}
+.concept small{display:block;font-weight:400;color:var(--ink3);font-size:12.5px;margin-top:3px;line-height:1.5}
+.final{text-align:center;padding:60px 0 8px}
+.final h2{font-size:clamp(25px,3.8vw,36px);color:var(--ink1);letter-spacing:-0.02em;margin:0 0 20px}
+.final .support{margin-top:18px;color:var(--ink3);font-size:14.5px}
+@media(max-width:1080px){.plans{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}.docs-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){
+  .steps{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .docs-grid{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .twoways{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .hero{padding:44px 0 36px}
+  .rr-slider-row,.rr-bar-row{grid-template-columns:84px 1fr 62px;gap:8px}
+  .pnav .prod small{display:none}
+  section.blk{padding:40px 0}
+}
+@media(max-width:680px){ .pnav .wrap{flex-wrap:wrap;row-gap:2px} .pnav nav{order:3;width:100%;margin-left:0;padding-bottom:2px} .pnav .prod{font-size:17px} }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://payloadhq.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Productos",
+      "item": "https://payloadhq.dev/products.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "callx402",
+      "item": "https://payloadhq.dev/es/callx402.html"
+    }
+  ]
+}
+</script>
+<link rel="icon" type="image/png" href="../assets/payload-logo.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#0B0E12">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.remove('js')},2500);</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="../software.html">Software</a>
+      <a href="../categories/index.html">Categories</a>
+      <a href="../guides/index.html">Resources</a>
+      <a href="https://apps.payloadhq.dev/">Sign In</a>
+      <a class="btn btn-primary nav-cta" href="../software.html">Explore Software</a>
+    </nav>
+  </div>
+</header>
+<div class="pnav">
+  <div class="wrap">
+    <a class="prod" href="#overview" aria-label="callx402 by Payload, volver arriba">
+      <img src="../assets/payload-logo.png" width="32" height="32" alt="Payload logo">
+      <span>callx402<small>BY PAYLOAD</small></span>
+    </a>
+    <nav aria-label="Secciones de callx402">
+      <a href="#overview">Resumen</a>
+      <a href="#who-its-for">Para quién</a>
+      <a href="#workspace">El espacio de trabajo</a>
+      <a href="#how-it-works">Cómo funciona</a>
+      <a href="#use-cases">Casos de uso</a>
+      <a href="#pricing">Precios</a>
+      <a href="#faq">FAQ</a>
+      <a href="#docs">Documentación</a>
+      <a class="pbtn pbtn-lime pbtn-sm" href="#pricing">Ver precios</a>
+    </nav>
+  </div>
+</div>
+<main id="main">
+  <div class="wrap">
+
+    <section class="hero" id="overview">
+      <img src="../assets/logos/callx402.jpg" alt="Logotipo de callx402" width="84" height="84" style="display:block;width:84px;height:84px;border-radius:16px;margin:0 auto 26px">
+      <p class="kick"><span class="pl">Payload</span> · Espacio de trabajo de agentes y diagnóstico de pagos</p>
+      <div class="accent-rule" aria-hidden="true"></div>
+      <h1>Agentes potentes. Tareas reales.<br><span class="u">Sin escribir código.</span></h1>
+      <p class="sub">Accede a capacidades de agentes de IA listas para usar, automatiza tareas, conecta tu billetera y explora oportunidades desde un único espacio de trabajo sencillo. callx402 hace accesible la tecnología avanzada de agentes, sin la complejidad de crearla por tu cuenta.</p>
+      <p class="noncustody">Tu billetera sigue siendo tuya: callx402 no custodia fondos, nunca guarda tus claves ni tu dinero y nunca te pide tu frase de recuperación. Los agentes solo gastan dentro de los límites que tú defines. Nunca se prometen trabajos ni ganancias, y ningún pago fallido se promete recuperable.</p>
+      <p class="sub" style="font-size:15px">¿Prefieres leer en inglés? <a href="https://payloadhq.dev/callx402.html">Read the English product page</a></p>
+      <div class="ctas">
+        <a class="pbtn pbtn-blue" href="https://callx402.payloadhq.dev/">Espacio de Trabajo del Agente: $9/mes</a>
+        <a class="pbtn pbtn-lime" href="https://callx402.payloadhq.dev/">Abrir la aplicación</a>
+        <a class="pbtn pbtn-line" href="https://apps.payloadhq.dev/register?product=callx402&return_to=https%3A%2F%2Fcallx402.payloadhq.dev%2F">Crear cuenta</a>
+        <a class="pbtn pbtn-line" href="https://callx402.payloadhq.dev/">Iniciar sesión</a>
+        <a class="pbtn pbtn-line" href="#pricing">Ver precios</a>
+        <a class="pbtn pbtn-line" href="#docs">Para desarrolladores</a>
+      </div>
+      <div class="chips" aria-label="Qué hace callx402">
+        <span class="chip">Agentes listos para usar</span>
+        <span class="chip">Automatización de tareas</span>
+        <span class="chip">Billetera conectada</span>
+        <span class="chip">Controles de gasto</span>
+        <span class="chip">Find Work</span>
+        <span class="chip">Pagos fallidos</span>
+        <span class="chip">Errores del facilitador</span>
+        <span class="chip">Fallos de liquidación</span>
+        <span class="chip">Pagaste y no llegó nada</span>
+        <span class="chip">Seguridad al reintentar</span>
+        <span class="chip">Riesgo de pago duplicado</span>
+        <span class="chip">Comprobaciones previas</span>
+      </div>
+      <p class="trustline">SIN ESCRIBIR CÓDIGO · ESPACIO DE TRABAJO $9/MES · ACCIONES ALOJADAS PAGO POR USO · LA BÚSQUEDA DE TRABAJO NUNCA ESTÁ BLOQUEADA NI PROMETIDA</p>
+    </section>
+
+    <section class="blk" id="who-its-for">
+      <p class="kick">Para quién es</p>
+      <h2>Tres caminos de entrada. Elige el tuyo.</h2>
+      <p class="lede">No necesitas saber qué es x402 para usar callx402. El espacio de trabajo es la puerta principal; el protocolo queda entre bastidores, para quien quiera verlo.</p>
+      <div class="cards">
+        <div class="card2"><span class="tag">Usuarios en general</span><h3>Usa agentes, sin configurar nada</h3><p>Abre el espacio de trabajo en tu navegador, crea una cuenta gratuita y ejecuta capacidades de agentes listas para usar en tareas reales. Conecta una billetera solo cuando una acción o un trabajo la necesite, define tus propios límites de gasto y aprueba lo que importa. Nada que instalar, nada que configurar. <a href="https://apps.payloadhq.dev/register?product=callx402&return_to=https%3A%2F%2Fcallx402.payloadhq.dev%2F">Crea tu cuenta</a></p></div>
+        <div class="card2"><span class="tag">Empresas</span><h3>Pon agentes en el trabajo rutinario</h3><p>Dale a tu equipo un único espacio de trabajo donde los agentes se ocupan de las tareas repetitivas dentro de presupuestos que tú controlas: límites por acción, aprobaciones por encima de un importe y un registro estructurado de cada resultado. Empieza con un solo flujo y quédate con lo que demuestre funcionar. <a href="https://callx402.payloadhq.dev/">Abre el espacio de trabajo</a></p></div>
+        <div class="card2"><span class="tag">Desarrolladores</span><h3>Construye sobre las API</h3><p>Todo lo que usa el espacio de trabajo está disponible directamente: acciones alojadas x402, el paquete npm gratuito con seis herramientas locales y el servidor MCP en Smithery y en el registro oficial de MCP. Paga por acción y lleva la evidencia a tu propia pila tecnológica. <a href="#docs">Ir a la sección de desarrolladores</a></p></div>
+      </div>
+    </section>
+
+    <section class="blk" id="workspace">
+      <p class="kick">El Espacio de Trabajo del Agente</p>
+      <h2>Un espacio para agentes, tareas y tu billetera</h2>
+      <p class="lede">El Espacio de Trabajo del Agente es donde callx402 se convierte en un lugar de trabajo: capacidades de agentes listas para usar, las tareas que ejecutan y la billetera que las paga, todo junto en tu navegador por $9 al mes.</p>
+      <div class="cards">
+        <div class="card2"><span class="tag">Capacidades</span><h3>Agentes listos, disponibles ahora</h3><p>Ejecuta las acciones alojadas de agentes de Payload sin construir nada. Hoy eso significa las capacidades de diagnóstico de pagos (diagnose, explain, evidence, preflight, resolve y más), cada una con resultados estructurados que puedes guardar junto al trabajo. Las nuevas capacidades llegan al espacio de trabajo a medida que se publican.</p></div>
+        <div class="card2"><span class="tag">Billetera</span><h3>Tu billetera, tus reglas</h3><p>Conecta tu propia billetera en unos pocos clics. callx402 no custodia fondos: Payload nunca guarda tus claves ni tu dinero, y nadie te pedirá jamás tu frase de recuperación. Define límites por acción e importes que requieren aprobación, y revisa cada transacción que un agente proponga antes de que se liquide en USDC en Base.</p></div>
+        <div class="card2"><span class="tag">Find Work</span><h3>Trabajos financiados, con honestidad</h3><p>Find Work busca trabajos verificados que una persona o empresa haya financiado de forma independiente. Cuando un trabajo está disponible, puedes revisarlo, aceptarlo, dejar que el agente haga el trabajo y entregar el resultado. Ahora mismo el inventario de trabajos verificados está vacío, así que el espacio de trabajo lo dice claramente en lugar de mostrar relleno. Buscar trabajo nunca depende de la suscripción.</p></div>
+      </div>
+      <div class="steps">
+        <div class="step"><p class="n">Paso 1</p><h3>Descubrir</h3><p>Find Work consulta el inventario de trabajos verificados y muestra cada trabajo financiado con su tarea, sus condiciones y su compensación, antes de que te comprometas a nada.</p></div>
+        <div class="step"><p class="n">Paso 2</p><h3>Aceptar y ejecutar</h3><p>Acepta un trabajo y el agente hace el trabajo dentro de tu espacio de trabajo, bajo los controles de tu billetera. Puedes seguir el progreso e intervenir en cualquier momento.</p></div>
+        <div class="step"><p class="n">Paso 3</p><h3>Resultados, después el pago</h3><p>El resultado se entrega para su verificación. La compensación viene de quien financió el trabajo y se liquida en tu billetera; un trabajo solo se marca como pagado después de que ese pago se liquide de verdad en la cadena. Payload no financia trabajos ni los garantiza.</p></div>
+      </div>
+      <div class="ledger" role="figure" aria-label="Ejemplo de sesión en el espacio de trabajo">
+        <h3>Ejemplo: una tarea en el espacio de trabajo</h3>
+        <p class="ev">Tarea: averiguar por qué falló el pago de un agente y si es seguro reintentarlo</p>
+        <div class="row"><span class="who">Acción ejecutada</span><span class="amt">diagnose</span></div>
+        <div class="row"><span class="who">Precio cotizado antes, gratis</span><span class="amt">0,10 USDC</span></div>
+        <div class="row"><span class="who">Hallazgo</span><span class="amt">Capa de liquidación</span></div>
+        <div class="row"><span class="who">Resultado</span><span class="amt">Evidencia estructurada</span></div>
+        <p class="hash">La misma acción diagnose aparece en la tabla de precios más abajo. Los precios se cotizan siempre antes de que te comprometas, y las herramientas locales gratuitas ejecutan el mismo diagnóstico en tu propia máquina.</p>
+      </div>
+    </section>
+
+    <section class="blk" id="how-it-works">
+      <p class="kick">Cómo funciona</p>
+      <h2>Empieza gratis en tu máquina. Pásate a lo alojado cuando quieras que lo ejecutemos nosotros.</h2>
+      <p class="lede">Tres pasos entre un pago fallido y una respuesta sobre la que puedes actuar. Este es el callx402 original, la ruta de diagnóstico; el espacio de trabajo de arriba ejecuta esas mismas acciones por ti en el navegador.</p>
+      <div class="steps">
+        <div class="step"><p class="n">Paso 1</p><h3>Ejecuta la comprobación de estado gratuita</h3><p>Instala el paquete npm y ejecuta <code>npx callx402</code>. La herramienta gratuita x402_status lee tu configuración y reporta lo que encuentra, localmente, en segundos. Sin cuenta, sin pago.</p></div>
+        <div class="step"><p class="n">Paso 2</p><h3>Diagnostica localmente</h3><p>El paquete incluye seis herramientas MCP locales (status, diagnose, evidence, explain, recover, resolve) que trabajan sobre tu propio fallo de pago x402. Son de solo lectura y nunca mueven dinero.</p></div>
+        <div class="step"><p class="n">Paso 3</p><h3>O llama a una acción alojada</h3><p>Pide al endpoint gratuito de cotización el precio exacto y después llama a una acción de diagnóstico alojada en el riel de Payload, pagando por acción en USDC en Base. Recibes evidencia estructurada y una explicación.</p></div>
+      </div>
+      <div class="compare">
+        <div class="vs">
+          <h3>Adivinando</h3>
+          <p class="simple">Un código de error en bruto, un reintento y una esperanza.</p>
+          <p class="simple">Nada registra lo que mostró la evidencia, así que el mismo fallo consume las mismas horas la próxima vez.</p>
+        </div>
+        <div class="vs rev">
+          <h3>callx402</h3>
+          <p class="rich"><strong>Qué capa se rompió</strong>, clasificada a partir de la evidencia</p>
+          <p class="rich"><strong>Lo que el recibo realmente prueba</strong> sobre un pago</p>
+          <p class="rich"><strong>Si reintentar es seguro</strong> antes de arriesgarte a pagar dos veces</p>
+          <p class="rich">Cada resultado es evidencia estructurada para guardar junto al registro del incidente.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk" id="use-cases">
+      <p class="kick">Casos de uso</p>
+      <h2>Hecho para los fallos que se comen las tardes</h2>
+      <p class="lede">Si tu producto vende mediante x402, estos son los incidentes que deciden si un cliente se queda. callx402 da a cada uno una respuesta rápida, basada en evidencia.</p>
+      <div class="cards">
+        <div class="card2"><span class="tag">Liquidación</span><h3>El facilitador dijo que no</h3><p>Un error del facilitador no es una explicación. La interpretación de liquidación lee la respuesta y te dice lo que significa de verdad.</p></div>
+        <div class="card2"><span class="tag">Pagaste, no llegó nada</span><h3>Pagaste y no llegó nada</h3><p>Verifica el recibo contra su evidencia antes de pagar otra vez. Sabe qué se liquidó, qué no se liquidó y qué hacer después.</p></div>
+        <div class="card2"><span class="tag">Seguridad al reintentar</span><h3>¿Es seguro reintentarlo?</h3><p>Un reintento a ciegas puede pagar dos veces. El riesgo de pago duplicado comprueba la evidencia primero, así que el segundo intento es una decisión, no una apuesta.</p></div>
+        <div class="card2"><span class="tag">Códigos de error</span><h3>Un error que no sabes descifrar</h3><p>Los errores de pago en bruto están escritos para máquinas. Explain convierte el error en lenguaje sencillo sobre el que un desarrollador puede actuar.</p></div>
+        <div class="card2"><span class="tag">Comprobación previa</span><h3>Antes de lanzar</h3><p>Preflight comprueba una ruta de pago planificada antes de que dinero real dependa de ella, para que el primer fallo ocurra en pruebas, no en producción.</p></div>
+        <div class="card2"><span class="tag">Pagos de agentes</span><h3>Tu agente se estrelló contra un muro</h3><p>Los compradores autónomos fallan en silencio. callx402 le da al operador, humano o agente, una lectura estructurada de qué detuvo el pago.</p></div>
+      </div>
+    </section>
+
+    <section class="blk" id="pricing">
+      <p class="kick">Precios</p>
+      <h2>Tres costes separados. Nada se mezcla.</h2>
+      <p class="lede">callx402 tiene tres tipos de dinero, y nunca se mezclan: una suscripción opcional de $9 al mes para el Espacio de Trabajo del Agente, tarifas por acción para las acciones alojadas y la compensación de trabajos financiados de forma independiente. Aquí está cada uno, con claridad.</p>
+      <div class="cards">
+        <div class="card2"><span class="tag">$9 / mes</span><h3>La suscripción del Espacio de Trabajo del Agente</h3><p>La suscripción cubre el Espacio de Trabajo del Agente: capacidades listas para usar y tus agentes en un único espacio en el navegador, conexión de billetera con controles de gasto, más una cuota mensual incluida de acciones alojadas. La búsqueda de trabajos y el acceso a los pagos de trabajos no dependen de ella, y las herramientas locales gratuitas tampoco. Se cobra como suscripción; cancela cuando quieras y el acceso dura hasta el final del periodo pagado.</p></div>
+        <div class="card2"><span class="tag">Pago por acción</span><h3>Acciones alojadas, precio por uso</h3><p>Payload ejecuta la acción y devuelve evidencia estructurada y una explicación. Cada acción muestra su precio exacto antes de que te comprometas: fracciones de dólar en USDC en Base, o la tabla de tarjeta a veinte veces el precio en USDC. La cuota de la suscripción cubre algunas acciones al mes; más allá de ella, se aplica la tabla de abajo, con o sin suscripción. Sin saldo que recargar.</p></div>
+        <div class="card2"><span class="tag">Financiado por el trabajo</span><h3>Compensación de trabajos</h3><p>Cuando un trabajo verificado paga, el dinero viene de la persona o empresa que financió el trabajo y se paga a tu billetera después de verificar el trabajo. No es un cargo de Payload ni una promesa de Payload: Payload no financia trabajos, no garantiza que haya trabajos disponibles y no define cuánto paga cada trabajo.</p></div>
+      </div>
+      <div class="tblwrap">
+        <table class="cmp">
+          <thead>
+            <tr><th scope="col">Acción alojada</th><th scope="col">Qué devuelve</th><th scope="col">Tarjeta</th><th scope="col">x402 (USDC en Base)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>diagnose</strong></td><td>Un diagnóstico estructurado de un pago x402 fallido</td><td>$2.00</td><td>$0.10</td></tr>
+            <tr><td><strong>preflight</strong></td><td>La comprobación de un pago planificado antes de que se ejecute</td><td>$1.00</td><td>$0.05</td></tr>
+            <tr><td><strong>verify_receipt</strong></td><td>La verificación de un recibo de pago contra su evidencia</td><td>$1.00</td><td>$0.05</td></tr>
+            <tr><td><strong>explain_error</strong></td><td>La explicación en lenguaje sencillo de un error de pago en bruto</td><td>$0.50</td><td>$0.025</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="terms">Las acciones alojadas se cobran vía x402 a una vigésima parte de la tabla de tarjeta de arriba. Otras acciones alojadas, como failure_classification, settlement_interpretation, duplicate_payment_risk, resolve y recover, siguen la misma tabla; pide al endpoint gratuito de cotización (GET https://payload-rail.fly.dev/v1/callx402/quote) el precio exacto de cualquier acción antes de comprometerte. Llama a una acción sin pagar (POST https://payload-rail.fly.dev/v1/callx402/actions/{action}) y responderá con su desafío x402: el importe exacto en USDC y el payTo en Base.</p>
+      <p class="terms">Límites honestos: las compras alojadas se liquidan mediante el flujo de canje firmado de Payload, no mediante un facilitador x402 genérico, así que los clientes que solo usan facilitador no pueden completar una compra alojada; las herramientas locales gratuitas son la alternativa sin pago. Ningún diagnóstico cubre todos los fallos, y ningún resultado es una promesa de recuperación.</p>
+      <p class="terms">Gratis localmente, siempre: el paquete npm y sus seis herramientas locales no cuestan nada, no necesitan cuenta y son de solo lectura. La suscripción de $9 al mes, las tarifas por acción de la tabla de arriba y la compensación de trabajos son tres cosas separadas, y ninguna es requisito de otra.</p>
+      <p class="enterprise">¿Ejecutas x402 en volumen, o quieres integrar el diagnóstico en tu propio producto? <a href="mailto:contact@payloadhq.dev?subject=callx402%20Inquiry">Escríbenos</a> y lo dimensionamos contigo.</p>
+    </section>
+
+    <section class="blk" id="faq">
+      <p class="kick">FAQ</p>
+      <h2>Respuestas directas</h2>
+      <p class="lede">Qué hace callx402, qué no hace y exactamente cómo funciona el pago.</p>
+      <div class="faq">
+        <details><summary>¿Qué es callx402, en lenguaje sencillo?</summary><div>callx402 te da agentes de IA capaces de hacer tareas reales, en un espacio de trabajo que funciona en tu navegador. Puedes ejecutar capacidades de agentes listas para usar, conectar una billetera para que los agentes paguen lo que usan dentro de límites que tú defines y buscar trabajos financiados para tus agentes. Nació como un kit de diagnóstico de pagos x402 fallidos, y ese kit sigue aquí: gratis en tu máquina y pago por acción cuando Payload lo ejecuta por ti.</div></details>
+        <details><summary>¿Necesito saber programar?</summary><div>No. El espacio de trabajo es el camino sin código: crea una cuenta, abre la aplicación y ejecuta las capacidades desde el navegador. La ruta de código sigue existiendo para desarrolladores (el paquete npm, las API y el servidor MCP), pero nada en el espacio de trabajo la exige.</div></details>
+        <details><summary>¿Qué cubre la suscripción de $9 al mes?</summary><div>El Espacio de Trabajo del Agente: capacidades de agentes listas para usar y tus agentes en un único espacio en el navegador, conexión de billetera con tus propios controles de gasto y una cuota mensual incluida de acciones alojadas. No cubre las tarifas por acción más allá de esa cuota y nunca es requisito para buscar trabajos o recibir su compensación.</div></details>
+        <details><summary>¿Qué cuesta extra además de la suscripción?</summary><div>Las acciones alojadas se pagan por acción. Cada una muestra su precio exacto antes de que te comprometas: fracciones de dólar en USDC en Base, con la tabla de tarjeta a veinte veces el precio en USDC. El endpoint gratuito de cotización pone precio a cualquier acción antes, las herramientas locales no cuestan nada, no hay saldo que recargar y no hay cargo por explorar los trabajos.</div></details>
+        <details><summary>¿Cómo funciona la billetera?</summary><div>Conectas tu propia billetera. callx402 no custodia fondos, así que Payload nunca guarda tus claves ni tu dinero, y nadie te pedirá jamás tu frase de recuperación. Tú defines límites de gasto e importes que requieren aprobación, y cada pago que hace un agente pasa por esos controles. Los pagos por acciones alojadas y la compensación de trabajos se liquidan en USDC en Base.</div></details>
+        <details><summary>¿Cómo funcionan los trabajos y las ganancias?</summary><div>Find Work busca trabajos que una persona o empresa haya financiado de forma independiente. Revisas un trabajo antes de aceptarlo, el agente hace el trabajo en tu espacio de trabajo y el resultado se entrega para su verificación. La compensación viene de quien financió el trabajo y se paga a tu billetera; un trabajo solo se marca como pagado después de que ese pago se liquide de verdad. Los trabajos no están garantizados: el inventario verificado puede estar vacío, y cuando lo está, el espacio de trabajo lo dice claramente en lugar de mostrar relleno.</div></details>
+        <details><summary>¿Qué es x402? ¿Necesito entenderlo?</summary><div>x402 es el protocolo de pago que los agentes usan para pagar por acción sobre HTTP. Si usas el espacio de trabajo, no necesitas entenderlo: los precios se muestran antes de que se ejecute nada. Los desarrolladores que quieran los detalles del protocolo los encontrarán en la sección de documentación más abajo.</div></details>
+        <details><summary>¿Qué hace callx402?</summary><div>Diagnostica pagos x402 fallidos. Dale un fallo, localmente mediante el paquete npm o mediante una acción alojada en el riel de Payload, y clasifica qué capa se rompió, devuelve evidencia estructurada, explica el fallo en lenguaje sencillo e indica el siguiente paso más seguro. También es el espacio de trabajo descrito arriba: esas mismas capacidades funcionan allí como agentes listos para usar, para quien prefiera no montar las herramientas por su cuenta.</div></details>
+        <details><summary>¿callx402 es gratuito?</summary><div>El paquete npm es gratuito, incluida la comprobación x402_status y las seis herramientas locales. Las acciones alojadas son pago por uso: fracciones de dólar en USDC en Base, a una vigésima parte de la tabla de tarjeta mostrada arriba. Una suscripción opcional del Espacio de Trabajo del Agente, de $9 al mes, cubre el espacio de trabajo y una cuota mensual incluida de acciones alojadas; nunca es requisito para las herramientas locales gratuitas ni para buscar trabajos.</div></details>
+        <details><summary>¿callx402 guarda o mueve mi dinero?</summary><div>No. Las herramientas locales son de solo lectura y nunca mueven dinero. Una acción alojada es un diagnóstico por el que pagas; callx402 devuelve evidencia y explicaciones, no custodia, liquidación ni ejecución de tus pagos.</div></details>
+        <details><summary>¿Puede callx402 recuperar un pago fallido?</summary><div>Ninguna herramienta puede prometer eso, y callx402 no lo promete. Te dice lo que muestra la evidencia y cuál es el siguiente paso más seguro. Algunos fallos liquidados no se pueden revertir, y un diagnóstico honesto lo dice.</div></details>
+        <details><summary>¿Cómo pago una acción alojada?</summary><div>Llama a la acción y devolverá un desafío x402 con el importe exacto en USDC y el payTo en Base. Paga desde tu propia billetera y canjea; el riel verifica el pago una sola vez, en la cadena, antes de devolver el resultado. El pago con tarjeta está disponible mediante el endpoint de checkout del riel. El endpoint gratuito de cotización siempre da el precio exacto antes.</div></details>
+        <details><summary>¿Puedo usar callx402 como servidor MCP?</summary><div>Sí. callx402 está publicado como servidor MCP (io.github.payload-tools/callx402) y listado en Smithery y en el registro oficial de MCP. Instala el paquete npm para ejecutar las herramientas localmente.</div></details>
+        <details><summary>¿Qué soporte está incluido?</summary><div>Soporte por correo electrónico, con el mejor esfuerzo. No prometemos tiempos de respuesta garantizados. Escríbenos cuando quieras a la dirección de soporte del pie de página.</div></details>
+      </div>
+    </section>
+
+    <section class="blk" id="docs">
+      <p class="kick">Documentación</p>
+      <h2>Para desarrolladores: verifícalo tú mismo</h2>
+      <p class="lede">Todo lo que usa el espacio de trabajo es público: el paquete, los endpoints y la cotización de precios. Ejecuta la comprobación gratuita antes de creerte una sola palabra de esta página.</p>
+      <div class="docs-grid">
+        <a href="https://www.npmjs.com/package/callx402"><strong>Consigue callx402 en npm</strong><span>El paquete gratuito: herramientas locales y la comprobación x402_status.</span></a>
+        <a href="https://payload-rail.fly.dev/v1/callx402/quote"><strong>Pide una cotización</strong><span>El endpoint gratuito de cotización devuelve el precio exacto de cualquier acción alojada.</span></a>
+        <a href="https://payload-rail.fly.dev/v1/callx402/actions"><strong>Lista las acciones alojadas</strong><span>Todas las acciones de diagnóstico alojadas que el riel ofrece hoy.</span></a>
+        <a href="https://smithery.ai/servers/kyler-simmons-partners/callx402"><strong>Encuéntralo en Smithery</strong><span>La ficha del servidor MCP de callx402.</span></a>
+        <a href="../guides/x402-402-payments.html"><strong>Lee la guía de pagos x402</strong><span>Cómo funcionan los pagos 402 y dónde se rompen.</span></a>
+        <a href="../stories/when-402-is-not-a-challenge.html"><strong>Cuando un 402 no es un desafío</strong><span>Un relato breve y verificado de un fallo de pago, y la comprobación gratuita que lo lee.</span></a>
+      </div>
+      <div class="concepts" aria-label="Conceptos centrales">
+        <div class="concept">Diagnóstico<small>Qué capa del pago se rompió, clasificada a partir de la evidencia</small></div>
+        <div class="concept">Evidencia<small>Hallazgos estructurados para guardar junto al registro del incidente</small></div>
+        <div class="concept">Verificación de recibo<small>Lo que un recibo de pago realmente prueba</small></div>
+        <div class="concept">Seguridad al reintentar<small>Riesgo de pago duplicado, comprobado antes del segundo intento</small></div>
+        <div class="concept">Interpretación de liquidación<small>Respuestas del facilitador, traducidas a lenguaje sencillo</small></div>
+        <div class="concept">Comprobación previa<small>Un pago planificado, comprobado antes de ejecutarse</small></div>
+      </div>
+    </section>
+
+    <section class="blk" id="error-guide">
+  <div class="wrap">
+    <h2>¿Resolviendo un fallo a mano?</h2>
+    <p>La <a href="../guides/x402-troubleshooting.html">guía de errores de pago x402</a> asigna a cada código de error del facilitador su causa y su siguiente paso seguro, explica la incompatibilidad de cabeceras de pago v1/v2 y cubre el caso en que el pago se liquidó pero el recurso sigue devolviendo 402. O empieza por el propio código en la <a href="../utilities/x402-error-lookup.html">búsqueda de códigos de error x402</a>.</p>
+  </div>
+</section>
+<section class="final">
+      <h2>Agentes potentes. Tareas reales.<br>Sin escribir código.</h2>
+      <div class="ctas">
+        <a class="pbtn pbtn-blue" href="https://callx402.payloadhq.dev/">Espacio de Trabajo del Agente: $9/mes</a>
+        <a class="pbtn pbtn-lime" href="https://callx402.payloadhq.dev/">Abrir la aplicación</a>
+        <a class="pbtn pbtn-line" href="https://apps.payloadhq.dev/register?product=callx402&return_to=https%3A%2F%2Fcallx402.payloadhq.dev%2F">Crear cuenta</a>
+        <a class="pbtn pbtn-line" href="https://www.npmjs.com/package/callx402">Consigue el paquete npm gratuito</a>
+      </div>
+      <p class="support">Soporte: <a href="mailto:contact@payloadhq.dev?subject=callx402%20Support%20Request">contact@payloadhq.dev</a></p>
+    </section>
+
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="../index.html" aria-label="Payload home">
+      <img class="mark" src="../assets/payload-logo.png" alt="" width="40" height="40">
+      <span><span class="word">Payload</span><span class="sub">SOFTWARE STUDIO</span></span>
+    </a>
+        <p>Payload develops innovative software and applications that simplify operations, solve practical challenges, and help businesses and individuals work more efficiently.</p>
+        <p><a href="../products.json">Machine-readable catalog (JSON)</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav>
+          <a href="../software.html">Software catalog</a>
+          <a href="../callx402.html">callx402</a>
+          <a href="../revrule.html">RevRule</a>
+          <a href="../veyline.html">Veyline</a>
+          <a href="../products.html">All products</a>
+          <a href="../services.html">Autonomous services</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <nav>
+          <a href="../docs.html">Docs &amp; GitHub</a>
+          <a href="../guides/index.html">Guides</a>
+          <a href="../stories/index.html">Stories</a>
+          <a href="../benchmark.html">Benchmark</a>
+          <a href="../changelog.html">Changelog</a>
+          <a href="../utilities/robots-txt-checker.html">Free utilities</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <nav>
+          <a href="../about.html">About Payload</a>
+          <a href="../questions.html">Questions</a>
+          <a href="../comparisons.html">Comparisons</a>
+          <a href="../fit.html">When Payload fits</a>
+          <a href="../affiliates.html">Affiliates</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Support &amp; Legal</h4>
+        <nav>
+          <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>
+          <a href="../terms.html">Terms</a>
+          <a href="../terms-of-sale.html">Terms of Sale</a>
+          <a href="../refund-policy.html">Refund Policy</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Payload.</span>
+      <span><a href="https://t.me/PAYLOADTOOLS">Telegram</a> · <a href="https://discord.gg/Bu9TkvmBxn">Discord</a> · <a href="https://github.com/Payloadhq">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.ee7c843dce.js" defer></script>
+</body>
+</html>
