@@ -334,9 +334,14 @@ table.cmp tr:last-child td{border-bottom:none}
           </thead>
           <tbody>
             <tr><td><strong>diagnose</strong></td><td>A structured diagnosis of a failed x402 payment</td><td>$2.00</td><td>$0.10</td></tr>
-            <tr><td><strong>preflight</strong></td><td>A check of a planned payment before it runs</td><td>$1.00</td><td>$0.05</td></tr>
-            <tr><td><strong>verify_receipt</strong></td><td>Verification of a payment receipt against its evidence</td><td>$1.00</td><td>$0.05</td></tr>
-            <tr><td><strong>explain_error</strong></td><td>A plain language explanation of a raw payment error</td><td>$0.50</td><td>$0.025</td></tr>
+            <tr><td><strong>explain</strong></td><td>A plain language explanation of the failure</td><td>$1.00</td><td>$0.05</td></tr>
+            <tr><td><strong>evidence</strong></td><td>Structured findings you can keep with the incident record</td><td>$2.00</td><td>$0.10</td></tr>
+            <tr><td><strong>failure_classification</strong></td><td>Which layer of the payment broke, classified from the evidence</td><td>$2.00</td><td>$0.10</td></tr>
+            <tr><td><strong>preflight</strong></td><td>A check of a planned payment before it runs</td><td>$3.00</td><td>$0.15</td></tr>
+            <tr><td><strong>settlement_interpretation</strong></td><td>Facilitator responses, translated into plain language</td><td>$3.00</td><td>$0.15</td></tr>
+            <tr><td><strong>resolve</strong></td><td>The safest next step, identified from the evidence</td><td>$5.00</td><td>$0.25</td></tr>
+            <tr><td><strong>duplicate_payment_risk</strong></td><td>Duplicate payment risk, checked before the second attempt</td><td>$5.00</td><td>$0.25</td></tr>
+            <tr><td><strong>recover</strong></td><td>What can still be recovered from the failure, and what cannot</td><td>$10.00</td><td>$0.50</td></tr>
           </tbody>
         </table>
       </div>

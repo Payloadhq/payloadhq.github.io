@@ -333,9 +333,14 @@ table.cmp tr:last-child td{border-bottom:none}
           </thead>
           <tbody>
             <tr><td><strong>diagnose</strong></td><td>Un diagnóstico estructurado de un pago x402 fallido</td><td>$2.00</td><td>$0.10</td></tr>
-            <tr><td><strong>preflight</strong></td><td>La comprobación de un pago planificado antes de que se ejecute</td><td>$1.00</td><td>$0.05</td></tr>
-            <tr><td><strong>verify_receipt</strong></td><td>La verificación de un recibo de pago contra su evidencia</td><td>$1.00</td><td>$0.05</td></tr>
-            <tr><td><strong>explain_error</strong></td><td>La explicación en lenguaje sencillo de un error de pago en bruto</td><td>$0.50</td><td>$0.025</td></tr>
+            <tr><td><strong>explain</strong></td><td>La explicación del fallo en lenguaje sencillo</td><td>$1.00</td><td>$0.05</td></tr>
+            <tr><td><strong>evidence</strong></td><td>Hallazgos estructurados para guardar junto al registro del incidente</td><td>$2.00</td><td>$0.10</td></tr>
+            <tr><td><strong>failure_classification</strong></td><td>Qué capa del pago se rompió, clasificada a partir de la evidencia</td><td>$2.00</td><td>$0.10</td></tr>
+            <tr><td><strong>preflight</strong></td><td>La comprobación de un pago planificado antes de que se ejecute</td><td>$3.00</td><td>$0.15</td></tr>
+            <tr><td><strong>settlement_interpretation</strong></td><td>Respuestas del facilitador, traducidas a lenguaje sencillo</td><td>$3.00</td><td>$0.15</td></tr>
+            <tr><td><strong>resolve</strong></td><td>El siguiente paso más seguro, indicado a partir de la evidencia</td><td>$5.00</td><td>$0.25</td></tr>
+            <tr><td><strong>duplicate_payment_risk</strong></td><td>Riesgo de pago duplicado, comprobado antes del segundo intento</td><td>$5.00</td><td>$0.25</td></tr>
+            <tr><td><strong>recover</strong></td><td>Lo que aún se puede recuperar del fallo, y lo que no</td><td>$10.00</td><td>$0.50</td></tr>
           </tbody>
         </table>
       </div>

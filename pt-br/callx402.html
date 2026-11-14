@@ -333,9 +333,14 @@ table.cmp tr:last-child td{border-bottom:none}
           </thead>
           <tbody>
             <tr><td><strong>diagnose</strong></td><td>Um diagnóstico estruturado de um pagamento x402 com falha</td><td>$2.00</td><td>$0.10</td></tr>
-            <tr><td><strong>preflight</strong></td><td>A verificação de um pagamento planejado antes de ele rodar</td><td>$1.00</td><td>$0.05</td></tr>
-            <tr><td><strong>verify_receipt</strong></td><td>A verificação de um recibo de pagamento contra a evidência dele</td><td>$1.00</td><td>$0.05</td></tr>
-            <tr><td><strong>explain_error</strong></td><td>A explicação em linguagem simples de um erro cru de pagamento</td><td>$0.50</td><td>$0.025</td></tr>
+            <tr><td><strong>explain</strong></td><td>A explicação da falha em linguagem simples</td><td>$1.00</td><td>$0.05</td></tr>
+            <tr><td><strong>evidence</strong></td><td>Achados estruturados para guardar junto ao registro do incidente</td><td>$2.00</td><td>$0.10</td></tr>
+            <tr><td><strong>failure_classification</strong></td><td>Qual camada do pagamento quebrou, classificada a partir da evidência</td><td>$2.00</td><td>$0.10</td></tr>
+            <tr><td><strong>preflight</strong></td><td>A verificação de um pagamento planejado antes de ele rodar</td><td>$3.00</td><td>$0.15</td></tr>
+            <tr><td><strong>settlement_interpretation</strong></td><td>Respostas do facilitador, traduzidas para linguagem simples</td><td>$3.00</td><td>$0.15</td></tr>
+            <tr><td><strong>resolve</strong></td><td>O próximo passo mais seguro, indicado a partir da evidência</td><td>$5.00</td><td>$0.25</td></tr>
+            <tr><td><strong>duplicate_payment_risk</strong></td><td>Risco de pagamento duplicado, verificado antes da segunda tentativa</td><td>$5.00</td><td>$0.25</td></tr>
+            <tr><td><strong>recover</strong></td><td>O que ainda pode ser recuperado da falha, e o que não pode</td><td>$10.00</td><td>$0.50</td></tr>
           </tbody>
         </table>
       </div>
