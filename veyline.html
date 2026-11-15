@@ -14,7 +14,10 @@
 <meta property="og:title" content="Veyline: Spending Policy and Approval for AI Agents">
 <meta property="og:description" content="Veyline is the non-custodial policy layer for AI agent payments: caps, counterparty rules and approval thresholds, enforced before money moves.">
 <meta property="og:url" content="https://payloadhq.dev/veyline.html">
-<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta property="og:image" content="https://payloadhq.dev/assets/og/veyline.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://payloadhq.dev/assets/og/veyline.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Veyline: Spending Policy and Approval for AI Agents">
 <meta name="twitter:description" content="Veyline is the non-custodial policy layer for AI agent payments: caps, counterparty rules and approval thresholds, enforced before money moves.">
@@ -197,11 +200,44 @@ a.brand { text-decoration: none; color: inherit; }
     "name": "Payload",
     "url": "https://payloadhq.dev/"
   },
-  "offers": {
-    "@type": "Offer",
-    "url": "https://payloadhq.dev/veyline.html",
-    "priceCurrency": "USD"
-  }
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Developer",
+      "url": "https://payloadhq.dev/veyline.html#pricing",
+      "price": "99.00",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "99.00",
+        "priceCurrency": "USD",
+        "unitText": "MON",
+        "referenceQuantity": {
+          "@type": "QuantitativeValue",
+          "value": "1",
+          "unitCode": "MON"
+        }
+      }
+    },
+    {
+      "@type": "Offer",
+      "name": "Production",
+      "url": "https://payloadhq.dev/veyline.html#pricing",
+      "price": "499.00",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "499.00",
+        "priceCurrency": "USD",
+        "unitText": "MON",
+        "referenceQuantity": {
+          "@type": "QuantitativeValue",
+          "value": "1",
+          "unitCode": "MON"
+        }
+      }
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -251,7 +287,7 @@ a.brand { text-decoration: none; color: inherit; }
     <div class="hero-tag"><span class="lime">●</span> &nbsp;x402 live now</div>
     <h1>Spending policy and approval for <span class="lime">AI agent payments</span></h1>
     <p class="lede" style="font-size:21px; color:var(--text); font-weight:600;">The production layer for x402 + MCP.</p>
-    <p class="lede">Veyline is the economic control and assurance plane for autonomous commerce. It sits around the protocols your agents already use — x402, MCP, and more — and makes every economic operation safe, provable, and recoverable: intent checked, payment verified, settlement confirmed, execution exactly once, delivery proven, outcome recorded.</p>
+    <p class="lede">Veyline is the policy and approval layer for agent payments. You set the mandate in plain language: the spending limit on each payment, the daily budget cap, which payees are allowed, and the amount above which a human must approve. Veyline checks every payment against that mandate before authorizing it, and keeps the signed record as evidence.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="https://veyline.payloadhq.dev/">Launch Application</a>
       <a class="btn btn-ghost" href="#purchase">Get API Access</a>
@@ -266,20 +302,20 @@ a.brand { text-decoration: none; color: inherit; }
 <section id="what">
   <div class="wrap">
     <div class="eyebrow">What it is</div>
-    <h2>Not a wallet. Not a payment facilitator.<br>An assurance plane for machine commerce.</h2>
-    <p class="lede">Veyline is the infrastructure that surrounds an economic operation from start to finish. When an AI agent needs to pay for something, settle a transaction, or execute a paid action, Veyline is the layer that verifies the intent is legitimate, the payment is real, the settlement actually happened, the execution ran exactly once, and the evidence is preserved.</p>
+    <h2>Not a wallet. Not a payment facilitator.<br>A policy layer for machine commerce.</h2>
+    <p class="lede">Veyline does not hold funds, take custody, or move money. When an agent wants to pay, Veyline checks the payment against your mandate and returns a decision: allow, deny, or escalate to a human for approval. Settlement is reconciled fail-closed, so a payment whose settlement cannot be confirmed is never treated as paid.</p>
     <div class="grid grid-3">
       <div class="card">
         <h3>Economic control</h3>
         <p>Every operation passes policy checks before money moves. Spending limits, approved actions, and commercial terms are enforced by the platform — not left to the agent's discretion.</p>
       </div>
       <div class="card">
-        <h3>Settlement certainty</h3>
-        <p>Veyline independently verifies payments on-chain and classifies settlement as confirmed, unconfirmed, or unknown — never guessing. Ambiguity is reported, not hidden.</p>
+        <h3>Fail-closed settlement reconciliation</h3>
+        <p>Settlement is reconciled fail-closed: a payment whose settlement cannot be confirmed is never recorded as paid. Ambiguity is reported, not hidden.</p>
       </div>
       <div class="card">
-        <h3>Recovery, not just retries</h3>
-        <p>When operations fail mid-flight, Veyline recovers them safely, with replay protection standing against duplicate charges and duplicate effects, and no silent failures. Every operation has a known terminal state.</p>
+        <h3>Escalation, not silent failure</h3>
+        <p>When a payment falls outside your mandate, or a check cannot be completed, Veyline denies it or escalates it to a human. It never silently allows what it could not verify.</p>
       </div>
     </div>
   </div>
@@ -297,11 +333,11 @@ a.brand { text-decoration: none; color: inherit; }
       </div>
       <div class="card">
         <h3>API providers</h3>
-        <p>Charge per call with x402 and let Veyline handle the hard parts: payment verification, settlement certainty, duplicate protection, and auditable evidence.</p>
+        <p>Charge per call with x402 and let Veyline handle the hard parts: payment policy checks, fail-closed settlement reconciliation, duplicate protection, and auditable evidence.</p>
       </div>
       <div class="card">
         <h3>Autonomous commerce builders</h3>
-        <p>Building marketplaces, agent economies, or machine-to-machine payment flows? Veyline is the control plane that keeps the economics correct when no human is watching.</p>
+        <p>Building marketplaces, agent economies, or machine-to-machine payment flows? Veyline is the policy layer that checks every agent payment against your spending limits and approval rules, even when no human is watching.</p>
       </div>
     </div>
   </div>
@@ -339,34 +375,27 @@ a.brand { text-decoration: none; color: inherit; }
   <div class="wrap">
     <div class="eyebrow">How it works</div>
     <h2>One operation, fully tracked</h2>
-    <p class="lede">Every economic operation through Veyline follows the same lifecycle. Each stage is verified before the next begins, and the full trail is preserved as evidence.</p>
+    <p class="lede">Every payment an agent attempts is checked the same way: against your mandate, before authorization. The decision, and the evidence behind it, are recorded.</p>
     <div class="flow">
-      <span class="step key">INTENT</span><span class="arrow">→</span>
-      <span class="step key">POLICY</span><span class="arrow">→</span>
-      <span class="step">PREFLIGHT</span><span class="arrow">→</span>
-      <span class="step">ROUTING</span><span class="arrow">→</span>
-      <span class="step">AUTHORIZATION</span><span class="arrow">→</span>
-      <span class="step key">PAYMENT</span><span class="arrow">→</span>
-      <span class="step key">SETTLEMENT</span><span class="arrow">→</span>
-      <span class="step">EXECUTION</span><span class="arrow">→</span>
-      <span class="step">DELIVERY</span><span class="arrow">→</span>
-      <span class="step">OUTCOME</span><span class="arrow">→</span>
+      <span class="step key">MANDATE</span><span class="arrow">→</span>
+      <span class="step">POLICY CHECK</span><span class="arrow">→</span>
+      <span class="step key">AUTHORIZATION</span><span class="arrow">→</span>
+      <span class="step">HUMAN APPROVAL</span><span class="arrow">→</span>
       <span class="step">RECONCILIATION</span><span class="arrow">→</span>
-      <span class="step key">RECOVERY</span><span class="arrow">→</span>
       <span class="step key">EVIDENCE</span>
     </div>
     <div class="grid grid-3" style="margin-top:12px;">
       <div class="card">
         <h3>Before the money moves</h3>
-        <p>Intent is checked against your policies. Preflight simulation confirms the operation is viable. Nothing executes without authorization.</p>
+        <p>Your mandate is compiled into enforceable limits: per-payment spending limits, payee rules, daily budget caps, and approval thresholds. Nothing is authorized outside them.</p>
       </div>
       <div class="card">
         <h3>While the money moves</h3>
-        <p>Payment is verified on-chain. Settlement is classified with certainty — confirmed, unconfirmed, or unknown. Execution runs exactly once, even under retries and crashes.</p>
+        <p>Each payment intent gets a verdict: ALLOW, DENY, or ESCALATE_HUMAN. A payment above your approval threshold needs a single-use passkey approval from a human before it is authorized.</p>
       </div>
       <div class="card">
         <h3>After the money moves</h3>
-        <p>Delivery and outcome are proven separately from payment. Failures recover safely. The entire operation is recorded as tamper-evident evidence you can audit later.</p>
+        <p>Settlement is reconciled fail-closed: unconfirmed never becomes paid. Every decision, approval, and reconciliation result stays on record as evidence you can audit later.</p>
       </div>
     </div>
   </div>
@@ -377,7 +406,7 @@ a.brand { text-decoration: none; color: inherit; }
   <div class="wrap">
     <div class="eyebrow">Protocols</div>
     <h2>Protocol-agnostic by design</h2>
-    <p class="lede">Veyline wraps the economic operation, not the wire format. x402 is the first live protocol. Others are on the roadmap — the assurance model is the same regardless of how the payment travels.</p>
+    <p class="lede">Veyline wraps the economic operation, not the wire format. x402 is the first live protocol. Others are on the roadmap — the policy model is the same regardless of how the payment travels.</p>
     <div class="proto-grid" style="margin-top:28px;">
       <div class="proto live"><div class="name">x402</div><div class="status">● Live now</div></div>
       <div class="proto"><div class="name">MCP</div><div class="status">On roadmap</div></div>
@@ -399,33 +428,33 @@ a.brand { text-decoration: none; color: inherit; }
       <div class="card">
         <h3>Duplicate protection</h3>
         <ul>
-          <li>Atomic transaction-hash reservation prevents double-claims</li>
+          <li>Durable spend and idempotency state is kept server-side for every mandate</li>
           <li>Idempotency keys make retries safe — same request, one effect</li>
-          <li>Concurrent submissions resolve to exactly one outcome</li>
+          <li>A single-use approval is consumed exactly once; it cannot authorize a second payment</li>
         </ul>
       </div>
       <div class="card">
-        <h3>Settlement certainty</h3>
+        <h3>Settlement reconciliation</h3>
         <ul>
-          <li>Payments verified independently on-chain, not trusted on submission</li>
-          <li>Settlement classified as confirmed, unconfirmed, or unknown</li>
+          <li>Settlement is reconciled fail-closed, never trusted on submission</li>
+          <li>A payment whose settlement cannot be confirmed is not recorded as paid</li>
           <li>Unknown settlement never silently becomes "paid"</li>
         </ul>
       </div>
       <div class="card">
         <h3>Evidence integrity</h3>
         <ul>
-          <li>Every operation recorded in a hash-chained ledger</li>
-          <li>Payment, execution, delivery, and outcome proven separately</li>
-          <li>Deterministic replay reconstructs any operation for audit</li>
+          <li>Every mandate, verdict, and approval is recorded server-side</li>
+          <li>Approvals are proven by a signed authorization, verified against the published platform key</li>
+          <li>The record shows who approved what, under which mandate, and when</li>
         </ul>
       </div>
       <div class="card">
-        <h3>Safe retry &amp; recovery</h3>
+        <h3>Fail-closed by default</h3>
         <ul>
-          <li>Failed operations recover to a known state — never half-done</li>
-          <li>No retry after unknown settlement without explicit review</li>
-          <li>Crash-safe: interrupted operations resume or roll back cleanly</li>
+          <li>When a check cannot be completed, the answer is deny or escalate, never a silent allow</li>
+          <li>No payment is authorized on an ambiguous settlement state</li>
+          <li>Escalations wait for a human decision instead of expiring into an approval</li>
         </ul>
       </div>
       <div class="card">
@@ -624,7 +653,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
       </details>
       <details class="faq">
         <summary>How is Veyline different from the Veyline Developer Primer?</summary>
-        <div class="faq-body">The Developer Primer ($79) is the downloadable starter kit for learning x402 and adding payments to your own server — you run everything yourself. Veyline is the hosted production platform that evolved from that direction: the full economic lifecycle with settlement certainty, exactly-once execution, recovery, and evidence, operated as a service.</div>
+        <div class="faq-body">The Developer Primer ($79) is the downloadable starter kit for learning x402 and adding payments to your own server — you run everything yourself. Veyline is the hosted production platform that evolved from that direction: hosted policy and approval enforcement for agent payments: spending limits, approval thresholds, and fail-closed settlement reconciliation, operated as a service.</div>
       </details>
       <details class="faq">
         <summary>Do my agents need me to approve every payment?</summary>

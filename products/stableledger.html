@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StableLedger — stablecoin CSV profit loss records | Payload</title>
-<meta name="description" content="Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included. Exchange CSV exports are inconsistent and fee handling is scattered across rows, so building a clean record of stablecoin activity by hand i">
+<meta name="description" content="Turn Coinbase, Binance, Kraken, or generic CSV exports into clean realized profit and loss records, fully offline. $49 one-time. Not tax advice.">
 <meta name="keywords" content="stablecoin CSV profit loss records, organize crypto exchange CSV exports, stablecoin recordkeeping tool">
 <link rel="canonical" href="https://payloadhq.dev/products/stableledger.html">
 <meta property="og:type" content="website">
@@ -12,7 +12,10 @@
 <meta property="og:title" content="StableLedger — Payload">
 <meta property="og:description" content="Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included.">
 <meta property="og:url" content="https://payloadhq.dev/products/stableledger.html">
-<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta property="og:image" content="https://payloadhq.dev/assets/og/stableledger.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://payloadhq.dev/assets/og/stableledger.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="StableLedger — Payload">
 <meta name="twitter:description" content="Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included.">
@@ -26,7 +29,7 @@
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Python 3",
   "softwareVersion": "1.0.0",
-  "description": "Offline CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records, fees included.",
+  "description": "Turn Coinbase, Binance, Kraken, or generic CSV exports into clean realized profit and loss records, fully offline. $49 one-time. Not tax advice.",
   "offers": {
     "@type": "Offer",
     "price": "49",
@@ -40,9 +43,6 @@
     "url": "https://payloadhq.dev/"
   }
 }
-</script>
-<script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is StableLedger tax advice?", "acceptedAnswer": {"@type": "Answer", "text": "No. It is data-organization software that prepares clean records. It does not calculate your tax liability or replace a tax professional."}},{"@type": "Question", "name": "Which exchanges are supported?", "acceptedAnswer": {"@type": "Answer", "text": "It is tested against Kraken-format CSV exports. Other formats with the same columns may work but are not verified."}}]}
 </script>
 <link rel="icon" type="image/png" href="../assets/payload-logo.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -127,7 +127,7 @@ export                 clean CSV records</pre></div>
           <p class="bp-note">Your purchase also unlocks the web application described below: after checkout, sign in and open StableLedger in your browser. The download stays yours either way.</p>
           <p class="bp-note"><strong>Own it.</strong> One payment, no subscription. This product is sold as a one-time purchase only, and nothing recurs after checkout.</p>
           <p class="bp-note"><strong>Included:</strong> the zero-dependency Python CLI that turns stablecoin exchange CSV exports into clean realized profit and loss records with fees accounted for, access to the hosted application, which runs the same parsers, and the product documentation.</p>
-          <p class="bp-note"><strong>Good to know:</strong> tested against Kraken-format export files; other formats with the same columns may work but are not verified. It prepares records only: it is not tax advice and does not file anything. Runs fully offline on Python 3, under a single-seat license.</p>
+          <p class="bp-note"><strong>Good to know:</strong> verified parsers for Coinbase, Binance, and Kraken export files, plus a generic format. It prepares records only: it is not tax advice and does not file anything. Runs fully offline on Python 3, under a single-seat license.</p>
           <p class="bp-note" data-dl-error style="display:none;color:#B3261E" role="alert"></p>
           <details class="bp-download">
             <summary>Already purchased? Download with your key</summary>
@@ -239,14 +239,14 @@ export                 clean CSV records</pre></div>
       <div style="margin-top:64px">
         <p class="label">Capabilities</p>
         <h2 style="margin-bottom:10px">What it does</h2>
-        <div class="cap-row"><span class="n">01</span><p>Zero-dependency Python CLI: runs offline, nothing uploaded</p></div><div class="cap-row"><span class="n">02</span><p>Organizes stablecoin transaction CSV exports into clean realized profit/loss records with fees accounted for</p></div><div class="cap-row"><span class="n">03</span><p>Tested against Kraken-format export files</p></div><div class="cap-row"><span class="n">04</span><p>Data-organization software: it prepares records; it is not tax advice and does not file anything</p></div>
+        <div class="cap-row"><span class="n">01</span><p>Zero-dependency Python CLI: runs offline, nothing uploaded</p></div><div class="cap-row"><span class="n">02</span><p>Organizes stablecoin transaction CSV exports into clean realized profit/loss records with fees accounted for</p></div><div class="cap-row"><span class="n">03</span><p>Verified parsers for Coinbase, Binance, Kraken, and generic CSV exports</p></div><div class="cap-row"><span class="n">04</span><p>Data-organization software: it prepares records; it is not tax advice and does not file anything</p></div>
       </div>
       <div class="cols" style="margin-top:64px">
         <div>
           <p class="label">Platforms &amp; inputs</p>
           <table class="spec-table">
             <tr><th>Platforms</th><td>Python 3</td></tr>
-            <tr><th>Works with</th><td>Exchange CSV exports (tested against Kraken-format files)</td></tr>
+            <tr><th>Works with</th><td>Exchange CSV exports (Coinbase, Binance, Kraken, and generic formats)</td></tr>
             <tr><th>Version</th><td>1.0.0</td></tr>
             <tr><th>License</th><td>Single-seat perpetual, one-time purchase</td></tr>
           </table>
@@ -255,7 +255,7 @@ export                 clean CSV records</pre></div>
           <p class="label">Documentation &amp; support</p>
           <p>Every purchase includes the product documentation. Support is by email: <a href="mailto:contact@payloadhq.dev?subject=Payload%20Support%20Request">Support</a>. Product terms are in the <a href="../terms.html">Terms</a> and the <a href="../products.json">machine-readable catalog</a>.</p>
           <p class="label" style="margin-top:34px">Questions</p>
-          <details class="faq"><summary>Is StableLedger tax advice?</summary><p>No. It is data-organization software that prepares clean records. It does not calculate your tax liability or replace a tax professional.</p></details><details class="faq"><summary>Which exchanges are supported?</summary><p>It is tested against Kraken-format CSV exports. Other formats with the same columns may work but are not verified.</p></details>
+          <details class="faq"><summary>Is StableLedger tax advice?</summary><p>No. It is data-organization software that prepares clean records. It does not calculate your tax liability or replace a tax professional.</p></details><details class="faq"><summary>Which exchanges are supported?</summary><p>It ships with verified parsers for Coinbase, Binance, and Kraken CSV exports, plus a generic format for exports with the same columns.</p></details>
         </div>
       </div>
     </div>

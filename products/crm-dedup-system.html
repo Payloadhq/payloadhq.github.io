@@ -3,19 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CRM Dedup System — CRM deduplication software offline | Payload</title>
-<meta name="description" content="Fully offline deduplication and normalization for CRM exports, before a migration makes duplicates permanent. CRM exports carry duplicate people and companies under variant spellings. Migrating them as-is poisons the new system, and cloud dedup tools">
+<title>CRM Dedup System: deduplicate HubSpot and Salesforce exports offline | Payload</title>
+<meta name="description" content="Deduplicate a HubSpot or Salesforce CSV export offline: fuzzy matching, cluster review, and an import-ready survivors file. $149 one-time.">
 <meta name="keywords" content="CRM deduplication software offline, dedupe CRM CSV export, CRM migration cleanup, fuzzy duplicate matching">
 <link rel="canonical" href="https://payloadhq.dev/products/crm-dedup-system.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
 <meta property="og:title" content="CRM Dedup System — Payload">
-<meta property="og:description" content="Fully offline deduplication and normalization for CRM exports, before a migration makes duplicates permanent.">
+<meta property="og:description" content="Fully offline deduplication and normalization for HubSpot, Salesforce, and other CRM exports, before a migration makes duplicates permanent.">
 <meta property="og:url" content="https://payloadhq.dev/products/crm-dedup-system.html">
-<meta property="og:image" content="https://payloadhq.dev/logo.png">
+<meta property="og:image" content="https://payloadhq.dev/assets/og/crm-dedup-system.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://payloadhq.dev/assets/og/crm-dedup-system.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRM Dedup System — Payload">
-<meta name="twitter:description" content="Fully offline deduplication and normalization for CRM exports, before a migration makes duplicates permanent.">
+<meta name="twitter:description" content="Fully offline deduplication and normalization for HubSpot, Salesforce, and other CRM exports, before a migration makes duplicates permanent.">
 <link rel="stylesheet" href="../style.dcd326d4f2.css">
 <script type="application/ld+json">
 {
@@ -26,7 +29,7 @@
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Linux (single-file binary), Local web UI, CLI",
   "softwareVersion": "1.0.1",
-  "description": "Fully offline deduplication and normalization for CRM exports, before a migration makes duplicates permanent.",
+  "description": "Deduplicate a HubSpot or Salesforce CSV export offline: fuzzy matching, cluster review, and an import-ready survivors file. $149 one-time.",
   "offers": {
     "@type": "Offer",
     "price": "149",
@@ -40,9 +43,6 @@
     "url": "https://payloadhq.dev/"
   }
 }
-</script>
-<script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does my customer data leave my machine?", "acceptedAnswer": {"@type": "Answer", "text": "No. The system runs fully offline; exports are processed locally and nothing is uploaded."}},{"@type": "Question", "name": "Can I review merges before applying them?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It produces a dry-run merge plan first, and the final export comes with a machine-readable change log."}}]}
 </script>
 <link rel="icon" type="image/png" href="../assets/payload-logo.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -106,7 +106,7 @@
         <p class="crumbs"><a href="../software.html">Software catalog</a> · <a href="../categories/data-cleanup.html">Data Cleanup &amp; Migration</a></p>
         <p class="label" style="margin-top:26px">Data Cleanup &amp; Migration</p>
         <h1>CRM Dedup System</h1>
-        <p class="lede">Fully offline deduplication and normalization for CRM exports, before a migration makes duplicates permanent.</p>
+        <p class="lede">Fully offline deduplication and normalization for HubSpot, Salesforce, and other CRM exports, before a migration makes duplicates permanent.</p>
         <div class="specimen" aria-label="Example of the product's verified behavior"><pre><span class="cm"># example run</span>
 $ crm-dedup contacts.csv --key email
 12,408 rows in → 1,214 duplicate clusters
@@ -119,7 +119,7 @@ merge plan: merge-plan.csv
         </div>
       </div>
       <div>
-        <div class="prod-visual"><div class="type-cover"><span class="tc-cat">Data Cleanup &amp; Migration</span><span class="tc-name">CRM Dedup System</span><span class="tc-line">Deduplication and normalization for CRM exports, in a browser application or fully offline, before a migration makes duplicates permanent.</span><span class="tc-rule" style="background:#22D3EE"></span></div></div>
+        <div class="prod-visual"><div class="type-cover"><span class="tc-cat">Data Cleanup &amp; Migration</span><span class="tc-name">CRM Dedup System</span><span class="tc-line">Deduplicate HubSpot, Salesforce, and other CRM exports in a browser application or fully offline, before a migration makes duplicates permanent.</span><span class="tc-rule" style="background:#22D3EE"></span></div></div>
         <aside class="buy-panel" id="buy">
           <p class="bp-price">$149 <span>USD</span></p>
           <p class="bp-terms">One-time purchase, single-seat perpetual license. Final sale once delivered, except where the law requires a refund. See the <a href="../refund-policy.html">Refund Policy</a>.</p>
@@ -234,8 +234,8 @@ merge plan: merge-plan.csv
   <section class="prod-body band-paper">
     <div class="wrap">
       <div class="cols">
-        <div><p class="label">The problem</p><h2>Why this exists</h2><p>CRM exports carry duplicate people and companies under variant spellings. Migrating them as-is poisons the new system, and cloud dedup tools require uploading your entire customer list to a third party.</p></div>
-        <div><p class="label">Who it is for</p><h2>Built for</h2><p>Teams migrating between CRMs, and operators cleaning a CRM export before import.</p></div>
+        <div><p class="label">The problem</p><h2>Why this exists</h2><p>CRM exports carry duplicate people and companies under variant spellings. Migrating them as-is poisons the new system, and cloud dedup tools require uploading your entire customer list to a third party. HubSpot's own duplicate management tool requires a Professional or Enterprise plan, so teams on Free or Starter plans are left merging records by hand in a spreadsheet.</p></div>
+        <div><p class="label">Who it is for</p><h2>Built for</h2><p>Teams migrating between CRMs, HubSpot and Salesforce operators on plans without a built-in duplicate tool, and anyone cleaning a CRM export before import.</p></div>
       </div>
       <div style="margin-top:64px">
         <p class="label">Capabilities</p>
