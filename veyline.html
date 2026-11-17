@@ -290,13 +290,122 @@ a.brand { text-decoration: none; color: inherit; }
     <p class="lede">Veyline is the policy and approval layer for agent payments. You set the mandate in plain language: the spending limit on each payment, the daily budget cap, which payees are allowed, and the amount above which a human must approve. Veyline checks every payment against that mandate before authorizing it, and keeps the signed record as evidence.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="https://veyline.payloadhq.dev/">Launch Application</a>
-      <a class="btn btn-ghost" href="#purchase">Get API Access</a>
+      <a class="btn btn-ghost" href="#pricing">View Plans</a>
       <a class="btn btn-ghost" href="#how-it-works">How it works</a>
     </div>
+    <p style="font-size:17px;font-weight:650;margin-top:22px;">Free sandbox <span style="color:var(--text-dim);font-weight:550;">· Developer $99/mo · Production $499/mo</span></p>
   </div>
 </section>
 
 <hr class="divider">
+
+<section id="pricing" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Pricing</div>
+    <h2>Plans that scale with your operations</h2>
+    <p class="lede">Every plan runs the same policy engine: plain-language mandates compiled into spending limits, payee rules, and daily budget caps, human approval above the amount you set, and fail-closed settlement reconciliation with a signed evidence record. Plans differ on monthly operations volume and detailed usage access.</p>
+    <div class="tiers" style="margin-top:28px;">
+      <div class="tier">
+        <div class="tname">Free / Sandbox</div>
+        <div class="price">$0</div>
+        <div class="price-note">Free forever</div>
+        <ul>
+          <li>Full safety foundation</li>
+          <li>1,000 operations/month</li>
+          <li>Detailed usage: not included</li>
+        </ul>
+        <form id="sandbox-form" style="margin-top:12px;">
+          <input type="email" id="sandbox-email" placeholder="you@company.com" required aria-label="Email for sandbox signup"
+            style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
+          <button type="submit" class="btn btn-ghost" id="sandbox-btn" style="width:100%;">Start Free</button>
+        </form>
+        <div id="sandbox-result" style="display:none;margin-top:12px;font-size:13px;"></div>
+      </div>
+      <div class="tier">
+        <div class="tname">Developer</div>
+        <div class="price">$99<span style="font-size:16px; font-weight:600;">/mo</span></div>
+        <div class="price-note">per month</div>
+        <ul>
+          <li>Full safety foundation</li>
+          <li>10,000 operations/month</li>
+          <li>Detailed usage: not included</li>
+        </ul>
+        <p style="font-size:13.5px;color:var(--text-dim);margin-bottom:16px;">For building and a first production workload.</p>
+        <button class="btn btn-ghost veyline-buy" data-tier="developer" style="width:100%;">Get Access</button>
+      </div>
+      <div class="tier featured">
+        <div class="tname">Production</div>
+        <div class="price">$499<span style="font-size:16px; font-weight:600;">/mo</span></div>
+        <div class="price-note">per month</div>
+        <ul>
+          <li>Full safety foundation</li>
+          <li>100,000 operations/month</li>
+          <li>Detailed usage breakdown</li>
+        </ul>
+        <p style="font-size:13.5px;color:var(--text-dim);margin-bottom:16px;">For live agent payments at production volume.</p>
+        <button class="btn btn-primary veyline-buy" data-tier="production" style="width:100%;">Get Access</button>
+      </div>
+      <div class="tier">
+        <div class="tname">Enterprise</div>
+        <div class="price">Custom</div>
+        <div class="price-note">Custom terms</div>
+        <ul>
+          <li>For volumes beyond the Production plan</li>
+          <li>Negotiated operations allocation, enforced in real time</li>
+          <li>Custom terms, agreed in writing before you start</li>
+        </ul>
+        <button class="btn btn-ghost" id="enterprise-btn" style="width:100%;">Contact Us</button>
+        <form id="enterprise-form" style="display:none;margin-top:12px;text-align:left;">
+          <input type="text" id="ent-name" placeholder="Your name" required aria-label="Name"
+            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
+          <input type="email" id="ent-email" placeholder="you@company.com" required aria-label="Work email"
+            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
+          <input type="text" id="ent-company" placeholder="Company (optional)" aria-label="Company"
+            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
+          <textarea id="ent-message" placeholder="What are you protecting?" required rows="3" aria-label="Message"
+            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;resize:vertical;"></textarea>
+          <button type="submit" class="btn btn-primary" id="ent-submit" style="width:100%;">Send Inquiry</button>
+        </form>
+        <div id="enterprise-result" style="display:none;margin-top:10px;font-size:13px;"></div>
+      </div>
+    </div>
+    <div id="checkout-error" class="checkout-error" role="alert"></div>
+    <p class="note">Operations are metered against your plan's included allocation in real time: requests beyond it are throttled (429), not billed. Usage overages and protected-volume (basis-point) fees are disabled by design today.</p>
+    <p class="note">Plans renew automatically until cancelled. Cancel at any time; cancellation takes effect at the end of the current billing period. See the <a href="terms-of-sale.html">Terms of Sale</a> and <a href="refund-policy.html">Refund Policy</a>.</p>
+    <p class="note">Prices are tax-inclusive where taxes apply; nothing is added at checkout.</p>
+  </div>
+</section>
+
+<section id="purchase">
+  <div class="wrap">
+    <div class="eyebrow">How to purchase</div>
+    <h2>Subscribe in minutes, key in hand</h2>
+    <p class="lede">Veyline is a metered subscription. Pick a plan, check out securely through Stripe, and your API key is issued automatically — shown once on the confirmation page, ready to use immediately. The Free / Sandbox tier skips checkout entirely: start it from the pricing grid above with just your email.</p>
+    <div class="grid grid-2 steps" style="margin-top:28px;">
+      <div class="card">
+        <h3>Choose your plan</h3>
+        <p>Select a tier above. Every plan includes the full policy engine: duplicate protection, fail-closed settlement reconciliation, and signed evidence records.</p>
+      </div>
+      <div class="card">
+        <h3>Check out securely</h3>
+        <p>Click Get Access to open a secure Stripe checkout for your plan. A fresh account is created for you automatically — no signup form, no waiting.</p>
+      </div>
+      <div class="card">
+        <h3>Receive your API key</h3>
+        <p>After payment, your entitlement is created and your API key is shown once on the success page. Store it safely — keys are stored hashed and shown only at creation.</p>
+      </div>
+      <div class="card">
+        <h3>Go live</h3>
+        <p>Set your policies and spend limits. Your agents operate autonomously inside them — every operation verified, settled, and evidenced against your plan's included operations.</p>
+      </div>
+    </div>
+    <p class="note">Your subscription also opens the Veyline application, where mandates, approvals, and signed authorizations are managed day to day: <a href="https://veyline.payloadhq.dev/" style="color:var(--lime);">Launch Application</a> or <a href="https://veyline.payloadhq.dev/" style="color:var(--lime);">Sign In</a> with the account your plan belongs to.</p>
+    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base? Use the <a href="#pricing" id="crypto-contact-link" style="color:var(--lime);">contact form</a> and we'll arrange a crypto checkout for your tier. By subscribing you agree to our <a href="https://payloadhq.dev/terms.html" style="color:var(--lime);">Terms of Service</a> and <a href="https://payloadhq.dev/privacy.html" style="color:var(--lime);">Privacy Policy</a>.</p>
+    <div class="cta-row" style="margin-top:24px;">
+      <a class="btn btn-primary" href="#pricing">Choose Your Plan</a>
+    </div>
+  </div>
+</section>
 
 <!-- 2. WHAT VEYLINE IS -->
 <section id="what">
@@ -512,126 +621,10 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
 </section>
 
 <!-- 9. PRICING -->
-<section id="pricing" style="background: var(--bg-2);">
-  <div class="wrap">
-    <div class="eyebrow">Pricing</div>
-    <h2>Plans that scale with your operations</h2>
-    <p class="lede">Every plan includes the full safety foundation — duplicate protection, settlement certainty, evidence integrity, and safe recovery. Plans differ on monthly operations volume and detailed usage access.</p>
-    <div class="tiers" style="margin-top:28px;">
-      <div class="tier">
-        <div class="tname">Free / Sandbox</div>
-        <div class="price">$0</div>
-        <div class="price-note">Free forever</div>
-        <ul>
-          <li>Full safety foundation</li>
-          <li>1,000 operations/month</li>
-          <li>Detailed usage: not included</li>
-        </ul>
-        <form id="sandbox-form" style="margin-top:12px;">
-          <input type="email" id="sandbox-email" placeholder="you@company.com" required aria-label="Email for sandbox signup"
-            style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:14px;margin-bottom:8px;box-sizing:border-box;">
-          <button type="submit" class="btn btn-ghost" id="sandbox-btn" style="width:100%;">Start Free</button>
-        </form>
-        <div id="sandbox-result" style="display:none;margin-top:12px;font-size:13px;"></div>
-      </div>
-      <div class="tier">
-        <div class="tname">Developer</div>
-        <div class="price">$99<span style="font-size:16px; font-weight:600;">/mo</span></div>
-        <div class="price-note">per month</div>
-        <ul>
-          <li>Full safety foundation</li>
-          <li>10,000 operations/month</li>
-          <li>Detailed usage: not included</li>
-        </ul>
-        <button class="btn btn-ghost veyline-buy" data-tier="developer" style="width:100%;">Get Access</button>
-      </div>
-      <div class="tier featured">
-        <div class="tname">Production</div>
-        <div class="price">$499<span style="font-size:16px; font-weight:600;">/mo</span></div>
-        <div class="price-note">per month</div>
-        <ul>
-          <li>Full safety foundation</li>
-          <li>100,000 operations/month</li>
-          <li>Detailed usage breakdown</li>
-        </ul>
-        <button class="btn btn-primary veyline-buy" data-tier="production" style="width:100%;">Get Access</button>
-      </div>
-      <div class="tier">
-        <div class="tname">Growth</div>
-        <div class="price">$1,499<span style="font-size:16px; font-weight:600;">/mo</span></div>
-        <div class="price-note">per month</div>
-        <ul>
-          <li>Full safety foundation</li>
-          <li>1,000,000 operations/month</li>
-          <li>Detailed usage breakdown</li>
-        </ul>
-        <button class="btn btn-ghost veyline-buy" data-tier="growth" style="width:100%;">Get Access</button>
-      </div>
-      <div class="tier">
-        <div class="tname">Enterprise</div>
-        <div class="price">$5,000+<span style="font-size:16px; font-weight:600;">/mo</span></div>
-        <div class="price-note">Custom terms</div>
-        <ul>
-          <li>Full safety foundation</li>
-          <li>Negotiated operations allocation, enforced in real time</li>
-          <li>Org admin: key management, org usage, audit export</li>
-          <li>Economic governor: mandates with human-approval thresholds</li>
-          <li>Configurable authorization: spend caps, action allow/deny lists, custom rate limits</li>
-          <li>14-day pilot after inquiry review</li>
-        </ul>
-        <p style="font-size:12.5px;margin:6px 0 10px;"><a href="veyline-enterprise.html" style="color:var(--lime);">Security, architecture, and procurement brief</a></p>
-        <button class="btn btn-ghost" id="enterprise-btn" style="width:100%;">Contact Us</button>
-        <form id="enterprise-form" style="display:none;margin-top:12px;text-align:left;">
-          <input type="text" id="ent-name" placeholder="Your name" required aria-label="Name"
-            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
-          <input type="email" id="ent-email" placeholder="you@company.com" required aria-label="Work email"
-            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
-          <input type="text" id="ent-company" placeholder="Company (optional)" aria-label="Company"
-            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;">
-          <textarea id="ent-message" placeholder="What are you protecting?" required rows="3" aria-label="Message"
-            style="width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font-size:13px;margin-bottom:8px;box-sizing:border-box;resize:vertical;"></textarea>
-          <button type="submit" class="btn btn-primary" id="ent-submit" style="width:100%;">Send Inquiry</button>
-        </form>
-        <div id="enterprise-result" style="display:none;margin-top:10px;font-size:13px;"></div>
-      </div>
-    </div>
-    <div id="checkout-error" class="checkout-error" role="alert"></div>
-    <p class="note">Operations are metered against your plan's included allocation in real time: requests beyond it are throttled (429), not billed. Usage overages and protected-volume (basis-point) fees are disabled by design today.</p>
-    <p class="note">Plans renew automatically until cancelled. Cancel at any time; cancellation takes effect at the end of the current billing period. See the <a href="terms-of-sale.html">Terms of Sale</a> and <a href="refund-policy.html">Refund Policy</a>.</p>
-  </div>
-</section>
+
 
 <!-- 10. PURCHASE -->
-<section id="purchase">
-  <div class="wrap">
-    <div class="eyebrow">How to purchase</div>
-    <h2>Subscribe in minutes, key in hand</h2>
-    <p class="lede">Veyline is a metered subscription. Pick a plan, check out securely through Stripe, and your API key is issued automatically — shown once on the confirmation page, ready to use immediately. The Free / Sandbox tier skips checkout entirely: start it from the pricing grid above with just your email.</p>
-    <div class="grid grid-2 steps" style="margin-top:28px;">
-      <div class="card">
-        <h3>Choose your plan</h3>
-        <p>Select a tier above. Every plan includes the full safety foundation — duplicate protection, settlement certainty, evidence integrity, and safe recovery.</p>
-      </div>
-      <div class="card">
-        <h3>Check out securely</h3>
-        <p>Click Get Access to open a secure Stripe checkout for your plan. A fresh account is created for you automatically — no signup form, no waiting.</p>
-      </div>
-      <div class="card">
-        <h3>Receive your API key</h3>
-        <p>After payment, your entitlement is created and your API key is shown once on the success page. Store it safely — keys are stored hashed and shown only at creation.</p>
-      </div>
-      <div class="card">
-        <h3>Go live</h3>
-        <p>Set your policies and spend limits. Your agents operate autonomously inside them — every operation verified, settled, and evidenced against your plan's included operations.</p>
-      </div>
-    </div>
-    <p class="note">Your subscription also opens the Veyline application, where mandates, approvals, and signed authorizations are managed day to day: <a href="https://veyline.payloadhq.dev/" style="color:var(--lime);">Launch Application</a> or <a href="https://veyline.payloadhq.dev/" style="color:var(--lime);">Sign In</a> with the account your plan belongs to.</p>
-    <p class="note">Subscriptions renew monthly. Requests beyond your plan's included operations are throttled (429), never silently billed. Prefer to pay in USDC on Base, or Stripe isn't available in your country? That path is open for <strong>any plan</strong>, not just Enterprise: use the <a href="#pricing" id="crypto-contact-link" style="color:var(--lime);">contact form</a> and we'll arrange a crypto checkout for your tier. By subscribing you agree to our <a href="https://payloadhq.dev/terms.html" style="color:var(--lime);">Terms of Service</a> and <a href="https://payloadhq.dev/privacy.html" style="color:var(--lime);">Privacy Policy</a>.</p>
-    <div class="cta-row" style="margin-top:24px;">
-      <a class="btn btn-primary" href="#pricing">Choose Your Plan</a>
-    </div>
-  </div>
-</section>
+
 
 <!-- 11. FAQ -->
 <section id="faq" style="background: var(--bg-2);">
@@ -673,7 +666,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
       </details>
       <details class="faq">
         <summary>What if Stripe isn't available in my country?</summary>
-        <div class="faq-body">Use the USDC path: it works for any plan, in any country. Open the contact form from the purchase section above, tell us which plan you want, and we'll arrange a crypto checkout in USDC on Base. Your API key is issued the same way — shown once, ready to use immediately.</div>
+        <div class="faq-body">Use the USDC path: open the contact form from the purchase section above, tell us which plan you want, and we'll arrange a crypto checkout in USDC on Base. Your API key is issued the same way — shown once, ready to use immediately.</div>
       </details>
     </div>
   </div>
@@ -842,7 +835,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
           entResult.style.display = 'block';
           entResult.innerHTML = cryptoIntent
             ? '<strong style="color:var(--lime);">USDC request received.</strong> We reply within one business day with a wallet address and payment details for your plan. Your API key is issued right after the payment confirms.'
-            : '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day. Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.';
+            : '<strong style="color:var(--lime);">Inquiry sent.</strong> We reply within one business day. Tell us about your workload and we will scope the right arrangement with you.';
           return;
         }
         var msg = (data && data.error && data.error.message) || ('Send failed (HTTP ' + res.status + ')');
@@ -865,7 +858,7 @@ curl https://payload-rail.fly.dev/v1/veyline/usage \
       cryptoIntent = true;
       openEnterpriseForm();
       var msgEl = document.getElementById('ent-message');
-      if (msgEl && !msgEl.value) msgEl.value = 'I would like to pay in USDC on Base for the [Developer/Production/Growth] plan. ';
+      if (msgEl && !msgEl.value) msgEl.value = 'I would like to pay in USDC on Base for the [Developer/Production] plan. ';
     });
   }
 })();

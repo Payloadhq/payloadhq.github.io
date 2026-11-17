@@ -315,12 +315,19 @@ footer.site nav a:hover { color: var(--lime); text-decoration: none; }
 .crumbs a:hover { color: var(--lime); }
 .prod-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 60px; align-items: start; }
 .prod-hero h1 { font-size: clamp(38px, 4.6vw, 62px); font-weight: 700; margin-bottom: 18px; }
+.prod-hero .price-line, .hero .price-line { font-family: var(--disp); font-size: 19px; font-weight: 700; margin: 22px 0 0; }
+.prod-hero .price-line span, .hero .price-line span { font-family: var(--text); font-size: 13.5px; font-weight: 550; color: var(--ink3); }
 .buy-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 30px; position: sticky; top: 100px; }
 .buy-panel .bp-price { font-family: var(--disp); font-size: 40px; font-weight: 720; letter-spacing: -0.02em; }
 .buy-panel .bp-price span { font-size: 15px; color: var(--ink3); font-family: var(--text); font-weight: 550; }
 .buy-panel .bp-terms { font-size: 13.5px; color: var(--ink3); line-height: 1.6; margin: 12px 0 22px; }
 .buy-panel .btn { width: 100%; justify-content: center; margin-bottom: 11px; }
 .buy-panel .bp-note { font-size: 13px; color: var(--ink3); margin: 6px 0 0; }
+.buy-panel .bp-inc-title { font-weight: 650; font-size: 14.5px; margin: 0 0 8px; }
+.buy-panel .bp-inc { list-style: none; margin: 0 0 22px; padding: 0; }
+.buy-panel .bp-inc li { font-size: 14px; color: var(--ink2); padding: 7px 0 7px 24px; border-bottom: 1px solid var(--line-soft); position: relative; }
+.buy-panel .bp-inc li:last-child { border-bottom: none; }
+.buy-panel .bp-inc li::before { content: "\2713"; position: absolute; left: 0; color: var(--lime); font-weight: 700; }
 .prod-body { padding: 80px 0; }
 .prod-body .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 54px; }
 .cap-rows { border-top: 1px solid var(--lined); }
@@ -386,6 +393,8 @@ pre code { background: none; padding: 0; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .identity-grid { grid-template-columns: 1fr 1fr; }
   .buy-panel { position: static; }
+  .prod-grid > div:last-child { display: flex; flex-direction: column; }
+  .prod-grid .buy-panel { order: -1; }
 }
 @media (max-width: 720px) {
   .wrap { padding: 0 22px; }

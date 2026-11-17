@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RevRule: Revenue Share Calculation and Royalty Entitlement Verification">
 <meta name="twitter:description" content="RevRule calculates who is owed what across splits, royalties and recoupment, and verifies payouts against it. RevRule never holds or moves money.">
-<link rel="stylesheet" href="style.dcd326d4f2.css">
+<link rel="stylesheet" href="style.618ff32be2.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"RevRule by Payload","applicationCategory":"BusinessApplication","operatingSystem":"Web, API","url":"https://payloadhq.dev/revrule.html","brand":{"@type":"Brand","name":"Payload"},"description":"A programmable revenue rules engine for deciding who earns what whenever your product, API, platform, marketplace, or project makes money.","offers":[{"@type":"Offer","name":"RevRule One-Time License","price":"99","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"RevRule Managed Starter","price":"29","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"RevRule Managed Professional","price":"79","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"RevRule Managed Business","price":"199","priceCurrency":"USD","availability":"https://schema.org/InStock"}]}
 </script>
@@ -258,6 +258,7 @@ table.cmp tr:last-child td{border-bottom:none}
         <a class="pbtn pbtn-lime" href="https://revrule.payloadhq.dev/">Launch Application</a>
         <a class="pbtn pbtn-line" href="#pricing">View Plans</a>
       </div>
+      <p class="price-line">$99 perpetual license <span>· Managed plans from $29/mo · Free sandbox, no credit card</span></p>
       <div class="chips" aria-label="What RevRule handles">
         <span class="chip">Royalties</span>
         <span class="chip">Revenue shares</span>
@@ -288,6 +289,22 @@ table.cmp tr:last-child td{border-bottom:none}
       </div>
 
       <div class="plans">
+        <div class="plan">
+          <p class="pname">One-Time License</p>
+          <p class="ptag">Perpetual</p>
+          <p class="price">$99</p>
+          <p class="per">one-time, never expires</p>
+          <p class="fit">The full engine, owned outright. No subscription, no metering.</p>
+          <ul>
+            <li>No monthly operations cap</li>
+            <li>Unlimited Revenue Graphs</li>
+            <li>1 API key</li>
+            <li>Never metered, never expires</li>
+            <li>The full console and engine, under your own key</li>
+            <li>Email support, best effort</li>
+          </ul>
+          <button type="button" class="pbtn pbtn-lime revrule-buy" data-tier="license">Buy the license, $99 one-time</button>
+        </div>
         <div class="plan">
           <p class="pname">Starter</p>
           <p class="ptag">Managed plan</p>
@@ -333,22 +350,6 @@ table.cmp tr:last-child td{border-bottom:none}
           </ul>
           <button type="button" class="pbtn pbtn-line revrule-buy" data-tier="managed_business">Start Business, $199/month</button>
         </div>
-        <div class="plan">
-          <p class="pname">One-Time License</p>
-          <p class="ptag">Perpetual</p>
-          <p class="price">$99</p>
-          <p class="per">one-time, never expires</p>
-          <p class="fit">The full engine, owned outright. No subscription, no metering.</p>
-          <ul>
-            <li>No monthly operations cap</li>
-            <li>Unlimited Revenue Graphs</li>
-            <li>1 API key</li>
-            <li>Never metered, never expires</li>
-            <li>The full console and engine, under your own key</li>
-            <li>Email support, best effort</li>
-          </ul>
-          <button type="button" class="pbtn pbtn-lime revrule-buy" data-tier="license">Buy the license, $99 one-time</button>
-        </div>
       </div>
       <p id="revrule-checkout-error" style="display:none;color:#F0524D;font-size:14px" role="alert"></p>
       <p class="terms"><strong>RevRule never holds, transfers, or distributes funds.</strong> RevRule establishes what is owed and verifies payouts against genuine entitlements. Your payment system moves the money.</p>
@@ -371,7 +372,7 @@ table.cmp tr:last-child td{border-bottom:none}
       </div>
 
       <p class="terms">Every paid option, one-time and managed, runs at the same engine fee tier. Additional API keys within a plan allowance are issued by Payload support on request. Free evaluation: test Revenue Graphs, simulations, sample rules, and blueprints in the sandbox, or get a free API key from the console. New free accounts include a bounded demo of 1,000 operations per month and 3 Revenue Graphs.</p>
-      <p class="terms">Managed plans bill monthly and can be cancelled at any time. Cancellation takes effect at the end of the current billing period, plan allowances stay active until that date, and partial-period payments are not refunded. Charges made in error are refunded in full. Purchases on Payload controlled surfaces are governed by the <a href="refund-policy.html">Refund Policy</a>: downloads and licenses are final sale once delivered, and subscription payments are generally non-refundable, in each case except where the law requires otherwise. On marketplaces, the marketplace's own refund rules govern.</p>
+      <p class="terms">Managed plans bill monthly and can be cancelled at any time. Cancellation takes effect at the end of the current billing period, plan allowances stay active until that date, and partial-period payments are not refunded. Charges made in error are refunded in full. All prices are tax-inclusive where taxes apply, and nothing is added at checkout. Purchases on Payload controlled surfaces are governed by the <a href="refund-policy.html">Refund Policy</a>: downloads and licenses are final sale once delivered, and subscription payments are generally non-refundable, in each case except where the law requires otherwise. On marketplaces, the marketplace's own refund rules govern.</p>
       <p class="terms">RevRule establishes what is owed and verifies payouts against genuine entitlements. RevRule does not execute payments and does not hold customer funds.</p>
       <p class="enterprise">Enterprise: volumes beyond Business, or custom terms. <a href="mailto:contact@payloadhq.dev?subject=RevRule%20Enterprise%20Inquiry">Contact us</a> and we will scope it with you.</p>
     </section>
