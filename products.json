@@ -14,7 +14,7 @@
       "try_url": "https://payloadhq.dev/veyline.html#pricing",
       "sandbox_url": "",
       "open_source": "",
-      "license_type": "metered monthly subscription; free sandbox tier (1,000 ops/mo); Developer $99, Production $499, Growth $1,499, Enterprise $5,000+ custom",
+      "license_type": "metered monthly subscription; free sandbox tier (1,000 ops/mo); Developer $99, Production $499, Enterprise custom",
       "platforms": [
         "Hosted API",
         "callx402 CLI"
@@ -34,12 +34,9 @@
           "price_usd_per_month": 499
         },
         {
-          "name": "Growth",
-          "price_usd_per_month": 1499
-        },
-        {
           "name": "Enterprise",
-          "price_usd_per_month": 5000
+          "price_usd_per_month": null,
+          "price_note": "Custom, by contract"
         }
       ],
       "price_note": "Managed subscription only. Per-tier limits for Growth and Enterprise are not published."

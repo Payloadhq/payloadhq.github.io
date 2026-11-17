@@ -35,8 +35,7 @@ Authorization and financial governance for autonomous agents. Veyline checks a p
 - Free / Sandbox ($0): 1,000 ops/mo. Self-serve signup on the Veyline page, key shown once. Free evaluation: sign up, take the free key, and run preflight on a proposed payment to receive a signed decision. MCP: io.github.payload-tools/veyline-mcp (Smithery: https://smithery.ai/servers/kyler-simmons-partners/veyline).
 - Developer ($99/mo): 10,000 ops/mo.
 - Production ($499/mo): 100,000 ops/mo + detailed usage.
-- Growth ($1,499/mo): 1,000,000 ops/mo + detailed usage.
-- Enterprise ($5,000+/mo): custom allocation, per-contract terms. Enterprise evaluation brief (use cases, architecture, security evidence, deployment, support, procurement checklist): https://payloadhq.dev/veyline-enterprise.html
+- Enterprise (custom): negotiated allocation, per-contract terms. Enterprise evaluation brief (use cases, architecture, security evidence, deployment, support, procurement checklist): https://payloadhq.dev/veyline-enterprise.html
 
 Localized Veyline entry points (same product, pricing, and purchase paths; checkout page in English):
 - Spanish: https://payloadhq.dev/es.html

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Veyline Enterprise — Security, Architecture &amp; Procurement Brief — Payload</title>
-<meta name="description" content="Enterprise brief for Veyline by Payload: use cases, production architecture, security and governance evidence, deployment, support expectations, and how to start a 14-day pilot.">
+<meta name="description" content="Enterprise brief for Veyline by Payload: use cases, production architecture, security and governance evidence, deployment, support expectations, and how enterprise engagements begin.">
 <link rel="canonical" href="https://payloadhq.dev/veyline-enterprise.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Payload">
@@ -53,7 +53,7 @@
   <div class="wrap">
     <p class="brief-meta">Veyline by Payload · Enterprise brief · Last updated 2026-10-07 · <a href="#" onclick="window.print();return false;">Print / save as PDF</a></p>
     <h1>Veyline Enterprise: security, architecture, and procurement brief</h1>
-    <p class="lede">This page is the enterprise evaluation packet for Veyline: what it does for an organization, how the production system is built, what security and governance evidence exists, how it is deployed and supported, and how to start a 14-day pilot. Everything here is stated plainly, and anything not claimed is marked as not claimed.</p>
+    <p class="lede">This page is the enterprise evaluation packet for Veyline: what it does for an organization, how the production system is built, what security and governance evidence exists, how it is deployed and supported, and how enterprise engagements begin. Everything here is stated plainly, and anything not claimed is marked as not claimed.</p>
     <p class="toc no-print"><strong>Contents:</strong>
       <a href="#use-cases">Enterprise use cases</a>
       <a href="#architecture">Production architecture</a>
@@ -125,8 +125,8 @@
     <h2 id="support">Support and commercial terms</h2>
     <ul class="check">
       <li><strong>Support channel.</strong> <a href="mailto:contact@payloadhq.dev">contact@payloadhq.dev</a>. Inquiries are answered within one business day.</li>
-      <li><strong>Enterprise pricing.</strong> $5,000+/month with custom terms and a negotiated operations allocation, enforced in real time. Full safety foundation included on every plan.</li>
-      <li><strong>Pilot.</strong> Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation, after inquiry review.</li>
+      <li><strong>Enterprise pricing.</strong> Custom pricing, set by contract with custom terms and a negotiated operations allocation, enforced in real time. Full safety foundation included on every plan.</li>
+      <li><strong>Pilot.</strong> Enterprise engagements begin with an inquiry; scope, allocation, and any evaluation period are set in the inquiry reply.</li>
       <li><strong>Payment.</strong> Self-serve plans check out through Stripe. USDC on Base checkout is available for any plan where Stripe is unavailable or unwanted; start with the inquiry form and mention the plan.</li>
       <li><strong>Legal.</strong> Subscription is governed by the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>. Enterprise custom agreements, DPAs, and vendor-security questionnaires are handled per deal on request.</li>
     </ul>
@@ -142,7 +142,7 @@
     </ul>
 
     <h2 id="pilot">Start a pilot</h2>
-    <p>Send an enterprise inquiry. We reply within one business day, and approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.</p>
+    <p>Send an enterprise inquiry. We reply within one business day, and the scope, allocation, and any evaluation period are set in the inquiry reply.</p>
     <div class="card no-print" style="max-width:560px;">
       <form id="ent-brief-form" style="text-align:left;">
         <input type="text" id="eb-name" placeholder="Your name" required aria-label="Name"
@@ -249,7 +249,7 @@
       if (res.ok && data && data.received) {
         form.style.display = 'none';
         result.style.display = 'block';
-        result.innerHTML = '<strong>Inquiry sent.</strong> We reply within one business day. Approved inquiries are provisioned as a 14-day Enterprise pilot with a negotiated operations allocation.';
+        result.innerHTML = '<strong>Inquiry sent.</strong> We reply within one business day. Scope, allocation, and any evaluation period are set in the inquiry reply.';
         return;
       }
       var msg = (data && data.error && data.error.message) || ('Send failed (HTTP ' + res.status + ')');
